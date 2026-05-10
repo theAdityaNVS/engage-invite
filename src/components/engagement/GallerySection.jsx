@@ -1,0 +1,52 @@
+import ScrollReveal from '@/components/shared/ScrollReveal';
+import PhotoCarousel from '@/components/shared/PhotoCarousel';
+import { useLanguage } from '@/hooks/useLanguage';
+
+export default function GallerySection() {
+  const { t } = useLanguage();
+
+  return (
+    <section style={{
+      background: '#FDF0E0',
+      padding: 'clamp(3rem, 8vw, 5rem) 0',
+      overflow: 'hidden',
+    }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 1.5rem' }}>
+        <ScrollReveal>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
+            <p style={{
+              fontFamily: "'Lora', serif",
+              fontSize: '0.8rem',
+              color: '#8B1A2B',
+              letterSpacing: '0.2em',
+              textTransform: 'uppercase',
+              marginBottom: '0.5rem',
+            }}>
+              ✦ Memories ✦
+            </p>
+            <h2 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
+              color: '#2D1810',
+              marginBottom: '0.5rem',
+            }}>
+              {t('gallery_heading')}
+            </h2>
+            <p style={{
+              fontFamily: "'Lora', serif",
+              fontStyle: 'italic',
+              color: '#6B4E3D',
+              fontSize: '0.95rem',
+            }}>
+              {t('gallery_subheading')}
+            </p>
+          </div>
+        </ScrollReveal>
+      </div>
+
+      <div style={{ padding: '0 1rem' }}>
+        <PhotoCarousel />
+      </div>
+    </section>
+  );
+}
