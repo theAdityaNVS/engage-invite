@@ -1,43 +1,74 @@
+import { useMemo } from 'react';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import CountdownTimer from '@/components/shared/CountdownTimer';
+import FloatingLanterns from '@/components/shared/FloatingLanterns';
 import { ENGAGEMENT, COUPLE } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
+
+const seed = (i, o) => ((i * 137 + o * 31) % 100) / 100;
+
+function TwinklingStars({ count = 18 }) {
+  const stars = useMemo(() =>
+    Array.from({ length: count }, (_, i) => ({
+      id: i,
+      top:  `${3 + seed(i, 0) * 90}%`,
+      left: `${2 + seed(i, 1) * 96}%`,
+      size: 2 + seed(i, 2) * 3,
+      duration: 2 + seed(i, 3) * 3,
+      delay: seed(i, 4) * 4,
+    })), [count]);
+
+  return (
+    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+      {stars.map((s) => (
+        <div
+          key={s.id}
+          style={{
+            position: 'absolute',
+            top: s.top,
+            left: s.left,
+            width: s.size,
+            height: s.size,
+            borderRadius: '50%',
+            background: '#FFF8F0',
+            animation: `starTwinkle ${s.duration}s ${s.delay}s ease-in-out infinite`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function CountdownSection() {
   const { t } = useLanguage();
 
   return (
     <section style={{
-      background: 'linear-gradient(135deg, #2D1810 0%, #8B1A2B 40%, #6B2535 70%, #2D1810 100%)',
+      background: 'var(--navy)',
       padding: 'clamp(4rem, 10vw, 6rem) 1.5rem',
       textAlign: 'center',
       position: 'relative',
       overflow: 'hidden',
     }}>
-      {/* Decorative background shimmer */}
-      <div style={{
-        position: 'absolute', inset: 0,
-        backgroundImage: 'radial-gradient(circle at 20% 20%, rgba(212,168,67,0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(212,168,67,0.1) 0%, transparent 50%)',
-        pointerEvents: 'none',
-      }} />
+      <TwinklingStars count={18} />
+      <FloatingLanterns count={12} />
 
-      <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
         <ScrollReveal>
           <p style={{
-            fontFamily: "'Lora', serif",
-            fontSize: '0.8rem',
-            color: 'rgba(212,168,67,0.7)',
-            letterSpacing: '0.2em',
-            textTransform: 'uppercase',
-            marginBottom: '0.75rem',
+            fontFamily: "'Great Vibes', cursive",
+            fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
+            color: '#D4A843',
+            marginBottom: '0.5rem',
           }}>
-            ✦ The Big Day ✦
+            {t('countdown_script')}
           </p>
           <h2 style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(1.5rem, 4vw, 2rem)',
-            color: '#F0D68A',
+            fontSize: 'clamp(1.2rem, 3.5vw, 1.7rem)',
+            color: 'rgba(240,214,138,0.8)',
             marginBottom: '3rem',
+            letterSpacing: '0.06em',
           }}>
             {t('countdown_heading')}
           </h2>
@@ -53,26 +84,20 @@ export default function CountdownSection() {
             margin: '3rem auto 1.5rem',
             maxWidth: '320px',
           }}>
-            <div style={{ flex: 1, height: '1px', background: 'rgba(212,168,67,0.4)' }} />
+            <div style={{ flex: 1, height: '1px', background: 'rgba(212,168,67,0.35)' }} />
             <span style={{ color: '#D4A843', fontSize: '1.2rem' }}>✦</span>
-            <div style={{ flex: 1, height: '1px', background: 'rgba(212,168,67,0.4)' }} />
+            <div style={{ flex: 1, height: '1px', background: 'rgba(212,168,67,0.35)' }} />
           </div>
           <p style={{
             fontFamily: "'Lora', serif",
             fontStyle: 'italic',
-            fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
-            color: 'rgba(255,248,240,0.85)',
-            lineHeight: 1.7,
+            fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)',
+            color: 'rgba(245,236,200,0.75)',
+            lineHeight: 1.75,
+            maxWidth: 560,
+            margin: '0 auto',
           }}>
             {t('countdown_message')}
-          </p>
-          <p style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(1.1rem, 3vw, 1.4rem)',
-            color: '#D4A843',
-            marginTop: '1rem',
-          }}>
-            — {COUPLE.GROOM_NAME} &amp; {COUPLE.BRIDE_NAME}
           </p>
         </ScrollReveal>
       </div>
