@@ -7,7 +7,7 @@ export default function GallerySection() {
 
   return (
     <section style={{
-      background: '#FDF0E0',
+      background: 'var(--rose)',
       padding: 'clamp(3rem, 8vw, 5rem) 0',
       overflow: 'hidden',
     }}>
@@ -17,17 +17,17 @@ export default function GallerySection() {
             <p style={{
               fontFamily: "'Lora', serif",
               fontSize: '0.8rem',
-              color: '#8B1A2B',
+              color: 'rgba(74,32,64,0.6)',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
               marginBottom: '0.5rem',
             }}>
-              ✦ Memories ✦
+              ✦ {t('memories_label')} ✦
             </p>
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
-              color: '#2D1810',
+              color: 'var(--rose-text)',
               marginBottom: '0.5rem',
             }}>
               {t('gallery_heading')}
@@ -35,7 +35,8 @@ export default function GallerySection() {
             <p style={{
               fontFamily: "'Lora', serif",
               fontStyle: 'italic',
-              color: '#6B4E3D',
+              color: 'var(--rose-text)',
+              opacity: 0.7,
               fontSize: '0.95rem',
             }}>
               {t('gallery_subheading')}
