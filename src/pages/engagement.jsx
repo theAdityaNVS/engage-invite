@@ -1,18 +1,21 @@
 import Head from 'next/head';
 import { useState } from 'react';
 
-import LanguageModal from '@/components/shared/LanguageModal';
+import LanguageBanner from '@/components/shared/LanguageBanner';
 import SplashScreen from '@/components/shared/SplashScreen';
 import MusicPlayer from '@/components/shared/MusicPlayer';
 import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
+import VintageCarDivider from '@/components/shared/VintageCarDivider';
 
 import EngagementHero from '@/components/engagement/EngagementHero';
-import KolamDivider from '@/components/engagement/KolamDivider';
 import BlessingsSection from '@/components/engagement/BlessingsSection';
 import EventCardsSection from '@/components/engagement/EventCardsSection';
+import RouteCTA from '@/components/engagement/RouteCTA';
 import CoupleSection from '@/components/engagement/CoupleSection';
+import RSVPSection from '@/components/engagement/RSVPSection';
 import GallerySection from '@/components/engagement/GallerySection';
-import InfoCardsSection from '@/components/engagement/InfoCardsSection';
+import ThingsToKnow from '@/components/engagement/ThingsToKnow';
+import InstagramSection from '@/components/engagement/InstagramSection';
 import CountdownSection from '@/components/engagement/CountdownSection';
 import FooterSection from '@/components/engagement/FooterSection';
 
@@ -37,28 +40,63 @@ export default function EngagementPage() {
         <meta property="og:image" content={`${DOMAIN.BASE}/og-engagement.jpg`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
-
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={`${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME} — Engagement`} />
-        <meta name="twitter:description" content={`${ENGAGEMENT.DATE_DISPLAY} · ${ENGAGEMENT.VENUE_NAME}, ${ENGAGEMENT.VENUE_CITY}`} />
+
+        {/* Google Fonts — include Great Vibes for countdown script */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
+          rel="stylesheet"
+        />
       </Head>
 
-      {/* Overlays: render first so they appear above everything */}
-      <LanguageModal />
+      {/* Overlays */}
       <SplashScreen onEnter={() => setMusicAutoPlay(true)} />
+      <LanguageBanner />
 
       <main>
+        {/* S-1: Hero — Jagannath temple (Odishan), floating lanterns, stacked names */}
         <EngagementHero />
-        <KolamDivider />
+
+        {/* S-2 + S-3: Blessings + Event Cards — teal */}
         <BlessingsSection />
-        <KolamDivider flip />
         <EventCardsSection />
-        <KolamDivider />
+
+        {/* S-4: Route CTA — teal */}
+        <RouteCTA />
+
+        {/* Divider #1 — blue Mercedes between teal and rose */}
+        <VintageCarDivider color="blue" fromColor="var(--teal)" toColor="var(--rose)" />
+
+        {/* S-5: Couple — rose mauve */}
         <CoupleSection />
+
+        {/* S-6: RSVP — rose mauve */}
+        <RSVPSection />
+
+        {/* S-7: Gallery — rose mauve */}
         <GallerySection />
-        <KolamDivider flip />
-        <InfoCardsSection />
+
+        {/* Divider #2 — black 1940s sedan between rose and olive */}
+        <VintageCarDivider color="black" fromColor="var(--rose)" toColor="var(--olive)" />
+
+        {/* S-8: Things to Know — olive */}
+        <ThingsToKnow />
+
+        {/* S-9: Follow the Action — olive */}
+        <InstagramSection />
+
+        {/* Gradient transition to navy */}
+        <div style={{
+          height: 60,
+          background: 'linear-gradient(180deg, var(--olive) 0%, var(--navy) 100%)',
+        }} />
+
+        {/* S-10: Countdown — dark navy */}
         <CountdownSection />
+
+        {/* S-11: Footer — dark navy + Tirupati gopuram night */}
         <FooterSection />
       </main>
 
