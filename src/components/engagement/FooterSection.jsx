@@ -112,7 +112,13 @@ export default function FooterSection() {
     }}>
       {/* Night gopuram illustration */}
       <div style={{ padding: '0 1rem', marginBottom: '-4px' }}>
-        <TirupatiGopuramNight />
+        <img
+          src="/illustrations/tirupati-gopuram-night.png"
+          alt="Tirupati gopuram at night"
+          style={{ width: '100%', maxWidth: 700, display: 'block', margin: '0 auto', objectFit: 'contain' }}
+          onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+        />
+        <div style={{ display: 'none' }}><TirupatiGopuramNight /></div>
       </div>
 
       {/* Footer text */}
