@@ -8,32 +8,32 @@ export default function EventCardsSection() {
 
   return (
     <section style={{
-      background: '#FDF0E0',
+      background: 'var(--teal)',
       padding: 'clamp(3rem, 8vw, 5rem) 1.5rem',
     }}>
       <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
         <ScrollReveal>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+          <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
             <p style={{
               fontFamily: "'Lora', serif",
               fontSize: '0.8rem',
-              color: '#8B1A2B',
-              letterSpacing: '0.2em',
+              color: 'rgba(212,168,67,0.8)',
+              letterSpacing: '0.22em',
               textTransform: 'uppercase',
               marginBottom: '0.5rem',
             }}>
-              ✦ Join Us ✦
+              ✦ {t('join_us_label')} ✦
             </p>
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
-              color: '#2D1810',
+              color: 'var(--teal-text)',
             }}>
               {t('events_heading')}
             </h2>
             <div style={{
               width: '60px', height: '2px',
-              background: 'linear-gradient(to right, #8B1A2B, #D4A843)',
+              background: 'linear-gradient(to right, var(--teal-dark), var(--gold))',
               margin: '1rem auto 0',
               borderRadius: '2px',
             }} />
@@ -42,8 +42,9 @@ export default function EventCardsSection() {
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-          gap: '1.5rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+          gap: '3rem 2rem',
+          paddingBottom: '1rem',
         }}>
           {ENGAGEMENT.EVENTS.map((event, i) => (
             <EventCard key={event.id} event={event} delay={i * 0.12} />
