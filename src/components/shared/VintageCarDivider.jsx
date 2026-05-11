@@ -71,11 +71,29 @@ function BlackCar() {
   );
 }
 
-const CARS = { blue: BlueCar, black: BlackCar };
+const CAR_IMAGES = {
+  blue: '/illustrations/vintage-car-blue-mercedes.png',
+  black: '/illustrations/vintage-car-black-sedan.png',
+};
+const CAR_FALLBACKS = { blue: BlueCar, black: BlackCar };
+
+function CarIllustration({ color }) {
+  const FallbackCar = CAR_FALLBACKS[color] || CAR_FALLBACKS.blue;
+  const src = CAR_IMAGES[color];
+  return (
+    <>
+      <img
+        src={src}
+        alt={`${color} vintage car`}
+        style={{ width: '100%', display: 'block', objectFit: 'contain' }}
+        onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+      />
+      <div style={{ display: 'none' }}><FallbackCar /></div>
+    </>
+  );
+}
 
 export default function VintageCarDivider({ color = 'blue', fromColor, toColor }) {
-  const Car = CARS[color] || CARS.blue;
-
   return (
     <div style={{
       position: 'relative',
@@ -106,7 +124,7 @@ export default function VintageCarDivider({ color = 'blue', fromColor, toColor }
           zIndex: 2,
         }}
       >
-        <Car />
+        <CarIllustration color={color} />
       </motion.div>
     </div>
   );

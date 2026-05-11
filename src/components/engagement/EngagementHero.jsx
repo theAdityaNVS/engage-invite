@@ -229,7 +229,13 @@ export default function EngagementHero() {
           padding: '0 1rem',
         }}
       >
-        <JagannathTempleSVG />
+        <img
+          src="/illustrations/jagannath-temple-day.png"
+          alt="Jagannath temple"
+          style={{ width: '100%', display: 'block', objectFit: 'contain' }}
+          onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
+        />
+        <div style={{ display: 'none' }}><JagannathTempleSVG /></div>
       </motion.div>
 
       {/* Scroll chevron */}
