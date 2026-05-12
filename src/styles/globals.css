@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #2AB8A0;
-  --color-primary-light: #3FD0B8;
+  --color-primary: #C4572A;
+  --color-primary-light: #D4703D;
   --color-secondary: #D4A843;
   --color-secondary-light: #F0D68A;
-  --color-accent: #D4A8C7;
+  --color-accent: #8B2240;
   --color-bg-primary: #F5ECC8;
   --color-bg-secondary: #FFF8F0;
   --color-text-primary: #2D1810;
-  --color-text-secondary: #4A2040;
+  --color-text-secondary: #FFF8F0;
   --font-display: 'Playfair Display', serif;
   --font-body: 'Lora', serif;
   --font-script: 'Great Vibes', cursive;
@@ -24,19 +24,25 @@
   --hero-sky:       #8DA5BE;
   --hero-sky-dark:  #5A7A9A;
   --hero-arch:      #C0654A;
-  --teal:           #2AB8A0;
-  --teal-dark:      #229E89;
-  --rose:           #D4A8C7;
-  --rose-dark:      #B8889C;
-  --olive:          #C8D080;
-  --olive-dark:     #A8B060;
+
+  /* Saffron section (Blessings + Events + Route) */
+  --saffron:        #C4572A;
+  --saffron-dark:   #A8451E;
+  --saffron-text:   #FFF8F0;
+
+  /* Burgundy section (Couple + RSVP + Gallery) */
+  --burgundy:       #8B2240;
+  --burgundy-dark:  #6F1A32;
+  --burgundy-text:  #FFF8F0;
+
+  /* Sand section (Things to Know + Instagram) */
+  --sand:           #C8A86A;
+  --sand-dark:      #A88A50;
+  --sand-text:      #3A2010;
+
+  /* Navy section (Countdown + Footer) */
   --navy:           #1A2535;
   --navy-dark:      #111A26;
-
-  /* Text on each section */
-  --teal-text:      #F5ECC8;
-  --rose-text:      #4A2040;
-  --olive-text:     #3A3010;
   --navy-text:      #FFF8F0;
 
   /* Shared accents */
@@ -46,8 +52,17 @@
   --dark-text:      #2D1810;
   --light-text:     #FFF8F0;
 
-  /* Legacy aliases kept for components not yet updated */
-  --primary:        #2AB8A0;
+  /* Legacy aliases (kept for backward compat) */
+  --teal:           #C4572A;
+  --teal-dark:      #A8451E;
+  --teal-text:      #FFF8F0;
+  --rose:           #8B2240;
+  --rose-dark:      #6F1A32;
+  --rose-text:      #FFF8F0;
+  --olive:          #C8A86A;
+  --olive-dark:     #A88A50;
+  --olive-text:     #3A2010;
+  --primary:        #C4572A;
   --secondary:      #D4A843;
   --bg-primary:     #F5ECC8;
   --bg-secondary:   #FFF8F0;

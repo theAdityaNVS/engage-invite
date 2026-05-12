@@ -17,7 +17,7 @@ export default function GallerySection() {
             <p style={{
               fontFamily: "'Lora', serif",
               fontSize: '0.8rem',
-              color: 'rgba(74,32,64,0.6)',
+              color: 'rgba(255,248,240,0.55)',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
               marginBottom: '0.5rem',
@@ -27,7 +27,7 @@ export default function GallerySection() {
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
-              color: 'var(--rose-text)',
+              color: 'var(--burgundy-text)',
               marginBottom: '0.5rem',
             }}>
               {t('gallery_heading')}
@@ -35,7 +35,7 @@ export default function GallerySection() {
             <p style={{
               fontFamily: "'Lora', serif",
               fontStyle: 'italic',
-              color: 'var(--rose-text)',
+              color: 'var(--burgundy-text)',
               opacity: 0.7,
               fontSize: '0.95rem',
             }}>

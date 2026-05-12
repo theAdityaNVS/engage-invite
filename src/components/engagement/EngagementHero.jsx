@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import FloatingLanterns from '@/components/shared/FloatingLanterns';
 import { COUPLE, TRANSLATIONS, ENGAGEMENT } from '@/config';
 
@@ -126,8 +126,12 @@ export default function EngagementHero() {
   const typedGroom  = useTypewriter(groomNames, 80, 1800);
   const typedBride  = useTypewriter(brideNames, 80, 1800);
 
+  const sectionRef = useRef(null);
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
+  const templeY = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
+
   return (
-    <section style={{
+    <section ref={sectionRef} style={{
       minHeight: '100vh',
       background: 'linear-gradient(180deg, var(--hero-sky-dark) 0%, var(--hero-sky) 45%, #C8A87A 100%)',
       position: 'relative',
@@ -216,7 +220,7 @@ export default function EngagementHero() {
         </motion.div>
       </div>
 
-      {/* Temple illustration */}
+      {/* Temple illustration — parallax at 40% scroll speed */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -224,9 +228,13 @@ export default function EngagementHero() {
         style={{
           position: 'relative',
           zIndex: 2,
-          width: '100%',
-          maxWidth: 700,
+          width: '110%',
+          left: '-5%',
+          maxWidth: 800,
           padding: '0 1rem',
+          y: templeY,
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)',
         }}
       >
         <img

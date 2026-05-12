@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 /* ── Blue 1960s Mercedes-style sedan ── */
@@ -78,18 +79,17 @@ const CAR_IMAGES = {
 const CAR_FALLBACKS = { blue: BlueCar, black: BlackCar };
 
 function CarIllustration({ color }) {
+  const [imgFailed, setImgFailed] = useState(false);
   const FallbackCar = CAR_FALLBACKS[color] || CAR_FALLBACKS.blue;
   const src = CAR_IMAGES[color];
+  if (imgFailed) return <FallbackCar />;
   return (
-    <>
-      <img
-        src={src}
-        alt={`${color} vintage car`}
-        style={{ width: '100%', display: 'block', objectFit: 'contain' }}
-        onError={(e) => { e.target.style.display = 'none'; e.target.nextSibling.style.display = 'block'; }}
-      />
-      <div style={{ display: 'none' }}><FallbackCar /></div>
-    </>
+    <img
+      src={src}
+      alt={`${color} vintage car`}
+      style={{ width: '100%', display: 'block', objectFit: 'contain' }}
+      onError={() => setImgFailed(true)}
+    />
   );
 }
 
