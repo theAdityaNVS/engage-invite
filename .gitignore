@@ -42,3 +42,7 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Visual brainstorming sessions
+.superpowers/
+generate-assets.md
