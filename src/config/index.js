@@ -28,6 +28,8 @@ export const ENGAGEMENT = {
   VENUE_MAPS_URL:   'https://maps.google.com/?q=Suryansh+Hotel+Bhubaneswar',
   COUNTDOWN_ISO:    '2026-06-17T10:00:00+05:30',
   WEATHER_ADVISORY: 'Expect warm weather (~32°C). Light breathable attire recommended.',
+  TEMPLE_NAME:    'Ramanarayan Temple',
+  TEMPLE_ADDRESS: 'Near Suryansh Hotel, Jaydev Vihar, Bhubaneswar',
   EVENTS: [
     {
       id:           'engagement-puja',
@@ -92,9 +94,10 @@ export const GOOGLE_API = {
 };
 
 export const FAMILIES = {
-  GROOM_PARENTS: 'Smt. Nadamuni Sunitha & Shri Nadamuni Thirumala Prasad',
-  BRIDE_PARENTS: 'Smt. Pranati Swain & Shri Ranjan Kumar Swain',
-  ELDERS:        [],
+  GROOM_PARENTS:  'Smt. Nadamuni Sunitha & Shri Nadamuni Thirumala Prasad',
+  BRIDE_PARENTS:  'Smt. Pranati Swain & Shri Ranjan Kumar Swain',
+  GROOM_SIBLING:  'Nadamuni Dhruv',
+  ELDERS:         [],
 };
 
 export const DOMAIN = {

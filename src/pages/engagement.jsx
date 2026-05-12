@@ -6,6 +6,10 @@ import SplashScreen from '@/components/shared/SplashScreen';
 import MusicPlayer from '@/components/shared/MusicPlayer';
 import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
 import GarlandDivider from '@/components/shared/GarlandDivider';
+import MangoToranDivider from '@/components/shared/MangoToranDivider';
+import KolamDivider from '@/components/shared/KolamDivider';
+import ProgressDots from '@/components/shared/ProgressDots';
+import AutoScrollHint from '@/components/shared/AutoScrollHint';
 
 import EngagementHero from '@/components/engagement/EngagementHero';
 import BlessingsSection from '@/components/engagement/BlessingsSection';
@@ -15,7 +19,7 @@ import CoupleSection from '@/components/engagement/CoupleSection';
 import RSVPSection from '@/components/engagement/RSVPSection';
 import GallerySection from '@/components/engagement/GallerySection';
 import ThingsToKnow from '@/components/engagement/ThingsToKnow';
-import InstagramSection from '@/components/engagement/InstagramSection';
+import FamilyShlokaSection from '@/components/engagement/FamilyShlokaSection';
 import CountdownSection from '@/components/engagement/CountdownSection';
 import FooterSection from '@/components/engagement/FooterSection';
 
@@ -56,51 +60,39 @@ export default function EngagementPage() {
       <LanguageBanner />
 
       <main>
-        {/* S-1: Hero — Jagannath temple (Odishan), floating lanterns, stacked names */}
-        <EngagementHero />
+        <div id="section-hero"><EngagementHero /></div>
 
-        {/* S-2 + S-3: Blessings + Event Cards — teal */}
-        <BlessingsSection />
-        <EventCardsSection />
+        <div id="section-events">
+          <BlessingsSection />
+          <EventCardsSection />
+          <RouteCTA />
+        </div>
 
-        {/* S-4: Route CTA — teal */}
-        <RouteCTA />
-
-        {/* Divider #1 — marigold garland between saffron and burgundy */}
         <GarlandDivider fromColor="var(--saffron)" toColor="var(--burgundy)" />
 
-        {/* S-5: Couple — rose mauve */}
-        <CoupleSection />
+        <div id="section-couple">
+          <CoupleSection />
+          <RSVPSection />
+          <GallerySection />
+        </div>
 
-        {/* S-6: RSVP — rose mauve */}
-        <RSVPSection />
+        <MangoToranDivider fromColor="var(--burgundy)" toColor="var(--sand)" />
 
-        {/* S-7: Gallery — rose mauve */}
-        <GallerySection />
+        <div id="section-info"><ThingsToKnow /></div>
 
-        {/* Divider #2 — marigold garland between burgundy and sand */}
-        <GarlandDivider fromColor="var(--burgundy)" toColor="var(--sand)" />
+        <div id="section-family"><FamilyShlokaSection /></div>
 
-        {/* S-8: Things to Know — olive */}
-        <ThingsToKnow />
+        <KolamDivider fromColor="var(--sand)" toColor="var(--navy)" />
 
-        {/* S-9: Follow the Action — olive */}
-        <InstagramSection />
-
-        {/* Gradient transition to navy */}
-        <div style={{
-          height: 60,
-          background: 'linear-gradient(180deg, var(--sand) 0%, var(--navy) 100%)',
-        }} />
-
-        {/* S-10: Countdown — dark navy */}
-        <CountdownSection />
-
-        {/* S-11: Footer — dark navy + Tirupati gopuram night */}
-        <FooterSection />
+        <div id="section-countdown">
+          <CountdownSection />
+          <FooterSection />
+        </div>
       </main>
 
       {/* Fixed UI */}
+      <ProgressDots />
+      <AutoScrollHint />
       <MusicPlayer autoPlay={musicAutoPlay} />
       <LanguageSwitcher />
     </>
