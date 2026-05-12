@@ -5,7 +5,7 @@ import LanguageBanner from '@/components/shared/LanguageBanner';
 import SplashScreen from '@/components/shared/SplashScreen';
 import MusicPlayer from '@/components/shared/MusicPlayer';
 import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
-import VintageCarDivider from '@/components/shared/VintageCarDivider';
+import GarlandDivider from '@/components/shared/GarlandDivider';
 
 import EngagementHero from '@/components/engagement/EngagementHero';
 import BlessingsSection from '@/components/engagement/BlessingsSection';
@@ -66,8 +66,8 @@ export default function EngagementPage() {
         {/* S-4: Route CTA — teal */}
         <RouteCTA />
 
-        {/* Divider #1 — blue Mercedes between teal and rose */}
-        <VintageCarDivider color="blue" fromColor="var(--teal)" toColor="var(--rose)" />
+        {/* Divider #1 — marigold garland between saffron and burgundy */}
+        <GarlandDivider fromColor="var(--saffron)" toColor="var(--burgundy)" />
 
         {/* S-5: Couple — rose mauve */}
         <CoupleSection />
@@ -78,8 +78,8 @@ export default function EngagementPage() {
         {/* S-7: Gallery — rose mauve */}
         <GallerySection />
 
-        {/* Divider #2 — black 1940s sedan between rose and olive */}
-        <VintageCarDivider color="black" fromColor="var(--rose)" toColor="var(--olive)" />
+        {/* Divider #2 — marigold garland between burgundy and sand */}
+        <GarlandDivider fromColor="var(--burgundy)" toColor="var(--sand)" />
 
         {/* S-8: Things to Know — olive */}
         <ThingsToKnow />
@@ -90,7 +90,7 @@ export default function EngagementPage() {
         {/* Gradient transition to navy */}
         <div style={{
           height: 60,
-          background: 'linear-gradient(180deg, var(--olive) 0%, var(--navy) 100%)',
+          background: 'linear-gradient(180deg, var(--sand) 0%, var(--navy) 100%)',
         }} />
 
         {/* S-10: Countdown — dark navy */}

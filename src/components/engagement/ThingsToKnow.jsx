@@ -153,8 +153,8 @@ export default function ThingsToKnow() {
       <svg style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', pointerEvents: 'none', opacity: 0.12 }} xmlns="http://www.w3.org/2000/svg">
         <defs>
           <pattern id="leaf" x="0" y="0" width="90" height="90" patternUnits="userSpaceOnUse">
-            <path d="M45 10 Q70 45 45 80 Q20 45 45 10Z" fill="none" stroke="#7A8A20" strokeWidth="1.5"/>
-            <line x1="45" y1="10" x2="45" y2="80" stroke="#7A8A20" strokeWidth="1"/>
+            <path d="M45 10 Q70 45 45 80 Q20 45 45 10Z" fill="none" stroke="rgba(100,60,10,0.4)" strokeWidth="1.5"/>
+            <line x1="45" y1="10" x2="45" y2="80" stroke="rgba(100,60,10,0.4)" strokeWidth="1"/>
           </pattern>
         </defs>
         <rect width="100%" height="100%" fill="url(#leaf)" />
