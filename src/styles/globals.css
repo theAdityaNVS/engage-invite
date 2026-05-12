@@ -148,3 +148,70 @@ a {
   opacity: 0;
   transform: translateY(30px);
 }
+
+/* ── V3 keyframes ── */
+
+/* Mandala orbital particles */
+@keyframes orbitSteady {
+  from { transform: rotate(0deg) translateX(var(--orbit-r, 110px)) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(var(--orbit-r, 110px)) rotate(-360deg); }
+}
+@keyframes orbitEscape {
+  0%   { transform: rotate(0deg) translateX(100px) rotate(0deg); opacity: 0.8; }
+  60%  { transform: rotate(200deg) translateX(160px) rotate(-200deg); opacity: 0.4; }
+  100% { transform: rotate(310deg) translateX(240px) rotate(-310deg); opacity: 0; }
+}
+@keyframes orbitArrive {
+  0%   { transform: rotate(0deg) translateX(230px) rotate(0deg); opacity: 0; }
+  40%  { transform: rotate(130deg) translateX(160px) rotate(-130deg); opacity: 0.4; }
+  100% { transform: rotate(260deg) translateX(100px) rotate(-260deg); opacity: 0.85; }
+}
+
+/* Hero sky cycle */
+@keyframes skyFade {
+  0%, 45%   { opacity: 1; }
+  50%, 95%  { opacity: 0; }
+  100%      { opacity: 1; }
+}
+@keyframes sunArc {
+  0%   { transform: translate(-10vw, 40px); opacity: 0; }
+  8%   { opacity: 1; }
+  50%  { transform: translate(45vw, -50px); opacity: 1; }
+  92%  { opacity: 1; }
+  100% { transform: translate(110vw, 40px); opacity: 0; }
+}
+
+/* Footer diya windows */
+@keyframes diyaFlicker {
+  0%, 100% { opacity: 0.55; }
+  25%      { opacity: 0.75; }
+  50%      { opacity: 0.4;  }
+  75%      { opacity: 0.7;  }
+}
+
+/* Footer moon */
+@keyframes moonArc {
+  0%   { transform: translate(-8vw, 30px) scale(0.9); opacity: 0; }
+  6%   { opacity: 0.9; }
+  50%  { transform: translate(42vw, -40px) scale(1); opacity: 0.9; }
+  94%  { opacity: 0.9; }
+  100% { transform: translate(108vw, 30px) scale(0.9); opacity: 0; }
+}
+
+/* Route map ripple */
+@keyframes ripplePulse {
+  0%   { transform: scale(1); opacity: 0.7; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+/* Auto-scroll hint chevron */
+@keyframes chevronBounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(8px); }
+}
+
+/* Mango toran bell sway */
+@keyframes bellSway {
+  0%, 100% { transform: rotate(-8deg); }
+  50%      { transform: rotate(8deg); }
+}
