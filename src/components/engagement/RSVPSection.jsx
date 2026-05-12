@@ -14,7 +14,7 @@ export default function RSVPSection() {
         <p style={{
           fontFamily: "'Lora', serif",
           fontSize: 'clamp(0.75rem, 2vw, 0.9rem)',
-          color: 'rgba(74,32,64,0.6)',
+          color: 'rgba(255,248,240,0.55)',
           letterSpacing: '0.25em',
           textTransform: 'uppercase',
           marginBottom: '0.4rem',
@@ -25,7 +25,7 @@ export default function RSVPSection() {
           fontFamily: "'Playfair Display', serif",
           fontStyle: 'italic',
           fontSize: 'clamp(2.5rem, 7vw, 4rem)',
-          color: 'var(--rose-text)',
+          color: 'var(--burgundy-text)',
           lineHeight: 1.1,
           marginBottom: '1.2rem',
         }}>
@@ -35,7 +35,7 @@ export default function RSVPSection() {
           fontFamily: "'Lora', serif",
           fontStyle: 'italic',
           fontSize: 'clamp(1rem, 3vw, 1.2rem)',
-          color: 'var(--rose-text)',
+          color: 'var(--burgundy-text)',
           opacity: 0.75,
           maxWidth: 480,
           margin: '0 auto',

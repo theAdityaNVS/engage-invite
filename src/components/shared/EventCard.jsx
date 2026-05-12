@@ -38,8 +38,8 @@ const EVENT_ICONS = {
     <svg viewBox="0 0 48 48" fill="none" style={{ width: 38, height: 38 }}>
       <ellipse cx="24" cy="30" rx="14" ry="5" fill="#D4A843" opacity="0.6"/>
       <path d="M14 30 Q14 18 24 18 Q34 18 34 30" stroke="rgba(74,32,64,0.6)" strokeWidth="2" fill="rgba(74,32,64,0.08)"/>
-      <line x1="24" y1="11" x2="24" y2="18" stroke="#2AB8A0" strokeWidth="2"/>
-      <path d="M21 11 Q24 7 27 11" stroke="#2AB8A0" strokeWidth="1.5" fill="none"/>
+      <line x1="24" y1="11" x2="24" y2="18" stroke="#D4A843" strokeWidth="2"/>
+      <path d="M21 11 Q24 7 27 11" stroke="#D4A843" strokeWidth="1.5" fill="none"/>
     </svg>
   ),
 };
@@ -51,14 +51,14 @@ export default function EventCard({ event, delay = 0 }) {
   return (
     <ScrollReveal delay={delay}>
       <motion.div
-        whileHover={{ y: -4, boxShadow: '0 14px 36px rgba(42,184,160,0.25)' }}
+        whileHover={{ y: -4, boxShadow: '0 14px 36px rgba(196,87,42,0.28)' }}
         transition={{ type: 'spring', stiffness: 300, damping: 20 }}
         style={{
           background: 'var(--cream)',
           border: '1.5px solid rgba(212,168,67,0.55)',
           borderRadius: '48% / 40%',
           overflow: 'visible',
-          boxShadow: '0 4px 18px rgba(42,184,160,0.12)',
+          boxShadow: '0 4px 18px rgba(196,87,42,0.14)',
           position: 'relative',
           padding: '2.5rem 2rem',
           textAlign: 'center',
@@ -81,7 +81,7 @@ export default function EventCard({ event, delay = 0 }) {
         <h3 style={{
           fontFamily: "'Playfair Display', serif",
           fontSize: 'clamp(1rem, 3vw, 1.25rem)',
-          color: 'var(--teal)',
+          color: 'var(--saffron)',
           letterSpacing: '0.06em',
           textTransform: 'uppercase',
           lineHeight: 1.2,
@@ -113,7 +113,7 @@ export default function EventCard({ event, delay = 0 }) {
             marginTop: '0.5rem',
             fontFamily: "'Lora', serif",
             fontSize: '0.85rem',
-            color: 'var(--teal)',
+            color: 'var(--saffron)',
             textDecoration: 'underline',
             textUnderlineOffset: 3,
             cursor: 'pointer',
