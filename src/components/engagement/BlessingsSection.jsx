@@ -11,9 +11,9 @@ function PaisleyPattern() {
       <defs>
         <pattern id="paisley" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
           <path d="M40 10 Q55 10 60 25 Q65 40 55 50 Q45 60 35 55 Q25 50 28 38 Q31 26 40 10Z"
-            fill="none" stroke="#1A8A76" strokeWidth="1.5" />
-          <circle cx="40" cy="28" r="5" fill="none" stroke="#1A8A76" strokeWidth="1" />
-          <path d="M36 50 Q34 60 38 65" fill="none" stroke="#1A8A76" strokeWidth="1" />
+            fill="none" stroke="rgba(160,60,20,0.5)" strokeWidth="1.5" />
+          <circle cx="40" cy="28" r="5" fill="none" stroke="rgba(160,60,20,0.5)" strokeWidth="1" />
+          <path d="M36 50 Q34 60 38 65" fill="none" stroke="rgba(160,60,20,0.5)" strokeWidth="1" />
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#paisley)" />
@@ -161,16 +161,39 @@ export default function BlessingsSection() {
               color: 'rgba(245,236,200,0.7)',
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              marginBottom: '0.6rem',
+              marginBottom: '1rem',
             }}>
               {t('invite_intro')}
             </p>
+
+            {/* Large "INVITE" display word */}
             <p style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(1.6rem, 5vw, 2.5rem)',
+              fontSize: 'clamp(3rem, 10vw, 5rem)',
+              color: '#D4A843',
+              lineHeight: 1,
+              letterSpacing: '0.08em',
+              marginBottom: '1rem',
+            }}>
+              INVITE
+            </p>
+
+            <p style={{
+              fontFamily: "'Lora', serif",
+              fontStyle: 'italic',
+              fontSize: 'clamp(0.85rem, 2vw, 1rem)',
+              color: 'rgba(245,236,200,0.65)',
+              marginBottom: '1.5rem',
+            }}>
+              you to join us in the engagement celebrations of
+            </p>
+
+            <p style={{
+              fontFamily: "'Great Vibes', cursive",
+              fontSize: 'clamp(2.2rem, 7vw, 3.5rem)',
               color: '#D4A843',
               lineHeight: 1.2,
-              marginBottom: '0.3rem',
+              marginBottom: '0.2rem',
             }}>
               {COUPLE.GROOM_NAME}
             </p>
@@ -180,17 +203,28 @@ export default function BlessingsSection() {
               fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
               color: 'rgba(245,236,200,0.75)',
               letterSpacing: '0.15em',
+              margin: '0.2rem 0',
             }}>
               &amp;
             </p>
             <p style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(1.6rem, 5vw, 2.5rem)',
+              fontFamily: "'Great Vibes', cursive",
+              fontSize: 'clamp(2.2rem, 7vw, 3.5rem)',
               color: '#D4A843',
               lineHeight: 1.2,
-              marginTop: '0.3rem',
+              marginBottom: '1rem',
             }}>
               {COUPLE.BRIDE_NAME}
+            </p>
+
+            <p style={{
+              fontFamily: "'Lora', serif",
+              fontStyle: 'italic',
+              fontSize: 'clamp(0.8rem, 2vw, 0.95rem)',
+              color: 'rgba(245,236,200,0.55)',
+              letterSpacing: '0.1em',
+            }}>
+              on the following events
             </p>
           </div>
         </ScrollReveal>

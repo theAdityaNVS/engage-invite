@@ -15,7 +15,7 @@ function OrnateArchFrame({ children }) {
         borderRadius: '50% 50% 8px 8px / 40% 40% 8px 8px',
         overflow: 'hidden',
         border: '3px solid rgba(212,168,67,0.6)',
-        boxShadow: '0 0 0 6px rgba(212,168,67,0.15), 0 8px 32px rgba(74,32,64,0.2)',
+        boxShadow: '0 0 0 6px rgba(212,168,67,0.15), 0 8px 32px rgba(139,34,64,0.3)',
       }}>
         {children}
       </div>
@@ -60,15 +60,15 @@ function FloralPattern() {
     >
       <defs>
         <pattern id="floral" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-          <circle cx="50" cy="50" r="20" stroke="#8B4880" strokeWidth="1.5" fill="none"/>
-          <circle cx="50" cy="50" r="12" stroke="#8B4880" strokeWidth="1" fill="none"/>
+          <circle cx="50" cy="50" r="20" stroke="rgba(255,248,240,0.2)" strokeWidth="1.5" fill="none"/>
+          <circle cx="50" cy="50" r="12" stroke="rgba(255,248,240,0.2)" strokeWidth="1" fill="none"/>
           {[0,60,120,180,240,300].map((a) => (
             <ellipse key={a}
               cx={50 + 26 * Math.cos(a * Math.PI / 180)}
               cy={50 + 26 * Math.sin(a * Math.PI / 180)}
               rx="7" ry="11"
               transform={`rotate(${a} ${50 + 26 * Math.cos(a * Math.PI / 180)} ${50 + 26 * Math.sin(a * Math.PI / 180)})`}
-              fill="none" stroke="#8B4880" strokeWidth="1" />
+              fill="none" stroke="rgba(255,248,240,0.2)" strokeWidth="1" />
           ))}
         </pattern>
       </defs>
@@ -95,7 +95,7 @@ export default function CoupleSection() {
             <p style={{
               fontFamily: "'Lora', serif",
               fontSize: '0.8rem',
-              color: 'rgba(74,32,64,0.6)',
+              color: 'rgba(255,248,240,0.55)',
               letterSpacing: '0.2em',
               textTransform: 'uppercase',
               marginBottom: '0.5rem',
@@ -105,7 +105,7 @@ export default function CoupleSection() {
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
-              color: 'var(--rose-text)',
+              color: 'var(--burgundy-text)',
             }}>
               {t('couple_heading')}
             </h2>
@@ -147,7 +147,7 @@ export default function CoupleSection() {
               <span style={{
                 position: 'absolute', top: '-0.5rem', left: '-0.25rem',
                 fontFamily: "'Playfair Display', serif",
-                fontSize: '5rem', color: 'var(--rose-text)', opacity: 0.15,
+                fontSize: '5rem', color: 'rgba(255,248,240,0.15)', opacity: 1,
                 lineHeight: 1, userSelect: 'none',
               }}>
                 "
@@ -156,7 +156,7 @@ export default function CoupleSection() {
                 fontFamily: "'Lora', serif",
                 fontStyle: 'italic',
                 fontSize: 'clamp(0.95rem, 2.5vw, 1.05rem)',
-                color: 'var(--rose-text)',
+                color: 'rgba(255,248,240,0.9)',
                 lineHeight: 1.85,
                 position: 'relative', zIndex: 1,
                 paddingLeft: '1rem',
@@ -166,9 +166,8 @@ export default function CoupleSection() {
               <div style={{
                 marginTop: '1.25rem',
                 fontFamily: "'Playfair Display', serif",
-                color: 'var(--rose-text)',
+                color: 'rgba(255,248,240,0.7)',
                 fontSize: '1.1rem',
-                opacity: 0.7,
                 textAlign: 'right',
               }}>
                 — {COUPLE.GROOM_NAME} &amp; {COUPLE.BRIDE_NAME}

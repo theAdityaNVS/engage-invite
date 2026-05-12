@@ -51,7 +51,7 @@ export default function MusicPlayer({ autoPlay = false }) {
       whileHover={{ scale: 1.1 }}
       whileTap={{ scale: 0.92 }}
       style={{
-        position: 'fixed', bottom: '1.5rem', right: '1.5rem', zIndex: 80,
+        position: 'fixed', top: '1.2rem', right: '1.2rem', zIndex: 80,
         width: '48px', height: '48px', borderRadius: '50%',
         background: '#8B1A2B',
         border: '2px solid rgba(212,168,67,0.5)',
