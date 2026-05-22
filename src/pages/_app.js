@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import { useEffect } from "react";
 import { LanguageProvider } from "@/hooks/useLanguage";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -19,6 +20,7 @@ export default function App({ Component, pageProps }) {
   return (
     <LanguageProvider>
       <Component {...pageProps} />
+      <Analytics />
     </LanguageProvider>
   );
 }
