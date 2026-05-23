@@ -15,19 +15,23 @@ function ChakraLayer() {
     <g>
       {Array.from({ length: 24 }, (_, i) => {
         const a = (i * 15) * Math.PI / 180;
+        const x2 = parseFloat((200 + 185 * Math.cos(a)).toFixed(4));
+        const y2 = parseFloat((200 + 185 * Math.sin(a)).toFixed(4));
         return (
           <line key={i}
             x1="200" y1="200"
-            x2={200 + 185 * Math.cos(a)} y2={200 + 185 * Math.sin(a)}
+            x2={x2} y2={y2}
             stroke="#D4A843" strokeWidth="0.8" opacity="0.65"
           />
         );
       })}
       {Array.from({ length: 24 }, (_, i) => {
         const a = (i * 15) * Math.PI / 180;
+        const cx = parseFloat((200 + 185 * Math.cos(a)).toFixed(4));
+        const cy = parseFloat((200 + 185 * Math.sin(a)).toFixed(4));
         return (
           <circle key={i}
-            cx={200 + 185 * Math.cos(a)} cy={200 + 185 * Math.sin(a)}
+            cx={cx} cy={cy}
             r="4" fill="#D4A843" opacity="0.6"
           />
         );
@@ -53,13 +57,15 @@ function RangoliLayer() {
       {rings.map(({ n, r, rx, ry }, ri) =>
         Array.from({ length: n }, (_, i) => {
           const a = (i * (360 / n)) * Math.PI / 180;
-          const px = 200 + r * Math.cos(a);
-          const py = 200 + r * Math.sin(a);
+          const px = parseFloat((200 + r * Math.cos(a)).toFixed(4));
+          const py = parseFloat((200 + r * Math.sin(a)).toFixed(4));
+          const rotateAngle = parseFloat((i * (360 / n)).toFixed(4));
+          const opacityVal = parseFloat((0.5 - ri * 0.08).toFixed(4));
           return (
             <ellipse key={`${ri}-${i}`}
               cx={px} cy={py} rx={rx} ry={ry}
-              transform={`rotate(${i * (360 / n)} ${px} ${py})`}
-              fill="#D4A843" opacity={0.5 - ri * 0.08}
+              transform={`rotate(${rotateAngle} ${px} ${py})`}
+              fill="#D4A843" opacity={opacityVal}
             />
           );
         })
@@ -74,24 +80,26 @@ function LotusLayer() {
     <g>
       {Array.from({ length: 12 }, (_, i) => {
         const a = (i * 30) * Math.PI / 180;
-        const px = 200 + 140 * Math.cos(a);
-        const py = 200 + 140 * Math.sin(a);
+        const px = parseFloat((200 + 140 * Math.cos(a)).toFixed(4));
+        const py = parseFloat((200 + 140 * Math.sin(a)).toFixed(4));
+        const rotateAngle = i * 30;
         return (
           <ellipse key={i}
             cx={px} cy={py} rx="16" ry="48"
-            transform={`rotate(${i * 30} ${px} ${py})`}
+            transform={`rotate(${rotateAngle} ${px} ${py})`}
             fill="#D4A843" opacity="0.35"
           />
         );
       })}
       {Array.from({ length: 8 }, (_, i) => {
         const a = (i * 45 + 22.5) * Math.PI / 180;
-        const px = 200 + 80 * Math.cos(a);
-        const py = 200 + 80 * Math.sin(a);
+        const px = parseFloat((200 + 80 * Math.cos(a)).toFixed(4));
+        const py = parseFloat((200 + 80 * Math.sin(a)).toFixed(4));
+        const rotateAngle = i * 45 + 22.5;
         return (
           <ellipse key={i}
             cx={px} cy={py} rx="12" ry="34"
-            transform={`rotate(${i * 45 + 22.5} ${px} ${py})`}
+            transform={`rotate(${rotateAngle} ${px} ${py})`}
             fill="#D4A843" opacity="0.5"
           />
         );
@@ -197,22 +205,24 @@ function DoorOrnamentation({ side }) {
       <path d="M100 112 L114 174 L100 236 L86 174 Z" stroke="rgba(212,168,67,0.3)" strokeWidth="1" fill="rgba(212,168,67,0.08)" />
       {Array.from({ length: 10 }, (_, i) => {
         const a = (i * 36) * Math.PI / 180;
-        const px = 100 + 33 * Math.cos(a);
-        const py = 308 + 33 * Math.sin(a);
+        const px = parseFloat((100 + 33 * Math.cos(a)).toFixed(4));
+        const py = parseFloat((308 + 33 * Math.sin(a)).toFixed(4));
+        const rotateAngle = i * 36;
         return (
           <ellipse key={i} cx={px} cy={py} rx="9" ry="20"
-            transform={`rotate(${i * 36} ${px} ${py})`}
+            transform={`rotate(${rotateAngle} ${px} ${py})`}
             fill="rgba(212,168,67,0.32)"
           />
         );
       })}
       {Array.from({ length: 7 }, (_, i) => {
         const a = (i * (360/7) + 26) * Math.PI / 180;
-        const px = 100 + 17 * Math.cos(a);
-        const py = 308 + 17 * Math.sin(a);
+        const px = parseFloat((100 + 17 * Math.cos(a)).toFixed(4));
+        const py = parseFloat((308 + 17 * Math.sin(a)).toFixed(4));
+        const rotateAngle = parseFloat((i * (360/7) + 26).toFixed(4));
         return (
           <ellipse key={i} cx={px} cy={py} rx="6" ry="13"
-            transform={`rotate(${i * (360/7) + 26} ${px} ${py})`}
+            transform={`rotate(${rotateAngle} ${px} ${py})`}
             fill="rgba(212,168,67,0.45)"
           />
         );
@@ -280,7 +290,6 @@ export default function SplashScreen({ onEnter }) {
       setCountdown((c) => {
         if (c <= 1) {
           clearInterval(interval);
-          handleLangSelect('en');
           return 0;
         }
         return c - 1;
@@ -288,6 +297,12 @@ export default function SplashScreen({ onEnter }) {
     }, 1000);
     return () => clearInterval(interval);
   }, [showLang, langSelected]);
+
+  useEffect(() => {
+    if (showLang && !langSelected && countdown === 0) {
+      handleLangSelect('en');
+    }
+  }, [countdown, showLang, langSelected]);
 
   const handleLangSelect = (code) => {
     setLang(code);

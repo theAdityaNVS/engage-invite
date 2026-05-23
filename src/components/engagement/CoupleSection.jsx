@@ -62,14 +62,18 @@ function FloralPattern() {
         <pattern id="floral" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
           <circle cx="50" cy="50" r="20" stroke="rgba(255,248,240,0.2)" strokeWidth="1.5" fill="none"/>
           <circle cx="50" cy="50" r="12" stroke="rgba(255,248,240,0.2)" strokeWidth="1" fill="none"/>
-          {[0,60,120,180,240,300].map((a) => (
-            <ellipse key={a}
-              cx={50 + 26 * Math.cos(a * Math.PI / 180)}
-              cy={50 + 26 * Math.sin(a * Math.PI / 180)}
-              rx="7" ry="11"
-              transform={`rotate(${a} ${50 + 26 * Math.cos(a * Math.PI / 180)} ${50 + 26 * Math.sin(a * Math.PI / 180)})`}
-              fill="none" stroke="rgba(255,248,240,0.2)" strokeWidth="1" />
-          ))}
+          {[0,60,120,180,240,300].map((a) => {
+            const cx = parseFloat((50 + 26 * Math.cos(a * Math.PI / 180)).toFixed(4));
+            const cy = parseFloat((50 + 26 * Math.sin(a * Math.PI / 180)).toFixed(4));
+            return (
+              <ellipse key={a}
+                cx={cx}
+                cy={cy}
+                rx="7" ry="11"
+                transform={`rotate(${a} ${cx} ${cy})`}
+                fill="none" stroke="rgba(255,248,240,0.2)" strokeWidth="1" />
+            );
+          })}
         </pattern>
       </defs>
       <rect width="100%" height="100%" fill="url(#floral)" />

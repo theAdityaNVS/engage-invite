@@ -10,13 +10,16 @@ function Marigold({ x, y, r, color }) {
       {/* Outer petal ring */}
       {Array.from({ length: outerN }, (_, i) => {
         const a = (i * (360 / outerN)) * Math.PI / 180;
-        const px = x + r * 0.62 * Math.cos(a);
-        const py = y + r * 0.62 * Math.sin(a);
+        const px = parseFloat((x + r * 0.62 * Math.cos(a)).toFixed(4));
+        const py = parseFloat((y + r * 0.62 * Math.sin(a)).toFixed(4));
+        const rxVal = parseFloat((r * 0.27).toFixed(4));
+        const ryVal = parseFloat((r * 0.52).toFixed(4));
+        const rotAngle = parseFloat((i * (360 / outerN)).toFixed(4));
         return (
           <ellipse key={i}
             cx={px} cy={py}
-            rx={r * 0.27} ry={r * 0.52}
-            transform={`rotate(${i * (360 / outerN)} ${px} ${py})`}
+            rx={rxVal} ry={ryVal}
+            transform={`rotate(${rotAngle} ${px} ${py})`}
             fill={color}
             opacity="0.72"
           />
@@ -26,13 +29,16 @@ function Marigold({ x, y, r, color }) {
       {/* Second petal ring — offset for depth */}
       {Array.from({ length: outerN }, (_, i) => {
         const a = (i * (360 / outerN) + 15) * Math.PI / 180;
-        const px = x + r * 0.5 * Math.cos(a);
-        const py = y + r * 0.5 * Math.sin(a);
+        const px = parseFloat((x + r * 0.5 * Math.cos(a)).toFixed(4));
+        const py = parseFloat((y + r * 0.5 * Math.sin(a)).toFixed(4));
+        const rxVal = parseFloat((r * 0.2).toFixed(4));
+        const ryVal = parseFloat((r * 0.4).toFixed(4));
+        const rotAngle = parseFloat((i * (360 / outerN) + 15).toFixed(4));
         return (
           <ellipse key={i}
             cx={px} cy={py}
-            rx={r * 0.2} ry={r * 0.4}
-            transform={`rotate(${i * (360 / outerN) + 15} ${px} ${py})`}
+            rx={rxVal} ry={ryVal}
+            transform={`rotate(${rotAngle} ${px} ${py})`}
             fill={color}
             opacity="0.55"
           />
@@ -42,13 +48,16 @@ function Marigold({ x, y, r, color }) {
       {/* Inner petal ring */}
       {Array.from({ length: innerN }, (_, i) => {
         const a = (i * 45 + 22) * Math.PI / 180;
-        const px = x + r * 0.28 * Math.cos(a);
-        const py = y + r * 0.28 * Math.sin(a);
+        const px = parseFloat((x + r * 0.28 * Math.cos(a)).toFixed(4));
+        const py = parseFloat((y + r * 0.28 * Math.sin(a)).toFixed(4));
+        const rxVal = parseFloat((r * 0.17).toFixed(4));
+        const ryVal = parseFloat((r * 0.3).toFixed(4));
+        const rotAngle = parseFloat((i * 45 + 22).toFixed(4));
         return (
           <ellipse key={i}
             cx={px} cy={py}
-            rx={r * 0.17} ry={r * 0.3}
-            transform={`rotate(${i * 45 + 22} ${px} ${py})`}
+            rx={rxVal} ry={ryVal}
+            transform={`rotate(${rotAngle} ${px} ${py})`}
             fill={color}
             opacity="0.82"
           />

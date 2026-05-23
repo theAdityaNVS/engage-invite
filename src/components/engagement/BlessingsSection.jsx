@@ -83,7 +83,10 @@ function GaneshaSVG() {
       <circle cx="126" cy="68" r="10" fill="rgba(220,100,140,0.6)"/>
       {Array.from({length:6},(_,i)=>{
         const a=(i*60)*Math.PI/180;
-        return <ellipse key={i} cx={126+10*Math.cos(a)} cy={68+10*Math.sin(a)} rx="4" ry="9" transform={`rotate(${i*60} ${126+10*Math.cos(a)} ${68+10*Math.sin(a)})`} fill="rgba(220,100,140,0.55)"/>;
+        const cx=parseFloat((126+10*Math.cos(a)).toFixed(4));
+        const cy=parseFloat((68+10*Math.sin(a)).toFixed(4));
+        const rot=i*60;
+        return <ellipse key={i} cx={cx} cy={cy} rx="4" ry="9" transform={`rotate(${rot} ${cx} ${cy})`} fill="rgba(220,100,140,0.55)"/>;
       })}
 
       {/* Lower right arm — modak */}
@@ -187,8 +190,11 @@ export default function BlessingsSection() {
                 <svg viewBox="0 0 40 28" style={{ width: 28, height: 20, marginBottom: '0.6rem' }} aria-hidden="true">
                   {Array.from({length:6},(_,i)=>{
                     const a=(i*60-90)*Math.PI/180;
-                    return <ellipse key={i} cx={20+12*Math.cos(a)} cy={14+12*Math.sin(a)} rx="5" ry="11"
-                      transform={`rotate(${i*60-90} ${20+12*Math.cos(a)} ${14+12*Math.sin(a)})`}
+                    const cx=parseFloat((20+12*Math.cos(a)).toFixed(4));
+                    const cy=parseFloat((14+12*Math.sin(a)).toFixed(4));
+                    const rot=i*60-90;
+                    return <ellipse key={i} cx={cx} cy={cy} rx="5" ry="11"
+                      transform={`rotate(${rot} ${cx} ${cy})`}
                       fill="#D4A843" opacity="0.65"/>;
                   })}
                   <circle cx="20" cy="14" r="5" fill="#D4A843" opacity="0.85"/>

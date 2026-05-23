@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import { useEffect } from "react";
 import { LanguageProvider } from "@/hooks/useLanguage";
-import { Analytics } from "@vercel/analytics/next";
+import { Analytics } from "@vercel/analytics/react";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {

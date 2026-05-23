@@ -26,8 +26,11 @@ function FloatingFloret({ style }) {
       <svg viewBox="0 0 20 20" style={{ width: 14, height: 14 }}>
         {Array.from({ length: 6 }, (_, i) => {
           const a = (i * 60) * Math.PI / 180;
-          return <ellipse key={i} cx={10 + 6 * Math.cos(a)} cy={10 + 6 * Math.sin(a)} rx="3" ry="5"
-            transform={`rotate(${i * 60} ${10 + 6 * Math.cos(a)} ${10 + 6 * Math.sin(a)})`}
+          const cx = parseFloat((10 + 6 * Math.cos(a)).toFixed(4));
+          const cy = parseFloat((10 + 6 * Math.sin(a)).toFixed(4));
+          const rot = i * 60;
+          return <ellipse key={i} cx={cx} cy={cy} rx="3" ry="5"
+            transform={`rotate(${rot} ${cx} ${cy})`}
             fill="#D4A843" opacity="0.7" />;
         })}
         <circle cx="10" cy="10" r="2.5" fill="#C4572A" />
