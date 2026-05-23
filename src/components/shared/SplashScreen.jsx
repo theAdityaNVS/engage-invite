@@ -138,20 +138,20 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
 
               <div style={{
                 fontFamily: "'Great Vibes', cursive",
-                fontSize: 'clamp(2.8rem, 8.5vw, 5.2rem)',
+                fontSize: 'clamp(4.2rem, 13vw, 6.5rem)',
                 color: 'var(--burgundy)', lineHeight: 1, textAlign: 'center',
               }}>{COUPLE.GROOM_NAME}</div>
 
               <div style={{
                 fontFamily: "'Lora', serif",
-                fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
+                fontSize: 'clamp(1.4rem, 4vw, 1.8rem)',
                 color: '#C4572A', letterSpacing: '0.3em',
                 textTransform: 'uppercase', margin: '0.5rem 0',
               }}>&amp;</div>
 
               <div style={{
                 fontFamily: "'Great Vibes', cursive",
-                fontSize: 'clamp(2.8rem, 8.5vw, 5.2rem)',
+                fontSize: 'clamp(4.2rem, 13vw, 6.5rem)',
                 color: 'var(--burgundy)', lineHeight: 1, textAlign: 'center',
                 marginBottom: '1.2rem',
               }}>{COUPLE.BRIDE_NAME}</div>
