@@ -104,7 +104,8 @@ export default function RouteCTA() {
           <motion.a
             href={ENGAGEMENT.VENUE_MAPS_URL}
             target="_blank" rel="noopener noreferrer"
-            whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
+            whileHover={{ scale: 1.05, backgroundColor: 'rgba(212,168,67,0.15)', borderColor: 'rgba(212,168,67,0.85)' }} 
+            whileTap={{ scale: 0.96 }}
             style={{
               display: 'inline-block', marginTop: '1.4rem',
               padding: '0.75rem 2.2rem',
@@ -114,6 +115,7 @@ export default function RouteCTA() {
               fontFamily: "'Lora', serif", fontSize: '0.82rem',
               letterSpacing: '0.18em', textTransform: 'uppercase',
               textDecoration: 'none', borderRadius: '4px',
+              transition: 'color 0.3s, background-color 0.3s, border-color 0.3s',
             }}
           >
             {t('navigate_label')}
