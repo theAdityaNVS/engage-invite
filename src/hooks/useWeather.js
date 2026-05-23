@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 
 const CACHE_DURATION_MS = 30 * 60 * 1000; // 30 minutes
 const cache = {};
@@ -6,11 +6,9 @@ const cache = {};
 export function useWeather({ lat, lng, apiKey }) {
   const [weather, setWeather] = useState(null);
   const [loading, setLoading] = useState(false);
-  const hasFetched = useRef(false);
 
   useEffect(() => {
-    if (!apiKey || apiKey === 'YOUR_OPENWEATHER_API_KEY' || hasFetched.current) return;
-    hasFetched.current = true;
+    if (!apiKey || apiKey === 'YOUR_OPENWEATHER_API_KEY') return;
 
     const cacheKey = `${lat},${lng}`;
     const cached = cache[cacheKey];
