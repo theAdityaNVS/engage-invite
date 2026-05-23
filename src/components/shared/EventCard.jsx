@@ -44,7 +44,17 @@ const EVENT_ICONS = {
   ),
 };
 
-export default function EventCard({ event, delay = 0 }) {
+function CalendarIcon() {
+  return (
+    <svg viewBox="0 0 16 16" fill="none" style={{ width: 13, height: 13, display: 'inline', verticalAlign: 'middle', marginRight: 4 }} aria-hidden="true">
+      <rect x="1" y="3" width="14" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+      <path d="M1 7h14" stroke="currentColor" strokeWidth="1.2"/>
+      <path d="M5 1v4M11 1v4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+    </svg>
+  );
+}
+
+export default function EventCard({ event, delay = 0, calendarUrl }) {
   const { t } = useLanguage();
   const icon = EVENT_ICONS[event.id] || EVENT_ICONS['engagement-puja'];
 
@@ -121,6 +131,28 @@ export default function EventCard({ event, delay = 0 }) {
         >
           {t('see_the_route')} ↗
         </a>
+
+        {/* Add to Calendar */}
+        {calendarUrl && (
+          <a
+            href={calendarUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "'Lora', serif",
+              fontSize: '0.82rem',
+              color: 'var(--saffron)',
+              textDecoration: 'none',
+              opacity: 0.8,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 2,
+            }}
+          >
+            <CalendarIcon />
+            {t('add_to_calendar')}
+          </a>
+        )}
       </motion.div>
     </ScrollReveal>
   );

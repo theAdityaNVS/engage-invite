@@ -1,22 +1,26 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedPhoto from './AnimatedPhoto';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const ROTATIONS = [-3.4, 2.2, -1.6, 3.8, -2.5, 1.9, -3.1, 2.7];
-const CAPTIONS = [
-  'Always & forever',
-  'Our beginning',
-  'Better together',
-  'My favourite smile',
-  'Home is you',
-  'Stargazing together',
-  'Two worlds, one heart',
-  'The best days ✦',
-];
 const TOTAL = 8;
 
-export default function PhotoCarousel() {
+export default function PhotoCarousel({ photos = [] }) {
+  const { t } = useLanguage();
   const [lightboxIndex, setLightboxIndex] = useState(null);
+
+  const CAPTIONS = useMemo(
+    () => Array.from({ length: TOTAL }, (_, i) => t(`photo_caption_${i + 1}`)),
+    [t]
+  );
+  const closeBtnRef = useRef(null);
+
+  useEffect(() => {
+    if (lightboxIndex !== null) {
+      closeBtnRef.current?.focus();
+    }
+  }, [lightboxIndex]);
 
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
   const nextPhoto = useCallback(() => setLightboxIndex(i => (i + 1) % TOTAL), []);
@@ -65,7 +69,10 @@ export default function PhotoCarousel() {
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.5, delay: i * 0.07 }}
               whileHover={{ rotate: 0, scale: 1.05, zIndex: 20 }}
+              role="button"
+              tabIndex={0}
               onClick={() => setLightboxIndex(i)}
+              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLightboxIndex(i); } }}
               style={{
                 background: '#FFFEFC',
                 padding: '10px 10px 46px',
@@ -83,6 +90,7 @@ export default function PhotoCarousel() {
                 height="clamp(170px, 21vw, 220px)"
                 alt={CAPTIONS[i]}
                 index={i}
+                src={photos[i] || undefined}
                 style={{
                   width: 'clamp(150px, 18vw, 190px)',
                   height: 'clamp(170px, 21vw, 220px)',
@@ -122,6 +130,9 @@ export default function PhotoCarousel() {
         {lightboxIndex !== null && (
           <motion.div
             key="lightbox-overlay"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Photo lightbox"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -154,6 +165,7 @@ export default function PhotoCarousel() {
                 height="min(430px, 58vh)"
                 alt={CAPTIONS[lightboxIndex]}
                 index={lightboxIndex}
+                src={photos[lightboxIndex] || undefined}
                 style={{ display: 'block', objectFit: 'cover' }}
               />
               <div style={{
@@ -169,11 +181,12 @@ export default function PhotoCarousel() {
 
             {/* Prev / Next */}
             {[
-              { label: '←', action: prevPhoto, pos: 'left' },
-              { label: '→', action: nextPhoto, pos: 'right' },
-            ].map(({ label, action, pos }) => (
+              { label: '←', action: prevPhoto, pos: 'left', ariaLabel: 'Previous photo' },
+              { label: '→', action: nextPhoto, pos: 'right', ariaLabel: 'Next photo' },
+            ].map(({ label, action, pos, ariaLabel }) => (
               <button
                 key={pos}
+                aria-label={ariaLabel}
                 onClick={(e) => { e.stopPropagation(); action(); }}
                 style={{
                   position: 'absolute',
@@ -199,6 +212,8 @@ export default function PhotoCarousel() {
 
             {/* Close */}
             <button
+              ref={closeBtnRef}
+              aria-label="Close photo"
               onClick={closeLightbox}
               style={{
                 position: 'absolute',

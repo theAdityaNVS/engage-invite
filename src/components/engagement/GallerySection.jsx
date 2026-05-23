@@ -46,7 +46,7 @@ export default function GallerySection() {
       </div>
 
       <div style={{ padding: '0 1rem' }}>
-        <PhotoCarousel />
+        <PhotoCarousel photos={[]} />
       </div>
     </section>
   );

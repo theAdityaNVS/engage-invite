@@ -1,6 +1,41 @@
 import { motion } from 'framer-motion';
 
-export default function AnimatedPhoto({ width, height, alt, className, style = {}, index = 0 }) {
+const FLOAT_TRANSITION = { duration: 4, repeat: Infinity, ease: 'easeInOut' };
+
+export default function AnimatedPhoto({ width, height, alt, className, style = {}, index = 0, src }) {
+  const floatDelay = (index % 3) * 0.8;
+
+  if (src) {
+    return (
+      <motion.div
+        className={className}
+        animate={{ y: [0, -6, 0] }}
+        transition={{ ...FLOAT_TRANSITION, delay: floatDelay }}
+        whileHover={{ scale: 1.02 }}
+        style={{
+          width: width || '100%',
+          height: height || '100%',
+          borderRadius: '8px',
+          border: '2px solid rgba(212,168,67,0.5)',
+          boxShadow: '0 4px 20px rgba(139,26,43,0.2), inset 0 0 0 1px rgba(212,168,67,0.15)',
+          overflow: 'hidden',
+          ...style,
+        }}
+      >
+        <img
+          src={src}
+          alt={alt || ''}
+          style={{
+            width: '100%', height: '100%',
+            objectFit: 'cover',
+            filter: 'saturate(1.3) sepia(0.15) hue-rotate(-10deg) brightness(1.05)',
+            display: 'block',
+          }}
+        />
+      </motion.div>
+    );
+  }
+
   const gradients = [
     'linear-gradient(135deg, #8B1A2B 0%, #C44D5E 40%, #D4A843 100%)',
     'linear-gradient(135deg, #D4A843 0%, #8B1A2B 60%, #1B6B4A 100%)',
@@ -14,7 +49,7 @@ export default function AnimatedPhoto({ width, height, alt, className, style = {
     <motion.div
       className={className}
       animate={{ y: [0, -6, 0] }}
-      transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: (index % 3) * 0.8 }}
+      transition={{ ...FLOAT_TRANSITION, delay: floatDelay }}
       whileHover={{ scale: 1.02, filter: 'brightness(1.08)' }}
       style={{
         width: width || '100%',
