@@ -1,7 +1,8 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import FloatingLanterns from '@/components/shared/FloatingLanterns';
 import { COUPLE, TRANSLATIONS, ENGAGEMENT } from '@/config';
+import { useLanguage } from '@/hooks/useLanguage';
 
 const LANG_SEQUENCE = ['en', 'hi', 'te', 'or'];
 
@@ -36,7 +37,7 @@ function useTypewriter(texts, speed = 80, pause = 1800) {
 /* ── Jagannath / Odishan Nagara temple — curvilinear shikhara ── */
 function JagannathTempleSVG() {
   return (
-    <svg viewBox="0 0 1000 320" preserveAspectRatio="xMidYMax meet" fill="none"
+    <svg viewBox="0 -44 1000 364" preserveAspectRatio="xMidYMax meet" fill="none"
       xmlns="http://www.w3.org/2000/svg"
       style={{ width: '100%', maxWidth: 900, display: 'block' }}
       aria-label="Jagannath temple"
@@ -55,23 +56,27 @@ function JagannathTempleSVG() {
       ))}
 
       {/* Curvilinear shikhara tiers — bezier-curved paths */}
-      <path d="M285 185 Q290 178 300 174 L700 174 Q710 178 715 185Z" fill="#965028"/>
-      <path d="M298 174 Q305 164 318 159 L682 159 Q695 164 702 174Z" fill="#8A4520"/>
-      <path d="M314 159 Q322 147 338 141 L662 141 Q678 147 686 159Z" fill="#7E3E1A"/>
-      <path d="M332 141 Q342 127 360 120 L640 120 Q658 127 668 141Z" fill="#723818"/>
-      <path d="M353 120 Q364 104 385 96  L615 96  Q636 104 647 120Z" fill="#663214"/>
+      <path d="M275 185 Q280 178 290 174 L710 174 Q720 178 725 185Z" fill="#965028"/>
+      <path d="M286 174 Q293 164 306 159 L694 159 Q707 164 714 174Z" fill="#8A4520"/>
+      <path d="M302 159 Q310 147 326 141 L674 141 Q690 147 698 159Z" fill="#7E3E1A"/>
+      <path d="M322 141 Q332 127 350 120 L650 120 Q668 127 678 141Z" fill="#723818"/>
+      <path d="M338 120 Q350 104 372 96  L628 96  Q650 104 662 120Z" fill="#663214"/>
       <path d="M378 96  Q390 78  414 69  L586 69  Q610 78  622 96Z"  fill="#5A2C10"/>
       <path d="M406 69  Q419 50  446 40  L554 40  Q581 50  594 69Z"  fill="#4E260C"/>
       <path d="M436 40  Q449 22  476 13  L524 13  Q551 22  564 40Z"  fill="#422008"/>
       <path d="M464 13  Q472 4  490 1   L510 1  Q528 4  536 13Z"     fill="#361A04"/>
 
-      {/* Amalaka + Kalasha */}
-      <ellipse cx="500" cy="1" rx="38" ry="12" fill="#C0654A" />
-      <ellipse cx="500" cy="-8"  rx="20" ry="9"  fill="#D4A843"/>
-      <ellipse cx="500" cy="-16" rx="12" ry="7"  fill="#E8C060"/>
-      <circle  cx="500" cy="-22" r="5"            fill="#F0D48A"/>
-      <line x1="500" y1="-27" x2="500" y2="-36" stroke="#D4A843" strokeWidth="2"/>
-      <polygon points="500,-36 506,-31 500,-33 494,-31" fill="#D4A843"/>
+      {/* Amalaka — three ribbed disks suggesting Orissan stone cushion */}
+      <ellipse cx="500" cy="4"  rx="38" ry="10" fill="#B05A42" />
+      <ellipse cx="500" cy="-1" rx="30" ry="9"  fill="#C0654A" />
+      <ellipse cx="500" cy="-6" rx="22" ry="8"  fill="#CC7050" />
+      {/* Kalasha — pot, neck, sphere, staff, flag */}
+      <ellipse cx="500" cy="-16" rx="22" ry="10" fill="#D4A843"/>
+      <rect    x="495"  y="-28"  width="10" height="5" fill="#D4A843"/>
+      <ellipse cx="500" cy="-31" rx="13"  ry="5"  fill="#E8C060"/>
+      <circle  cx="500" cy="-35" r="4"             fill="#F0D48A"/>
+      <line x1="500" y1="-39" x2="500" y2="-42" stroke="#D4A843" strokeWidth="2"/>
+      <polygon points="500,-42 509,-37 500,-32 491,-37" fill="#D4A843"/>
 
       {/* Side shrines — left */}
       <rect x="130" y="220" width="120" height="47" rx="3" fill="#8B4020"/>
@@ -146,8 +151,9 @@ const SKY_SUNRISE = 'linear-gradient(180deg, #FF8C42 0%, #FFB347 28%, #FFD37A 55
 const SKY_SUNSET  = 'linear-gradient(180deg, #1E0A3C 0%, #7A1830 28%, #C45050 55%, #E8905A 100%)';
 
 export default function EngagementHero() {
-  const groomNames  = LANG_SEQUENCE.map((l) => TRANSLATIONS.NAMES[l].groom);
-  const brideNames  = LANG_SEQUENCE.map((l) => TRANSLATIONS.NAMES[l].bride);
+  const { t } = useLanguage();
+  const groomNames  = useMemo(() => LANG_SEQUENCE.map((l) => TRANSLATIONS.NAMES[l].groom), []);
+  const brideNames  = useMemo(() => LANG_SEQUENCE.map((l) => TRANSLATIONS.NAMES[l].bride), []);
   const typedGroom  = useTypewriter(groomNames, 80, 1800);
   const typedBride  = useTypewriter(brideNames, 80, 1800);
 
@@ -227,7 +233,7 @@ export default function EngagementHero() {
             textTransform: 'uppercase',
             margin: '0.4rem 0',
           }}>
-            Weds
+            {t('weds')}
           </p>
 
           {/* BRIDE */}
@@ -263,13 +269,13 @@ export default function EngagementHero() {
         style={{
           position: 'relative',
           zIndex: 2,
-          width: '110%',
-          left: '-5%',
+          width: '100%',
           maxWidth: 800,
           padding: '0 1rem',
+          overflow: 'hidden',
           y: templeY,
-          maskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)',
-          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 15%, black 70%, transparent 100%)',
+          maskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 70%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, black 8%, black 70%, transparent 100%)',
         }}
       >
         <JagannathTempleSVG />

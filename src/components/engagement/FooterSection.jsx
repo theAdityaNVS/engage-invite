@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { COUPLE, ENGAGEMENT } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 import FloatingLanterns from '@/components/shared/FloatingLanterns';
@@ -30,9 +30,9 @@ function Starfield({ count = 22 }) {
 
 function TirupatiGopuram() {
   const diyaWindows = [
-    [340,220],[380,220],[420,220],[460,220],[500,220],[540,220],[560,220],
-    [360,180],[400,180],[440,180],[480,180],[520,180],
-    [380,148],[420,148],[460,148],[500,148],
+    [480,220],[520,220],[560,220],[600,220],[640,220],[680,220],[720,220],
+    [520,180],[560,180],[600,180],[640,180],[680,180],
+    [540,148],[580,148],[620,148],[660,148],
   ];
 
   return (
@@ -79,18 +79,18 @@ function TirupatiGopuram() {
       ))}
 
       {/* Side towers */}
-      {[[150,260,180,100],[870,260,180,100]].map(([x,y,w,h],i)=>(
+      {[[170,260,140,100],[890,260,140,100]].map(([x,y,w,h],i)=>(
         <g key={i}>
           <rect x={x} y={y} width={w} height={h} rx="1" fill="rgba(212,168,67,0.08)"/>
           {[0,1,2].map(t=>(
-            <rect key={t} x={x+t*8} y={y+t*20} width={w-t*16} height={18} rx="1" fill="rgba(212,168,67,0.07)"/>
+            <rect key={t} x={x+t*10} y={y-t*22} width={w-t*20} height={18} rx="1" fill="rgba(212,168,67,0.07)"/>
           ))}
-          <ellipse cx={x+w/2} cy={y-6} rx={w/2-10} ry="8" fill="rgba(212,168,67,0.1)"/>
+          <ellipse cx={x+w/2} cy={y-50} rx={w/2-10} ry="8" fill="rgba(212,168,67,0.1)"/>
         </g>
       ))}
 
       {/* Sculptural figure dots */}
-      {[220,240,260,280,300,320,340,360,380,400,420,440,460,480,500,520,540,560,580,600,620,640,660,680,700,720,740,760,780].map((x,i)=>(
+      {[220,240,260,280,300,320,340,360,380,400,420,440,460,480,500,520,540,560,580,600,620,640,660,680,700,720,740,760,780,800,820,840,860,880,900,920,940,960].map((x,i)=>(
         <circle key={i} cx={x} cy={260} r="3" fill="rgba(212,168,67,0.18)"/>
       ))}
 
@@ -126,6 +126,16 @@ function AnimatedMoon() {
 
 export default function FooterSection() {
   const { t } = useLanguage();
+  const [copied, setCopied] = useState(false);
+
+  const copyHashtag = useCallback(() => {
+    navigator.clipboard?.writeText(COUPLE.HASHTAG)?.then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }).catch(() => {});
+  }, []);
+
+  const instagramUrl = `https://instagram.com/${COUPLE.INSTAGRAM_HANDLE.replace('@', '')}`;
 
   return (
     <footer style={{
@@ -150,7 +160,7 @@ export default function FooterSection() {
         <div style={{ maxWidth: 500, margin: '0 auto' }}>
           <p style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(1.2rem, 3.5vw, 1.6rem)',
+            fontSize: 'clamp(1.6rem,4vw,2rem)',
             color: '#D4A843',
             marginBottom: '0.4rem',
           }}>
@@ -158,22 +168,84 @@ export default function FooterSection() {
           </p>
           <p style={{
             fontFamily: "'Lora', serif",
-            fontSize: '0.88rem',
+            fontSize: '1rem',
             color: 'rgba(240,214,138,0.65)',
             marginBottom: '0.4rem',
             letterSpacing: '0.05em',
           }}>
             {ENGAGEMENT.DATE_DISPLAY} · {ENGAGEMENT.VENUE_CITY}
           </p>
+          {/* Hashtag + copy */}
           <p style={{
-            fontFamily: "'Lora', serif",
-            fontSize: '0.82rem',
-            color: 'rgba(245,236,200,0.4)',
-            letterSpacing: '0.05em',
-            marginBottom: '1.25rem',
+            fontFamily: "'Lora', serif", fontSize: '0.7rem',
+            color: 'rgba(245,236,200,0.4)', letterSpacing: '0.18em',
+            textTransform: 'uppercase', marginBottom: '0.25rem',
           }}>
-            {COUPLE.HASHTAG}
+            {t('hashtag_label')}
           </p>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
+            <p style={{
+              fontFamily: "'Lora', serif",
+              fontSize: '0.9rem',
+              color: 'rgba(245,236,200,0.7)',
+              letterSpacing: '0.05em',
+              margin: 0,
+            }}>
+              {COUPLE.HASHTAG}
+            </p>
+            <button
+              onClick={copyHashtag}
+              title={t('copy')}
+              aria-label={t('copy')}
+              style={{
+                background: 'none', border: '1px solid rgba(212,168,67,0.35)',
+                borderRadius: '12px', padding: '0.15rem 0.6rem',
+                fontFamily: "'Lora', serif", fontSize: '0.72rem',
+                color: copied ? '#D4A843' : 'rgba(245,236,200,0.55)',
+                cursor: 'pointer', letterSpacing: '0.06em',
+                transition: 'color 0.2s, border-color 0.2s',
+              }}
+            >
+              {copied ? t('copied') : t('copy')}
+            </button>
+          </div>
+
+          <div style={{
+            height: '1px',
+            background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.25), transparent)',
+            maxWidth: 260,
+            margin: '0 auto 1.25rem',
+          }} />
+
+          {/* Instagram follow */}
+          <div style={{ marginBottom: '1.25rem' }}>
+            <p style={{
+              fontFamily: "'Lora', serif", fontSize: '0.78rem',
+              color: 'rgba(245,236,200,0.45)', letterSpacing: '0.14em',
+              textTransform: 'uppercase', marginBottom: '0.4rem',
+            }}>
+              {t('follow_the_action')}
+            </p>
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                fontFamily: "'Lora', serif", fontSize: '0.85rem',
+                color: 'rgba(212,168,67,0.75)',
+                textDecoration: 'underline', textUnderlineOffset: 3,
+                letterSpacing: '0.04em', display: 'block', marginBottom: '0.2rem',
+              }}
+            >
+              {COUPLE.INSTAGRAM_HANDLE}
+            </a>
+            <p style={{
+              fontFamily: "'Lora', serif", fontSize: '0.75rem',
+              color: 'rgba(245,236,200,0.4)', letterSpacing: '0.06em', margin: 0,
+            }}>
+              {t('follow_subtitle')}
+            </p>
+          </div>
 
           <div style={{
             height: '1px',
@@ -184,8 +256,8 @@ export default function FooterSection() {
 
           <p style={{
             fontFamily: "'Lora', serif",
-            fontSize: '0.78rem',
-            color: 'rgba(245,236,200,0.28)',
+            fontSize: '0.9rem',
+            color: 'rgba(245,236,200,0.5)',
           }}>
             {t('made_with_love')}
           </p>
