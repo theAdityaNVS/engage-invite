@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useState } from 'react';
 
-import LanguageBanner from '@/components/shared/LanguageBanner';
+
 import SplashScreen from '@/components/shared/SplashScreen';
 import MusicPlayer from '@/components/shared/MusicPlayer';
 import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
@@ -58,7 +58,7 @@ export default function EngagementPage() {
 
       {/* Overlays */}
       <SplashScreen onEnter={() => setMusicAutoPlay(true)} />
-      <LanguageBanner />
+
 
       <main>
         <div id="section-hero"><EngagementHero /></div>

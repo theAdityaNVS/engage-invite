@@ -56,11 +56,7 @@ function AnimatedWatermark() {
 export default function SplashScreen({ onEnter, forceShow = false }) {
   const [visible, setVisible] = useState(true);
   const [doorsOpen, setDoorsOpen] = useState(false);
-  const [showLang, setShowLang] = useState(false);
-  const [langSelected, setLangSelected] = useState(false);
   const [showButton, setShowButton] = useState(false);
-  const [countdown, setCountdown] = useState(5);
-  const { t, setLang, hasStoredLang } = useLanguage();
 
   useEffect(() => {
     if (!forceShow && typeof window !== 'undefined' && sessionStorage.getItem('splash_shown')) {
@@ -68,45 +64,10 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
       onEnter?.();
       return;
     }
-    const skipLang = hasStoredLang;
     const t1 = setTimeout(() => setDoorsOpen(true), 650);
-    const t2 = setTimeout(() => {
-      if (skipLang) {
-        setShowButton(true);
-      } else {
-        setShowLang(true);
-      }
-    }, 2200);
+    const t2 = setTimeout(() => setShowButton(true), 1500);
     return () => { clearTimeout(t1); clearTimeout(t2); };
-  }, [hasStoredLang, forceShow]);
-
-  useEffect(() => {
-    if (!showLang || langSelected) return;
-    setCountdown(5);
-    const interval = setInterval(() => {
-      setCountdown((c) => {
-        if (c <= 1) {
-          clearInterval(interval);
-          return 0;
-        }
-        return c - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [showLang, langSelected]);
-
-  useEffect(() => {
-    if (showLang && !langSelected && countdown === 0) {
-      handleLangSelect('en');
-    }
-  }, [countdown, showLang, langSelected]);
-
-  const handleLangSelect = (code) => {
-    setLang(code);
-    setLangSelected(true);
-    setShowLang(false);
-    setTimeout(() => setShowButton(true), 600);
-  };
+  }, [forceShow]);
 
   const handleEnter = () => {
     if (!forceShow) {
@@ -210,50 +171,7 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
                 {ENGAGEMENT.DATE_DISPLAY} · {ENGAGEMENT.VENUE_CITY}
               </p>
 
-              {/* Language buttons */}
-              <AnimatePresence>
-                {showLang && !langSelected && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.6, x: -80, y: 80 }}
-                    transition={{ duration: 0.5 }}
-                    style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginBottom: '1rem', flexWrap: 'wrap' }}
-                  >
-                    {LANGUAGES.map((l) => (
-                      <motion.button
-                        key={l.code}
-                        whileHover={{ scale: 1.08 }}
-                        whileTap={{ scale: 0.94 }}
-                        onClick={() => handleLangSelect(l.code)}
-                        style={{
-                          minHeight: '48px',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          padding: '0 1.5rem',
-                          background: 'rgba(139,34,64,0.06)',
-                          border: '1px solid rgba(139,34,64,0.25)',
-                          cursor: 'pointer',
-                          fontFamily: "'Lora', serif",
-                          fontSize: '0.85rem',
-                          color: '#8B2240',
-                          borderRadius: '4px',
-                          letterSpacing: '0.04em',
-                        }}
-                      >
-                        <span style={{ fontFamily: 'serif', marginRight: '0.35rem', fontSize: '1.1rem' }}>{l.script}</span>
-                        {l.label}
-                      </motion.button>
-                    ))}
-                    <div style={{ width: '100%', textAlign: 'center', marginTop: '0.4rem' }}>
-                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.72rem', color: 'rgba(45,24,16,0.4)' }}>
-                        {t('auto_select_english').replace('{n}', countdown)}
-                      </span>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+
 
               {/* CTA button */}
               <AnimatePresence>
