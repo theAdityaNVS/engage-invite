@@ -85,7 +85,7 @@ export default function RouteCTA() {
             fontFamily: "'Lora', serif", fontSize: '0.7rem',
             color: 'var(--saffron-text)', opacity: 0.6,
             letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '0.5rem',
-          }}>Venue</p>
+          }}>{t('venue_label')}</p>
           <h2 style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: 'clamp(1.6rem, 4vw, 2.4rem)',
@@ -116,7 +116,7 @@ export default function RouteCTA() {
               textDecoration: 'none', borderRadius: '4px',
             }}
           >
-            Navigate →
+            {t('navigate_label')}
           </motion.a>
         </div>
       </ScrollReveal>

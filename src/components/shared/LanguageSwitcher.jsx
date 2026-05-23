@@ -14,7 +14,7 @@ export default function LanguageSwitcher() {
   return (
     <div style={{
       position: 'fixed', bottom: '1.5rem', left: '1.5rem', zIndex: 80,
-      display: 'flex', gap: '4px',
+      display: 'flex', gap: '6px',
       background: 'rgba(45,24,16,0.85)',
       backdropFilter: 'blur(8px)',
       borderRadius: '50px',
@@ -28,7 +28,7 @@ export default function LanguageSwitcher() {
           whileTap={{ scale: 0.9 }}
           onClick={() => setLang(l.code)}
           style={{
-            width: '32px', height: '32px', borderRadius: '50%',
+            width: '44px', height: '44px', borderRadius: '50%',
             border: 'none',
             cursor: 'pointer',
             fontFamily: l.code === 'hi' ? "'Noto Serif Devanagari', serif"

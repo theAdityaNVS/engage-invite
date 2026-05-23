@@ -153,7 +153,7 @@ function MorphingMandala({ visible }) {
       transform: 'translate(-50%, -50%)',
       width: 'clamp(280px, 65vw, 420px)',
       height: 'clamp(280px, 65vw, 420px)',
-      opacity: 0.3,
+      opacity: 0.45,
       pointerEvents: 'none',
     }}>
       <svg
@@ -401,7 +401,7 @@ export default function SplashScreen({ onEnter }) {
                     ))}
                     <div style={{ width: '100%', textAlign: 'center', marginTop: '0.4rem' }}>
                       <span style={{ fontFamily: "'Lora', serif", fontSize: '0.72rem', color: 'rgba(45,24,16,0.4)' }}>
-                        Auto-selecting English in {countdown}s
+                        {t('auto_select_english').replace('{n}', countdown)}
                       </span>
                     </div>
                   </motion.div>
@@ -429,7 +429,7 @@ export default function SplashScreen({ onEnter }) {
                       position: 'relative', zIndex: 10,
                     }}
                   >
-                    Tap to open
+                    {t('tap_to_open')}
                   </motion.button>
                 )}
               </AnimatePresence>
