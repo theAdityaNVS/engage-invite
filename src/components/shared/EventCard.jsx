@@ -4,13 +4,23 @@ import { useLanguage } from '@/hooks/useLanguage';
 
 /* Gold marigold cluster for card corners */
 function FloralAccent({ style }) {
+  const getD = (a) => {
+    const q1x = (25 + 12 * Math.cos((a - 15) * Math.PI / 180)).toFixed(4);
+    const q1y = (25 + 12 * Math.sin((a - 15) * Math.PI / 180)).toFixed(4);
+    const endx = (25 + 18 * Math.cos(a * Math.PI / 180)).toFixed(4);
+    const endy = (25 + 18 * Math.sin(a * Math.PI / 180)).toFixed(4);
+    const q2x = (25 + 12 * Math.cos((a + 15) * Math.PI / 180)).toFixed(4);
+    const q2y = (25 + 12 * Math.sin((a + 15) * Math.PI / 180)).toFixed(4);
+    return `M25 25 Q${q1x} ${q1y} ${endx} ${endy} Q${q2x} ${q2y} 25 25Z`;
+  };
+
   return (
     <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"
       style={{ width: 44, height: 44, ...style }} aria-hidden="true">
       {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
         <path
           key={a}
-          d={`M25 25 Q${25 + 12 * Math.cos((a - 15) * Math.PI / 180)} ${25 + 12 * Math.sin((a - 15) * Math.PI / 180)} ${25 + 18 * Math.cos(a * Math.PI / 180)} ${25 + 18 * Math.sin(a * Math.PI / 180)} Q${25 + 12 * Math.cos((a + 15) * Math.PI / 180)} ${25 + 12 * Math.sin((a + 15) * Math.PI / 180)} 25 25Z`}
+          d={getD(a)}
           fill="rgba(212,168,67,0.75)"
         />
       ))}

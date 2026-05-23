@@ -1,11 +1,17 @@
 function KolamMotif({ cx, cy, r = 18 }) {
   const dots = Array.from({length:8}, (_, i) => {
     const a = (i * 45) * Math.PI / 180;
-    return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+    return {
+      x: parseFloat((cx + r * Math.cos(a)).toFixed(4)),
+      y: parseFloat((cy + r * Math.sin(a)).toFixed(4))
+    };
   });
   const diag = Array.from({length:4}, (_, i) => {
     const a = (i * 90 + 45) * Math.PI / 180;
-    return { x: cx + r * 0.7 * Math.cos(a), y: cy + r * 0.7 * Math.sin(a) };
+    return {
+      x: parseFloat((cx + r * 0.7 * Math.cos(a)).toFixed(4)),
+      y: parseFloat((cy + r * 0.7 * Math.sin(a)).toFixed(4))
+    };
   });
 
   return (
@@ -18,7 +24,10 @@ function KolamMotif({ cx, cy, r = 18 }) {
         const my = (d.y + next.y) / 2;
         const dx = mx - cx, dy = my - cy;
         const len = Math.sqrt(dx*dx+dy*dy);
-        const ctrl = { x: cx + dx/len*(r*0.3), y: cy + dy/len*(r*0.3) };
+        const ctrl = {
+          x: parseFloat((cx + dx/len*(r*0.3)).toFixed(4)),
+          y: parseFloat((cy + dy/len*(r*0.3)).toFixed(4))
+        };
         return (
           <path key={i}
             d={`M${d.x} ${d.y} Q${ctrl.x} ${ctrl.y} ${next.x} ${next.y}`}

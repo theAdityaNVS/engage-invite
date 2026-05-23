@@ -31,7 +31,7 @@ export default function EngagementPage() {
   return (
     <>
       <Head>
-        <title>{COUPLE.GROOM_NAME} &amp; {COUPLE.BRIDE_NAME} — Engagement</title>
+        <title>{`${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME} — Engagement`}</title>
         <meta name="description" content="Join us for Aditya & Jyoti's engagement — 17 June, Suryansh Hotel, Bhubaneswar. In English, Hindi, Telugu & Odia." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#8B1A2B" />

@@ -10,8 +10,12 @@ function SunIcon() {
       <circle cx="24" cy="24" r="9" fill="#FFD037" style={{ animation: 'ganeshaPulse 3s ease-in-out infinite' }}/>
       {Array.from({length:8},(_,i)=>{
         const a=(i*45)*Math.PI/180;
-        return <line key={i} x1={24+13*Math.cos(a)} y1={24+13*Math.sin(a)}
-          x2={24+18*Math.cos(a)} y2={24+18*Math.sin(a)}
+        const x1 = parseFloat((24+13*Math.cos(a)).toFixed(4));
+        const y1 = parseFloat((24+13*Math.sin(a)).toFixed(4));
+        const x2 = parseFloat((24+18*Math.cos(a)).toFixed(4));
+        const y2 = parseFloat((24+18*Math.sin(a)).toFixed(4));
+        return <line key={i} x1={x1} y1={y1}
+          x2={x2} y2={y2}
           stroke="#FFD037" strokeWidth="2.5" strokeLinecap="round"/>;
       })}
     </svg>
