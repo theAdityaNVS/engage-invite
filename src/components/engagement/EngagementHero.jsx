@@ -344,7 +344,7 @@ export default function EngagementHero() {
           >
             <h1 style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+              fontSize: 'clamp(3.5rem, 12vw, 5rem)',
               color: '#FFF8F0',
               lineHeight: 1.1,
               fontWeight: 400,
@@ -371,7 +371,7 @@ export default function EngagementHero() {
 
             <h1 style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+              fontSize: 'clamp(3.5rem, 12vw, 5rem)',
               color: '#FFF8F0',
               lineHeight: 1.1,
               fontWeight: 400,
