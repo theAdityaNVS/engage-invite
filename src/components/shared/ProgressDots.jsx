@@ -39,22 +39,23 @@ export default function ProgressDots() {
       alignItems: 'center',
     }}>
       {SECTIONS.map((sec, i) => (
-        <button
-          key={sec.id}
-          title={sec.label}
-          onClick={() => scrollTo(sec.id)}
-          style={{
-            width:  i === active ? 11 : 8,
-            height: i === active ? 11 : 8,
-            borderRadius: '50%',
-            background:  i === active ? '#D4A843' : 'transparent',
-            border: `1.5px solid ${i === active ? '#D4A843' : 'rgba(212,168,67,0.4)'}`,
-            cursor: 'pointer',
-            padding: 0,
-            transition: 'all 0.3s ease',
-            outline: 'none',
-          }}
-        />
+        <div key={sec.id} style={{ width: 44, height: 44, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <button
+            title={sec.label}
+            onClick={() => scrollTo(sec.id)}
+            style={{
+              width:  i === active ? 11 : 8,
+              height: i === active ? 11 : 8,
+              borderRadius: '50%',
+              background:  i === active ? '#D4A843' : 'transparent',
+              border: `1.5px solid ${i === active ? '#D4A843' : 'rgba(212,168,67,0.4)'}`,
+              cursor: 'pointer',
+              padding: 0,
+              transition: 'all 0.3s ease',
+              outline: 'none',
+            }}
+          />
+        </div>
       ))}
     </div>
   );

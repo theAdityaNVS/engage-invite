@@ -165,9 +165,9 @@ export default function BlessingsSection() {
             justifyContent: 'center',
           }}>
             {[
-              { labelKey: 'groom_parents_label', names: FAMILIES.GROOM_PARENTS, delay: 0 },
-              { labelKey: 'bride_parents_label', names: FAMILIES.BRIDE_PARENTS, delay: 0.12 },
-            ].map(({ labelKey, names, delay }) => (
+              { labelKey: 'groom_parents_label', names: FAMILIES.GROOM_PARENTS, delay: 0,    gotra: FAMILIES.GROOM_GOTRA,  nakshatra: FAMILIES.GROOM_NAKSHATRA },
+              { labelKey: 'bride_parents_label', names: FAMILIES.BRIDE_PARENTS, delay: 0.12, gotra: FAMILIES.BRIDE_GOTRA,  nakshatra: FAMILIES.BRIDE_NAKSHATRA },
+            ].map(({ labelKey, names, delay, gotra, nakshatra }) => (
               <motion.div
                 key={labelKey}
                 initial={{ opacity: 0, y: 18 }}
@@ -211,7 +211,7 @@ export default function BlessingsSection() {
                   fontSize: '0.72rem',
                   color: 'rgba(245,236,200,0.45)',
                   marginBottom: '0.5rem',
-                }}>With the blessings of</p>
+                }}>{t('with_blessings_of')}</p>
 
                 <p style={{
                   fontFamily: "'Playfair Display', serif",
@@ -219,6 +219,21 @@ export default function BlessingsSection() {
                   color: 'var(--saffron-text)',
                   lineHeight: 1.65,
                 }}>{names}</p>
+
+                {(gotra || nakshatra) && (
+                  <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.4rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    {gotra && (
+                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.65rem', color: 'rgba(245,236,200,0.55)', letterSpacing: '0.12em' }}>
+                        {t('gotra_label')}: {gotra}
+                      </span>
+                    )}
+                    {nakshatra && (
+                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.65rem', color: 'rgba(245,236,200,0.55)', letterSpacing: '0.12em' }}>
+                        {t('nakshatra_label')}: {nakshatra}
+                      </span>
+                    )}
+                  </div>
+                )}
               </motion.div>
             ))}
           </div>
@@ -240,7 +255,7 @@ export default function BlessingsSection() {
             {/* Large "INVITE" display word */}
             <p style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(3rem, 10vw, 5rem)',
+              fontSize: 'clamp(2rem,5vw,3rem)',
               color: '#D4A843',
               lineHeight: 1,
               letterSpacing: '0.08em',
@@ -256,12 +271,12 @@ export default function BlessingsSection() {
               color: 'rgba(245,236,200,0.65)',
               marginBottom: '1.5rem',
             }}>
-              you to join us in the engagement celebrations of
+              {t('invite_you_to_join')}
             </p>
 
             <p style={{
               fontFamily: "'Great Vibes', cursive",
-              fontSize: 'clamp(2.2rem, 7vw, 3.5rem)',
+              fontSize: 'clamp(2.8rem,7vw,4.5rem)',
               color: '#D4A843',
               lineHeight: 1.2,
               marginBottom: '0.2rem',
@@ -280,7 +295,7 @@ export default function BlessingsSection() {
             </p>
             <p style={{
               fontFamily: "'Great Vibes', cursive",
-              fontSize: 'clamp(2.2rem, 7vw, 3.5rem)',
+              fontSize: 'clamp(2.8rem,7vw,4.5rem)',
               color: '#D4A843',
               lineHeight: 1.2,
               marginBottom: '1rem',
@@ -295,7 +310,7 @@ export default function BlessingsSection() {
               color: 'rgba(245,236,200,0.55)',
               letterSpacing: '0.1em',
             }}>
-              on the following events
+              {t('on_the_following_events')}
             </p>
           </div>
         </ScrollReveal>

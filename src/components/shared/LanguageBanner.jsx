@@ -10,7 +10,7 @@ const LANGUAGES = [
 ];
 
 export default function LanguageBanner() {
-  const { setLang, hasStoredLang } = useLanguage();
+  const { setLang, hasStoredLang, t } = useLanguage();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function LanguageBanner() {
             color: 'rgba(245,236,200,0.85)',
             flexShrink: 0,
           }}>
-            View this invitation in your language?
+            {t('view_in_language')}
           </p>
 
           <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', flex: 1, justifyContent: 'center' }}>
