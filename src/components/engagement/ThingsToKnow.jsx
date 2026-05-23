@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
-import { ENGAGEMENT } from '@/config';
+import { ENGAGEMENT, GOOGLE_API } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useWeather } from '@/hooks/useWeather';
 
@@ -57,6 +57,7 @@ const EVENT_SLOTS = [
 ];
 
 function WeatherCard({ weather }) {
+  const { t } = useLanguage();
   const slotIcon = () => {
     if (!weather) return <SunIcon />;
     if (weather.temp > 35) return <SunIcon />;
@@ -70,7 +71,7 @@ function WeatherCard({ weather }) {
         <SunIcon />
         <div>
           <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.05rem', color: 'var(--sand-text)', margin: 0 }}>
-            Weather on the Day
+            {t('weather_label')}
           </p>
           <p style={{ fontFamily: "'Lora', serif", fontSize: '0.75rem', color: 'var(--sand-text)', opacity: 0.65, margin: 0 }}>
             {weather ? `${weather.temp}°C · ${weather.description}` : ENGAGEMENT.WEATHER_ADVISORY}
@@ -90,12 +91,12 @@ function WeatherCard({ weather }) {
               minWidth: 62,
             }}>
               {slotIcon()}
-              <span style={{ fontFamily: "'Lora', serif", fontSize: '0.72rem', color: 'var(--sand-text)', fontWeight: 600 }}>
+              <span style={{ fontFamily: "'Lora', serif", fontSize: '0.82rem', color: 'var(--sand-text)', fontWeight: 600 }}>
                 {slot.time}
               </span>
               {slot.label && (
                 <span style={{
-                  fontFamily: "'Lora', serif", fontSize: '0.62rem',
+                  fontFamily: "'Lora', serif", fontSize: '0.72rem',
                   color: slot.highlight ? '#D4A843' : 'rgba(58,32,16,0.5)',
                   letterSpacing: '0.08em',
                 }}>
@@ -111,28 +112,40 @@ function WeatherCard({ weather }) {
 }
 
 function ReachCard() {
+  const { t } = useLanguage();
   return (
     <div>
       <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.05rem', color: 'var(--sand-text)', marginBottom: '0.8rem' }}>
-        How to Reach
+        {t('reach_label')}
       </p>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
         <div style={{ borderLeft: '2px solid rgba(212,168,67,0.5)', paddingLeft: '0.85rem' }}>
           <p style={{ fontFamily: "'Lora', serif", fontSize: '0.72rem', color: 'var(--sand-text)', opacity: 0.6, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '0.3rem' }}>
-            From Visakhapatnam
+            {t('from_visakhapatnam')}
           </p>
           <p style={{ fontFamily: "'Lora', serif", fontSize: '0.88rem', color: 'var(--sand-text)', lineHeight: 1.6 }}>
-            ✈ Flight — ~1 hr (IndiGo / Air India, daily)<br/>
-            🚂 Train — ~7-8h overnight (East Coast Express)
+            {t('flight_duration')}<br/>
+            {t('train_duration')}
           </p>
+          <div style={{ display: 'flex', gap: '0.9rem', marginTop: '0.5rem', flexWrap: 'wrap' }}>
+            <a href="https://www.google.com/travel/flights?q=flights+from+Visakhapatnam+to+Bhubaneswar"
+              target="_blank" rel="noopener noreferrer"
+              style={{ fontFamily: "'Lora', serif", fontSize: '0.75rem', color: '#D4A843', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+              {t('search_flights')}
+            </a>
+            <a href="https://www.irctc.co.in/nget/train-search"
+              target="_blank" rel="noopener noreferrer"
+              style={{ fontFamily: "'Lora', serif", fontSize: '0.75rem', color: '#D4A843', textDecoration: 'underline', textUnderlineOffset: 3 }}>
+              {t('book_train')}
+            </a>
+          </div>
         </div>
         <div style={{ borderLeft: '2px solid rgba(212,168,67,0.5)', paddingLeft: '0.85rem' }}>
           <p style={{ fontFamily: "'Lora', serif", fontSize: '0.72rem', color: 'var(--sand-text)', opacity: 0.6, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '0.3rem' }}>
-            Bhubaneswar Station → Venue
+            {t('bbs_station')}
           </p>
           <p style={{ fontFamily: "'Lora', serif", fontSize: '0.88rem', color: 'var(--sand-text)', lineHeight: 1.6 }}>
-            🚕 OLA/Cab — ~20 min, ₹150–200<br/>
-            🛺 Auto — ~25 min, ₹80–100<br/>
+            {t('cab_from_airport')}<br/>
             📍 P-1, Jaydev Vihar, Nandankanan Rd
           </p>
         </div>
@@ -141,14 +154,41 @@ function ReachCard() {
   );
 }
 
+function AccommodationCard() {
+  const { t } = useLanguage();
+  return (
+    <div>
+      <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.05rem', color: 'var(--sand-text)', marginBottom: '0.8rem' }}>
+        {t('accommodation_label')}
+      </p>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
+        <div style={{ borderLeft: '2px solid rgba(212,168,67,0.5)', paddingLeft: '0.85rem' }}>
+          <p style={{ fontFamily: "'Lora', serif", fontSize: '0.88rem', color: 'var(--sand-text)', lineHeight: 1.7, opacity: 0.85 }}>
+            {t('accommodation_text')}
+          </p>
+        </div>
+        <div style={{ borderLeft: '2px solid rgba(212,168,67,0.5)', paddingLeft: '0.85rem' }}>
+          <p style={{ fontFamily: "'Lora', serif", fontSize: '0.72rem', color: 'var(--sand-text)', opacity: 0.6, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '0.3rem' }}>
+            {t('parking_label')}
+          </p>
+          <p style={{ fontFamily: "'Lora', serif", fontSize: '0.88rem', color: 'var(--sand-text)', lineHeight: 1.6, opacity: 0.85 }}>
+            {t('parking_text')}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function DressCard() {
+  const { t } = useLanguage();
   return (
     <div style={{ textAlign: 'center' }}>
       <p style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.05rem', color: 'var(--sand-text)', marginBottom: '0.8rem' }}>
-        Dress to Celebrate
+        {t('dress_heading')}
       </p>
       <div style={{ display: 'flex', gap: '0.6rem', justifyContent: 'center', marginBottom: '0.9rem' }}>
-        {['Traditional', 'Semi-Formal'].map(tag => (
+        {[t('dress_traditional'), t('dress_semiformal')].map(tag => (
           <span key={tag} style={{
             fontFamily: "'Lora', serif", fontSize: '0.75rem',
             padding: '0.3rem 0.85rem',
@@ -166,7 +206,7 @@ function DressCard() {
         ))}
       </div>
       <p style={{ fontFamily: "'Lora', serif", fontStyle: 'italic', fontSize: '0.82rem', color: 'var(--sand-text)', opacity: 0.75, lineHeight: 1.6 }}>
-        Sarees, sherwanis, salwar kameez, or elegant Western — all welcome. Saffron & gold encouraged!
+        {t('dress_traditional_desc')}
       </p>
     </div>
   );
@@ -177,13 +217,14 @@ export default function ThingsToKnow() {
   const { weather } = useWeather({
     lat: ENGAGEMENT.VENUE_LAT,
     lng: ENGAGEMENT.VENUE_LNG,
-    apiKey: process.env.NEXT_PUBLIC_WEATHER_API_KEY,
+    apiKey: GOOGLE_API.WEATHER_API_KEY,
   });
 
   const cards = [
-    { id: 'weather', content: <WeatherCard weather={weather} /> },
-    { id: 'reach',   content: <ReachCard /> },
-    { id: 'dress',   content: <DressCard /> },
+    { id: 'weather',       content: <WeatherCard weather={weather} /> },
+    { id: 'reach',         content: <ReachCard /> },
+    { id: 'dress',         content: <DressCard /> },
+    { id: 'accommodation', content: <AccommodationCard /> },
   ];
 
   return (
@@ -215,8 +256,8 @@ export default function ThingsToKnow() {
               viewport={{ once: true }}
               transition={{ delay: i * 0.12, duration: 0.5 }}
               style={{
-                background: 'rgba(255,248,240,0.6)',
-                border: '1px solid rgba(58,32,16,0.15)',
+                background: 'rgba(255,248,240,0.8)',
+                border: '1px solid rgba(58,32,16,0.25)',
                 borderRadius: '10px',
                 padding: '1.5rem 1.25rem',
               }}

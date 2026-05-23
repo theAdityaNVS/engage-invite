@@ -1,19 +1,22 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { MEDIA } from '@/config';
 
 export default function MusicPlayer({ autoPlay = false }) {
   const [playing, setPlaying] = useState(false);
+  const [visible, setVisible] = useState(true);
   const howlRef = useRef(null);
 
   useEffect(() => {
+    if (!MEDIA.MUSIC_SRC) { setVisible(false); return; }
     let mounted = true;
     import('howler').then(({ Howl }) => {
       if (!mounted) return;
       howlRef.current = new Howl({
-        src: ['/music/engagement-track.mp3'],
+        src: [MEDIA.MUSIC_SRC],
         loop: true,
         volume: 0.4,
-        onloaderror: () => {},
+        onloaderror: () => setVisible(false),
         onplayerror: () => setPlaying(false),
       });
       if (autoPlay) {
@@ -44,6 +47,8 @@ export default function MusicPlayer({ autoPlay = false }) {
       setPlaying(true);
     }
   };
+
+  if (!visible) return null;
 
   return (
     <motion.button
