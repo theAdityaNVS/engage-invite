@@ -32,15 +32,16 @@ export default function EngagementPage() {
     <>
       <Head>
         <title>{COUPLE.GROOM_NAME} &amp; {COUPLE.BRIDE_NAME} — Engagement</title>
-        <meta name="description" content={`You are cordially invited to the engagement ceremony of ${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME} on ${ENGAGEMENT.DATE_DISPLAY} at ${ENGAGEMENT.VENUE_NAME}, ${ENGAGEMENT.VENUE_CITY}.`} />
+        <meta name="description" content={`${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME}'s Engagement — ${ENGAGEMENT.DATE_DISPLAY}, ${ENGAGEMENT.VENUE_NAME}, ${ENGAGEMENT.VENUE_CITY}`} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#8B1A2B" />
         <link rel="icon" href="/favicon.ico" />
 
         {/* Open Graph / WhatsApp */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content={DOMAIN.ENGAGEMENT} />
         <meta property="og:title" content={`${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME} — Engagement Invitation`} />
-        <meta property="og:description" content={`Join us for the engagement ceremony on ${ENGAGEMENT.DATE_DISPLAY} at ${ENGAGEMENT.VENUE_NAME}, ${ENGAGEMENT.VENUE_CITY}. Available in English, Hindi, Telugu & Odia.`} />
+        <meta property="og:description" content={`${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME}'s Engagement — ${ENGAGEMENT.DATE_DISPLAY}, ${ENGAGEMENT.VENUE_NAME}, ${ENGAGEMENT.VENUE_CITY}`} />
         <meta property="og:image" content={`${DOMAIN.BASE}/og-engagement.jpg`} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />

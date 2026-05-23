@@ -2,7 +2,7 @@ import ScrollReveal from '@/components/shared/ScrollReveal';
 import AnimatedPhoto from '@/components/shared/AnimatedPhoto';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/hooks/useLanguage';
-import { COUPLE } from '@/config';
+import { COUPLE, MEDIA } from '@/config';
 
 /* Ornate arch frame — Mughal/South Indian style SVG */
 function OrnateArchFrame({ children }) {
@@ -135,6 +135,7 @@ export default function CoupleSection() {
                   height="290px"
                   alt={`${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME}`}
                   index={1}
+                  src={MEDIA.COUPLE_PHOTO_1 || undefined}
                   style={{ width: '220px', height: '290px', objectFit: 'cover' }}
                 />
               </OrnateArchFrame>
