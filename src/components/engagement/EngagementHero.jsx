@@ -1,37 +1,21 @@
 import { useEffect, useState, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import FloatingLanterns from '@/components/shared/FloatingLanterns';
 import { TRANSLATIONS, ENGAGEMENT } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 
 const LANG_SEQUENCE = ['en', 'hi', 'te', 'or'];
 
-function useTypewriter(texts, speed = 80, pause = 1800) {
+/* A premium alternative to typewriter: soft cinematic crossfade cycling */
+function useLanguageCycle(interval = 3500) {
   const [index, setIndex] = useState(0);
-  const [displayed, setDisplayed] = useState('');
-  const [deleting, setDeleting] = useState(false);
-
   useEffect(() => {
-    const current = texts[index];
-    let timeout;
-    if (!deleting) {
-      if (displayed.length < current.length) {
-        timeout = setTimeout(() => setDisplayed(current.slice(0, displayed.length + 1)), speed);
-      } else {
-        timeout = setTimeout(() => setDeleting(true), pause);
-      }
-    } else {
-      if (displayed.length > 0) {
-        timeout = setTimeout(() => setDisplayed(displayed.slice(0, -1)), speed / 2);
-      } else {
-        setDeleting(false);
-        setIndex((i) => (i + 1) % texts.length);
-      }
-    }
-    return () => clearTimeout(timeout);
-  }, [displayed, deleting, index, texts, speed, pause]);
-
-  return displayed;
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % LANG_SEQUENCE.length);
+    }, interval);
+    return () => clearInterval(timer);
+  }, [interval]);
+  return index;
 }
 
 /* ── Jagannath / Odishan Nagara temple — curvilinear shikhara ── */
@@ -45,6 +29,15 @@ function JagannathTempleSVG() {
       <ellipse cx="500" cy="295" rx="360" ry="55" fill="rgba(255,180,80,0.22)" />
 
       <defs>
+        <style>
+          {`
+            @keyframes flagFlutter {
+              0% { transform: rotate(0deg) skewY(0deg); }
+              100% { transform: rotate(-5deg) skewY(-8deg); }
+            }
+          `}
+        </style>
+
         <radialGradient id="templeGlow" cx="50%" cy="80%" r="50%">
           <stop offset="0%" stopColor="#FFAA30" stopOpacity="0.25" />
           <stop offset="100%" stopColor="#FFAA30" stopOpacity="0" />
@@ -182,63 +175,59 @@ function JagannathTempleSVG() {
         <circle cx="500" cy="-32" r="7.5" stroke="#D4A843" strokeWidth="2" fill="none" />
         <path d="M 500 -45 Q 528 -40 545 -48 Q 532 -33 500 -37 Z" fill="#E5C070" />
         <path d="M 500 -45 Q 528 -40 545 -48 Q 532 -33 500 -37 Z" fill="url(#goldGrad)" fillOpacity="0.7" />
+
+        {/* The Neelachakra */}
+        <circle cx="500" cy="-60" r="14" stroke="#FFE070" strokeWidth="2.5" fill="none" />
+        <circle cx="500" cy="-60" r="3.5" fill="#FFE070" />
+        <path d="M 500 -74 L 500 -46 M 486 -60 L 514 -60 M 490 -70 L 510 -50 M 490 -50 L 510 -70" stroke="#D4A843" strokeWidth="1.5" />
+        <line x1="500" y1="-46" x2="500" y2="-32" stroke="#FFE070" strokeWidth="2.5" />
+
+        {/* Patita Paban Bana (The Flag) */}
+        <g style={{ transformOrigin: '500px -74px', animation: 'flagFlutter 2s ease-in-out infinite alternate' }}>
+          <path d="M 500 -74 Q 525 -80 545 -65 Q 525 -60 500 -65 Z" fill="#D43030" />
+          <path d="M 500 -65 Q 520 -70 535 -55 Q 515 -50 500 -55 Z" fill="#E5C070" />
+        </g>
       </g>
 
       <rect x="0" y="324" width="1000" height="8" fill="rgba(60,20,10,0.35)" />
+
+
     </svg>
   );
 }
 
-/* Burgundy nightfall — opens in the page's primary maroon, blooms to gold at the horizon */
 const SKY_TWILIGHT = 'linear-gradient(180deg, #180508 0%, #3D0B18 22%, #8B1A2B 48%, #B03020 68%, #C8601A 84%, #D4A843 100%)';
-
-const GROOM_NAMES = LANG_SEQUENCE.map((l) => TRANSLATIONS.NAMES[l].groom);
-const BRIDE_NAMES = LANG_SEQUENCE.map((l) => TRANSLATIONS.NAMES[l].bride);
 
 export default function EngagementHero() {
   const { t } = useLanguage();
-  const typedGroom = useTypewriter(GROOM_NAMES, 80, 1800);
-  const typedBride = useTypewriter(BRIDE_NAMES, 80, 1800);
+  const cycleIndex = useLanguageCycle(3500);
+  const currentLang = LANG_SEQUENCE[cycleIndex];
+  
+  const currentGroom = TRANSLATIONS.NAMES[currentLang]?.groom;
+  const currentBride = TRANSLATIONS.NAMES[currentLang]?.bride;
 
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
 
-  // Raw scroll transforms — different displacement per layer creates depth
-  const rawStars  = useTransform(scrollYProgress, [0, 0.8], [0, -18]);
-  const rawLabel  = useTransform(scrollYProgress, [0, 0.8], [0, -35]);
-  const rawGroom  = useTransform(scrollYProgress, [0, 0.8], [0, -50]);
-  const rawWeds   = useTransform(scrollYProgress, [0, 0.8], [0, -44]);
-  const rawBride  = useTransform(scrollYProgress, [0, 0.8], [0, -56]);
-  const rawDate   = useTransform(scrollYProgress, [0, 0.8], [0, -68]);
-  const rawChevron = useTransform(scrollYProgress, [0, 0.8], [0, -72]);
-  const rawTemple = useTransform(scrollYProgress, [0, 1],   ['0%', '18%']);
+  const rawStars  = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const rawContent = useTransform(scrollYProgress, [0, 1], [0, 60]); 
+  const rawTemple = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
 
-  // Spring physics — lower damping = more bounce on scroll stop
-  const starsY   = useSpring(rawStars,   { stiffness:  85, damping: 20, mass: 0.5 });
-  const labelY   = useSpring(rawLabel,   { stiffness: 130, damping: 11, mass: 0.7 });
-  const groomY   = useSpring(rawGroom,   { stiffness: 140, damping: 11, mass: 0.8 });
-  const wedsY    = useSpring(rawWeds,    { stiffness: 125, damping: 12, mass: 0.7 });
-  const brideY   = useSpring(rawBride,   { stiffness: 140, damping: 12, mass: 0.85 });
-  const dateY    = useSpring(rawDate,    { stiffness: 120, damping: 13, mass: 0.9 });
-  const chevronY = useSpring(rawChevron, { stiffness: 120, damping: 13, mass: 0.9 });
-  const templeY  = useSpring(rawTemple,  { stiffness:  55, damping: 16, mass: 1.6 });
+  const starsY   = useSpring(rawStars,   { stiffness: 85, damping: 20 });
+  const contentY = useSpring(rawContent, { stiffness: 100, damping: 15 });
+  const templeY  = useSpring(rawTemple,  { stiffness: 60, damping: 15 });
 
   return (
     <section ref={sectionRef} style={{
-      minHeight: '100vh',
+      minHeight: '100svh',
       background: SKY_TWILIGHT,
       position: 'relative',
       overflow: 'hidden',
       display: 'flex',
       flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      paddingTop: '4rem',
-      paddingBottom: '180px',
     }}>
       <FloatingLanterns count={12} />
 
-      {/* Star field — drifts slowest, feels furthest away */}
       <motion.div aria-hidden="true" style={{
         position: 'absolute',
         inset: 0,
@@ -259,146 +248,177 @@ export default function EngagementHero() {
         y: starsY,
       }} />
 
-      {/* Horizon glow — fixed, anchored to bottom */}
       <div aria-hidden="true" style={{
         position: 'absolute',
         bottom: 0,
         left: 0,
         width: '100%',
-        height: '220px',
+        height: '30vh',
         background: 'radial-gradient(ellipse 85% 65% at 50% 100%, rgba(212,168,67,0.45) 0%, rgba(176,48,32,0.25) 45%, transparent 100%)',
         pointerEvents: 'none',
         zIndex: 1,
       }} />
 
-      {/* Names — each element on its own spring layer */}
-      <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', padding: '0 1.5rem' }}>
+      {/* Main Content Block (Centered vertically, holding all text) */}
+      <motion.div style={{
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 2,
+        paddingTop: '6vh', // Balances the visual weight without hardcoding bottom padding
+        y: contentY,
+      }}>
+        
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 2, ease: "easeOut" }}
+          style={{
+            position: 'absolute',
+            width: '280px',
+            height: '280px',
+            background: 'radial-gradient(circle, rgba(212,168,67,0.2) 0%, transparent 70%)',
+            pointerEvents: 'none',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: -1
+          }}
+        />
+
+        {/* The Glassmorphic Pill - Moved ABOVE "Together They Begin" */}
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.8 }}
+          style={{
+            background: 'rgba(20, 5, 10, 0.45)',
+            backdropFilter: 'blur(12px)',
+            WebkitBackdropFilter: 'blur(12px)',
+            border: '1px solid rgba(212, 168, 67, 0.25)',
+            borderRadius: '100px',
+            padding: '0.5rem 1.25rem',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+            marginBottom: '2rem',
+          }}
+        >
+          <p style={{
+            fontFamily: "'Playfair Display', serif",
+            fontSize: 'clamp(0.8rem, 1.8vw, 0.95rem)',
+            color: 'rgba(245,236,200,0.95)',
+            letterSpacing: '0.08em',
+            margin: 0,
+            textAlign: 'center'
+          }}>
+            {ENGAGEMENT.DATE_DISPLAY} <span style={{ color: '#D4A843', margin: '0 6px', fontWeight: 'bold' }}>·</span> {ENGAGEMENT.VENUE_NAME}, {ENGAGEMENT.VENUE_CITY}
+          </p>
+        </motion.div>
 
         <motion.p
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 1, delay: 0.2 }}
           style={{
             fontFamily: "'Lora', serif",
             fontSize: 'clamp(0.75rem, 1.8vw, 0.9rem)',
-            color: 'rgba(245,236,200,0.7)',
+            color: 'rgba(245,236,200,0.85)',
             letterSpacing: '0.22em',
             textTransform: 'uppercase',
-            marginBottom: '0.6rem',
-            y: labelY,
+            marginBottom: '1.5rem',
           }}
         >
           ✦ Together They Begin ✦
         </motion.p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.35 }}
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(3rem, 9vw, 6rem)',
-            color: '#FFF8F0',
-            lineHeight: 1.35,
-            textShadow: '0 2px 28px rgba(0,0,0,0.65)',
-            minHeight: '1.35em',
-            y: groomY,
-          }}
-        >
-          {typedGroom}
-          <span style={{ borderRight: '3px solid #D4A843', marginLeft: 2, animation: 'cursorBlink 1s step-end infinite' }} />
-        </motion.h1>
+        {/* Dynamic Name Changes with Cinematic Crossfade */}
+        <AnimatePresence mode="wait">
+          <motion.div 
+            key={currentLang}
+            initial={{ opacity: 0, filter: 'blur(8px)', y: 5 }}
+            animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
+            exit={{ opacity: 0, filter: 'blur(8px)', y: -5 }}
+            transition={{ duration: 0.9, ease: "easeInOut" }}
+            style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+          >
+            <h1 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+              color: '#FFF8F0',
+              lineHeight: 1.1,
+              fontWeight: 400,
+              textShadow: '0 2px 12px rgba(0,0,0,0.15)', 
+            }}>
+              {currentGroom}
+            </h1>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.7, delay: 0.45 }}
-          style={{
-            fontFamily: "'Lora', serif",
-            fontStyle: 'italic',
-            fontSize: 'clamp(0.9rem, 2.5vw, 1.3rem)',
-            color: '#D4A843',
-            letterSpacing: '0.35em',
-            textTransform: 'uppercase',
-            margin: '0.4rem 0',
-            y: wedsY,
-          }}
-        >
-          {t('weds')}
-        </motion.p>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '1.25rem 0' }}>
+              <div style={{ width: '40px', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(212,168,67,0.6))' }} />
+              <p style={{
+                fontFamily: "'Lora', serif",
+                fontStyle: 'italic',
+                fontSize: 'clamp(0.95rem, 2.5vw, 1.25rem)',
+                color: '#D4A843',
+                letterSpacing: '0.25em',
+                textTransform: 'uppercase',
+                margin: 0,
+              }}>
+                {t('weds')}
+              </p>
+              <div style={{ width: '40px', height: '1px', background: 'linear-gradient(270deg, transparent, rgba(212,168,67,0.6))' }} />
+            </div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.5 }}
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(3rem, 9vw, 6rem)',
-            color: '#FFF8F0',
-            lineHeight: 1.35,
-            textShadow: '0 2px 28px rgba(0,0,0,0.65)',
-            minHeight: '1.35em',
-            y: brideY,
-          }}
-        >
-          {typedBride}
-          <span style={{ borderRight: '3px solid #D4A843', marginLeft: 2, animation: 'cursorBlink 1s step-end infinite' }} />
-        </motion.h1>
+            <h1 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 'clamp(2.5rem, 8vw, 5rem)',
+              color: '#FFF8F0',
+              lineHeight: 1.1,
+              fontWeight: 400,
+              textShadow: '0 2px 12px rgba(0,0,0,0.15)',
+            }}>
+              {currentBride}
+            </h1>
+          </motion.div>
+        </AnimatePresence>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(1rem, 2.2vw, 1.1rem)',
-            color: 'rgba(245,236,200,0.95)',
-            letterSpacing: '0.06em',
-            marginTop: '1rem',
-            y: dateY,
-          }}
-        >
-          {ENGAGEMENT.DATE_DISPLAY} · {ENGAGEMENT.VENUE_NAME}, {ENGAGEMENT.VENUE_CITY}
-        </motion.p>
-      </div>
-
-      {/* Scroll chevron — bounces on its own loop + drifts on scroll */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, y: [0, 9, 0] }}
-        transition={{
-          opacity: { duration: 0.6, delay: 0.8 },
-          y: { duration: 1.6, repeat: Infinity, ease: 'easeInOut', delay: 0.8 },
-        }}
-        style={{
-          position: 'relative',
-          zIndex: 2,
-          marginTop: '1.5rem',
-          color: 'rgba(212,168,67,0.65)',
-          fontSize: '1.6rem',
-          y: chevronY,
-        }}
-        aria-hidden="true"
-      >
-        ↓
       </motion.div>
 
-      {/* Temple — heaviest spring, barely bounces, feels anchored */}
+      {/* Bottom Wrapper - Normal Document Flow fixes tablet overlaps */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1.1, delay: 0.6 }}
+        transition={{ duration: 1.5 }}
         style={{
-          position: 'absolute',
-          bottom: -4,
-          left: 0,
           width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
           zIndex: 2,
+          pointerEvents: 'none',
           y: templeY,
+          marginTop: 'auto', // Pushes to the bottom natively
+          marginBottom: '-2px' // Hides subpixel gaps
         }}
       >
+        {/* Down Chevron - Stacks above temple naturally */}
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          style={{
+            color: 'rgba(212,168,67,0.7)',
+            fontSize: '1.4rem',
+            marginBottom: '1rem',
+          }}
+          aria-hidden="true"
+        >
+          ↓
+        </motion.div>
+
         <JagannathTempleSVG />
       </motion.div>
+
     </section>
   );
 }
