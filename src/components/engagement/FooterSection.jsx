@@ -2,6 +2,7 @@ import { useMemo, useState, useCallback } from 'react';
 import { COUPLE, ENGAGEMENT } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 import FloatingLanterns from '@/components/shared/FloatingLanterns';
+import MandalaPattern from '@/components/shared/MandalaPattern';
 
 const seed = (i, o) => ((i * 137 + o * 31) % 100) / 100;
 
@@ -234,6 +235,7 @@ export default function FooterSection() {
       paddingBottom: 0,
       minHeight: 320,
     }}>
+      <MandalaPattern color="var(--gold)" opacity={0.08} />
       <Starfield count={34} />
       <AnimatedMoon />
       <FloatingLanterns count={10} />

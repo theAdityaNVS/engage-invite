@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
+import MandalaPattern from '@/components/shared/MandalaPattern';
 import { FAMILIES, COUPLE } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -198,6 +199,8 @@ export default function BlessingsSection() {
       zIndex: 10,
       boxShadow: '0 -12px 30px rgba(0,0,0,0.15)',
     }}>
+
+      <MandalaPattern color="var(--gold-light)" opacity={0.22} />
 
       <div style={{ maxWidth: '700px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         {/* 1. Invocation Block (Fades in together) */}

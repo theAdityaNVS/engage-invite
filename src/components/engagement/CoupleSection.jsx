@@ -1,5 +1,6 @@
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import AnimatedPhoto from '@/components/shared/AnimatedPhoto';
+import MandalaPattern from '@/components/shared/MandalaPattern';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/hooks/useLanguage';
 import { COUPLE, MEDIA } from '@/config';
@@ -91,6 +92,7 @@ export default function CoupleSection() {
       position: 'relative',
       overflow: 'hidden',
     }}>
+      <MandalaPattern color="var(--gold-light)" opacity={0.16} />
       <FloralPattern />
 
       <div style={{ maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 1 }}>

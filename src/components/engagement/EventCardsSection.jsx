@@ -1,5 +1,6 @@
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import EventCard from '@/components/shared/EventCard';
+import MandalaPattern from '@/components/shared/MandalaPattern';
 import { ENGAGEMENT } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -28,8 +29,11 @@ export default function EventCardsSection() {
     <section style={{
       background: 'var(--teal)',
       padding: 'clamp(3rem, 8vw, 5rem) 1.5rem',
+      position: 'relative',
+      overflow: 'hidden',
     }}>
-      <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      <MandalaPattern color="var(--gold-light)" opacity={0.22} />
+      <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
             <p style={{

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
+import MandalaPattern from '@/components/shared/MandalaPattern';
 import { ENGAGEMENT } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -78,9 +79,10 @@ export default function RouteCTA() {
   const { t } = useLanguage();
 
   return (
-    <section id="section-map" style={{ background: 'var(--saffron)', padding: 'clamp(2.5rem, 6vw, 4rem) 1.5rem' }}>
+    <section id="section-map" style={{ background: 'var(--saffron)', padding: 'clamp(2.5rem, 6vw, 4rem) 1.5rem', position: 'relative', overflow: 'hidden' }}>
+      <MandalaPattern color="var(--gold-light)" opacity={0.22} />
       <ScrollReveal>
-        <div style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <p style={{
             fontFamily: "'Lora', serif", fontSize: '0.7rem',
             color: 'var(--saffron-text)', opacity: 0.6,
