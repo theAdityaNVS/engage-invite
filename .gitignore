@@ -41,8 +41,14 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.vercel
-
 # Visual brainstorming sessions
 .superpowers/
 generate-assets.md
+
+# Local dev/audit artifacts — not for source control
+.audit/
+src/pages/splash-test.jsx
+
+# Windows OS files
+Thumbs.db
+desktop.ini
