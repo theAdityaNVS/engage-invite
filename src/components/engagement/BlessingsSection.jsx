@@ -125,23 +125,24 @@ function GroomsFamilySVG() {
           <circle key={i} cx={cx} cy={cy} r="1.5" fill="#F0D68A" opacity="0.7" />
         );
       })}
-      <g transform="translate(10, 20)">
-        <circle cx="58" cy="40" r="9" fill="#D4A843" opacity="0.85" />
-        <path d="M54 31 Q58 28 62 31 Q66 35 62 41" stroke="#F0D68A" strokeWidth="1" fill="none" />
-        <path d="M42 54 C42 54 46 86 46 100 L68 100 C68 86 70 54 70 54 Z" fill="rgba(196,87,42,0.6)" stroke="#D4A843" strokeWidth="1" />
-        <path d="M42 54 Q56 46 70 54" stroke="#F0D68A" strokeWidth="1.5" fill="none" />
-        <path d="M42 62 Q52 75 68 85" stroke="#F0D68A" strokeWidth="2.5" fill="none" opacity="0.9" />
-        <path d="M45 58 Q56 70 70 76" stroke="#D4A843" strokeWidth="1.5" fill="none" opacity="0.75" />
-        <circle cx="82" cy="46" r="8" fill="#D4A843" opacity="0.85" />
-        <circle cx="90" cy="48" r="4.5" fill="#FFF8F0" opacity="0.9" />
-        <circle cx="90" cy="48" r="3" fill="#D4A843" />
-        <path d="M72 60 C72 60 70 82 72 100 L96 100 C96 82 98 60 98 60 Z" fill="rgba(139,34,64,0.55)" stroke="#D4A843" strokeWidth="1" />
-        <path d="M72 60 Q84 52 98 60" stroke="#F0D68A" strokeWidth="1.5" fill="none" />
-        <path d="M98 64 Q84 76 74 96" stroke="#F0D68A" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.95" />
-        <path d="M78 52 Q82 56 86 52" stroke="#F0D68A" strokeWidth="1" fill="none" />
-        <path d="M66 66 L74 66 L70 58 Z" fill="#F0D68A" opacity="0.9" />
-        <path d="M68 68 L72 68 L70 62 Z" fill="#D4A843" />
-      </g>
+      {/* Kalash (purna kumbha) motif */}
+      {/* Mango leaves fanning from neck */}
+      <path d="M80 52 Q68 44 62 48 Q68 54 80 55Z" fill="rgba(34,100,55,0.75)" />
+      <path d="M80 52 Q74 40 80 37 Q86 40 80 52Z" fill="rgba(34,100,55,0.85)" />
+      <path d="M80 52 Q92 44 98 48 Q92 54 80 55Z" fill="rgba(34,100,55,0.75)" />
+      {/* Coconut on top */}
+      <circle cx="80" cy="46" r="8" fill="#C4572A" opacity="0.85" />
+      <circle cx="80" cy="44" r="5.5" fill="#D4A843" opacity="0.7" />
+      {/* Neck of kalash */}
+      <rect x="73" y="55" width="14" height="7" rx="2" fill="#D4A843" opacity="0.9" />
+      {/* Pot body */}
+      <ellipse cx="80" cy="88" rx="24" ry="26" fill="rgba(196,87,42,0.55)" stroke="#D4A843" strokeWidth="1.5" />
+      <ellipse cx="80" cy="84" rx="18" ry="20" fill="rgba(212,168,67,0.25)" />
+      {/* Decorative band on pot */}
+      <path d="M57 82 Q80 76 103 82" stroke="#F0D68A" strokeWidth="1.5" fill="none" opacity="0.8" />
+      <path d="M59 88 Q80 82 101 88" stroke="#F0D68A" strokeWidth="1" fill="none" opacity="0.6" />
+      {/* Base of kalash */}
+      <ellipse cx="80" cy="113" rx="16" ry="4" fill="#D4A843" opacity="0.7" />
     </svg>
   );
 }
@@ -164,21 +165,24 @@ function BridesFamilySVG() {
         );
       })}
       <path d="M45 120 Q80 25 115 120" stroke="rgba(212,168,67,0.25)" strokeWidth="1.5" fill="none" />
-      <g transform="translate(10, 20)">
-        <circle cx="82" cy="40" r="9" fill="#D4A843" opacity="0.85" />
-        <path d="M70 54 C70 54 72 86 72 100 L94 100 C94 86 98 54 98 54 Z" fill="rgba(196,87,42,0.6)" stroke="#D4A843" strokeWidth="1" />
-        <path d="M70 54 Q82 46 98 54" stroke="#F0D68A" strokeWidth="1.5" fill="none" />
-        <path d="M80 50 L84 50 L82 54 Z" fill="#F0D68A" />
-        <circle cx="58" cy="46" r="8" fill="#D4A843" opacity="0.85" />
-        <circle cx="50" cy="48" r="4.5" fill="#FFF8F0" opacity="0.9" />
-        <circle cx="50" cy="48" r="3" fill="#D4A843" />
-        <path d="M42 60 C42 60 44 82 44 100 L68 100 C68 82 70 60 70 60 Z" fill="rgba(139,34,64,0.55)" stroke="#D4A843" strokeWidth="1" />
-        <path d="M42 60 Q56 52 70 60" stroke="#F0D68A" strokeWidth="1.5" fill="none" />
-        <path d="M42 64 Q56 76 66 96" stroke="#F0D68A" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.95" />
-        <path d="M54 52 Q58 56 62 52" stroke="#F0D68A" strokeWidth="1" fill="none" />
-        <path d="M66 66 L74 66 L70 58 Z" fill="#F0D68A" opacity="0.9" />
-        <path d="M68 68 L72 68 L70 62 Z" fill="#D4A843" />
-      </g>
+      {/* Kalash (purna kumbha) motif */}
+      {/* Mango leaves fanning from neck */}
+      <path d="M80 52 Q68 44 62 48 Q68 54 80 55Z" fill="rgba(34,100,55,0.75)" />
+      <path d="M80 52 Q74 40 80 37 Q86 40 80 52Z" fill="rgba(34,100,55,0.85)" />
+      <path d="M80 52 Q92 44 98 48 Q92 54 80 55Z" fill="rgba(34,100,55,0.75)" />
+      {/* Coconut on top */}
+      <circle cx="80" cy="46" r="8" fill="rgba(139,34,64,0.8)" opacity="0.85" />
+      <circle cx="80" cy="44" r="5.5" fill="#D4A843" opacity="0.7" />
+      {/* Neck of kalash */}
+      <rect x="73" y="55" width="14" height="7" rx="2" fill="#D4A843" opacity="0.9" />
+      {/* Pot body */}
+      <ellipse cx="80" cy="88" rx="24" ry="26" fill="rgba(139,34,64,0.45)" stroke="#D4A843" strokeWidth="1.5" />
+      <ellipse cx="80" cy="84" rx="18" ry="20" fill="rgba(212,168,67,0.25)" />
+      {/* Decorative band on pot */}
+      <path d="M57 82 Q80 76 103 82" stroke="#F0D68A" strokeWidth="1.5" fill="none" opacity="0.8" />
+      <path d="M59 88 Q80 82 101 88" stroke="#F0D68A" strokeWidth="1" fill="none" opacity="0.6" />
+      {/* Base of kalash */}
+      <ellipse cx="80" cy="113" rx="16" ry="4" fill="#D4A843" opacity="0.7" />
     </svg>
   );
 }
@@ -312,7 +316,7 @@ export default function BlessingsSection() {
                 gotra: FAMILIES.BRIDE_GOTRA,  
                 nakshatra: FAMILIES.BRIDE_NAKSHATRA,
                 sibling: FAMILIES.BRIDE_SIBLING || null,
-                location: 'Bhubaneswar',
+                location: 'Sunabeda',
                 icon: <BridesFamilySVG />
               },
             ].map(({ labelKey, names, delay, gotra, nakshatra, sibling, location, icon }) => (
@@ -333,6 +337,9 @@ export default function BlessingsSection() {
                   borderRadius: '16px',
                   padding: 'clamp(1.2rem, 3vw, 1.8rem)',
                   textAlign: 'center',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -343,11 +350,10 @@ export default function BlessingsSection() {
                   fontFamily: "'Lora', serif",
                   fontSize: '0.62rem',
                   color: 'rgba(245,236,200,0.5)',
-                  letterSpacing: '0.18em',
+                  letterSpacing: '0.12em',
                   textTransform: 'uppercase',
                   marginBottom: '0.15rem',
                 }}>{location}</p>
-
                 <p style={{
                   fontFamily: "'Lora', serif",
                   fontSize: '0.72rem',
@@ -359,20 +365,14 @@ export default function BlessingsSection() {
 
                 <div style={{ height: 1, background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.45), transparent)', marginBottom: '0.5rem' }} />
 
-                <p style={{
-                  fontFamily: "'Lora', serif",
-                  fontStyle: 'italic',
-                  fontSize: '0.72rem',
-                  color: 'rgba(245,236,200,0.45)',
-                  marginBottom: '0.5rem',
-                }}>{t('with_blessings_of')}</p>
-
-                <p style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)',
-                  color: 'var(--saffron-text)',
-                  lineHeight: 1.65,
-                }}>{names}</p>
+                {names.split(' & ').sort((a) => (a.startsWith('Shri') ? -1 : 1)).map((name, i) => (
+                  <p key={i} style={{
+                    fontFamily: "'Playfair Display', serif",
+                    fontSize: 'clamp(1rem, 2.8vw, 1.15rem)',
+                    color: 'var(--saffron-text)',
+                    lineHeight: 1.65,
+                  }}>{name}</p>
+                ))}
 
                 {sibling && (
                   <>
@@ -386,7 +386,7 @@ export default function BlessingsSection() {
                     }}>{t('sibling_label')}</p>
                     <p style={{
                       fontFamily: "'Playfair Display', serif",
-                      fontSize: 'clamp(0.85rem, 2.2vw, 0.95rem)',
+                      fontSize: 'clamp(1rem, 2.4vw, 1.1rem)',
                       color: 'var(--saffron-text)',
                     }}>{sibling}</p>
                   </>
@@ -471,15 +471,6 @@ export default function BlessingsSection() {
               {COUPLE.BRIDE_NAME}
             </p>
 
-            <p style={{
-              fontFamily: "'Lora', serif",
-              fontStyle: 'italic',
-              fontSize: 'clamp(0.85rem, 2.2vw, 1rem)',
-              color: 'rgba(245,236,200,0.65)',
-              letterSpacing: '0.12em',
-            }}>
-              {t('on_the_following_events')}
-            </p>
           </div>
         </ScrollReveal>
       </div>
