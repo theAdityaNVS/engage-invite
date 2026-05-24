@@ -617,8 +617,8 @@ export default function JagannathTempleSVG(props) {
         <line x1="110" y1="710" x2="1090" y2="710" stroke="url(#goldGrad)" strokeWidth="2.5" />
 
         {/* Base Layer 1 (Thickest, lowest brown foundation stone) */}
-        <rect x="80" y="722" width="1040" height="26" rx="12" fill="url(#foundationGrad)" />
-        <rect x="80" y="722" width="1040" height="26" rx="12" fill="url(#stoneShadow)" />
+        <rect x="80" y="722" width="1040" height="33" rx="12" fill="url(#foundationGrad)" />
+        <rect x="80" y="722" width="1040" height="33" rx="12" fill="url(#stoneShadow)" />
 
         {/* Swaying decorative marigold bells along the platform */}
         {/* Bell 1 */}
