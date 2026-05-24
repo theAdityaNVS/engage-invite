@@ -420,19 +420,9 @@ export default function BlessingsSection() {
               color: 'rgba(245,236,200,0.7)',
               letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              marginBottom: '1.2rem',
-            }}>
-              {t('invite_intro')}
-            </p>
-
-            <p style={{
-              fontFamily: "'Lora', serif",
-              fontStyle: 'italic',
-              fontSize: 'clamp(0.95rem, 2.5vw, 1.15rem)',
-              color: 'rgba(245,236,200,0.85)',
               marginBottom: 'clamp(2rem, 5vw, 3rem)',
             }}>
-              {t('invite_you_to_join')}
+              {t('invite_intro')}
             </p>
 
             <p style={{
