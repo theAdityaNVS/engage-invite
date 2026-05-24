@@ -70,7 +70,7 @@ export default function JagannathTempleSVG(props) {
         <radialGradient id="templeGlow" cx="50%" cy="40%" r="60%">
           <stop offset="0%" stopColor="#FAD961" stopOpacity="0.35" /> {/* Soft warm yellow gold */}
           <stop offset="50%" stopColor="#F76B1C" stopOpacity="0.15" /> {/* Deep sunset orange */}
-          <stop offset="100%" stopColor="#180508" stopOpacity="0" />
+          <stop offset="100%" stopColor="#F76B1C" stopOpacity="0" />
         </radialGradient>
 
         {/* --- Authentic Red-Brown Stone Gradient (Refined for dusk lighting) --- */}
@@ -145,7 +145,7 @@ export default function JagannathTempleSVG(props) {
         {/* Soft platform reflection glow */}
         <radialGradient id="reflectionGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="rgba(229,192,112,0.18)" />
-          <stop offset="100%" stopColor="rgba(0,0,0,0)" />
+          <stop offset="100%" stopColor="rgba(229,192,112,0)" />
         </radialGradient>
       </defs>
 
@@ -157,7 +157,7 @@ export default function JagannathTempleSVG(props) {
       <ellipse cx="600" cy="735" rx="520" ry="15" fill="rgba(48,16,5,0.25)" />
 
       {/* Warm Ambient Saffron Halo behind the spires */}
-      <rect x="100" y="80" width="1000" height="630" fill="url(#templeGlow)" opacity="0.8" pointerEvents="none" />
+      <ellipse cx="600" cy="395" rx="500" ry="315" fill="url(#templeGlow)" opacity="0.8" pointerEvents="none" />
 
       {/* ========================================== */}
       {/* 1. VIMANA (THE MAIN SANCTUM / TALL SPIRE)  */}
@@ -619,6 +619,9 @@ export default function JagannathTempleSVG(props) {
         {/* Base Layer 1 (Thickest, lowest brown foundation stone) */}
         <rect x="80" y="722" width="1040" height="33" rx="12" fill="url(#foundationGrad)" />
         <rect x="80" y="722" width="1040" height="33" rx="12" fill="url(#stoneShadow)" />
+        {/* Flatten the bottom edge corners of the foundation to sit perfectly flush with the screen bottom */}
+        <rect x="80" y="735" width="1040" height="20" fill="url(#foundationGrad)" />
+        <rect x="80" y="735" width="1040" height="20" fill="url(#stoneShadow)" />
 
         {/* Swaying decorative marigold bells along the platform */}
         {/* Bell 1 */}
