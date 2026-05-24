@@ -215,3 +215,45 @@ a {
   0%, 100% { transform: rotate(-8deg); }
   50%      { transform: rotate(8deg); }
 }
+
+/* Hero date/venue glassmorphic pill responsiveness */
+.hero-pill-container {
+  background: rgba(20, 5, 10, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 168, 67, 0.25);
+  border-radius: 100px;
+  padding: 0.5rem clamp(1rem, 3vw, 1.5rem);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  margin-bottom: clamp(1.5rem, 4vh, 2.5rem);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hero-pill-text {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+}
+
+.hero-pill-dot {
+  color: var(--gold);
+  margin: 0 4px;
+  font-weight: bold;
+}
+
+@media (max-width: 640px) {
+  .hero-pill-container {
+    padding: 0.35rem 0.75rem !important;
+    border-radius: 16px !important;
+  }
+  .hero-pill-text {
+    flex-direction: column !important;
+    gap: 0.2rem !important;
+  }
+  .hero-pill-dot {
+    display: none !important;
+  }
+}
