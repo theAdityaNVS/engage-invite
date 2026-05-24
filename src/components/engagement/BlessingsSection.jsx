@@ -114,6 +114,11 @@ export default function BlessingsSection() {
       textAlign: 'center',
       position: 'relative',
       overflow: 'hidden',
+      borderTopLeftRadius: 'clamp(24px, 5vw, 40px)',
+      borderTopRightRadius: 'clamp(24px, 5vw, 40px)',
+      marginTop: 'clamp(-24px, -4vw, -40px)',
+      zIndex: 10,
+      boxShadow: '0 -12px 30px rgba(0,0,0,0.15)',
     }}>
       {/* Embossed paisley texture */}
       <PaisleyPattern />
