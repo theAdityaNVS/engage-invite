@@ -43,6 +43,8 @@ export default function EngagementHero() {
   return (
     <section ref={sectionRef} style={{
       minHeight: '100svh',
+      paddingBottom: '60px',
+      marginBottom: '-60px',
       background: SKY_TWILIGHT,
       position: 'relative',
       overflow: 'hidden',
@@ -77,7 +79,7 @@ export default function EngagementHero() {
         left: 0,
         width: '100%',
         height: '30vh',
-        background: 'radial-gradient(ellipse 85% 65% at 50% 100%, rgba(212,168,67,0.25) 0%, rgba(176,48,32,0.15) 45%, transparent 100%)',
+        background: 'radial-gradient(ellipse 85% 65% at 50% 100%, rgba(212,168,67,0.25) 0%, rgba(176,48,32,0.15) 45%, rgba(176,48,32,0) 100%)',
         pointerEvents: 'none',
         zIndex: 1,
       }} />
@@ -102,7 +104,7 @@ export default function EngagementHero() {
             position: 'absolute',
             width: '450px',
             height: '450px',
-            background: 'radial-gradient(circle, rgba(212,168,67,0.24) 0%, rgba(212,120,40,0.1) 40%, rgba(139,26,43,0.04) 75%, transparent 100%)',
+            background: 'radial-gradient(circle, rgba(212,168,67,0.24) 0%, rgba(212,120,40,0.1) 40%, rgba(139,26,43,0.04) 75%, rgba(139,26,43,0) 100%)',
             pointerEvents: 'none',
             top: '50%',
             left: '50%',
@@ -183,7 +185,7 @@ export default function EngagementHero() {
             </h1>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: 'clamp(0.75rem, 2.5vh, 1.5rem) 0' }}>
-              <div style={{ width: 'clamp(30px, 8vw, 50px)', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(212,168,67,0.6))' }} />
+              <div style={{ width: 'clamp(30px, 8vw, 50px)', height: '1px', background: 'linear-gradient(90deg, rgba(212,168,67,0), rgba(212,168,67,0.6))' }} />
               <p style={{
                 fontFamily: "'Lora', serif",
                 fontStyle: 'italic',
@@ -195,7 +197,7 @@ export default function EngagementHero() {
               }}>
                 {t('weds')}
               </p>
-              <div style={{ width: 'clamp(30px, 8vw, 50px)', height: '1px', background: 'linear-gradient(270deg, transparent, rgba(212,168,67,0.6))' }} />
+              <div style={{ width: 'clamp(30px, 8vw, 50px)', height: '1px', background: 'linear-gradient(270deg, rgba(212,168,67,0), rgba(212,168,67,0.6))' }} />
             </div>
 
             <h1 style={{
