@@ -85,6 +85,103 @@ function GaneshaSVG() {
   );
 }
 
+function DiyaIcon({ style }) {
+  return (
+    <svg viewBox="0 0 32 32" style={{ width: 18, height: 18, ...style }} aria-hidden="true">
+      <ellipse cx="16" cy="8" rx="3" ry="6" fill="#FFD037" style={{ animation: 'diyaFlicker 1.8s ease-in-out infinite' }} />
+      <ellipse cx="16" cy="9" rx="2" ry="4" fill="#FF8C00" style={{ animation: 'diyaFlicker 1.8s 0.2s ease-in-out infinite' }} />
+      <path d="M8 20 Q8 28 16 28 Q24 28 24 20 L22 16 L10 16Z" fill="#C0654A" />
+      <path d="M10 18 Q10 26 16 26 Q22 26 22 18Z" fill="#A8451E" opacity="0.6" />
+      <line x1="16" y1="14" x2="16" y2="16" stroke="#4A2806" strokeWidth="1.5" />
+    </svg>
+  );
+}
+
+function GroomsFamilySVG() {
+  return (
+    <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style={{ width: '80px', height: '80px', marginBottom: '0.8rem' }}
+      aria-label="Groom's Family Icon"
+    >
+      <circle cx="80" cy="80" r="76" stroke="rgba(212,168,67,0.2)" strokeWidth="1.5" strokeDasharray="4 4" />
+      <circle cx="80" cy="80" r="70" stroke="rgba(212,168,67,0.3)" strokeWidth="1" />
+      <circle cx="80" cy="80" r="64" fill="rgba(212,168,67,0.06)" stroke="rgba(212,168,67,0.15)" strokeWidth="1" />
+      {Array.from({ length: 16 }).map((_, i) => {
+        const angle = (i * 22.5) * Math.PI / 180;
+        const x1 = parseFloat((80 + 64 * Math.cos(angle)).toFixed(4));
+        const y1 = parseFloat((80 + 64 * Math.sin(angle)).toFixed(4));
+        const x2 = parseFloat((80 + 70 * Math.cos(angle)).toFixed(4));
+        const y2 = parseFloat((80 + 70 * Math.sin(angle)).toFixed(4));
+        return (
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="#D4A843" strokeWidth="1" opacity="0.35" />
+        );
+      })}
+      {Array.from({ length: 8 }).map((_, i) => {
+        const angle = (i * 45 + 22.5) * Math.PI / 180;
+        const cx = parseFloat((80 + 73 * Math.cos(angle)).toFixed(4));
+        const cy = parseFloat((80 + 73 * Math.sin(angle)).toFixed(4));
+        return (
+          <circle key={i} cx={cx} cy={cy} r="1.5" fill="#F0D68A" opacity="0.7" />
+        );
+      })}
+      <g transform="translate(10, 20)">
+        <circle cx="58" cy="40" r="9" fill="#D4A843" opacity="0.85" />
+        <path d="M54 31 Q58 28 62 31 Q66 35 62 41" stroke="#F0D68A" strokeWidth="1" fill="none" />
+        <path d="M42 54 C42 54 46 86 46 100 L68 100 C68 86 70 54 70 54 Z" fill="rgba(196,87,42,0.6)" stroke="#D4A843" strokeWidth="1" />
+        <path d="M42 54 Q56 46 70 54" stroke="#F0D68A" strokeWidth="1.5" fill="none" />
+        <path d="M42 62 Q52 75 68 85" stroke="#F0D68A" strokeWidth="2.5" fill="none" opacity="0.9" />
+        <path d="M45 58 Q56 70 70 76" stroke="#D4A843" strokeWidth="1.5" fill="none" opacity="0.75" />
+        <circle cx="82" cy="46" r="8" fill="#D4A843" opacity="0.85" />
+        <circle cx="90" cy="48" r="4.5" fill="#FFF8F0" opacity="0.9" />
+        <circle cx="90" cy="48" r="3" fill="#D4A843" />
+        <path d="M72 60 C72 60 70 82 72 100 L96 100 C96 82 98 60 98 60 Z" fill="rgba(139,34,64,0.55)" stroke="#D4A843" strokeWidth="1" />
+        <path d="M72 60 Q84 52 98 60" stroke="#F0D68A" strokeWidth="1.5" fill="none" />
+        <path d="M98 64 Q84 76 74 96" stroke="#F0D68A" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.95" />
+        <path d="M78 52 Q82 56 86 52" stroke="#F0D68A" strokeWidth="1" fill="none" />
+        <path d="M66 66 L74 66 L70 58 Z" fill="#F0D68A" opacity="0.9" />
+        <path d="M68 68 L72 68 L70 62 Z" fill="#D4A843" />
+      </g>
+    </svg>
+  );
+}
+
+function BridesFamilySVG() {
+  return (
+    <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg"
+      style={{ width: '80px', height: '80px', marginBottom: '0.8rem' }}
+      aria-label="Bride's Family Icon"
+    >
+      <circle cx="80" cy="80" r="76" stroke="rgba(212,168,67,0.2)" strokeWidth="1.5" strokeDasharray="4 4" />
+      <circle cx="80" cy="80" r="70" stroke="rgba(212,168,67,0.3)" strokeWidth="1" />
+      <circle cx="80" cy="80" r="64" fill="rgba(212,168,67,0.06)" stroke="rgba(212,168,67,0.15)" strokeWidth="1" />
+      {Array.from({ length: 12 }).map((_, i) => {
+        const angle = (i * 30) * Math.PI / 180;
+        const x = parseFloat((80 + 67 * Math.cos(angle)).toFixed(4));
+        const y = parseFloat((80 + 67 * Math.sin(angle)).toFixed(4));
+        return (
+          <circle key={i} cx={x} cy={y} r="2.5" fill="#D4A843" opacity="0.5" />
+        );
+      })}
+      <path d="M45 120 Q80 25 115 120" stroke="rgba(212,168,67,0.25)" strokeWidth="1.5" fill="none" />
+      <g transform="translate(10, 20)">
+        <circle cx="82" cy="40" r="9" fill="#D4A843" opacity="0.85" />
+        <path d="M70 54 C70 54 72 86 72 100 L94 100 C94 86 98 54 98 54 Z" fill="rgba(196,87,42,0.6)" stroke="#D4A843" strokeWidth="1" />
+        <path d="M70 54 Q82 46 98 54" stroke="#F0D68A" strokeWidth="1.5" fill="none" />
+        <path d="M80 50 L84 50 L82 54 Z" fill="#F0D68A" />
+        <circle cx="58" cy="46" r="8" fill="#D4A843" opacity="0.85" />
+        <circle cx="50" cy="48" r="4.5" fill="#FFF8F0" opacity="0.9" />
+        <circle cx="50" cy="48" r="3" fill="#D4A843" />
+        <path d="M42 60 C42 60 44 82 44 100 L68 100 C68 82 70 60 70 60 Z" fill="rgba(139,34,64,0.55)" stroke="#D4A843" strokeWidth="1" />
+        <path d="M42 60 Q56 52 70 60" stroke="#F0D68A" strokeWidth="1.5" fill="none" />
+        <path d="M42 64 Q56 76 66 96" stroke="#F0D68A" strokeWidth="2.5" strokeLinecap="round" fill="none" opacity="0.95" />
+        <path d="M54 52 Q58 56 62 52" stroke="#F0D68A" strokeWidth="1" fill="none" />
+        <path d="M66 66 L74 66 L70 58 Z" fill="#F0D68A" opacity="0.9" />
+        <path d="M68 68 L72 68 L70 62 Z" fill="#D4A843" />
+      </g>
+    </svg>
+  );
+}
+
 export default function BlessingsSection() {
   const { t } = useLanguage();
 
@@ -124,11 +221,57 @@ export default function BlessingsSection() {
             fontStyle: 'italic',
             fontSize: 'clamp(1rem, 3vw, 1.2rem)',
             color: 'var(--saffron-text)',
-            marginBottom: '2rem',
+            marginBottom: '1rem',
             opacity: 0.85,
           }}>
             {t('family_blessings')}
           </p>
+        </ScrollReveal>
+
+        {/* Shubham Karoti Shloka Block */}
+        <ScrollReveal delay={0.08}>
+          <div style={{ margin: '1.5rem auto 2rem', maxWidth: '600px', textAlign: 'center' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', justifyContent: 'center', marginBottom: '0.8rem' }}>
+              <DiyaIcon />
+              <div style={{ height: '1px', width: '50px', background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.5))' }} />
+              <span style={{ color: '#D4A843', fontSize: '0.8rem' }}>✦</span>
+              <div style={{ height: '1px', width: '50px', background: 'linear-gradient(to left, transparent, rgba(212,168,67,0.5))' }} />
+              <DiyaIcon />
+            </div>
+
+            <p style={{
+              fontFamily: "'Noto Serif Devanagari', serif",
+              fontSize: 'clamp(1rem, 3.2vw, 1.25rem)',
+              color: 'var(--saffron-text)',
+              lineHeight: 1.8,
+              marginBottom: '0.3rem',
+              letterSpacing: '0.02em',
+            }}>
+              शुभं करोति कल्याणम् आरोग्यं धनसंपदाम् ।
+            </p>
+            <p style={{
+              fontFamily: "'Noto Serif Devanagari', serif",
+              fontSize: 'clamp(1rem, 3.2vw, 1.25rem)',
+              color: 'var(--saffron-text)',
+              lineHeight: 1.8,
+              marginBottom: '0.6rem',
+              letterSpacing: '0.02em',
+            }}>
+              शत्रुबुद्धिविनाशाय दीपज्योतिर्नमोस्तुते ॥
+            </p>
+            
+            <p style={{
+              fontFamily: "'Lora', serif",
+              fontStyle: 'italic',
+              fontSize: 'clamp(0.8rem, 2.2vw, 0.9rem)',
+              color: 'rgba(245,236,200,0.65)',
+              lineHeight: 1.6,
+              maxWidth: '480px',
+              margin: '0 auto',
+            }}>
+              {t('shubham_shloka_meaning')}
+            </p>
+          </div>
         </ScrollReveal>
 
         {/* 2. Family Block (Fades in together) */}
@@ -143,15 +286,33 @@ export default function BlessingsSection() {
           <div style={{
             display: 'flex',
             gap: '1.5rem',
-            maxWidth: 580,
+            maxWidth: 620,
             margin: '0 auto',
             flexWrap: 'wrap',
             justifyContent: 'center',
           }}>
             {[
-              { labelKey: 'groom_parents_label', names: FAMILIES.GROOM_PARENTS, delay: 0,    gotra: FAMILIES.GROOM_GOTRA,  nakshatra: FAMILIES.GROOM_NAKSHATRA },
-              { labelKey: 'bride_parents_label', names: FAMILIES.BRIDE_PARENTS, delay: 0.12, gotra: FAMILIES.BRIDE_GOTRA,  nakshatra: FAMILIES.BRIDE_NAKSHATRA },
-            ].map(({ labelKey, names, delay, gotra, nakshatra }) => (
+              { 
+                labelKey: 'groom_parents_label', 
+                names: FAMILIES.GROOM_PARENTS, 
+                delay: 0,    
+                gotra: FAMILIES.GROOM_GOTRA,  
+                nakshatra: FAMILIES.GROOM_NAKSHATRA,
+                sibling: FAMILIES.GROOM_SIBLING || null,
+                location: 'Visakhapatnam',
+                icon: <GroomsFamilySVG />
+              },
+              { 
+                labelKey: 'bride_parents_label', 
+                names: FAMILIES.BRIDE_PARENTS, 
+                delay: 0.12, 
+                gotra: FAMILIES.BRIDE_GOTRA,  
+                nakshatra: FAMILIES.BRIDE_NAKSHATRA,
+                sibling: FAMILIES.BRIDE_SIBLING || null,
+                location: 'Bhubaneswar',
+                icon: <BridesFamilySVG />
+              },
+            ].map(({ labelKey, names, delay, gotra, nakshatra, sibling, location, icon }) => (
               <motion.div
                 key={labelKey}
                 initial={{ opacity: 0, y: 18 }}
@@ -159,36 +320,36 @@ export default function BlessingsSection() {
                 viewport={{ once: true }}
                 transition={{ delay, duration: 0.55, ease: 'easeOut' }}
                 style={{
-                  flex: '1 1 220px',
-                  minWidth: 200,
+                  flex: '1 1 240px',
+                  minWidth: 220,
                   background: 'rgba(20, 5, 10, 0.25)',
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
                   border: '1px solid rgba(212, 168, 67, 0.25)',
                   boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
                   borderRadius: '16px',
-                  padding: 'clamp(1.2rem, 3vw, 1.5rem)',
+                  padding: 'clamp(1.2rem, 3vw, 1.8rem)',
                   textAlign: 'center',
                 }}
               >
-                <svg viewBox="0 0 40 28" style={{ width: 28, height: 20, marginBottom: '0.6rem' }} aria-hidden="true">
-                  {Array.from({length:6},(_,i)=>{
-                    const a=(i*60-90)*Math.PI/180;
-                    const cx=parseFloat((20+12*Math.cos(a)).toFixed(4));
-                    const cy=parseFloat((14+12*Math.sin(a)).toFixed(4));
-                    const rot=i*60-90;
-                    return <ellipse key={i} cx={cx} cy={cy} rx="5" ry="11"
-                      transform={`rotate(${rot} ${cx} ${cy})`}
-                      fill="#D4A843" opacity="0.65"/>;
-                  })}
-                  <circle cx="20" cy="14" r="5" fill="#D4A843" opacity="0.85"/>
-                </svg>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  {icon}
+                </div>
 
                 <p style={{
                   fontFamily: "'Lora', serif",
-                  fontSize: '0.65rem',
-                  color: 'rgba(245,236,200,0.55)',
+                  fontSize: '0.62rem',
+                  color: 'rgba(245,236,200,0.5)',
                   letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  marginBottom: '0.15rem',
+                }}>{location}</p>
+
+                <p style={{
+                  fontFamily: "'Lora', serif",
+                  fontSize: '0.72rem',
+                  color: 'rgba(245,236,200,0.75)',
+                  letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   marginBottom: '0.5rem',
                 }}>{t(labelKey)}</p>
@@ -210,8 +371,26 @@ export default function BlessingsSection() {
                   lineHeight: 1.65,
                 }}>{names}</p>
 
+                {sibling && (
+                  <>
+                    <div style={{ height: 1, background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.3), transparent)', margin: '0.6rem 0' }} />
+                    <p style={{
+                      fontFamily: "'Lora', serif",
+                      fontStyle: 'italic',
+                      fontSize: '0.7rem',
+                      color: 'rgba(245,236,200,0.45)',
+                      marginBottom: '0.2rem',
+                    }}>{t('sibling_label')}</p>
+                    <p style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: 'clamp(0.85rem, 2.2vw, 0.95rem)',
+                      color: 'var(--saffron-text)',
+                    }}>{sibling}</p>
+                  </>
+                )}
+
                 {(gotra || nakshatra) && (
-                  <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.4rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                  <div style={{ marginTop: '0.6rem', display: 'flex', gap: '0.4rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                     {gotra && (
                       <span style={{ fontFamily: "'Lora', serif", fontSize: '0.65rem', color: 'rgba(245,236,200,0.55)', letterSpacing: '0.12em' }}>
                         {t('gotra_label')}: {gotra}
