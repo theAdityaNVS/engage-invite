@@ -90,7 +90,7 @@ export default function EngagementHero() {
         alignItems: 'center',
         justifyContent: 'center',
         zIndex: 2,
-        paddingTop: '6vh', // Balances the visual weight without hardcoding bottom padding
+        paddingTop: 'clamp(4vh, 8vh, 10vh)', // Fluid padding based on height
         y: contentY,
       }}>
         
@@ -118,11 +118,11 @@ export default function EngagementHero() {
           transition={{ duration: 1, delay: 0.2 }}
           style={{
             fontFamily: "'Lora', serif",
-            fontSize: 'clamp(0.75rem, 1.8vw, 0.9rem)',
+            fontSize: 'clamp(0.85rem, 2.2vw, 1.05rem)',
             color: 'rgba(245,236,200,0.85)',
-            letterSpacing: '0.22em',
+            letterSpacing: '0.24em',
             textTransform: 'uppercase',
-            marginBottom: '1.5rem',
+            marginBottom: 'clamp(0.75rem, 2.5vh, 1.5rem)',
           }}
         >
           ✦ Together They Begin ✦
@@ -133,26 +133,20 @@ export default function EngagementHero() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
-          style={{
-            background: 'rgba(20, 5, 10, 0.45)',
-            backdropFilter: 'blur(12px)',
-            WebkitBackdropFilter: 'blur(12px)',
-            border: '1px solid rgba(212, 168, 67, 0.25)',
-            borderRadius: '100px',
-            padding: '0.5rem 1.25rem',
-            boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
-            marginBottom: '2.5rem',
-          }}
+          className="hero-pill-container"
         >
-          <p style={{
+          <p className="hero-pill-text" style={{
             fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(0.8rem, 1.8vw, 0.95rem)',
+            fontSize: 'clamp(0.9rem, 2.2vw, 1.05rem)',
             color: 'rgba(245,236,200,0.95)',
             letterSpacing: '0.08em',
             margin: 0,
-            textAlign: 'center'
+            textAlign: 'center',
+            lineHeight: 1.4,
           }}>
-            {ENGAGEMENT.DATE_DISPLAY} <span style={{ color: '#D4A843', margin: '0 6px', fontWeight: 'bold' }}>·</span> {ENGAGEMENT.VENUE_NAME}, {ENGAGEMENT.VENUE_CITY}
+            <span>{ENGAGEMENT.DATE_DISPLAY}</span>
+            <span className="hero-pill-dot">·</span>
+            <span>{ENGAGEMENT.VENUE_NAME}, {ENGAGEMENT.VENUE_CITY}</span>
           </p>
         </motion.div>
 
@@ -168,7 +162,7 @@ export default function EngagementHero() {
           >
             <h1 style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2.5rem, 10vw, 5rem)',
+              fontSize: 'clamp(3.2rem, 11vw, 5.5rem)',
               color: '#FFF8F0',
               lineHeight: 1.1,
               fontWeight: 400,
@@ -177,12 +171,12 @@ export default function EngagementHero() {
               {currentGroom}
             </h1>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '1.25rem 0' }}>
-              <div style={{ width: '40px', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(212,168,67,0.6))' }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: 'clamp(0.75rem, 2.5vh, 1.5rem) 0' }}>
+              <div style={{ width: 'clamp(30px, 8vw, 50px)', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(212,168,67,0.6))' }} />
               <p style={{
                 fontFamily: "'Lora', serif",
                 fontStyle: 'italic',
-                fontSize: 'clamp(0.95rem, 2.5vw, 1.25rem)',
+                fontSize: 'clamp(1.1rem, 3vw, 1.35rem)',
                 color: '#D4A843',
                 letterSpacing: '0.25em',
                 textTransform: 'uppercase',
@@ -190,12 +184,12 @@ export default function EngagementHero() {
               }}>
                 {t('weds')}
               </p>
-              <div style={{ width: '40px', height: '1px', background: 'linear-gradient(270deg, transparent, rgba(212,168,67,0.6))' }} />
+              <div style={{ width: 'clamp(30px, 8vw, 50px)', height: '1px', background: 'linear-gradient(270deg, transparent, rgba(212,168,67,0.6))' }} />
             </div>
 
             <h1 style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2.5rem, 10vw, 5rem)',
+              fontSize: 'clamp(3.2rem, 11vw, 5.5rem)',
               color: '#FFF8F0',
               lineHeight: 1.1,
               fontWeight: 400,
@@ -225,7 +219,7 @@ export default function EngagementHero() {
           marginTop: 'auto', // Pushes to the bottom natively
         }}
       >
-        {/* Elegant glowing SVG Down Chevron stack above temple */}
+        {/* Elegant glowing Scroll Down Hint Button */}
         <motion.button
           onClick={() => {
             const nextSection = document.getElementById('section-events');
@@ -233,8 +227,7 @@ export default function EngagementHero() {
               nextSection.scrollIntoView({ behavior: 'smooth' });
             }
           }}
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          whileHover={{ scale: 1.05 }}
           style={{
             pointerEvents: 'auto',
             background: 'none',
@@ -245,36 +238,68 @@ export default function EngagementHero() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            gap: '4px',
+            gap: '6px',
             marginBottom: '0.75rem',
-            filter: 'drop-shadow(0 2px 8px rgba(212, 168, 67, 0.4))',
+            filter: 'drop-shadow(0 2px 10px rgba(212, 168, 67, 0.45))',
             transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
           }}
           aria-label="Scroll to next section"
         >
           <span style={{
             fontFamily: "'Lora', serif",
-            fontSize: '0.625rem',
+            fontSize: 'clamp(0.7rem, 2vw, 0.75rem)',
             textTransform: 'uppercase',
-            letterSpacing: '0.24em',
-            color: 'rgba(245,236,200,0.7)',
-            marginBottom: '4px'
+            letterSpacing: '0.28em',
+            color: 'rgba(245,236,200,0.85)',
+            textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 8px rgba(212, 168, 67, 0.3)',
+            marginBottom: '4px',
+            transition: 'color 0.3s ease',
           }}>
-            {t('scrollDiscover') || 'Scroll to Discover'}
+            {t('scrollDiscover')}
           </span>
-          <svg 
-            width="22" 
-            height="22" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="1.75" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            style={{ opacity: 0.8 }}
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
+          
+          {/* Staggered cascading chevrons flowing downwards */}
+          <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: '28px',
+            position: 'relative',
+            width: '40px',
+            marginTop: '2px',
+          }}>
+            {[0, 1, 2].map((i) => (
+              <motion.svg
+                key={i}
+                width="18"
+                height="10"
+                viewBox="0 0 24 12"
+                fill="none"
+                stroke="#D4A843"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                initial={{ opacity: 0, y: -8 }}
+                animate={{
+                  opacity: [0, 1, 0.7, 0],
+                  y: [-8, 2, 12, 20],
+                }}
+                transition={{
+                  duration: 2.2,
+                  repeat: Infinity,
+                  delay: i * 0.45,
+                  ease: [0.25, 0.8, 0.25, 1],
+                }}
+                style={{
+                  position: 'absolute',
+                  filter: 'drop-shadow(0 1px 4px rgba(212, 168, 67, 0.6))',
+                }}
+              >
+                <polyline points="4 2 12 10 20 2" />
+              </motion.svg>
+            ))}
+          </div>
         </motion.button>
 
         <JagannathTempleSVG />
