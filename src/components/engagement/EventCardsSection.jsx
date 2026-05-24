@@ -36,16 +36,6 @@ export default function EventCardsSection() {
       <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-            <p style={{
-              fontFamily: "'Lora', serif",
-              fontSize: '0.8rem',
-              color: 'rgba(212,168,67,0.8)',
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              marginBottom: '0.5rem',
-            }}>
-              ✦ {t('join_us_label')} ✦
-            </p>
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
