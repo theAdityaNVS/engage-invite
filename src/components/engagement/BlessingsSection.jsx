@@ -109,7 +109,7 @@ export default function BlessingsSection() {
 
   return (
     <section style={{
-      background: 'var(--teal)',
+      background: 'linear-gradient(180deg, #D4A843 0%, var(--teal) 160px, var(--teal) 100%)',
       padding: 'clamp(3rem, 8vw, 5rem) 1.5rem',
       textAlign: 'center',
       position: 'relative',
