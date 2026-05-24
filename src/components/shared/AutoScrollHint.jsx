@@ -21,7 +21,7 @@ export default function AutoScrollHint() {
           if (!nearBottom2) window.scrollBy({ top: window.innerHeight * 0.85, behavior: 'smooth' });
           setVisible(false);
         }, 3000);
-      }, 10000);
+      }, 20000);
     };
 
     window.addEventListener('scroll',     resetIdle, { passive: true });
