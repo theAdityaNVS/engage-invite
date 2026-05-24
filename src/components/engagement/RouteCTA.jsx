@@ -78,7 +78,7 @@ export default function RouteCTA() {
   const { t } = useLanguage();
 
   return (
-    <section style={{ background: 'var(--saffron)', padding: 'clamp(2.5rem, 6vw, 4rem) 1.5rem' }}>
+    <section id="section-map" style={{ background: 'var(--saffron)', padding: 'clamp(2.5rem, 6vw, 4rem) 1.5rem' }}>
       <ScrollReveal>
         <div style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
           <p style={{

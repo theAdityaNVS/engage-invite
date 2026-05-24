@@ -134,6 +134,17 @@ export default function EngagementHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
           className="hero-pill-container"
+          role="button"
+          tabIndex={0}
+          onClick={() => {
+            document.getElementById('section-map')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              document.getElementById('section-map')?.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
         >
           <p className="hero-pill-text" style={{
             fontFamily: "'Playfair Display', serif",
