@@ -34,7 +34,7 @@ export default function EngagementHero() {
 
   const rawStars  = useTransform(scrollYProgress, [0, 1], [0, -30]);
   const rawContent = useTransform(scrollYProgress, [0, 1], [0, 60]); 
-  const rawTemple = useTransform(scrollYProgress, [0, 1], ['0%', '15%']);
+  const rawTemple = useTransform(scrollYProgress, [0, 1], ['0%', '-3%']);
 
   const starsY   = useSpring(rawStars,   { stiffness: 85, damping: 20 });
   const contentY = useSpring(rawContent, { stiffness: 100, damping: 15 });
@@ -313,7 +313,7 @@ export default function EngagementHero() {
           </div>
         </motion.button>
 
-        <JagannathTempleSVG />
+        <JagannathTempleSVG style={{ marginBottom: '-6px' }} />
       </motion.div>
 
     </section>
