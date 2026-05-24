@@ -185,10 +185,13 @@ export default function BlessingsSection() {
                 style={{
                   flex: '1 1 220px',
                   minWidth: 200,
-                  background: 'rgba(255,248,240,0.09)',
-                  border: '1px solid rgba(212,168,67,0.32)',
-                  borderRadius: '8px',
-                  padding: '1.4rem 1.2rem',
+                  background: 'rgba(20, 5, 10, 0.25)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(212, 168, 67, 0.25)',
+                  boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+                  borderRadius: '16px',
+                  padding: 'clamp(1.2rem, 3vw, 1.5rem)',
                   textAlign: 'center',
                 }}
               >
@@ -251,65 +254,60 @@ export default function BlessingsSection() {
         </ScrollReveal>
 
         <ScrollReveal delay={0.6}>
-          <div style={{ marginTop: '2.5rem' }}>
+          <div style={{ marginTop: 'clamp(3rem, 6vw, 4.5rem)' }}>
             <p style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: 'clamp(0.8rem, 2vw, 1rem)',
               color: 'rgba(245,236,200,0.7)',
-              letterSpacing: '0.12em',
+              letterSpacing: '0.15em',
               textTransform: 'uppercase',
-              marginBottom: '1rem',
+              marginBottom: '1.2rem',
             }}>
               {t('invite_intro')}
-            </p>
-
-            {/* Large "INVITE" display word */}
-            <p style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2rem,5vw,3rem)',
-              color: '#D4A843',
-              lineHeight: 1,
-              letterSpacing: '0.08em',
-              marginBottom: '1rem',
-            }}>
-              INVITE
             </p>
 
             <p style={{
               fontFamily: "'Lora', serif",
               fontStyle: 'italic',
-              fontSize: 'clamp(0.85rem, 2vw, 1rem)',
-              color: 'rgba(245,236,200,0.65)',
-              marginBottom: '1.5rem',
+              fontSize: 'clamp(0.95rem, 2.5vw, 1.15rem)',
+              color: 'rgba(245,236,200,0.85)',
+              marginBottom: 'clamp(2rem, 5vw, 3rem)',
             }}>
               {t('invite_you_to_join')}
             </p>
 
             <p style={{
               fontFamily: "'Great Vibes', cursive",
-              fontSize: 'clamp(2.8rem,7vw,4.5rem)',
+              fontSize: 'clamp(3.5rem, 9vw, 5.5rem)',
               color: '#D4A843',
-              lineHeight: 1.2,
-              marginBottom: '0.2rem',
+              lineHeight: 1.1,
+              marginBottom: '0.5rem',
+              textShadow: '0 2px 12px rgba(212, 168, 67, 0.25)',
             }}>
               {COUPLE.GROOM_NAME}
             </p>
-            <p style={{
-              fontFamily: "'Lora', serif",
-              fontStyle: 'italic',
-              fontSize: 'clamp(0.9rem, 2.5vw, 1.1rem)',
-              color: 'rgba(245,236,200,0.75)',
-              letterSpacing: '0.15em',
-              margin: '0.2rem 0',
-            }}>
-              &amp;
-            </p>
+
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', margin: '0.5rem 0' }}>
+              <div style={{ width: '40px', height: '1px', background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.5))' }} />
+              <p style={{
+                fontFamily: "'Playfair Display', serif",
+                fontStyle: 'italic',
+                fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
+                color: 'var(--saffron-text)',
+                opacity: 0.8,
+              }}>
+                &amp;
+              </p>
+              <div style={{ width: '40px', height: '1px', background: 'linear-gradient(to left, transparent, rgba(212,168,67,0.5))' }} />
+            </div>
+
             <p style={{
               fontFamily: "'Great Vibes', cursive",
-              fontSize: 'clamp(2.8rem,7vw,4.5rem)',
+              fontSize: 'clamp(3.5rem, 9vw, 5.5rem)',
               color: '#D4A843',
-              lineHeight: 1.2,
-              marginBottom: '1rem',
+              lineHeight: 1.1,
+              marginBottom: 'clamp(2rem, 5vw, 3rem)',
+              textShadow: '0 2px 12px rgba(212, 168, 67, 0.25)',
             }}>
               {COUPLE.BRIDE_NAME}
             </p>
@@ -317,9 +315,9 @@ export default function BlessingsSection() {
             <p style={{
               fontFamily: "'Lora', serif",
               fontStyle: 'italic',
-              fontSize: 'clamp(0.8rem, 2vw, 0.95rem)',
-              color: 'rgba(245,236,200,0.55)',
-              letterSpacing: '0.1em',
+              fontSize: 'clamp(0.85rem, 2.2vw, 1rem)',
+              color: 'rgba(245,236,200,0.65)',
+              letterSpacing: '0.12em',
             }}>
               {t('on_the_following_events')}
             </p>
