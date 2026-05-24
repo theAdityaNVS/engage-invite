@@ -5,7 +5,6 @@ const SECTIONS = [
   { id: 'section-events',    label: 'Events'    },
   { id: 'section-couple',    label: 'Couple'    },
   { id: 'section-info',      label: 'Info'      },
-  { id: 'section-family',    label: 'Family'    },
   { id: 'section-countdown', label: 'Countdown' },
 ];
 
