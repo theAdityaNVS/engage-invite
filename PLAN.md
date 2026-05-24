@@ -1,249 +1,123 @@
-# Implementation Plan — engage-invite Completion Sprint
+# Implementation Plan — Blessings / Events Section Refinement
+
+**Branch:** `feature/refine-blessing-section`
+**Date:** 2026-05-25
+**Source:** Brutally-honest UI/UX review (390px-first) of the live build after consolidating `FamilyShlokaSection` into `BlessingsSection`.
 
 ## Context
 
-Three parallel audit agents (completion audit, code review, UI/UX review) and a pattern-mapping agent have fully characterized the site's current state. The foundation is strong — hero, countdown, dividers, language system, and splash screen are polished. But the site cannot go live due to launch blockers (missing OG image/photos/music), pervasive i18n violations, UI hierarchy problems, and missing P1 features. This plan executes all fixable work in three waves of parallel sub-agents, then identifies what requires the couple to deliver content.
+`FamilyShlokaSection.jsx` was deleted and its content (Shubham Karoti shloka, family details, siblings, location labels) folded into `BlessingsSection.jsx`. This correctly eliminated the old bug where parents' names printed twice on one page. The four items below are locked decisions from the review; execute them on this branch.
+
+Current Blessings structure (`src/components/engagement/BlessingsSection.jsx`):
+- Block 1 — Invocation: Ganesha SVG + `mantra` + `family_blessings` (lines 203–229)
+- Shloka block — diyas + Shubham Karoti + meaning (lines 231–275)
+- Block 2 — Family cards (lines 277–409)
+- Block 3 — Invite climax: `invite_intro` / `invite_you_to_join` / **Aditya & Jyoti** (Great Vibes) / `on_the_following_events` (lines 411–481)
 
 ---
 
-## What Requires Couple Action (Unblock in Parallel)
+## 1. Name seam / repetition — MERGE & REARRANGE (keep the branding)
 
-Before wave 3 finishes, the couple must deliver:
-1. **OG image** — `public/og-engagement.jpg`, 1200×630px, names + date bold enough to read at 80px
-2. **Couple photos** — 2–3 images → `public/images/couple-1.jpg`, `couple-2.jpg`, etc.
-3. **Music file** — `public/music/engagement-track.mp3` (veena/nadaswaram, ~2–3 min loop)
-4. **Gotra + Nakshatra** — groom and bride values to populate config
-5. **Bride sibling name** — or confirm none
-6. **Instagram handle** — confirm `@jyoti.weds.aditya` is live and public
-7. **Couple story milestones** — 3–4 date+description items (P2, not blocking launch)
+**Decision:** Keep the Great Vibes "Aditya & Jyoti" treatment (branding is good). Eliminate the duplicated "come celebrate at the events" beat.
 
----
+**Problem:** Block 3 ends with the giant name + `on_the_following_events`, then `EventCardsSection` immediately opens with `JOIN US / The Celebrations / Shubha Muhurtham` in the same orange field — same beat twice, and the giant name is the 3rd oversized reveal (splash → hero "Aditya WEDS Jyoti" → here).
 
-## SVG Quality Issues — Pre-Wave Analysis Agent Required
+**Fix:**
+- Merge Block 3 and the Events-section header into one transition: a single name treatment + one "join us for the following events" line, then straight into the events grid. Remove the redundant `JOIN US` / second "celebrate" line so the beat appears once.
+- Keep one Great Vibes "Aditya & Jyoti" as the climax of that merged block.
 
-Before Wave 1 begins, spawn a dedicated **SVG Analysis Agent** to audit and redesign the two temple SVG illustrations. These are identified as the biggest visual weak points on the page.
-
-### Known Issues
-- **Hero SVG (Jagannath Nagara temple in `EngagementHero.jsx`)** — ❌ Not satisfactory. The rendering is too simplified and does not carry sufficient visual fidelity to evoke the temple authentically. Animations (sun arc, parallax scroll) exist but the base illustration lacks detail. Elements may be misaligned.
-- **Footer SVG (Tirupati Gopuram night scene in `FooterSection.jsx`)** — ⚠️ ~60% satisfactory. The overall silhouette reads correctly but details (window diya flicker, star placement, gopuram tier proportions, structural alignment) need refinement.
-
-### SVG Analysis Agent Task
-This agent reads `EngagementHero.jsx` and `FooterSection.jsx` in full, then produces:
-1. **Annotated critique** of each SVG — which paths/elements are structurally wrong, misaligned, or visually weak
-2. **Animation audit** — which keyframes (sunArc, moonArc, diyaFlicker, lanternFloat) are misfiring or have incorrect origins
-3. **Alignment issues** — elements that are off-center, incorrectly anchored, or don't scale proportionally across viewport widths
-4. **Detailed SVG rewrite spec** — for the Jagannath temple (full redesign needed) and Tirupati gopuram (targeted fixes) — specific `<path>`, `<rect>`, `<polygon>` replacements with corrected coordinates and proportions
-5. **Animation fix spec** — corrected keyframe values and timing functions
-
-This agent's output feeds into a **Wave 0 SVG Redesign** task that runs before or alongside Wave 1. The redesigned SVGs are committed separately with the message `fix: redesign Jagannath temple hero SVG + refine Tirupati gopuram footer SVG`.
+**Broader repetition pass (user agreed — rationalize site-wide so each beat appears once):**
+- "Aditya & Jyoti" giant name currently at: splash, hero, blessings invite block, couple-section quote signature, countdown footer. Decide which are intentional; trim the rest.
+- "celebrate/celebrations" appears as `TOGETHER WE INVITE YOU TO CELEBRATE`, `engagement celebrations of`, `The Celebrations` — collapse duplicates.
+- `JOIN US` echoes `invite you to join us` — keep one.
 
 ---
 
-## Wave 1 — Three Parallel Agents (Independent, No File Conflicts)
+## 2. Elder legibility — names ≥16px + trim labels
 
-### Agent 1: Bug Fixes
-File scope: `useWeather.js`, `LanguageSwitcher.jsx`, `PhotoCarousel.jsx`.
+**Decision:** Bump parent & sibling names to ≥16px, raise label contrast, drop the redundant card-level "With the blessings of".
 
-| Fix | File | Location | Change |
-|---|---|---|---|
-| B2: hasFetched ref blocks re-fetch | `useWeather.js` | L9–12 | Remove `hasFetched` ref entirely; module-level `cache` already prevents excessive calls |
-| B3: LanguageSwitcher touch targets 32px | `LanguageSwitcher.jsx` | L31 | Change `width`/`height` to `44px`; adjust container gap to `6px` |
-| B4: PhotoCarousel polaroids not keyboard-accessible | `PhotoCarousel.jsx` | card divs | Add `role="button"`, `tabIndex={0}`, `onKeyDown` (Enter/Space triggers lightbox) |
-| B5: Lightbox nav missing aria-labels | `PhotoCarousel.jsx` | Prev/Next/Close btns | Add `aria-label="Previous photo"` / `"Next photo"` / `"Close lightbox"` |
+**Measured now (all below the project's mandated 16px elder-minimum):** location 9.9px, parents label 11.5px, "with blessings of" 11.5px, **parent names 14.4px**, sibling label 11.2px, sibling name 13.6px.
 
----
-
-### Agent 2: i18n Completeness Pass
-All hardcoded English strings → `t()` calls. File scope: `BlessingsSection.jsx`, `ThingsToKnow.jsx`, `RouteCTA.jsx`, `CountdownTimer.jsx`, `PhotoCarousel.jsx`, `SplashScreen.jsx`, `LanguageBanner.jsx`, `WeatherWidget.jsx`, `FamilyShlokaSection.jsx` + all 4 `public/translations/*.json` files.
-
-**New translation keys to add to all 4 JSON files:**
-
-```json
-"with_blessings_of": "With the blessings of",
-"invite_you_to_join": "you to join us in the engagement celebrations of",
-"on_the_following_events": "on the following events",
-"reach_label": "How to Reach",
-"from_visakhapatnam": "From Visakhapatnam",
-"flight_duration": "Flight ~1 hr",
-"cab_from_airport": "OLA/Cab ~20 min",
-"train_duration": "Train ~8–10 hrs",
-"bbs_station": "Bhubaneswar Station → Hotel ~15 min",
-"dress_heading": "Dress to Celebrate",
-"dress_traditional": "Traditional",
-"dress_semiformal": "Semi-Formal",
-"dress_traditional_desc": "Sarees, sherwanis, lehengas, dhotis welcome",
-"dress_semiformal_desc": "Smart casuals and formals equally celebrated",
-"navigate_label": "Navigate →",
-"venue_label": "Venue",
-"auto_select_english": "Auto-selecting English in {n}s",
-"tap_to_open": "Tap to open",
-"view_in_language": "View this invitation in your language?",
-"checking_weather": "Checking weather…",
-"check_weather_fallback": "Check weather on the day.",
-"celebrations_begin": "The celebrations begin!",
-"grooms_family": "Groom's Family",
-"brides_family": "Bride's Family"
-```
-
-For Hindi, Telugu, Odia — fill in accurate translations. For location names (Visakhapatnam, Bhubaneswar) keep transliterated in each script.
-
-`PhotoCarousel.jsx` CAPTIONS: move array inside component, replace 8 hardcoded English captions with keys `photo_caption_1` through `photo_caption_8` added to all JSON files.
-
-`auto_select_english` uses `{n}` placeholder — update the component to replace `{n}` with `countdown` value dynamically.
-
-Also fix: `ThingsToKnow.jsx` direct `process.env.NEXT_PUBLIC_WEATHER_API_KEY` → `GOOGLE_API.WEATHER_API_KEY` from config import.
+**Fix (family cards, `BlessingsSection.jsx` ~339–405):**
+- Parent names (367–372): `clamp(0.9rem, 2.5vw, 1.05rem)` → floor at 16px, e.g. `clamp(1rem, 2.8vw, 1.15rem)`.
+- Sibling name (384–388): raise to ≥1rem floor.
+- **Delete** the card-level `with_blessings_of` line (359–365) — the section heading `family_blessings` already says it.
+- Raise contrast / consolidate micro-labels: merge `location` + `PARENTS` into one label row to cut row count; bump opacities off the 0.45–0.5 range.
+- Target hierarchy per card: `[icon] → [LOCATION · PARENTS] → names (≥16px) → sibling (if present)`.
 
 ---
 
-### Agent 3: UI/UX Design Fixes + EngagementHero Bugs
-Visual hierarchy, contrast, mobile layout. File scope: `EngagementHero.jsx`, `BlessingsSection.jsx`, `ThingsToKnow.jsx`, `FooterSection.jsx`, `ProgressDots.jsx`, `RouteCTA.jsx`, `SplashScreen.jsx`.
+## 3. Family card parity — balance the layout
 
-| Issue | File | Change |
-|---|---|---|
-| B1: Typewriter restarts on re-render | `EngagementHero.jsx` | Wrap `groomNames` + `brideNames` in `useMemo(() => ..., [])` |
-| B6: Hardcoded "Weds" bypasses t() | `EngagementHero.jsx` | Replace with `{t('weds')}` — key already in all 4 JSONs |
-| Hero temple SVG horizontal overflow on mobile | `EngagementHero.jsx` | Remove `left: '-5%'` and `width: '110%'`; use `width: '100%'`, `overflow: 'hidden'` on wrapper |
-| BlessingsSection: "INVITE" overshadows couple names | `BlessingsSection.jsx` | Reduce INVITE `clamp(3rem,8vw,5rem)` → `clamp(2rem,5vw,3rem)`; increase couple names → `clamp(2.8rem,7vw,4.5rem)` |
-| Weather time slot labels too small | `ThingsToKnow.jsx` | `0.72rem` → `0.82rem` |
-| Card border too faint | `ThingsToKnow.jsx` | Border opacity `0.15` → `0.25` |
-| Card background too dim | `ThingsToKnow.jsx` | Background opacity `0.6` → `0.8` |
-| Footer: couple names undersized | `FooterSection.jsx` | `clamp(1.2rem,3.5vw,1.6rem)` → `clamp(1.6rem,4vw,2rem)` |
-| Footer: hashtag + "made with love" too small | `FooterSection.jsx` | `0.78rem–0.88rem` → `0.9rem–1rem` |
-| Footer: date/hashtag opacity too low | `FooterSection.jsx` | `rgba(245,236,200,0.4)` → `rgba(245,236,200,0.7)` |
-| ProgressDots 8–11px tap targets too small | `ProgressDots.jsx` | Wrap each button in `44px × 44px` touch area; keep visual dot size |
-| RouteCTA Navigate button too passive | `RouteCTA.jsx` | Add `background: 'rgba(212,168,67,0.15)'` hover; stronger `whileHover` scale |
-| Mandala opacity too low on Splash | `SplashScreen.jsx` | `opacity: 0.3` → `opacity: 0.45` |
+**Decision:** Cards must look balanced whether or not a sibling exists.
+
+**Problem:** Groom card has a sibling (Nadamuni Dhruv); bride card has none → dead space at the bottom of the bride card. Reads as one family slighted. Bride sibling is an open content item — do not depend on it being filled.
+
+**Fix:**
+- Card inner layout to `display:flex; flex-direction:column; justify-content:center` so a card with fewer rows centers its content instead of leaving bottom dead space.
+- Keep cards equal height; distribute whitespace evenly.
+- Sibling block stays conditional (`sibling && ...`).
 
 ---
 
-## Wave 2 — Two Parallel Agents (After Wave 1 Completes)
+## 4. Family icon — simplify to one motif
 
-### Agent 4: P1 Functional Features
-File scope: `EventCard.jsx`, `EventCardsSection.jsx`, `RSVPSection.jsx`, `ThingsToKnow.jsx`, `src/pages/engagement.jsx`, `src/config/index.js`.
+**Decision:** Replace the two-figure illustrations with a single clean auspicious motif inside the existing ring.
 
-**Feature 1: Add-to-Calendar buttons per EventCard**
-- Add optional `calendarUrl` prop to `EventCard`; in `EventCardsSection` derive Google Calendar URL per event using ISO dates from `ENGAGEMENT.COUNTDOWN_ISO`
-- Format: `https://calendar.google.com/calendar/render?action=TEMPLATE&text=...&dates=20260617T100000/20260617T113000&location=...`
-- Render second CTA link below "see_the_route" with calendar SVG icon + `t('add_to_calendar')`
-- Add `"add_to_calendar": "Add to Calendar"` to all 4 JSONs
+**Problem:** `GroomsFamilySVG` / `BridesFamilySVG` cram ~26 vector elements into an 80px badge → reads as a blob.
 
-**Feature 2: WhatsApp Share Button**
-- Add to `RSVPSection.jsx` below "looking forward" text
-- `wa.me/?text=` deep link with pre-composed message using config values
-- Style: gold border button, max-width 300px centered
-- Add `"share_on_whatsapp": "Share with family & friends →"` to all 4 JSONs
-
-**Feature 3: Accommodation Card in ThingsToKnow**
-- Add `AccommodationCard` component mirroring `ReachCard`/`DressCard` structure
-- Append `{ id: 'accommodation', content: <AccommodationCard /> }` to `cards` array
-- Uses existing keys `accommodation_label` + `accommodation_text` already in all 4 JSONs
-
-**Feature 4: `theme-color` meta + shorten OG description**
-- `<meta name="theme-color" content="#8B1A2B" />` in `engagement.jsx` `<Head>`
-- Shorten `og:description` to ≤80 chars: `"Join us for Aditya & Jyoti's engagement — 17 June, Suryansh Hotel, Bhubaneswar. In English, Hindi, Telugu & Odia."`
+**Fix:**
+- Keep the dashed mandala ring (differentiates groom/bride nicely, reads well).
+- Replace the central two-figure group with one clean symbol: kalash (purna kumbha), lotus, or an enlarged reuse of `DiyaIcon`.
+- Delete the now-unused detailed figure path code.
 
 ---
 
-### Agent 5: Content Infrastructure
-File scope: `src/config/index.js`, `AnimatedPhoto.jsx`, `MusicPlayer.jsx`, `CoupleSection.jsx`, `GallerySection.jsx`, `PhotoCarousel.jsx`, `BlessingsSection.jsx`, `FamilyShlokaSection.jsx`.
+## Folded-in defaults (no decision needed)
 
-**Feature 1: AnimatedPhoto → accept real photos + Ghibli filter**
-- Add optional `src` prop; when provided render `<img>` with `objectFit: cover` + CSS filter `saturate(1.3) sepia(0.15) hue-rotate(-10deg) brightness(1.05)`
-- When absent: existing gradient placeholder unchanged
-- Add `MEDIA` export to config: `{ MUSIC_SRC, COUPLE_PHOTO_1, COUPLE_PHOTO_2 }`
-- `CoupleSection`: pass `src={MEDIA.COUPLE_PHOTO_1}` to AnimatedPhoto
-- `PhotoCarousel`: accept `photos` prop array; fall back to placeholders when empty
-- `GallerySection`: pass `photos={[]}` (placeholder mode until photos delivered)
+- **Devotional pacing:** KEEP both invocations (Ganesha mantra + Shubham Karoti shloka) — culturally appropriate. Revisit only if it feels long in testing.
+- **Glass card panels:** KEEP — they read fine on desktop; the real issue was text contrast (handled in #2).
 
-**Feature 2: MusicPlayer → config-driven + graceful fail**
-- Replace hardcoded path with `MEDIA.MUSIC_SRC`; hide button when `onloaderror` fires
+## Out of scope here (already logged, sitewide)
 
-**Feature 3: Gotra/Nakshatra in config + BlessingsSection**
-- Add `GROOM_GOTRA`, `BRIDE_GOTRA`, `GROOM_NAKSHATRA`, `BRIDE_NAKSHATRA` to `FAMILIES` (empty strings)
-- Render conditionally below parent names in BlessingsSection (only shows when non-empty)
-- Add `"gotra_label"` + `"nakshatra_label"` to all 4 JSONs
-
-**Feature 4: Bride sibling in FamilyShlokaSection**
-- Add `BRIDE_SIBLING: ''` to `FAMILIES` config
-- Mirror groom sibling render logic (conditional)
-
----
-
-## Wave 3 — One Agent (After Wave 2 Completes)
-
-### Agent 6: P2 Features
-File scope: `FooterSection.jsx`, `EventCardsSection.jsx`, `ThingsToKnow.jsx`, `src/config/index.js`.
-
-**Feature 1: Hashtag + Instagram block (FooterSection)**
-- Copy-to-clipboard hashtag using `navigator.clipboard.writeText`; swap label to `t('copied')` on success
-- Instagram link (`https://instagram.com/jyoti.weds.aditya`) opens in new tab
-- Uses existing keys `hashtag_label`, `follow_the_action`, `follow_subtitle` from all 4 JSONs
-
-**Feature 2: Muhurtham call-out (EventCardsSection)**
-- Add `ENGAGEMENT.MUHURTHAM_TIME: '10:00 AM'` to config
-- Small gold chip above events grid: `✦ Shubha Muhurtham: {ENGAGEMENT.MUHURTHAM_TIME} ✦`
-- Add `"muhurtham_label": "Shubha Muhurtham"` to all 4 JSONs
-
-**Feature 3: Travel deep-links (ThingsToKnow ReachCard)**
-- Two small underlined link CTAs below travel text: Google Flights + IRCTC pre-filled for Vizag→Bhubaneswar
-
----
-
-## Sub-Agent Assignment Summary
-
-| Wave | Agent | Files Touched | Can Start |
-|---|---|---|---|
-| 0 | SVG Analysis | `EngagementHero.jsx`, `FooterSection.jsx` (read-only analysis) | Immediately |
-| 1 | Bug Fixes | `useWeather.js`, `LanguageSwitcher.jsx`, `PhotoCarousel.jsx` | Immediately |
-| 1 | i18n Pass | 9 component files + 4 translation JSONs | Immediately |
-| 1 | UI/UX + Hero | `EngagementHero.jsx`, `BlessingsSection.jsx`, `ThingsToKnow.jsx`, `FooterSection.jsx`, `ProgressDots.jsx`, `RouteCTA.jsx`, `SplashScreen.jsx` | Immediately |
-| 2 | P1 Features | `EventCard.jsx`, `EventCardsSection.jsx`, `RSVPSection.jsx`, `ThingsToKnow.jsx`, `engagement.jsx`, `config/index.js` | After Wave 1 |
-| 2 | Content Infra | `AnimatedPhoto.jsx`, `MusicPlayer.jsx`, `CoupleSection.jsx`, `GallerySection.jsx`, `PhotoCarousel.jsx`, `BlessingsSection.jsx`, `FamilyShlokaSection.jsx`, `config/index.js` | After Wave 1 |
-| 3 | P2 Features | `FooterSection.jsx`, `EventCardsSection.jsx`, `ThingsToKnow.jsx`, `config/index.js` | After Wave 2 |
-
----
-
-## Git Workflow — Commits Per Wave + Merge to Main
-
-Each wave ends with a commit on `feat/engagement-v3-enhancements`. After all waves pass `npm run build`, merge to `main`.
-
-| After | Commit message |
-|---|---|
-| Wave 0 — SVG Redesign | `fix: redesign Jagannath temple hero SVG + refine Tirupati gopuram footer SVG` |
-| Wave 1 — Bug Fixes | `fix: useWeather hasFetched ref, LanguageSwitcher touch targets, PhotoCarousel a11y` |
-| Wave 1 — i18n Pass | `feat: i18n completeness — route all hardcoded strings through t() in 10 components` |
-| Wave 1 — UI/UX Fixes | `fix: visual hierarchy, mobile overflow, contrast, and ProgressDots touch targets` |
-| Wave 2 — P1 Features | `feat: add-to-calendar, WhatsApp share, accommodation card, theme-color meta` |
-| Wave 2 — Content Infra | `feat: AnimatedPhoto src prop + Ghibli filter, config MEDIA, gotra/nakshatra fields` |
-| Wave 3 — P2 Features | `feat: hashtag block, muhurtham callout, travel deep-links` |
-
-**Merge to main after all waves pass build:**
-```bash
-git checkout main
-git merge feat/engagement-v3-enhancements --no-ff -m "feat: engagement site v3 — i18n, P1 features, design fixes, SVG redesign"
-git push origin main
-```
-
-Confirm Vercel auto-deploys from `main` to `jyoti-engages.adityanvs.in` before merging.
+- EN sticky pill overlaps top-edge text during scroll.
+- ProgressDots faint on warm-colored sections (issue A-4).
 
 ---
 
 ## Verification
 
-1. **After each wave** — `npm run dev`, spot-check each changed component in browser at 375px and 1280px
-2. **Wave 1** — typewriter no longer restarts; language buttons are 44px; lightbox keyboard-navigable; all i18n strings switch language correctly
-3. **Wave 2** — calendar link pre-fills Google Calendar; WhatsApp button opens correct message; OG tags correct in `view-source`; AnimatedPhoto shows placeholder until `src` provided; MusicPlayer hidden when file missing
-4. **Wave 3** — hashtag copies to clipboard; Instagram link opens; muhurtham chip visible
-5. **Build gate** — `npm run build` zero errors before any wave commit
+- Dev server already running on `:3000`; review at **390px (priority)** then 1440px.
+- Confirm parent names compute to ≥16px (measure `font-size`).
+- Confirm the blessings→events seam has the "join us for the events" beat **once**.
+- Confirm groom card (with sibling) and bride card (no sibling) look balanced — no dead space.
+- Confirm the family icon is legible at 80px.
+- No raw translation keys leak in any of en/hi/te/or; `npm run build` passes clean.
+
+## Commit (when changes are done)
+
+```
+refactor(blessings): merge invite/events seam, raise elder legibility,
+balance family cards, simplify family icon
+```
 
 ---
 
-## Dead Code Cleanup (Wave 3 or Later)
+## Background Pattern System — DONE (2026-05-25)
 
-Remove confirmed-unused files:
-- `src/components/engagement/InfoCardsSection.jsx`
-- `src/components/engagement/KolamDivider.jsx` (duplicate)
-- `src/components/shared/LanguageModal.jsx`
-- `src/components/shared/WeatherWidget.jsx`
-- `src/components/shared/InfoCard.jsx`
-- `src/components/shared/VintageCarDivider.jsx`
+Added subtle tiled lotus-mandala texture behind every section. New reusable component `src/components/shared/MandalaPattern.jsx` (props: `color`, `opacity`; renders an absolute zIndex:0 SVG `<pattern>` behind content). Rolled out via Haiku/Sonnet subagents.
+
+Per-zone values (note: gold-on-warm needs higher opacity than the 4–6% first tried — it was invisible on warm-on-warm):
+
+| Zone | Sections | color | opacity |
+|---|---|---|---|
+| Saffron | Blessings, EventCards, RouteCTA | `var(--gold-light)` | 0.22 |
+| Burgundy | Couple, RSVP, Gallery | `var(--gold-light)` | 0.16 |
+| Sand | ThingsToKnow | `var(--saffron-dark)` | 0.10 |
+| Navy | Countdown, Footer | `var(--gold)` | 0.08 |
+
+Each host section was given `position:relative; overflow:hidden`; content wrappers carry `position:relative; zIndex:1` so text stays above the texture.
+
+Open tweak: sand zone is faint (section is mostly cream cards) — bump opacity if more presence wanted.
+

@@ -1,4 +1,5 @@
 import ScrollReveal from '@/components/shared/ScrollReveal';
+import MandalaPattern from '@/components/shared/MandalaPattern';
 import { useLanguage } from '@/hooks/useLanguage';
 import { COUPLE, ENGAGEMENT, DOMAIN } from '@/config';
 
@@ -14,7 +15,11 @@ export default function RSVPSection() {
       background: 'var(--rose)',
       padding: 'clamp(2.5rem, 7vw, 4rem) 1.5rem',
       textAlign: 'center',
+      position: 'relative',
+      overflow: 'hidden',
     }}>
+      <MandalaPattern color="var(--gold-light)" opacity={0.16} />
+      <div style={{ position: 'relative', zIndex: 1 }}>
       <ScrollReveal>
         <p style={{
           fontFamily: "'Lora', serif",
@@ -77,6 +82,7 @@ export default function RSVPSection() {
           {t('share_on_whatsapp')}
         </a>
       </ScrollReveal>
+      </div>
     </section>
   );
 }
