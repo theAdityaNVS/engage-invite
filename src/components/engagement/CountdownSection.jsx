@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import CountdownTimer from '@/components/shared/CountdownTimer';
 import FloatingLanterns from '@/components/shared/FloatingLanterns';
+import MandalaPattern from '@/components/shared/MandalaPattern';
 import { ENGAGEMENT, COUPLE } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -50,6 +51,7 @@ export default function CountdownSection() {
       position: 'relative',
       overflow: 'hidden',
     }}>
+      <MandalaPattern color="var(--gold)" opacity={0.08} />
       <TwinklingStars count={18} />
       <FloatingLanterns count={12} />
 

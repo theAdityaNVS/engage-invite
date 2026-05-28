@@ -19,7 +19,6 @@ import CoupleSection from '@/components/engagement/CoupleSection';
 import RSVPSection from '@/components/engagement/RSVPSection';
 import GallerySection from '@/components/engagement/GallerySection';
 import ThingsToKnow from '@/components/engagement/ThingsToKnow';
-import FamilyShlokaSection from '@/components/engagement/FamilyShlokaSection';
 import CountdownSection from '@/components/engagement/CountdownSection';
 import FooterSection from '@/components/engagement/FooterSection';
 
@@ -80,8 +79,6 @@ export default function EngagementPage() {
         <MangoToranDivider fromColor="var(--burgundy)" toColor="var(--sand)" />
 
         <div id="section-info"><ThingsToKnow /></div>
-
-        <div id="section-family"><FamilyShlokaSection /></div>
 
         <KolamDivider fromColor="var(--sand)" toColor="var(--navy)" />
 

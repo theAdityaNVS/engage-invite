@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
+import MandalaPattern from '@/components/shared/MandalaPattern';
 import { ENGAGEMENT, GOOGLE_API } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useWeather } from '@/hooks/useWeather';
@@ -237,6 +238,7 @@ export default function ThingsToKnow() {
       padding: 'clamp(3rem, 8vw, 5rem) 1.5rem',
       position: 'relative', overflow: 'hidden',
     }}>
+      <MandalaPattern color="var(--saffron-dark)" opacity={0.1} />
       <div style={{ maxWidth: 1000, margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <ScrollReveal>
           <h2 style={{
