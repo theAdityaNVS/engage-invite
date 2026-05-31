@@ -26,6 +26,7 @@ import { COUPLE, ENGAGEMENT, DOMAIN } from '@/config';
 
 export default function EngagementPage() {
   const [musicAutoPlay, setMusicAutoPlay] = useState(false);
+  const [entered, setEntered] = useState(false);
 
   return (
     <>
@@ -56,7 +57,11 @@ export default function EngagementPage() {
       </Head>
 
       {/* Overlays */}
-      <SplashScreen onEnter={() => setMusicAutoPlay(true)} />
+      <SplashScreen onEnter={() => {
+        setMusicAutoPlay(true);
+        setEntered(true);
+        window.scrollTo(0, 0);
+      }} />
 
 
       <main>
@@ -90,7 +95,7 @@ export default function EngagementPage() {
 
       {/* Fixed UI */}
       <ProgressDots />
-      <AutoScrollHint />
+      {entered && <AutoScrollHint />}
       <MusicPlayer autoPlay={musicAutoPlay} />
       <LanguageSwitcher />
     </>

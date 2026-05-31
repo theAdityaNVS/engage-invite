@@ -58,6 +58,24 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
   const [doorsOpen, setDoorsOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
 
+  // Manage body scroll locking and initial scroll-to-top
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    if (visible) {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [visible]);
+
   useEffect(() => {
     if (!forceShow && typeof window !== 'undefined' && sessionStorage.getItem('splash_shown')) {
       setVisible(false);
@@ -73,6 +91,8 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
     if (!forceShow) {
       sessionStorage.setItem('splash_shown', '1');
     }
+    // Force scroll to top on entering
+    window.scrollTo(0, 0);
     setVisible(false);
     onEnter?.();
   };
