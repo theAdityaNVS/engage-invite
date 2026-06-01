@@ -264,10 +264,10 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
             <AnimatePresence>
               {!doorsOpen && (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                  initial={{ opacity: 0, scale: 0.75, rotate: -15 }}
                   animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  exit={{ opacity: 0, scale: 0.7, rotate: 15, filter: 'blur(6px)' }}
-                  transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
+                  exit={{ opacity: 0, scale: 0.65, rotate: 20, filter: 'blur(8px)' }}
+                  transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }} // Overshoot spring for tactile bounce
                   style={{
                     position: 'absolute',
                     top: '50%',
@@ -281,24 +281,78 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
                     justifyContent: 'center',
                   }}
                 >
+                  {/* Outer Spilled Wax Ring (Organic, imperfect hand-poured fluid edge) */}
                   <div style={{
-                    width: '85px',
-                    height: '85px',
-                    borderRadius: '50%',
-                    background: 'radial-gradient(circle at 35% 35%, #FDF0D5 0%, #D4A843 45%, #926E15 85%, #5E4302 100%)',
-                    border: '2px solid rgba(253,246,224,0.5)',
-                    boxShadow: '0 12px 28px rgba(0,0,0,0.65), inset 0 2px 4px rgba(255,255,255,0.45), inset 0 -3px 6px rgba(0,0,0,0.5)',
+                    position: 'relative',
+                    width: '92px',
+                    height: '92px',
+                    borderRadius: '52% 48% 51% 49% / 49% 52% 48% 51%',
+                    background: 'radial-gradient(circle at 35% 35%, #FFF0D0 0%, #E2B755 25%, #B38628 55%, #7D5712 85%, #4A3105 100%)',
+                    boxShadow: `
+                      0 10px 30px rgba(0, 0, 0, 0.75), 
+                      inset 0 3px 6px rgba(255, 255, 255, 0.5), 
+                      inset 0 -4px 8px rgba(0, 0, 0, 0.6),
+                      0 0 0 1px rgba(212, 168, 67, 0.2)
+                    `,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontFamily: "'Great Vibes', cursive",
-                    fontSize: '2.1rem',
-                    color: '#3A0D18', // Rich deep burgundy font
-                    fontWeight: 'bold',
-                    textShadow: '1px 1px 1px rgba(255,255,255,0.2)',
-                    userSelect: 'none',
                   }}>
-                    A&J
+                    {/* Inner Stamped Rim (Re-poured/pressed boundary) */}
+                    <div style={{
+                      width: '74px',
+                      height: '74px',
+                      borderRadius: '50%',
+                      border: '1.5px double rgba(162, 118, 19, 0.65)',
+                      background: 'radial-gradient(circle at 30% 30%, #FBECC4 0%, #D8A73C 35%, #997017 75%, #634505 100%)',
+                      boxShadow: 'inset 0 3px 5px rgba(0,0,0,0.5), 0 1px 2px rgba(255,255,255,0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      position: 'relative',
+                      overflow: 'hidden',
+                    }}>
+                      {/* Auspicious Om Accent at Top of Stamp */}
+                      <span style={{
+                        position: 'absolute',
+                        top: '7px',
+                        fontFamily: "'Lora', serif",
+                        fontSize: '0.55rem',
+                        fontWeight: 'bold',
+                        color: 'rgba(58, 13, 24, 0.85)',
+                        textShadow: '0.5px 0.5px 0px rgba(255,255,255,0.2)',
+                        opacity: 0.95,
+                        letterSpacing: '0.1em',
+                      }}>
+                        ॐ
+                      </span>
+
+                      {/* Stamped Initials - embossed/pressed deep into the gold wax */}
+                      <span style={{
+                        fontFamily: "'Great Vibes', cursive",
+                        fontSize: '2.1rem',
+                        fontWeight: 'bold',
+                        color: '#340812', // Rich deeply-recessed burgundy color
+                        textShadow: `
+                          -0.75px -0.75px 1px rgba(0, 0, 0, 0.8), 
+                          0.75px 0.75px 1px rgba(255, 255, 255, 0.25)
+                        `, // High-fidelity embossing shadow map
+                        marginTop: '3px',
+                        letterSpacing: '-0.03em',
+                        userSelect: 'none',
+                      }}>
+                        A&J
+                      </span>
+
+                      {/* Inner Accent Ring */}
+                      <div style={{
+                        position: 'absolute',
+                        inset: '4px',
+                        borderRadius: '50%',
+                        border: '0.5px solid rgba(255, 255, 255, 0.08)',
+                        pointerEvents: 'none',
+                      }} />
+                    </div>
                   </div>
                 </motion.div>
               )}
