@@ -3,7 +3,7 @@ import ScrollReveal from './ScrollReveal';
 import { useLanguage } from '@/hooks/useLanguage';
 
 /* Gold marigold cluster for card corners */
-function FloralAccent({ style, className }) {
+export function FloralAccent({ style, className }) {
   const getD = (a) => {
     const q1x = (25 + 12 * Math.cos((a - 15) * Math.PI / 180)).toFixed(4);
     const q1y = (25 + 12 * Math.sin((a - 15) * Math.PI / 180)).toFixed(4);
@@ -98,42 +98,38 @@ function CalendarIcon() {
   );
 }
 
-/* Mathematically precise and elegant scalloped Indian Palace Archway (Jharokha) Frame */
-function JharokhaFrame() {
+/* Inset Double Border Frame with elegant corner stars (No mosque-like arch shape) */
+export function PremiumDoubleBorderFrame({ borderColor = 'rgba(212, 168, 67, 0.35)', dashColor = 'rgba(212, 168, 67, 0.18)' }) {
   return (
-    <svg
-      viewBox="0 0 400 520"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      style={{
+    <div style={{
+      position: 'absolute',
+      top: '10px',
+      left: '10px',
+      right: '10px',
+      bottom: '10px',
+      border: `1.5px solid ${borderColor}`,
+      borderRadius: '16px',
+      pointerEvents: 'none',
+      zIndex: 2,
+    }}>
+      {/* Inner Nested Dashed Border */}
+      <div style={{
         position: 'absolute',
-        inset: 0,
-        width: '100%',
-        height: '100%',
+        top: '4px',
+        left: '4px',
+        right: '4px',
+        bottom: '4px',
+        border: `1px dashed ${dashColor}`,
+        borderRadius: '12px',
         pointerEvents: 'none',
-        zIndex: 2,
-      }}
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      {/* Main Outer Arch Border Path (Gold foil line) */}
-      <path
-        d="M 200,20 C 185,30 175,42 160,48 C 140,55 125,70 115,90 C 100,115 90,145 90,180 L 90,490 C 90,500 100,510 110,510 L 290,510 C 300,510 310,500 310,490 L 310,180 C 310,145 300,115 285,90 C 275,70 260,55 240,48 C 225,42 215,30 200,20 Z"
-        stroke="var(--gold)"
-        strokeWidth="2.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      {/* Inner Scalloped Gold Dashed Path (Double border effect) */}
-      <path
-        d="M 200,28 C 187,37 178,48 164,54 C 146,60 132,74 123,92 C 109,115 100,143 100,176 L 100,480 C 100,488 108,496 116,496 L 284,496 C 292,496 300,488 300,480 L 300,176 C 300,143 291,115 277,92 C 268,74 254,60 236,54 C 222,48 213,37 200,28 Z"
-        stroke="rgba(212, 168, 67, 0.45)"
-        strokeWidth="1.2"
-        strokeDasharray="4 3"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+      }} />
+      
+      {/* Four Elegant Corner Diamond Stars */}
+      <span style={{ position: 'absolute', top: '2px', left: '4px', color: borderColor, fontSize: '10px', lineHeight: 1, filter: 'drop-shadow(0 0 2px rgba(212,168,67,0.3))' }}>✦</span>
+      <span style={{ position: 'absolute', top: '2px', right: '4px', color: borderColor, fontSize: '10px', lineHeight: 1, filter: 'drop-shadow(0 0 2px rgba(212,168,67,0.3))' }}>✦</span>
+      <span style={{ position: 'absolute', bottom: '2px', left: '4px', color: borderColor, fontSize: '10px', lineHeight: 1, filter: 'drop-shadow(0 0 2px rgba(212,168,67,0.3))' }}>✦</span>
+      <span style={{ position: 'absolute', bottom: '2px', right: '4px', color: borderColor, fontSize: '10px', lineHeight: 1, filter: 'drop-shadow(0 0 2px rgba(212,168,67,0.3))' }}>✦</span>
+    </div>
   );
 }
 
@@ -149,11 +145,11 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
         className="event-card-hover"
         style={{
           background: 'linear-gradient(180deg, #FAF6EE 0%, #FAF0D4 100%)',
-          borderRadius: '140px 140px 20px 20px', /* Loosely matches the Jharokha arch base shape to prevent bleed */
+          borderRadius: '24px', /* Modern premium rounded corners */
           overflow: 'visible',
           boxShadow: '0 20px 48px rgba(90, 20, 35, 0.24), inset 0 0 35px rgba(212, 168, 67, 0.12)',
           position: 'relative',
-          padding: '4.8rem 2.2rem 2.5rem', /* Generous top padding for the arch peak spacing */
+          padding: '2.5rem 1.8rem 2.2rem', /* Sleek balanced padding */
           textAlign: 'center',
           minHeight: 380,
           display: 'flex',
@@ -164,21 +160,17 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
           border: '1px solid rgba(212, 168, 67, 0.15)',
         }}
       >
-        {/* Intricate Multi-Lobed SVG Jharokha Overlay Frame */}
-        <JharokhaFrame />
+        {/* Sleek Inset Gold Double Frame */}
+        <PremiumDoubleBorderFrame />
 
         {/* Diagonal Gold Foil Shimmer sweep */}
         <div className="gold-foil-shimmer-container">
           <div className="gold-foil-shimmer" />
         </div>
 
-        {/* Base corner marigold floral accents bracing the royal archway */}
-        <FloralAccent className="floral-accent-bottom" style={{ position: 'absolute', bottom: -12, left: -10, zIndex: 3 }} />
-        <FloralAccent className="floral-accent-top" style={{ position: 'absolute', bottom: -12, right: -10, zIndex: 3 }} />
-
         {/* Central Traditional Emblem sitting inside a detailed brass halo niche */}
         <div style={{ 
-          marginBottom: '1rem', 
+          marginBottom: '0.8rem', 
           position: 'relative', 
           zIndex: 2,
           background: 'rgba(212, 168, 67, 0.05)',

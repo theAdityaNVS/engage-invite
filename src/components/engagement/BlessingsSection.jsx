@@ -3,6 +3,7 @@ import ScrollReveal from '@/components/shared/ScrollReveal';
 import MandalaPattern from '@/components/shared/MandalaPattern';
 import { FAMILIES, COUPLE } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
+import { PremiumDoubleBorderFrame } from '@/components/shared/EventCard';
 
 
 
@@ -101,7 +102,7 @@ function DiyaIcon({ style }) {
 function GroomsFamilySVG() {
   return (
     <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style={{ width: '80px', height: '80px', marginBottom: '0.8rem' }}
+      style={{ width: '64px', height: '64px' }}
       aria-label="Groom's Family Icon"
     >
       <circle cx="80" cy="80" r="76" stroke="rgba(212,168,67,0.2)" strokeWidth="1.5" strokeDasharray="4 4" />
@@ -150,7 +151,7 @@ function GroomsFamilySVG() {
 function BridesFamilySVG() {
   return (
     <svg viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style={{ width: '80px', height: '80px', marginBottom: '0.8rem' }}
+      style={{ width: '64px', height: '64px' }}
       aria-label="Bride's Family Icon"
     >
       <circle cx="80" cy="80" r="76" stroke="rgba(212,168,67,0.2)" strokeWidth="1.5" strokeDasharray="4 4" />
@@ -324,99 +325,93 @@ export default function BlessingsSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                whileHover={{ y: -6, boxShadow: '0 24px 56px rgba(0, 0, 0, 0.35), inset 0 0 45px rgba(212, 168, 67, 0.25)' }}
+                className="event-card-hover"
                 style={{
                   flex: '1 1 260px',
                   minWidth: 240,
                   maxWidth: 290,
                   position: 'relative',
-                  background: 'linear-gradient(135deg, rgba(20, 5, 10, 0.35) 0%, rgba(20, 5, 10, 0.15) 100%)',
+                  background: 'linear-gradient(180deg, rgba(30, 8, 12, 0.55) 0%, rgba(20, 5, 10, 0.4) 100%)',
                   backdropFilter: 'blur(16px)',
                   WebkitBackdropFilter: 'blur(16px)',
-                  border: '1px solid rgba(212, 168, 67, 0.25)',
-                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
-                  borderRadius: '20px',
-                  padding: '2rem 1.5rem 1.8rem',
+                  borderRadius: '24px', /* Matches event card rectangular border-radius exactly */
+                  overflow: 'visible',
+                  boxShadow: '0 20px 48px rgba(0, 0, 0, 0.25), inset 0 0 35px rgba(212, 168, 67, 0.15)',
+                  padding: '2.5rem 1.8rem 2.2rem', /* Matches event card padding exactly */
                   textAlign: 'center',
+                  minHeight: 380,
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'flex-start',
-                  overflow: 'hidden',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: '0.4rem',
+                  border: '1px solid rgba(212, 168, 67, 0.25)',
                 }}
               >
-                {/* Inset Gold Border Frame */}
-                <div style={{
-                  position: 'absolute',
-                  top: '8px',
-                  left: '8px',
-                  right: '8px',
-                  bottom: '8px',
-                  border: '1px solid rgba(212, 168, 67, 0.15)',
-                  borderRadius: '14px',
-                  pointerEvents: 'none',
-                  zIndex: 0,
-                }}>
-                  {/* Corner Diamond Ornaments */}
-                  <span style={{ position: 'absolute', top: '2px', left: '2px', color: 'rgba(212, 168, 67, 0.4)', fontSize: '8px', lineHeight: 1 }}>✦</span>
-                  <span style={{ position: 'absolute', top: '2px', right: '2px', color: 'rgba(212, 168, 67, 0.4)', fontSize: '8px', lineHeight: 1 }}>✦</span>
-                  <span style={{ position: 'absolute', bottom: '2px', left: '2px', color: 'rgba(212, 168, 67, 0.4)', fontSize: '8px', lineHeight: 1 }}>✦</span>
-                  <span style={{ position: 'absolute', bottom: '2px', right: '2px', color: 'rgba(212, 168, 67, 0.4)', fontSize: '8px', lineHeight: 1 }}>✦</span>
+                {/* Sleek Inset Gold Double Frame */}
+                <PremiumDoubleBorderFrame />
+
+                {/* Diagonal Gold Foil Shimmer sweep */}
+                <div className="gold-foil-shimmer-container">
+                  <div className="gold-foil-shimmer" />
                 </div>
 
-                {/* SVG Icon with Radial Glow */}
-                <div style={{ position: 'relative', display: 'inline-flex', justifyContent: 'center', margin: '0 auto 1rem', zIndex: 1 }}>
-                  <div style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '90px',
-                    height: '90px',
-                    background: 'radial-gradient(circle, rgba(212, 168, 67, 0.15) 0%, transparent 70%)',
-                    pointerEvents: 'none',
-                    zIndex: -1,
-                  }} />
+                {/* Central Traditional Emblem sitting inside a detailed brass halo niche */}
+                <div style={{ 
+                  marginBottom: '0.8rem', 
+                  position: 'relative', 
+                  zIndex: 3,
+                  background: 'rgba(212, 168, 67, 0.05)',
+                  border: '1.5px solid rgba(212, 168, 67, 0.35)',
+                  borderRadius: '50%',
+                  padding: '0.6rem',
+                  boxShadow: '0 8px 24px rgba(212, 168, 67, 0.12)',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
                   {icon}
                 </div>
 
                 <p style={{
                   fontFamily: "'Lora', serif",
-                  fontSize: '0.65rem',
+                  fontSize: '0.68rem',
                   color: 'rgba(245, 236, 200, 0.65)',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
-                  marginBottom: '0.2rem',
-                  zIndex: 1,
+                  marginBottom: '0.1rem',
+                  zIndex: 2,
                 }}>{location}</p>
                 
                 <p style={{
                   fontFamily: "'Lora', serif",
-                  fontSize: '0.78rem',
+                  fontSize: '0.8rem',
                   color: '#D4A843',
                   fontWeight: '600',
                   letterSpacing: '0.18em',
                   textTransform: 'uppercase',
-                  marginBottom: '0.75rem',
-                  zIndex: 1,
+                  marginBottom: '0.6rem',
+                  zIndex: 2,
                 }}>{t(labelKey)}</p>
 
                 <div style={{
                   height: 1,
                   width: '60px',
-                  margin: '0 auto 1rem',
+                  margin: '0 auto 0.8rem',
                   background: 'linear-gradient(to right, transparent, rgba(212, 168, 67, 0.5), transparent)',
-                  zIndex: 1,
+                  zIndex: 2,
                 }} />
 
                 {/* Parents Names (Vertically Centered) */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', zIndex: 1, flexGrow: 1, justifyContent: 'center' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', zIndex: 2, flexGrow: 1, justifyContent: 'center' }}>
                   {names.split(' & ').map((name, i) => (
                     <p key={i} style={{
                       fontFamily: "'Playfair Display', serif",
-                      fontSize: 'clamp(1rem, 2.8vw, 1.2rem)',
+                      fontSize: 'clamp(1.05rem, 2.8vw, 1.25rem)',
                       color: 'var(--saffron-text)',
                       fontWeight: '600',
-                      lineHeight: 1.4,
+                      lineHeight: 1.35,
                     }}>{name}</p>
                   ))}
                 </div>
@@ -428,17 +423,21 @@ export default function BlessingsSection() {
                     gap: '0.6rem',
                     flexWrap: 'wrap',
                     justifyContent: 'center',
-                    zIndex: 1,
+                    zIndex: 2,
                     borderTop: '1px solid rgba(212, 168, 67, 0.1)',
                     paddingTop: '0.8rem',
+                    width: '100%',
                   }}>
                     {gotra && (
-                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.65rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
+                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.68rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
                         {t('gotra_label')}: {gotra}
                       </span>
                     )}
+                    {gotra && nakshatra && (
+                      <span style={{ color: 'rgba(212, 168, 67, 0.4)', fontSize: '0.7rem' }}>•</span>
+                    )}
                     {nakshatra && (
-                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.65rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
+                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.68rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
                         {t('nakshatra_label')}: {nakshatra}
                       </span>
                     )}
