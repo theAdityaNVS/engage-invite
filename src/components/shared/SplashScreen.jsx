@@ -250,14 +250,60 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
                 backgroundBlendMode: 'multiply', // keep the burgundy rich; texture darkens instead of washing it out
                 transformOrigin: 'left center',
                 position: 'relative',
-                boxShadow: 'inset -20px 0 40px rgba(0,0,0,0.3)',
+                boxShadow: 'inset -30px 0 60px rgba(0,0,0,0.45)', // Deeper edge shadow for 3D paper folding look
                 willChange: 'transform',
               }}
             >
               {/* Delicate Gold Inner Border */}
-              <div style={{ position: 'absolute', inset: '12px 6px 12px 12px', border: '1px solid rgba(212,168,67,0.6)', borderRadius: '2px' }} />
-              <div style={{ position: 'absolute', inset: '18px 10px 18px 18px', border: '1px solid rgba(212,168,67,0.3)', borderRadius: '2px' }} />
-              <div style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', width: 2, height: 180, background: 'rgba(212,168,67,0.7)' }} />
+              <div style={{ position: 'absolute', inset: '12px 6px 12px 12px', border: '1px solid rgba(212,168,67,0.5)', borderRadius: '2px' }} />
+              <div style={{ position: 'absolute', inset: '18px 10px 18px 18px', border: '1px solid rgba(212,168,67,0.25)', borderRadius: '2px' }} />
+              
+              {/* Luxury Corner Ornaments (Left Top & Left Bottom) */}
+              <div style={{ position: 'absolute', left: '22px', top: '22px', opacity: 0.75, pointerEvents: 'none' }}>
+                <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6"/>
+                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4"/>
+                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8"/>
+                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7"/>
+                </svg>
+              </div>
+              <div style={{ position: 'absolute', left: '22px', bottom: '22px', transform: 'scaleY(-1)', opacity: 0.75, pointerEvents: 'none' }}>
+                <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6"/>
+                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4"/>
+                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8"/>
+                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7"/>
+                </svg>
+              </div>
+
+              {/* Royal Archway Split Halo (Traced Gold Lace) */}
+              <div style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', pointerEvents: 'none' }}>
+                <svg width="70" height="140" viewBox="0 0 70 140" fill="none">
+                  <path d="M 0,10 A 60,60 0 0,1 60,70 A 60,60 0 0,1 0,130" stroke="#D4A843" strokeWidth="2" opacity="0.8" />
+                  <path d="M 0,20 A 50,50 0 0,1 50,70 A 50,50 0 0,1 0,120" stroke="#D4A843" strokeWidth="1" strokeDasharray="3,3" opacity="0.5" />
+                  {Array.from({ length: 5 }).map((_, idx) => {
+                    const angle = -60 + (idx * 30); // distribute evenly
+                    const rad = angle * Math.PI / 180;
+                    const x = parseFloat((50 * Math.cos(rad)).toFixed(4));
+                    const y = parseFloat((70 + 50 * Math.sin(rad)).toFixed(4));
+                    return <circle key={idx} cx={x} cy={y} r="2.5" fill="#FFEBA7" stroke="#D4A843" strokeWidth="0.5" />;
+                  })}
+                </svg>
+              </div>
+
+              {/* 3D Fluted Brass Seam Clasp Molding (Left half) */}
+              <div style={{ 
+                position: 'absolute', 
+                right: 0, 
+                top: '50%', 
+                transform: 'translateY(-50%)', 
+                width: '3px', 
+                height: '180px', 
+                background: 'linear-gradient(to right, #705213 0%, #D4A843 35%, #FFEBA7 50%, #B58A2A 65%, #593E05 100%)',
+                boxShadow: '0 0 8px rgba(0, 0, 0, 0.4)'
+              }} />
+              <div style={{ position: 'absolute', right: '-3px', top: 'calc(50% - 90px)', transform: 'translateX(-50%)', color: '#FFEBA7', fontSize: '10px', textShadow: '0 1px 2px black', fontWeight: 'bold' }}>✦</div>
+              <div style={{ position: 'absolute', right: '-3px', top: 'calc(50% + 80px)', transform: 'translateX(-50%)', color: '#FFEBA7', fontSize: '10px', textShadow: '0 1px 2px black', fontWeight: 'bold' }}>✦</div>
             </motion.div>
 
             {/* Embossed Gold Monogram Wax Seal Medallion */}
@@ -392,14 +438,60 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
                 backgroundBlendMode: 'multiply', // keep the burgundy rich; texture darkens instead of washing it out
                 transformOrigin: 'right center',
                 position: 'relative',
-                boxShadow: 'inset 20px 0 40px rgba(0,0,0,0.3)',
+                boxShadow: 'inset 30px 0 60px rgba(0,0,0,0.45)', // Deeper edge shadow for 3D paper folding look
                 willChange: 'transform',
               }}
             >
               {/* Delicate Gold Inner Border */}
-              <div style={{ position: 'absolute', inset: '12px 12px 12px 6px', border: '1px solid rgba(212,168,67,0.6)', borderRadius: '2px' }} />
-              <div style={{ position: 'absolute', inset: '18px 18px 18px 10px', border: '1px solid rgba(212,168,67,0.3)', borderRadius: '2px' }} />
-              <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', width: 2, height: 180, background: 'rgba(212,168,67,0.7)' }} />
+              <div style={{ position: 'absolute', inset: '12px 12px 12px 6px', border: '1px solid rgba(212,168,67,0.5)', borderRadius: '2px' }} />
+              <div style={{ position: 'absolute', inset: '18px 18px 18px 10px', border: '1px solid rgba(212,168,67,0.25)', borderRadius: '2px' }} />
+              
+              {/* Luxury Corner Ornaments (Right Top & Right Bottom) */}
+              <div style={{ position: 'absolute', right: '22px', top: '22px', transform: 'scaleX(-1)', opacity: 0.75, pointerEvents: 'none' }}>
+                <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6"/>
+                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4"/>
+                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8"/>
+                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7"/>
+                </svg>
+              </div>
+              <div style={{ position: 'absolute', right: '22px', bottom: '22px', transform: 'scale(-1)', opacity: 0.75, pointerEvents: 'none' }}>
+                <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
+                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6"/>
+                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4"/>
+                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8"/>
+                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7"/>
+                </svg>
+              </div>
+
+              {/* Royal Archway Split Halo (Traced Gold Lace) */}
+              <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%) scaleX(-1)', pointerEvents: 'none' }}>
+                <svg width="70" height="140" viewBox="0 0 70 140" fill="none">
+                  <path d="M 0,10 A 60,60 0 0,1 60,70 A 60,60 0 0,1 0,130" stroke="#D4A843" strokeWidth="2" opacity="0.8" />
+                  <path d="M 0,20 A 50,50 0 0,1 50,70 A 50,50 0 0,1 0,120" stroke="#D4A843" strokeWidth="1" strokeDasharray="3,3" opacity="0.5" />
+                  {Array.from({ length: 5 }).map((_, idx) => {
+                    const angle = -60 + (idx * 30);
+                    const rad = angle * Math.PI / 180;
+                    const x = parseFloat((50 * Math.cos(rad)).toFixed(4));
+                    const y = parseFloat((70 + 50 * Math.sin(rad)).toFixed(4));
+                    return <circle key={idx} cx={x} cy={y} r="2.5" fill="#FFEBA7" stroke="#D4A843" strokeWidth="0.5" />;
+                  })}
+                </svg>
+              </div>
+
+              {/* 3D Fluted Brass Seam Clasp Molding (Right half) */}
+              <div style={{ 
+                position: 'absolute', 
+                left: 0, 
+                top: '50%', 
+                transform: 'translateY(-50%)', 
+                width: '3px', 
+                height: '180px', 
+                background: 'linear-gradient(to right, #593E05 0%, #B58A2A 35%, #FFEBA7 50%, #D4A843 65%, #705213 100%)',
+                boxShadow: '0 0 8px rgba(0, 0, 0, 0.4)'
+              }} />
+              <div style={{ position: 'absolute', left: '-3px', top: 'calc(50% - 90px)', transform: 'translateX(50%)', color: '#FFEBA7', fontSize: '10px', textShadow: '0 1px 2px black', fontWeight: 'bold' }}>✦</div>
+              <div style={{ position: 'absolute', left: '-3px', top: 'calc(50% + 80px)', transform: 'translateX(50%)', color: '#FFEBA7', fontSize: '10px', textShadow: '0 1px 2px black', fontWeight: 'bold' }}>✦</div>
             </motion.div>
           </div>
         </motion.div>
