@@ -269,3 +269,265 @@ a {
     display: none !important;
   }
 }
+
+/* ── Celebrations Section Premium Redesign Upgrades ── */
+
+@keyframes diyaFlameFlicker {
+  0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.95; }
+  20% { transform: scale(0.96, 1.04) rotate(-1deg); opacity: 0.9; }
+  40% { transform: scale(1.04, 0.96) rotate(1deg); opacity: 1; }
+  60% { transform: scale(0.98, 1.02) rotate(-0.5deg); opacity: 0.88; }
+  80% { transform: scale(1.02, 0.98) rotate(1.5deg); opacity: 0.97; }
+}
+
+.diya-flame-animated {
+  animation: diyaFlameFlicker 2.5s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes diamondTwinkle {
+  0%, 100% { transform: scale(0.8); opacity: 0.4; filter: drop-shadow(0 0 2px rgba(255, 248, 240, 0.4)); }
+  50% { transform: scale(1.2); opacity: 1; filter: drop-shadow(0 0 6px rgba(255, 248, 240, 0.9)); }
+}
+
+.diamond-sparkle-animated {
+  animation: diamondTwinkle 3s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes steamRise {
+  0% { transform: translateY(2px) scaleX(0.85); opacity: 0; }
+  15% { opacity: 0.85; }
+  50% { transform: translateY(-5px) scaleX(1.1); opacity: 0.45; }
+  100% { transform: translateY(-11px) scaleX(0.8); opacity: 0; }
+}
+
+.steam-wave-1 {
+  animation: steamRise 3.2s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+.steam-wave-2 {
+  animation: steamRise 3.2s ease-in-out infinite;
+  animation-delay: 0.8s;
+  transform-origin: bottom center;
+}
+.steam-wave-3 {
+  animation: steamRise 3.2s ease-in-out infinite;
+  animation-delay: 1.6s;
+  transform-origin: bottom center;
+}
+
+/* Diagonal Gold Foil Shimmer Sweep */
+.gold-foil-shimmer-container {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.gold-foil-shimmer {
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 150%;
+  height: 100%;
+  background: linear-gradient(105deg, transparent 35%, rgba(240, 214, 138, 0.12) 50%, transparent 65%);
+  transition: all 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+  pointer-events: none;
+}
+
+/* Timeline Track and Node Animations */
+@keyframes timelineNodePulse {
+  0% { box-shadow: 0 0 0 0px rgba(212, 168, 67, 0.6), 0 0 8px rgba(212, 168, 67, 0.3); }
+  70% { box-shadow: 0 0 0 8px rgba(212, 168, 67, 0), 0 0 12px rgba(212, 168, 67, 0.5); }
+  100% { box-shadow: 0 0 0 0px rgba(212, 168, 67, 0), 0 0 4px rgba(212, 168, 67, 0.2); }
+}
+
+.timeline-node-active {
+  animation: timelineNodePulse 2s infinite;
+  background-color: var(--gold-light) !important;
+  border-color: #FFF8F0 !important;
+  transform: scale(1.15);
+}
+
+/* Muhurtham Ornament Breathing Pulse */
+.muhurtham-ornament-container {
+  animation: muhurthamBreathing 4s ease-in-out infinite;
+  transition: all 0.3s ease-in-out;
+}
+
+@keyframes muhurthamBreathing {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18), 0 0 10px rgba(212, 168, 67, 0.25);
+    border-color: rgba(212, 168, 67, 0.7);
+  }
+  50% {
+    transform: scale(1.025);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25), 0 0 20px rgba(212, 168, 67, 0.5);
+    border-color: rgba(212, 168, 67, 1);
+  }
+}
+
+/* EventCard Hover Interactions & Shimmer Trigger */
+.event-card-hover {
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.event-card-hover:hover .gold-foil-shimmer {
+  left: 150%;
+}
+
+/* Floral corner accents scale & rotate */
+.floral-accent-top {
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease !important;
+  transform-origin: center !important;
+}
+
+.floral-accent-bottom {
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.5s ease !important;
+  transform-origin: center !important;
+  transform: rotate(180deg);
+}
+
+.event-card-hover:hover .floral-accent-top {
+  transform: scale(1.15) rotate(20deg) !important;
+  filter: drop-shadow(0 0 6px rgba(240, 214, 138, 0.7));
+}
+
+.event-card-hover:hover .floral-accent-bottom {
+  transform: rotate(200deg) scale(1.15) !important; /* Base 180deg + 20deg rotate */
+  filter: drop-shadow(0 0 6px rgba(240, 214, 138, 0.7));
+}
+
+/* ── Celebrations Section Timeline Layout ── */
+
+.timeline-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-track {
+  position: absolute;
+  top: 0;
+  bottom: 2rem;
+  left: 50%;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--gold) 0%, var(--gold-light) 40%, rgba(212, 168, 67, 0.25) 85%, transparent 100%);
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 2;
+  box-shadow: 0 0 8px rgba(212, 168, 67, 0.25);
+}
+
+.timeline-item {
+  position: relative;
+  display: flex;
+  width: 50%;
+  padding-bottom: 3.5rem;
+  box-sizing: border-box;
+}
+
+.timeline-item-left {
+  align-self: flex-start;
+  justify-content: flex-end;
+  padding-right: 3.2rem;
+}
+
+.timeline-item-right {
+  align-self: flex-end;
+  justify-content: flex-start;
+  padding-left: 3.2rem;
+}
+
+/* Timeline Node */
+.timeline-node {
+  position: absolute;
+  top: 130px; /* Aligns vertically near center of EventCard height */
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--cream); /* Ivory base coordinates with light theme card */
+  border: 2px solid var(--gold);
+  z-index: 5;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3), 0 0 6px rgba(212, 168, 67, 0.4);
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  cursor: pointer;
+}
+
+.timeline-item-left .timeline-node {
+  right: -8px;
+}
+
+.timeline-item-right .timeline-node {
+  left: -8px;
+}
+
+.timeline-card-wrapper {
+  width: 100%;
+  max-width: 420px;
+  position: relative;
+  z-index: 3;
+}
+
+/* Timeline Node Animations */
+@keyframes timelineNodePulse {
+  0% { box-shadow: 0 0 0 0px rgba(212, 168, 67, 0.6), 0 0 8px rgba(212, 168, 67, 0.3); }
+  70% { box-shadow: 0 0 0 8px rgba(212, 168, 67, 0), 0 0 12px rgba(212, 168, 67, 0.5); }
+  100% { box-shadow: 0 0 0 0px rgba(212, 168, 67, 0), 0 0 4px rgba(212, 168, 67, 0.2); }
+}
+
+.timeline-node-active {
+  animation: timelineNodePulse 2s infinite;
+  background-color: var(--gold-light) !important;
+  border-color: #FFF8F0 !important;
+  transform: scale(1.15);
+}
+
+/* Timeline Divider (Hanging Marigold Garland) between cards on Mobile */
+.mobile-timeline-divider {
+  display: none;
+}
+
+/* Timeline Responsive Mode: Mobile Fallback (No timeline lines/nodes, centered cards, marigold garlands) */
+@media (max-width: 768px) {
+  .timeline-track {
+    display: none !important;
+  }
+  .timeline-item {
+    width: 100%;
+    align-self: center !important;
+    justify-content: center !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    padding-bottom: 2.2rem;
+  }
+  .timeline-node {
+    display: none !important;
+  }
+  .timeline-card-wrapper {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+  .mobile-timeline-divider {
+    display: block;
+    width: 100%;
+    height: 64px;
+    position: relative;
+    margin: -1.2rem auto 1.4rem;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 64' fill='none'%3E%3Cpath d='M50 0 L50 64' stroke='%23D4A843' stroke-width='1.5' stroke-dasharray='3 3'/%3E%3Ccircle cx='50' cy='32' r='8' fill='%23D4A843' opacity='0.85'/%3E%3Cpath d='M43 32 Q50 20 57 32 Q50 44 43 32Z' fill='%23C4572A'/%3E%3Ccircle cx='50' cy='32' r='2.5' fill='%23FFF8F0'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    z-index: 2;
+  }
+}
+
+
+

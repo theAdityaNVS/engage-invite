@@ -3,7 +3,7 @@ import ScrollReveal from './ScrollReveal';
 import { useLanguage } from '@/hooks/useLanguage';
 
 /* Gold marigold cluster for card corners */
-function FloralAccent({ style }) {
+function FloralAccent({ style, className }) {
   const getD = (a) => {
     const q1x = (25 + 12 * Math.cos((a - 15) * Math.PI / 180)).toFixed(4);
     const q1y = (25 + 12 * Math.sin((a - 15) * Math.PI / 180)).toFixed(4);
@@ -16,12 +16,12 @@ function FloralAccent({ style }) {
 
   return (
     <svg viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg"
-      style={{ width: 44, height: 44, ...style }} aria-hidden="true">
+      style={{ width: 44, height: 44, ...style }} className={className} aria-hidden="true">
       {[0, 45, 90, 135, 180, 225, 270, 315].map((a) => (
         <path
           key={a}
           d={getD(a)}
-          fill="rgba(212,168,67,0.75)"
+          fill="rgba(212,168,67,0.8)"
         />
       ))}
       <circle cx="25" cy="25" r="5" fill="#D4A843" />
@@ -31,10 +31,10 @@ function FloralAccent({ style }) {
 
 const EVENT_ICONS = {
   'engagement-puja': (
-    <svg viewBox="0 0 48 48" fill="none" style={{ width: 42, height: 42 }} aria-hidden="true">
+    <svg viewBox="0 0 48 48" fill="none" style={{ width: 56, height: 56 }} aria-hidden="true">
       {/* Diya body in golden lines */}
-      <path d="M12 28 C12 36 24 38 36 36 C36 36 38 28 36 26 C34 24 14 24 12 28Z" stroke="#F0D68A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="rgba(212,168,67,0.08)"/>
-      <path d="M16 28 C16 32 24 34 32 33" stroke="#D4A843" strokeWidth="1.2" strokeLinecap="round"/>
+      <path d="M12 28 C12 36 24 38 36 36 C36 36 38 28 36 26 C34 24 14 24 12 28Z" stroke="#C4572A" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" fill="rgba(212,168,67,0.12)"/>
+      <path d="M16 28 C16 32 24 34 32 33" stroke="#A8451E" strokeWidth="1.2" strokeLinecap="round"/>
       {/* Floating flame with gradient glow */}
       <defs>
         <radialGradient id="flame-glow" cx="50%" cy="50%" r="50%">
@@ -45,45 +45,45 @@ const EVENT_ICONS = {
         </radialGradient>
       </defs>
       {/* Aura background */}
-      <circle cx="24" cy="14" r="11" fill="url(#flame-glow)" opacity="0.45" />
+      <circle className="diya-flame-animated" cx="24" cy="14" r="11" fill="url(#flame-glow)" opacity="0.6" />
       {/* Precise Flame vectors */}
-      <path d="M24 6 C26 12 29 15 29 19 C29 22 26 24 24 24 C22 24 19 22 19 19 C19 15 22 12 24 6Z" fill="#FFC837" stroke="#FFF8F0" strokeWidth="1" />
-      <path d="M24 10 C25 14 27 16 27 19 C27 21 25 22 24 22 C23 22 21 21 21 19 C21 16 23 14 24 10Z" fill="#FF8008" />
+      <path className="diya-flame-animated" d="M24 6 C26 12 29 15 29 19 C29 22 26 24 24 24 C22 24 19 22 19 19 C19 15 22 12 24 6Z" fill="#FFC837" stroke="#C4572A" strokeWidth="1" />
+      <path className="diya-flame-animated" d="M24 10 C25 14 27 16 27 19 C27 21 25 22 24 22 C23 22 21 21 21 19 C21 16 23 14 24 10Z" fill="#FF8008" />
     </svg>
   ),
   'ring-ceremony': (
-    <svg viewBox="0 0 48 48" fill="none" style={{ width: 42, height: 42 }} aria-hidden="true">
+    <svg viewBox="0 0 48 48" fill="none" style={{ width: 56, height: 56 }} aria-hidden="true">
       {/* Left Ring (offset behind) */}
-      <circle cx="20" cy="26" r="10" stroke="rgba(212,168,67,0.5)" strokeWidth="1.8" />
-      <circle cx="20" cy="26" r="7" stroke="rgba(212,168,67,0.3)" strokeWidth="1" />
+      <circle cx="20" cy="26" r="10" stroke="rgba(139,34,64,0.4)" strokeWidth="1.8" />
+      <circle cx="20" cy="26" r="7" stroke="rgba(139,34,64,0.2)" strokeWidth="1" />
       {/* Right Ring (offset front) */}
-      <circle cx="28" cy="22" r="10" stroke="#F0D68A" strokeWidth="2.5" />
+      <circle cx="28" cy="22" r="10" stroke="#C4572A" strokeWidth="2.5" />
       <circle cx="28" cy="22" r="7" stroke="#D4A843" strokeWidth="1.2" />
       {/* Diamond bezel setting */}
-      <path d="M28 12 L30 9 L28 6 L26 9 Z" fill="#FFF8F0" />
+      <path d="M28 12 L30 9 L28 6 L26 9 Z" fill="#FFF8F0" stroke="#D4A843" strokeWidth="1" />
       {/* Diamond shine star */}
-      <path d="M28 3 L29 7 L33 8 L29 9 L28 13 L27 9 L23 8 L27 7 Z" fill="#FFF8F0" opacity="0.95" />
-      <circle cx="28" cy="8" r="1.5" fill="#FFF" />
+      <path className="diamond-sparkle-animated" d="M28 3 L29 7 L33 8 L29 9 L28 13 L27 9 L23 8 L27 7 Z" fill="#D4A843" opacity="0.95" />
+      <circle className="diamond-sparkle-animated" cx="28" cy="8" r="1.5" fill="#FFF" />
     </svg>
   ),
   'family-lunch': (
-    <svg viewBox="0 0 48 48" fill="none" style={{ width: 42, height: 42 }} aria-hidden="true">
+    <svg viewBox="0 0 48 48" fill="none" style={{ width: 56, height: 56 }} aria-hidden="true">
       {/* Plate rim */}
-      <circle cx="24" cy="26" r="16" stroke="#F0D68A" strokeWidth="2.5" fill="rgba(212,168,67,0.06)" />
+      <circle cx="24" cy="26" r="16" stroke="#8B2240" strokeWidth="2.5" fill="rgba(212,168,67,0.08)" />
       <circle cx="24" cy="26" r="14.5" stroke="#D4A843" strokeWidth="1" />
       {/* Small bowls (katoris) inside */}
-      <circle cx="16" cy="20" r="3.5" stroke="#F0D68A" strokeWidth="1.5" fill="rgba(212,168,67,0.1)" />
-      <circle cx="24" cy="16" r="3.5" stroke="#F0D68A" strokeWidth="1.5" fill="rgba(212,168,67,0.1)" />
-      <circle cx="32" cy="20" r="3.5" stroke="#F0D68A" strokeWidth="1.5" fill="rgba(212,168,67,0.1)" />
+      <circle cx="16" cy="20" r="3.5" stroke="#C4572A" strokeWidth="1.5" fill="rgba(212,168,67,0.12)" />
+      <circle cx="24" cy="16" r="3.5" stroke="#C4572A" strokeWidth="1.5" fill="rgba(212,168,67,0.12)" />
+      <circle cx="32" cy="20" r="3.5" stroke="#C4572A" strokeWidth="1.5" fill="rgba(212,168,67,0.12)" />
       {/* Food cluster in middle */}
-      <path d="M20 28 Q24 23 28 28 Z" fill="#D4A843" opacity="0.8" />
-      <circle cx="19" cy="30" r="1.8" fill="#F0D68A" />
-      <circle cx="24" cy="31" r="1.8" fill="#F0D68A" />
-      <circle cx="29" cy="30" r="1.8" fill="#F0D68A" />
+      <path d="M20 28 Q24 23 28 28 Z" fill="#D4A843" opacity="0.85" />
+      <circle cx="19" cy="30" r="1.8" fill="#C4572A" />
+      <circle cx="24" cy="31" r="1.8" fill="#C4572A" />
+      <circle cx="29" cy="30" r="1.8" fill="#C4572A" />
       {/* Elegant Steam waves rising */}
-      <path d="M19 12 Q21 8 20 5" stroke="#F0D68A" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
-      <path d="M24 9 Q26 5 25 2" stroke="#FFF8F0" strokeWidth="1.5" strokeLinecap="round" opacity="0.85" />
-      <path d="M29 12 Q31 8 30 5" stroke="#F0D68A" strokeWidth="1.2" strokeLinecap="round" opacity="0.7" />
+      <path className="steam-wave-1" d="M19 12 Q21 8 20 5" stroke="#C4572A" strokeWidth="1.2" strokeLinecap="round" opacity="0.75" />
+      <path className="steam-wave-2" d="M24 9 Q26 5 25 2" stroke="#A8451E" strokeWidth="1.5" strokeLinecap="round" opacity="0.85" />
+      <path className="steam-wave-3" d="M29 12 Q31 8 30 5" stroke="#C4572A" strokeWidth="1.2" strokeLinecap="round" opacity="0.75" />
     </svg>
   ),
 };
@@ -98,6 +98,45 @@ function CalendarIcon() {
   );
 }
 
+/* Mathematically precise and elegant scalloped Indian Palace Archway (Jharokha) Frame */
+function JharokhaFrame() {
+  return (
+    <svg
+      viewBox="0 0 400 520"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{
+        position: 'absolute',
+        inset: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 2,
+      }}
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      {/* Main Outer Arch Border Path (Gold foil line) */}
+      <path
+        d="M 200,20 C 185,30 175,42 160,48 C 140,55 125,70 115,90 C 100,115 90,145 90,180 L 90,490 C 90,500 100,510 110,510 L 290,510 C 300,510 310,500 310,490 L 310,180 C 310,145 300,115 285,90 C 275,70 260,55 240,48 C 225,42 215,30 200,20 Z"
+        stroke="var(--gold)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {/* Inner Scalloped Gold Dashed Path (Double border effect) */}
+      <path
+        d="M 200,28 C 187,37 178,48 164,54 C 146,60 132,74 123,92 C 109,115 100,143 100,176 L 100,480 C 100,488 108,496 116,496 L 284,496 C 292,496 300,488 300,480 L 300,176 C 300,143 291,115 277,92 C 268,74 254,60 236,54 C 222,48 213,37 200,28 Z"
+        stroke="rgba(212, 168, 67, 0.45)"
+        strokeWidth="1.2"
+        strokeDasharray="4 3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
 export default function EventCard({ event, delay = 0, calendarUrl }) {
   const { t } = useLanguage();
   const icon = EVENT_ICONS[event.id] || EVENT_ICONS['engagement-puja'];
@@ -105,51 +144,60 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
   return (
     <ScrollReveal delay={delay}>
       <motion.div
-        whileHover={{ y: -6, boxShadow: '0 16px 40px rgba(212,168,67,0.25)' }}
-        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+        whileHover={{ y: -6, boxShadow: '0 24px 56px rgba(90, 20, 35, 0.35), inset 0 0 45px rgba(212, 168, 67, 0.18)' }}
+        transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+        className="event-card-hover"
         style={{
-          background: 'rgba(255, 255, 255, 0.03)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
-          border: '1.5px solid rgba(212, 168, 67, 0.35)',
-          borderRadius: '16px',
+          background: 'linear-gradient(180deg, #FAF6EE 0%, #FAF0D4 100%)',
+          borderRadius: '140px 140px 20px 20px', /* Loosely matches the Jharokha arch base shape to prevent bleed */
           overflow: 'visible',
-          boxShadow: '0 8px 32px rgba(0,0,0,0.18)',
+          boxShadow: '0 20px 48px rgba(90, 20, 35, 0.24), inset 0 0 35px rgba(212, 168, 67, 0.12)',
           position: 'relative',
-          padding: '2.5rem 1.8rem 2rem',
+          padding: '4.8rem 2.2rem 2.5rem', /* Generous top padding for the arch peak spacing */
           textAlign: 'center',
-          minHeight: 280,
+          minHeight: 380,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '0.4rem',
+          gap: '0.45rem',
+          border: '1px solid rgba(212, 168, 67, 0.15)',
         }}
       >
-        {/* Elegant inner gold border frame */}
-        <div style={{
-          position: 'absolute',
-          top: '6px',
-          left: '6px',
-          right: '6px',
-          bottom: '6px',
-          border: '1px solid rgba(212, 168, 67, 0.16)',
-          borderRadius: '12px',
-          pointerEvents: 'none',
-        }} />
+        {/* Intricate Multi-Lobed SVG Jharokha Overlay Frame */}
+        <JharokhaFrame />
 
-        {/* Corner floral accents */}
-        <FloralAccent style={{ position: 'absolute', top: -12, right: -10, zIndex: 3 }} />
-        <FloralAccent style={{ position: 'absolute', bottom: -12, left: -10, transform: 'rotate(180deg)', zIndex: 3 }} />
+        {/* Diagonal Gold Foil Shimmer sweep */}
+        <div className="gold-foil-shimmer-container">
+          <div className="gold-foil-shimmer" />
+        </div>
 
-        {/* Icon */}
-        <div style={{ marginBottom: '0.6rem', position: 'relative', zIndex: 2 }}>{icon}</div>
+        {/* Base corner marigold floral accents bracing the royal archway */}
+        <FloralAccent className="floral-accent-bottom" style={{ position: 'absolute', bottom: -12, left: -10, zIndex: 3 }} />
+        <FloralAccent className="floral-accent-top" style={{ position: 'absolute', bottom: -12, right: -10, zIndex: 3 }} />
+
+        {/* Central Traditional Emblem sitting inside a detailed brass halo niche */}
+        <div style={{ 
+          marginBottom: '1rem', 
+          position: 'relative', 
+          zIndex: 2,
+          background: 'rgba(212, 168, 67, 0.05)',
+          border: '1.5px solid rgba(212, 168, 67, 0.35)',
+          borderRadius: '50%',
+          padding: '0.8rem',
+          boxShadow: '0 8px 24px rgba(212, 168, 67, 0.12)',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center'
+        }}>
+          {icon}
+        </div>
 
         {/* Event name */}
         <h3 style={{
           fontFamily: "'Playfair Display', serif",
-          fontSize: 'clamp(1.1rem, 3.2vw, 1.3rem)',
-          color: '#F0D68A',
+          fontSize: 'clamp(1.2rem, 3.5vw, 1.45rem)',
+          color: '#5A1423',
           letterSpacing: '0.04em',
           fontWeight: 600,
           lineHeight: 1.3,
@@ -163,8 +211,8 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
         {/* Date & day */}
         <p style={{
           fontFamily: "'Lora', serif",
-          fontSize: '0.88rem',
-          color: '#FFF8F0',
+          fontSize: '0.9rem',
+          color: '#2D1810',
           opacity: 0.85,
           position: 'relative',
           zIndex: 2,
@@ -175,11 +223,11 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
         {/* Time */}
         <p style={{
           fontFamily: "'Playfair Display', serif",
-          fontSize: '1.05rem',
-          color: '#FFF8F0',
+          fontSize: '1.15rem',
+          color: '#C4572A',
           fontWeight: 600,
           letterSpacing: '0.02em',
-          margin: '0.1rem 0',
+          margin: '0.15rem 0',
           position: 'relative',
           zIndex: 2,
         }}>
@@ -189,81 +237,80 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
         {/* Venue */}
         <p style={{
           fontFamily: "'Lora', serif",
-          fontSize: '0.85rem',
-          color: '#FFF8F0',
+          fontSize: '0.88rem',
+          color: '#2D1810',
           opacity: 0.72,
-          lineHeight: 1.4,
-          marginBottom: '0.5rem',
+          lineHeight: 1.45,
+          marginBottom: '0.8rem',
           position: 'relative',
           zIndex: 2,
+          padding: '0 0.5rem',
         }}>
           {event.venue}
         </p>
 
         {/* Actions Button Bar */}
         <div style={{
-          marginTop: '1.2rem',
+          marginTop: '1rem',
           display: 'flex',
           flexDirection: 'column',
           gap: '0.75rem',
           width: '100%',
           position: 'relative',
-          zIndex: 2,
+          zIndex: 3,
         }}>
-          {/* See Route Button */}
+          {/* See Route Button - Premium gold gradient */}
           <motion.a
             href={event.mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            whileHover={{ scale: 1.03, background: 'rgba(212, 168, 67, 0.16)', borderColor: 'rgba(212, 168, 67, 0.85)' }}
+            whileHover={{ scale: 1.025, background: 'linear-gradient(135deg, #A8451E, #8A3716)', boxShadow: '0 6px 18px rgba(196, 87, 42, 0.35)' }}
             whileTap={{ scale: 0.97 }}
             style={{
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              height: '44px',
-              background: 'rgba(212, 168, 67, 0.08)',
-              border: '1.2px solid rgba(212, 168, 67, 0.45)',
-              borderRadius: '22px',
+              height: '42px',
+              background: 'linear-gradient(135deg, #C4572A, #A8451E)',
+              borderRadius: '21px',
               fontFamily: "'Lora', serif",
               fontSize: '0.8rem',
-              color: '#F0D68A',
+              color: '#FFF8F0',
               textTransform: 'uppercase',
               letterSpacing: '0.12em',
               fontWeight: 500,
               textDecoration: 'none',
               cursor: 'pointer',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-              transition: 'border-color 0.25s, background-color 0.25s',
+              boxShadow: '0 4px 12px rgba(196, 87, 42, 0.25)',
+              transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)',
             }}
           >
             {t('see_the_route')} ↗
           </motion.a>
 
-          {/* Add to Calendar Button */}
+          {/* Add to Calendar Button - Elegant gold glass overlay */}
           {calendarUrl && (
             <motion.a
               href={calendarUrl}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ scale: 1.03, background: 'rgba(255, 248, 240, 0.08)', borderColor: 'rgba(255, 248, 240, 0.4)' }}
+              whileHover={{ scale: 1.025, background: 'rgba(212, 168, 67, 0.12)', borderColor: 'rgba(212, 168, 67, 0.85)' }}
               whileTap={{ scale: 0.97 }}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                height: '44px',
-                background: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid rgba(255, 255, 255, 0.15)',
-                borderRadius: '22px',
+                height: '42px',
+                background: 'rgba(212, 168, 67, 0.06)',
+                border: '1.2px solid rgba(212, 168, 67, 0.5)',
+                borderRadius: '21px',
                 fontFamily: "'Lora', serif",
                 fontSize: '0.78rem',
-                color: '#FFF8F0',
-                opacity: 0.88,
+                color: '#5A1423',
                 letterSpacing: '0.08em',
                 textDecoration: 'none',
                 cursor: 'pointer',
-                transition: 'border-color 0.25s, background-color 0.25s',
+                transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)',
               }}
             >
               <CalendarIcon />

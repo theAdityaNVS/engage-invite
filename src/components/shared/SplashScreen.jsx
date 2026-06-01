@@ -109,7 +109,7 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             padding: '2rem',
           }}>
-            
+
             {/* The Breathing Halo */}
             <motion.div
               animate={{ opacity: [0.3, 0.6, 0.3] }}
@@ -190,16 +190,16 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
                 {showButton && (
                   <motion.button
                     initial={{ opacity: 0, y: 14 }}
-                    animate={{ 
-                      opacity: 1, y: 0, 
-                      scale: [1, 1.04, 1], 
+                    animate={{
+                      opacity: 1, y: 0,
+                      scale: [1, 1.04, 1],
                       boxShadow: [
-                        '0 2px 8px rgba(139,34,64,0.15), 0 8px 24px rgba(139,34,64,0.25)', 
-                        '0 6px 16px rgba(139,34,64,0.3), 0 16px 36px rgba(139,34,64,0.45)', 
+                        '0 2px 8px rgba(139,34,64,0.15), 0 8px 24px rgba(139,34,64,0.25)',
+                        '0 6px 16px rgba(139,34,64,0.3), 0 16px 36px rgba(139,34,64,0.45)',
                         '0 2px 8px rgba(139,34,64,0.15), 0 8px 24px rgba(139,34,64,0.25)'
-                      ] 
+                      ]
                     }}
-                    transition={{ 
+                    transition={{
                       opacity: { duration: 0.55, ease: 'easeOut' },
                       y: { duration: 0.55, ease: 'easeOut' },
                       scale: { duration: 2.5, repeat: Infinity, ease: 'easeInOut', delay: 1 },
@@ -257,22 +257,22 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
               {/* Delicate Gold Inner Border */}
               <div style={{ position: 'absolute', inset: '12px 6px 12px 12px', border: '1px solid rgba(212,168,67,0.5)', borderRadius: '2px' }} />
               <div style={{ position: 'absolute', inset: '18px 10px 18px 18px', border: '1px solid rgba(212,168,67,0.25)', borderRadius: '2px' }} />
-              
+
               {/* Luxury Corner Ornaments (Left Top & Left Bottom) */}
               <div style={{ position: 'absolute', left: '22px', top: '22px', opacity: 0.75, pointerEvents: 'none' }}>
                 <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6"/>
-                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4"/>
-                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8"/>
-                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7"/>
+                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6" />
+                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4" />
+                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8" />
+                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7" />
                 </svg>
               </div>
               <div style={{ position: 'absolute', left: '22px', bottom: '22px', transform: 'scaleY(-1)', opacity: 0.75, pointerEvents: 'none' }}>
                 <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6"/>
-                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4"/>
-                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8"/>
-                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7"/>
+                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6" />
+                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4" />
+                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8" />
+                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7" />
                 </svg>
               </div>
 
@@ -292,13 +292,13 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
               </div>
 
               {/* 3D Fluted Brass Seam Clasp Molding (Left half) */}
-              <div style={{ 
-                position: 'absolute', 
-                right: 0, 
-                top: '50%', 
-                transform: 'translateY(-50%)', 
-                width: '3px', 
-                height: '180px', 
+              <div style={{
+                position: 'absolute',
+                right: 0,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '3px',
+                height: '180px',
                 background: 'linear-gradient(to right, #705213 0%, #D4A843 35%, #FFEBA7 50%, #B58A2A 65%, #593E05 100%)',
                 boxShadow: '0 0 8px rgba(0, 0, 0, 0.4)'
               }} />
@@ -445,22 +445,22 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
               {/* Delicate Gold Inner Border */}
               <div style={{ position: 'absolute', inset: '12px 12px 12px 6px', border: '1px solid rgba(212,168,67,0.5)', borderRadius: '2px' }} />
               <div style={{ position: 'absolute', inset: '18px 18px 18px 10px', border: '1px solid rgba(212,168,67,0.25)', borderRadius: '2px' }} />
-              
+
               {/* Luxury Corner Ornaments (Right Top & Right Bottom) */}
               <div style={{ position: 'absolute', right: '22px', top: '22px', transform: 'scaleX(-1)', opacity: 0.75, pointerEvents: 'none' }}>
                 <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6"/>
-                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4"/>
-                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8"/>
-                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7"/>
+                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6" />
+                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4" />
+                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8" />
+                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7" />
                 </svg>
               </div>
               <div style={{ position: 'absolute', right: '22px', bottom: '22px', transform: 'scale(-1)', opacity: 0.75, pointerEvents: 'none' }}>
                 <svg width="40" height="40" viewBox="0 0 48 48" fill="none">
-                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6"/>
-                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4"/>
-                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8"/>
-                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7"/>
+                  <path d="M4 4h40M4 4v40" stroke="#D4A843" strokeWidth="1.5" opacity="0.6" />
+                  <path d="M8 8h32M8 8v32" stroke="#D4A843" strokeWidth="1" opacity="0.4" />
+                  <path d="M4 28c8-1 12-5 16-16m-16 8c5-1 7-3 10-10m-10 18c11-1 15-5 21-21" stroke="#D4A843" strokeWidth="1" opacity="0.8" />
+                  <circle cx="16" cy="16" r="2.5" fill="#FFEBA7" />
                 </svg>
               </div>
 
@@ -480,13 +480,13 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
               </div>
 
               {/* 3D Fluted Brass Seam Clasp Molding (Right half) */}
-              <div style={{ 
-                position: 'absolute', 
-                left: 0, 
-                top: '50%', 
-                transform: 'translateY(-50%)', 
-                width: '3px', 
-                height: '180px', 
+              <div style={{
+                position: 'absolute',
+                left: 0,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: '3px',
+                height: '180px',
                 background: 'linear-gradient(to right, #593E05 0%, #B58A2A 35%, #FFEBA7 50%, #D4A843 65%, #705213 100%)',
                 boxShadow: '0 0 8px rgba(0, 0, 0, 0.4)'
               }} />

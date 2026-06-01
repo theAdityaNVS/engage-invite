@@ -305,7 +305,6 @@ export default function BlessingsSection() {
                 delay: 0,    
                 gotra: FAMILIES.GROOM_GOTRA,  
                 nakshatra: FAMILIES.GROOM_NAKSHATRA,
-                sibling: FAMILIES.GROOM_SIBLING || null,
                 location: 'Visakhapatnam',
                 icon: <GroomsFamilySVG />
               },
@@ -315,85 +314,124 @@ export default function BlessingsSection() {
                 delay: 0.12, 
                 gotra: FAMILIES.BRIDE_GOTRA,  
                 nakshatra: FAMILIES.BRIDE_NAKSHATRA,
-                sibling: FAMILIES.BRIDE_SIBLING || null,
                 location: 'Sunabeda',
                 icon: <BridesFamilySVG />
               },
-            ].map(({ labelKey, names, delay, gotra, nakshatra, sibling, location, icon }) => (
+            ].map(({ labelKey, names, delay, gotra, nakshatra, location, icon }) => (
               <motion.div
                 key={labelKey}
-                initial={{ opacity: 0, y: 18 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay, duration: 0.55, ease: 'easeOut' }}
+                transition={{ delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                whileHover={{ y: -4, transition: { duration: 0.2 } }}
                 style={{
-                  flex: '1 1 240px',
-                  minWidth: 220,
-                  background: 'rgba(20, 5, 10, 0.25)',
-                  backdropFilter: 'blur(12px)',
-                  WebkitBackdropFilter: 'blur(12px)',
+                  flex: '1 1 260px',
+                  minWidth: 240,
+                  maxWidth: 290,
+                  position: 'relative',
+                  background: 'linear-gradient(135deg, rgba(20, 5, 10, 0.35) 0%, rgba(20, 5, 10, 0.15) 100%)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
                   border: '1px solid rgba(212, 168, 67, 0.25)',
-                  boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
-                  borderRadius: '16px',
-                  padding: 'clamp(1.2rem, 3vw, 1.8rem)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                  borderRadius: '20px',
+                  padding: '2rem 1.5rem 1.8rem',
                   textAlign: 'center',
                   display: 'flex',
                   flexDirection: 'column',
-                  justifyContent: 'center',
+                  justifyContent: 'flex-start',
+                  overflow: 'hidden',
                 }}
               >
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                {/* Inset Gold Border Frame */}
+                <div style={{
+                  position: 'absolute',
+                  top: '8px',
+                  left: '8px',
+                  right: '8px',
+                  bottom: '8px',
+                  border: '1px solid rgba(212, 168, 67, 0.15)',
+                  borderRadius: '14px',
+                  pointerEvents: 'none',
+                  zIndex: 0,
+                }}>
+                  {/* Corner Diamond Ornaments */}
+                  <span style={{ position: 'absolute', top: '2px', left: '2px', color: 'rgba(212, 168, 67, 0.4)', fontSize: '8px', lineHeight: 1 }}>✦</span>
+                  <span style={{ position: 'absolute', top: '2px', right: '2px', color: 'rgba(212, 168, 67, 0.4)', fontSize: '8px', lineHeight: 1 }}>✦</span>
+                  <span style={{ position: 'absolute', bottom: '2px', left: '2px', color: 'rgba(212, 168, 67, 0.4)', fontSize: '8px', lineHeight: 1 }}>✦</span>
+                  <span style={{ position: 'absolute', bottom: '2px', right: '2px', color: 'rgba(212, 168, 67, 0.4)', fontSize: '8px', lineHeight: 1 }}>✦</span>
+                </div>
+
+                {/* SVG Icon with Radial Glow */}
+                <div style={{ position: 'relative', display: 'inline-flex', justifyContent: 'center', margin: '0 auto 1rem', zIndex: 1 }}>
+                  <div style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '90px',
+                    height: '90px',
+                    background: 'radial-gradient(circle, rgba(212, 168, 67, 0.15) 0%, transparent 70%)',
+                    pointerEvents: 'none',
+                    zIndex: -1,
+                  }} />
                   {icon}
                 </div>
 
                 <p style={{
                   fontFamily: "'Lora', serif",
-                  fontSize: '0.62rem',
-                  color: 'rgba(245,236,200,0.7)',
-                  letterSpacing: '0.12em',
-                  textTransform: 'uppercase',
-                  marginBottom: '0.15rem',
-                }}>{location}</p>
-                <p style={{
-                  fontFamily: "'Lora', serif",
-                  fontSize: '0.72rem',
-                  color: 'rgba(245,236,200,0.9)',
+                  fontSize: '0.65rem',
+                  color: 'rgba(245, 236, 200, 0.65)',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
-                  marginBottom: '0.5rem',
+                  marginBottom: '0.2rem',
+                  zIndex: 1,
+                }}>{location}</p>
+                
+                <p style={{
+                  fontFamily: "'Lora', serif",
+                  fontSize: '0.78rem',
+                  color: '#D4A843',
+                  fontWeight: '600',
+                  letterSpacing: '0.18em',
+                  textTransform: 'uppercase',
+                  marginBottom: '0.75rem',
+                  zIndex: 1,
                 }}>{t(labelKey)}</p>
 
-                <div style={{ height: 1, background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.45), transparent)', marginBottom: '0.5rem' }} />
+                <div style={{
+                  height: 1,
+                  width: '60px',
+                  margin: '0 auto 1rem',
+                  background: 'linear-gradient(to right, transparent, rgba(212, 168, 67, 0.5), transparent)',
+                  zIndex: 1,
+                }} />
 
-                {names.split(' & ').sort((a) => (a.startsWith('Shri') ? -1 : 1)).map((name, i) => (
-                  <p key={i} style={{
-                    fontFamily: "'Playfair Display', serif",
-                    fontSize: 'clamp(1rem, 2.8vw, 1.15rem)',
-                    color: 'var(--saffron-text)',
-                    lineHeight: 1.65,
-                  }}>{name}</p>
-                ))}
-
-                {sibling && (
-                  <>
-                    <div style={{ height: 1, background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.3), transparent)', margin: '0.6rem 0' }} />
-                    <p style={{
-                      fontFamily: "'Lora', serif",
-                      fontStyle: 'italic',
-                      fontSize: '0.7rem',
-                      color: 'rgba(245,236,200,0.7)',
-                      marginBottom: '0.2rem',
-                    }}>{t('sibling_label')}</p>
-                    <p style={{
+                {/* Parents Names (Vertically Centered) */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', zIndex: 1, flexGrow: 1, justifyContent: 'center' }}>
+                  {names.split(' & ').map((name, i) => (
+                    <p key={i} style={{
                       fontFamily: "'Playfair Display', serif",
-                      fontSize: 'clamp(1rem, 2.4vw, 1.1rem)',
+                      fontSize: 'clamp(1rem, 2.8vw, 1.2rem)',
                       color: 'var(--saffron-text)',
-                    }}>{sibling}</p>
-                  </>
-                )}
+                      fontWeight: '600',
+                      lineHeight: 1.4,
+                    }}>{name}</p>
+                  ))}
+                </div>
 
                 {(gotra || nakshatra) && (
-                  <div style={{ marginTop: '0.6rem', display: 'flex', gap: '0.4rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                  <div style={{
+                    marginTop: '1rem',
+                    display: 'flex',
+                    gap: '0.6rem',
+                    flexWrap: 'wrap',
+                    justifyContent: 'center',
+                    zIndex: 1,
+                    borderTop: '1px solid rgba(212, 168, 67, 0.1)',
+                    paddingTop: '0.8rem',
+                  }}>
                     {gotra && (
                       <span style={{ fontFamily: "'Lora', serif", fontSize: '0.65rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
                         {t('gotra_label')}: {gotra}
@@ -411,7 +449,89 @@ export default function BlessingsSection() {
           </div>
         </ScrollReveal>
 
-        {/* 3. Invite Block (Fades in together) */}
+        {/* Centered Sibling Badge (Resolved Asymmetry) */}
+        {(FAMILIES.GROOM_SIBLING || FAMILIES.BRIDE_SIBLING) && (
+          <ScrollReveal delay={0.2}>
+            <div style={{
+              marginTop: '2.5rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+              {/* Subtle Elegant Bracket Lines */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', maxWidth: '280px', marginBottom: '0.8rem' }}>
+                <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.3))' }} />
+                <span style={{ color: '#D4A843', fontSize: '0.75rem' }}>✦</span>
+                <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to left, transparent, rgba(212,168,67,0.3))' }} />
+              </div>
+
+              {/* Glassmorphic Pill */}
+              <div style={{
+                background: 'rgba(20, 5, 10, 0.2)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(212, 168, 67, 0.2)',
+                boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.02)',
+                borderRadius: '30px',
+                padding: '0.6rem 2rem',
+                display: 'inline-flex',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+                gap: '0.8rem',
+              }}>
+                {FAMILIES.GROOM_SIBLING && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{
+                      fontFamily: "'Lora', serif",
+                      fontSize: '0.75rem',
+                      color: 'rgba(245, 236, 200, 0.7)',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                    }}>
+                      {t('sibling_label')}:
+                    </span>
+                    <span style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: '1rem',
+                      color: 'var(--saffron-text)',
+                      fontWeight: '600',
+                    }}>
+                      {FAMILIES.GROOM_SIBLING}
+                    </span>
+                  </div>
+                )}
+
+                {FAMILIES.GROOM_SIBLING && FAMILIES.BRIDE_SIBLING && (
+                  <span style={{ color: 'rgba(212, 168, 67, 0.4)', fontSize: '0.8rem' }}>•</span>
+                )}
+
+                {FAMILIES.BRIDE_SIBLING && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{
+                      fontFamily: "'Lora', serif",
+                      fontSize: '0.75rem',
+                      color: 'rgba(245, 236, 200, 0.7)',
+                      letterSpacing: '0.08em',
+                      textTransform: 'uppercase',
+                    }}>
+                      {t('sibling_label')}:
+                    </span>
+                    <span style={{
+                      fontFamily: "'Playfair Display', serif",
+                      fontSize: '1rem',
+                      color: 'var(--saffron-text)',
+                      fontWeight: '600',
+                    }}>
+                      {FAMILIES.BRIDE_SIBLING}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </ScrollReveal>
+        )}
         <ScrollReveal delay={0.3}>
           <div style={{ marginTop: 'clamp(3rem, 6vw, 4.5rem)' }}>
             <p style={{
