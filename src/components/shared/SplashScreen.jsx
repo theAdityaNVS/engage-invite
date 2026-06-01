@@ -264,10 +264,10 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
             <AnimatePresence>
               {!doorsOpen && (
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.75, rotate: -15 }}
+                  initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
                   animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                  exit={{ opacity: 0, scale: 0.65, rotate: 20, filter: 'blur(8px)' }}
-                  transition={{ duration: 0.8, ease: [0.34, 1.56, 0.64, 1] }} // Overshoot spring for tactile bounce
+                  exit={{ opacity: 0, scale: 0.7, rotate: 12, filter: 'blur(6px)' }}
+                  transition={{ duration: 0.75, ease: [0.25, 1, 0.5, 1] }} // Elegant deceleration curve
                   style={{
                     position: 'absolute',
                     top: '50%',
@@ -281,75 +281,98 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
                     justifyContent: 'center',
                   }}
                 >
-                  {/* Outer Spilled Wax Ring (Organic, imperfect hand-poured fluid edge) */}
+                  {/* Outer Beveled Luxury Gold Medallion Ring */}
                   <div style={{
                     position: 'relative',
                     width: '92px',
                     height: '92px',
-                    borderRadius: '52% 48% 51% 49% / 49% 52% 48% 51%',
-                    background: 'radial-gradient(circle at 35% 35%, #FFF0D0 0%, #E2B755 25%, #B38628 55%, #7D5712 85%, #4A3105 100%)',
+                    borderRadius: '50%', // Geometric perfect circular shape for high luxury feel
+                    background: 'radial-gradient(circle at 35% 35%, #FFEBA7 0%, #D4A843 42%, #A47B1E 75%, #593E05 100%)',
                     boxShadow: `
-                      0 10px 30px rgba(0, 0, 0, 0.75), 
-                      inset 0 3px 6px rgba(255, 255, 255, 0.5), 
-                      inset 0 -4px 8px rgba(0, 0, 0, 0.6),
-                      0 0 0 1px rgba(212, 168, 67, 0.2)
+                      0 12px 32px rgba(0, 0, 0, 0.7), 
+                      inset 0 2px 4px rgba(255, 255, 255, 0.5), 
+                      inset 0 -3px 6px rgba(0, 0, 0, 0.55),
+                      0 0 0 1px rgba(212, 168, 67, 0.45)
                     `,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}>
-                    {/* Inner Stamped Rim (Re-poured/pressed boundary) */}
+                    {/* Inner Concentric Coin Rim (Double gold line) */}
                     <div style={{
-                      width: '74px',
-                      height: '74px',
+                      width: '76px',
+                      height: '76px',
                       borderRadius: '50%',
-                      border: '1.5px double rgba(162, 118, 19, 0.65)',
-                      background: 'radial-gradient(circle at 30% 30%, #FBECC4 0%, #D8A73C 35%, #997017 75%, #634505 100%)',
-                      boxShadow: 'inset 0 3px 5px rgba(0,0,0,0.5), 0 1px 2px rgba(255,255,255,0.3)',
+                      border: '1.5px solid rgba(212, 168, 67, 0.8)',
+                      background: 'radial-gradient(circle at 30% 30%, #FFF0D0 0%, #E6C060 35%, #A87E1C 75%, #6E5007 100%)',
+                      boxShadow: 'inset 0 3px 6px rgba(0,0,0,0.45), 0 1px 2px rgba(255,255,255,0.3)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       position: 'relative',
                       overflow: 'hidden',
                     }}>
-                      {/* Auspicious Om Accent at Top of Stamp */}
-                      <span style={{
-                        position: 'absolute',
-                        top: '7px',
-                        fontFamily: "'Lora', serif",
-                        fontSize: '0.55rem',
-                        fontWeight: 'bold',
-                        color: 'rgba(58, 13, 24, 0.85)',
-                        textShadow: '0.5px 0.5px 0px rgba(255,255,255,0.2)',
-                        opacity: 0.95,
-                        letterSpacing: '0.1em',
-                      }}>
-                        ॐ
-                      </span>
-
-                      {/* Stamped Initials - embossed/pressed deep into the gold wax */}
-                      <span style={{
-                        fontFamily: "'Great Vibes', cursive",
-                        fontSize: '2.1rem',
-                        fontWeight: 'bold',
-                        color: '#340812', // Rich deeply-recessed burgundy color
-                        textShadow: `
-                          -0.75px -0.75px 1px rgba(0, 0, 0, 0.8), 
-                          0.75px 0.75px 1px rgba(255, 255, 255, 0.25)
-                        `, // High-fidelity embossing shadow map
-                        marginTop: '3px',
-                        letterSpacing: '-0.03em',
+                      {/* Elegant Overlapping Serif Monogram (A & J) */}
+                      <div style={{
+                        position: 'relative',
+                        width: '100%',
+                        height: '100%',
                         userSelect: 'none',
                       }}>
-                        A&J
-                      </span>
+                        {/* Letter A (Top-Left, Playfair Display Serif) */}
+                        <span style={{
+                          fontFamily: "'Playfair Display', serif",
+                          fontSize: '1.85rem',
+                          fontWeight: '600',
+                          color: '#3B0D18', // Deep royal burgundy
+                          position: 'absolute',
+                          left: '16px',
+                          top: '11px',
+                          lineHeight: 1,
+                          textShadow: '1px 1px 0px rgba(255,255,255,0.35)',
+                        }}>
+                          A
+                        </span>
 
-                      {/* Inner Accent Ring */}
+                        {/* Script Ampersand (Centered, overlapping the letters) */}
+                        <span style={{
+                          fontFamily: "'Great Vibes', cursive",
+                          fontSize: '1.6rem',
+                          fontWeight: 'bold',
+                          color: '#F9E5B3', // Sparkling pale gold
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          zIndex: 3,
+                          lineHeight: 1,
+                          textShadow: '0 2px 4px rgba(0,0,0,0.45)',
+                        }}>
+                          &
+                        </span>
+
+                        {/* Letter J (Bottom-Right, Playfair Display Serif) */}
+                        <span style={{
+                          fontFamily: "'Playfair Display', serif",
+                          fontSize: '1.85rem',
+                          fontWeight: '600',
+                          color: '#3B0D18', // Deep royal burgundy
+                          position: 'absolute',
+                          right: '16px',
+                          bottom: '11px',
+                          lineHeight: 1,
+                          textShadow: '1px 1px 0px rgba(255,255,255,0.35)',
+                        }}>
+                          J
+                        </span>
+                      </div>
+
+                      {/* Inner Micro Border Accent */}
                       <div style={{
                         position: 'absolute',
-                        inset: '4px',
+                        inset: '3px',
                         borderRadius: '50%',
-                        border: '0.5px solid rgba(255, 255, 255, 0.08)',
+                        border: '0.5px solid rgba(255, 255, 255, 0.1)',
                         pointerEvents: 'none',
                       }} />
                     </div>
