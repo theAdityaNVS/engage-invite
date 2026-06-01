@@ -27,12 +27,12 @@ export default function EventCardsSection() {
 
   return (
     <section style={{
-      background: 'var(--teal)',
+      background: 'linear-gradient(180deg, var(--saffron) 0%, #5A1423 60%, #3D0A14 100%)',
       padding: 'clamp(3rem, 8vw, 5rem) 1.5rem',
       position: 'relative',
       overflow: 'hidden',
     }}>
-      <MandalaPattern color="var(--gold-light)" opacity={0.22} />
+      <MandalaPattern color="var(--gold-light)" opacity={0.15} />
       <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
@@ -40,29 +40,35 @@ export default function EventCardsSection() {
               fontFamily: "'Playfair Display', serif",
               fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
               color: 'var(--teal-text)',
+              letterSpacing: '0.06em',
             }}>
               {t('events_heading')}
             </h2>
             <div style={{
               width: '60px', height: '2px',
-              background: 'linear-gradient(to right, var(--teal-dark), var(--gold))',
-              margin: '1rem auto 0',
+              background: 'linear-gradient(to right, rgba(212,168,67,0.1), var(--gold), rgba(212,168,67,0.1))',
+              margin: '1.2rem auto 0',
               borderRadius: '2px',
             }} />
           </div>
         </ScrollReveal>
 
-        <ScrollReveal delay={0.1}>
-          <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
+        <ScrollReveal delay={0.06}>
+          <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
             <span style={{
               display: 'inline-block',
               fontFamily: "'Lora', serif",
-              fontSize: '0.85rem',
-              color: '#D4A843',
-              border: '1px solid rgba(212,168,67,0.4)',
+              fontSize: '0.88rem',
+              color: '#F0D68A',
+              background: 'rgba(212, 168, 67, 0.12)',
+              border: '1.5px solid rgba(212,168,67,0.7)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
               borderRadius: '20px',
-              padding: '0.35rem 1.1rem',
-              letterSpacing: '0.1em',
+              padding: '0.45rem 1.4rem',
+              letterSpacing: '0.12em',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+              fontWeight: 500,
             }}>
               ✦ {t('muhurtham_label')}: {ENGAGEMENT.MUHURTHAM_TIME} ✦
             </span>

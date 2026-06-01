@@ -79,13 +79,18 @@ export default function RouteCTA() {
   const { t } = useLanguage();
 
   return (
-    <section id="section-map" style={{ background: 'var(--saffron)', padding: 'clamp(2.5rem, 6vw, 4rem) 1.5rem', position: 'relative', overflow: 'hidden' }}>
+    <section id="section-map" style={{
+      background: 'linear-gradient(180deg, #3D0A14 0%, #5A1423 40%, var(--saffron) 100%)',
+      padding: 'clamp(2.5rem, 6vw, 4rem) 1.5rem',
+      position: 'relative',
+      overflow: 'hidden',
+    }}>
       <MandalaPattern color="var(--gold-light)" opacity={0.22} />
       <ScrollReveal>
         <div style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <p style={{
-            fontFamily: "'Lora', serif", fontSize: '0.7rem',
-            color: 'var(--saffron-text)', opacity: 0.6,
+            fontFamily: "'Lora', serif", fontSize: '0.72rem',
+            color: 'var(--saffron-text)', opacity: 0.75,
             letterSpacing: '0.22em', textTransform: 'uppercase', marginBottom: '0.5rem',
           }}>{t('venue_label')}</p>
           <h2 style={{
@@ -96,7 +101,7 @@ export default function RouteCTA() {
           <p style={{
             fontFamily: "'Lora', serif", fontStyle: 'italic',
             fontSize: 'clamp(0.82rem, 2vw, 0.95rem)',
-            color: 'var(--saffron-text)', opacity: 0.75, marginBottom: '1.8rem',
+            color: 'var(--saffron-text)', opacity: 0.85, marginBottom: '1.8rem',
           }}>
             {ENGAGEMENT.VENUE_ADDRESS}
           </p>
