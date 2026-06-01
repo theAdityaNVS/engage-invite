@@ -107,7 +107,10 @@ export const FAMILIES = {
 };
 
 export const MEDIA = {
-  MUSIC_SRC:      '/music/engagement-track.mp3',
+  // No track shipped yet — keep null so MusicPlayer hides (avoids a 404 + dead button).
+  // When re-enabling: drop the file at public/music/engagement-track.mp3 AND fix the
+  // MusicPlayer/LanguageSwitcher top-right overlap (both pinned top-right) before shipping.
+  MUSIC_SRC:      null,
   COUPLE_PHOTO_1: '',
   COUPLE_PHOTO_2: '',
 };

@@ -46,14 +46,7 @@ export default function EngagementPage() {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-
-        {/* Google Fonts — include Great Vibes for countdown script */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap"
-          rel="stylesheet"
-        />
+        {/* Fonts (incl. Great Vibes) are loaded once in _document.js */}
       </Head>
 
       {/* Overlays */}
@@ -97,7 +90,7 @@ export default function EngagementPage() {
       <ProgressDots />
       {entered && <AutoScrollHint />}
       <MusicPlayer autoPlay={musicAutoPlay} />
-      <LanguageSwitcher />
+      {entered && <LanguageSwitcher />}
     </>
   );
 }

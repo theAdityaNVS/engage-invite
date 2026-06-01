@@ -51,6 +51,7 @@ export default function LanguageSwitcher() {
           WebkitBackdropFilter: 'blur(12px)',
           border: '1px solid rgba(212,168,67,0.35)',
           borderRadius: '50px',
+          minHeight: '44px',
           padding: '0.5rem 1.1rem',
           color: '#D4A843',
           cursor: 'pointer',

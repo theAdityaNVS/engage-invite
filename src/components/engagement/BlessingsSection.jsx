@@ -216,7 +216,7 @@ export default function BlessingsSection() {
           <p style={{
             fontFamily: "'Noto Serif Devanagari', serif",
             fontSize: 'clamp(1.4rem, 4.5vw, 2rem)',
-            color: '#D4A843',
+            color: 'var(--saffron-text)',
             lineHeight: 1.3,
             marginBottom: '0.5rem',
           }}>
@@ -270,8 +270,8 @@ export default function BlessingsSection() {
             <p style={{
               fontFamily: "'Lora', serif",
               fontStyle: 'italic',
-              fontSize: 'clamp(0.8rem, 2.2vw, 0.9rem)',
-              color: 'rgba(245,236,200,0.65)',
+              fontSize: 'clamp(1rem, 2.4vw, 1.05rem)',
+              color: 'rgba(245,236,200,0.85)',
               lineHeight: 1.6,
               maxWidth: '480px',
               margin: '0 auto',
@@ -349,7 +349,7 @@ export default function BlessingsSection() {
                 <p style={{
                   fontFamily: "'Lora', serif",
                   fontSize: '0.62rem',
-                  color: 'rgba(245,236,200,0.5)',
+                  color: 'rgba(245,236,200,0.7)',
                   letterSpacing: '0.12em',
                   textTransform: 'uppercase',
                   marginBottom: '0.15rem',
@@ -357,7 +357,7 @@ export default function BlessingsSection() {
                 <p style={{
                   fontFamily: "'Lora', serif",
                   fontSize: '0.72rem',
-                  color: 'rgba(245,236,200,0.75)',
+                  color: 'rgba(245,236,200,0.9)',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
                   marginBottom: '0.5rem',
@@ -381,7 +381,7 @@ export default function BlessingsSection() {
                       fontFamily: "'Lora', serif",
                       fontStyle: 'italic',
                       fontSize: '0.7rem',
-                      color: 'rgba(245,236,200,0.45)',
+                      color: 'rgba(245,236,200,0.7)',
                       marginBottom: '0.2rem',
                     }}>{t('sibling_label')}</p>
                     <p style={{
@@ -395,12 +395,12 @@ export default function BlessingsSection() {
                 {(gotra || nakshatra) && (
                   <div style={{ marginTop: '0.6rem', display: 'flex', gap: '0.4rem', flexWrap: 'wrap', justifyContent: 'center' }}>
                     {gotra && (
-                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.65rem', color: 'rgba(245,236,200,0.55)', letterSpacing: '0.12em' }}>
+                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.65rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
                         {t('gotra_label')}: {gotra}
                       </span>
                     )}
                     {nakshatra && (
-                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.65rem', color: 'rgba(245,236,200,0.55)', letterSpacing: '0.12em' }}>
+                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.65rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
                         {t('nakshatra_label')}: {nakshatra}
                       </span>
                     )}

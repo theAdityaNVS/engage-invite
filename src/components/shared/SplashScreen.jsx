@@ -1,14 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { COUPLE, ENGAGEMENT } from '@/config';
-import { useLanguage } from '@/hooks/useLanguage';
-
-const LANGUAGES = [
-  { code: 'en', label: 'English', script: 'A'  },
-  { code: 'hi', label: 'हिंदी',   script: 'अ'  },
-  { code: 'te', label: 'తెలుగు',  script: 'అ'  },
-  { code: 'or', label: 'ଓଡ଼ିଆ',   script: 'ଅ'  },
-];
 
 // Elegant Lotus watermark layer with slow counter-rotations
 function AnimatedWatermark() {
@@ -105,7 +97,7 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.75 }}
           style={{
-            position: 'fixed', inset: 0, zIndex: 90,
+            position: 'fixed', inset: 0, zIndex: 9999,
             background: '#120A04',
             overflow: 'hidden',
           }}
@@ -254,7 +246,8 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
               style={{
                 width: '50%', height: '100%',
                 background: 'var(--burgundy-dark)', // Deep rich burgundy cardstock
-                backgroundImage: 'url("https://www.transparenttextures.com/patterns/cream-paper.png")',
+                backgroundImage: 'url("/textures/cream-paper.png")',
+                backgroundBlendMode: 'multiply', // keep the burgundy rich; texture darkens instead of washing it out
                 transformOrigin: 'left center',
                 position: 'relative',
                 boxShadow: 'inset -20px 0 40px rgba(0,0,0,0.3)',
@@ -262,10 +255,54 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
               }}
             >
               {/* Delicate Gold Inner Border */}
-              <div style={{ position: 'absolute', inset: '12px 6px 12px 12px', border: '1px solid rgba(212,168,67,0.4)', borderRadius: '2px' }} />
-              <div style={{ position: 'absolute', inset: '18px 10px 18px 18px', border: '1px solid rgba(212,168,67,0.15)', borderRadius: '2px' }} />
+              <div style={{ position: 'absolute', inset: '12px 6px 12px 12px', border: '1px solid rgba(212,168,67,0.6)', borderRadius: '2px' }} />
+              <div style={{ position: 'absolute', inset: '18px 10px 18px 18px', border: '1px solid rgba(212,168,67,0.3)', borderRadius: '2px' }} />
               <div style={{ position: 'absolute', right: 0, top: '50%', transform: 'translateY(-50%)', width: 2, height: 180, background: 'rgba(212,168,67,0.7)' }} />
             </motion.div>
+
+            {/* Embossed Gold Monogram Wax Seal Medallion */}
+            <AnimatePresence>
+              {!doorsOpen && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
+                  animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                  exit={{ opacity: 0, scale: 0.7, rotate: 15, filter: 'blur(6px)' }}
+                  transition={{ duration: 0.65, ease: [0.4, 0, 0.2, 1] }}
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    x: '-50%',
+                    y: '-50%',
+                    zIndex: 30, // Pinned above doors
+                    pointerEvents: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <div style={{
+                    width: '85px',
+                    height: '85px',
+                    borderRadius: '50%',
+                    background: 'radial-gradient(circle at 35% 35%, #FDF0D5 0%, #D4A843 45%, #926E15 85%, #5E4302 100%)',
+                    border: '2px solid rgba(253,246,224,0.5)',
+                    boxShadow: '0 12px 28px rgba(0,0,0,0.65), inset 0 2px 4px rgba(255,255,255,0.45), inset 0 -3px 6px rgba(0,0,0,0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontFamily: "'Great Vibes', cursive",
+                    fontSize: '2.1rem',
+                    color: '#3A0D18', // Rich deep burgundy font
+                    fontWeight: 'bold',
+                    textShadow: '1px 1px 1px rgba(255,255,255,0.2)',
+                    userSelect: 'none',
+                  }}>
+                    A&J
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             <motion.div
               initial={{ rotateY: 0 }}
@@ -274,7 +311,8 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
               style={{
                 width: '50%', height: '100%',
                 background: 'var(--burgundy-dark)',
-                backgroundImage: 'url("https://www.transparenttextures.com/patterns/cream-paper.png")',
+                backgroundImage: 'url("/textures/cream-paper.png")',
+                backgroundBlendMode: 'multiply', // keep the burgundy rich; texture darkens instead of washing it out
                 transformOrigin: 'right center',
                 position: 'relative',
                 boxShadow: 'inset 20px 0 40px rgba(0,0,0,0.3)',
@@ -282,8 +320,8 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
               }}
             >
               {/* Delicate Gold Inner Border */}
-              <div style={{ position: 'absolute', inset: '12px 12px 12px 6px', border: '1px solid rgba(212,168,67,0.4)', borderRadius: '2px' }} />
-              <div style={{ position: 'absolute', inset: '18px 18px 18px 10px', border: '1px solid rgba(212,168,67,0.15)', borderRadius: '2px' }} />
+              <div style={{ position: 'absolute', inset: '12px 12px 12px 6px', border: '1px solid rgba(212,168,67,0.6)', borderRadius: '2px' }} />
+              <div style={{ position: 'absolute', inset: '18px 18px 18px 10px', border: '1px solid rgba(212,168,67,0.3)', borderRadius: '2px' }} />
               <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', width: 2, height: 180, background: 'rgba(212,168,67,0.7)' }} />
             </motion.div>
           </div>
