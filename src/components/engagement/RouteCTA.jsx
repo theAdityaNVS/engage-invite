@@ -17,7 +17,7 @@ function VenueMapIframe() {
       border: '1px solid rgba(212,168,67,0.25)',
     }}>
       <iframe
-        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3742.112678687799!2d85.82231137597143!3d20.29610501258679!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a1909ef23aa0a01%3A0xe54d8961730efb67!2sSuryansh%20Hotels%20and%20Resorts!5e0!3m2!1sen!2sin!4v1717312345678!5m2!1sen!2sin"
+        src="https://maps.google.com/maps?q=Suryansh%20Hotels%20and%20Resorts,%20Jaydev%20Vihar,%20Bhubaneswar&t=&z=16&ie=UTF8&iwloc=&output=embed"
         width="100%"
         height="100%"
         style={{
