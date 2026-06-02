@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import MandalaPattern from '@/components/shared/MandalaPattern';
-import { ENGAGEMENT, GOOGLE_API } from '@/config';
+import { ENGAGEMENT } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useWeather } from '@/hooks/useWeather';
 
@@ -222,7 +222,6 @@ export default function ThingsToKnow() {
   const { weather } = useWeather({
     lat: ENGAGEMENT.VENUE_LAT,
     lng: ENGAGEMENT.VENUE_LNG,
-    apiKey: GOOGLE_API.WEATHER_API_KEY,
   });
 
   const cards = [

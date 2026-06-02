@@ -89,10 +89,7 @@ export const WEDDING = {
   WEATHER_ADVISORY: 'Pleasant coastal weather (~26°C). Light formals or traditional attire.',
 };
 
-export const GOOGLE_API = {
-  MAPS_API_KEY:    process.env.NEXT_PUBLIC_MAPS_API_KEY    || '',
-  WEATHER_API_KEY: process.env.NEXT_PUBLIC_WEATHER_API_KEY || '',
-};
+export const GOOGLE_API = {};
 
 export const FAMILIES = {
   GROOM_PARENTS:    'Smt. Nadamuni Sunitha & Shri Nadamuni Thirumala Prasad',
