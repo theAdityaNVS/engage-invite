@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 import { useEffect } from "react";
 import { LanguageProvider } from "@/hooks/useLanguage";
 import { Analytics } from "@vercel/analytics/react";
+import VisitTracker from "@/components/shared/VisitTracker";
 
 export default function App({ Component, pageProps }) {
   useEffect(() => {
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }) {
     <LanguageProvider>
       <Component {...pageProps} />
       <Analytics />
+      <VisitTracker />
     </LanguageProvider>
   );
 }
