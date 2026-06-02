@@ -8,7 +8,7 @@ import LanguageSwitcher from '@/components/shared/LanguageSwitcher';
 import GarlandDivider from '@/components/shared/GarlandDivider';
 import MangoToranDivider from '@/components/shared/MangoToranDivider';
 import KolamDivider from '@/components/shared/KolamDivider';
-import ProgressDots from '@/components/shared/ProgressDots';
+
 import AutoScrollHint from '@/components/shared/AutoScrollHint';
 
 import EngagementHero from '@/components/engagement/EngagementHero';
@@ -87,7 +87,7 @@ export default function EngagementPage() {
       </main>
 
       {/* Fixed UI */}
-      <ProgressDots />
+
       {entered && <AutoScrollHint />}
       <MusicPlayer autoPlay={musicAutoPlay} />
       {entered && <LanguageSwitcher />}
