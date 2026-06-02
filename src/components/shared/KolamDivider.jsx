@@ -45,9 +45,12 @@ export default function KolamDivider({ fromColor, toColor }) {
   const y = 30;
 
   return (
-    <div style={{ position: 'relative', height: 60, overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '50%', background: fromColor || 'var(--sand)' }}/>
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: toColor || 'var(--navy)' }}/>
+    <div style={{ 
+      position: 'relative', 
+      height: 60, 
+      overflow: 'hidden',
+      background: `linear-gradient(to bottom, ${fromColor || 'var(--sand)'} 0%, ${toColor || 'var(--navy)'} 100%)`
+    }}>
       <svg viewBox="0 0 1200 60" preserveAspectRatio="xMidYMid meet"
         style={{ position: 'absolute', width: '100%', height: '60px', top: 0, left: 0 }}
         aria-hidden="true"

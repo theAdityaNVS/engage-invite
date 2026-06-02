@@ -39,20 +39,35 @@ export default function EventCardsSection() {
         
         <ScrollReveal>
           <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+            <span style={{
+              fontFamily: "'Great Vibes', cursive",
+              fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
+              color: 'var(--gold-light)',
+              display: 'block',
+              marginBottom: '0.4rem',
+              textShadow: '0 2px 8px rgba(212, 168, 67, 0.2)',
+            }}>
+              {t('join_us_label') || "Join Us For"}
+            </span>
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
-              color: 'var(--teal-text)',
-              letterSpacing: '0.06em',
+              fontSize: 'clamp(2rem, 5.5vw, 3.2rem)',
+              fontWeight: 400,
+              background: 'linear-gradient(to bottom, #FFFDF9 0%, #FAF0D4 55%, #D4A843 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              margin: 0,
+              display: 'inline-block',
             }}>
               {t('events_heading')}
             </h2>
-            <div style={{
-              width: '60px', height: '2px',
-              background: 'linear-gradient(to right, rgba(212,168,67,0.1), var(--gold), rgba(212,168,67,0.1))',
-              margin: '1.2rem auto 0',
-              borderRadius: '2px',
-            }} />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', justifyContent: 'center', marginTop: '1.2rem' }}>
+              <div style={{ width: '60px', height: '1px', background: 'linear-gradient(to right, transparent, var(--gold))' }} />
+              <span style={{ color: 'var(--gold)', fontSize: '0.8rem', animation: 'diyaFlicker 2s ease-in-out infinite' }}>✦ ❁ ✦</span>
+              <div style={{ width: '60px', height: '1px', background: 'linear-gradient(to left, transparent, var(--gold))' }} />
+            </div>
           </div>
         </ScrollReveal>
 

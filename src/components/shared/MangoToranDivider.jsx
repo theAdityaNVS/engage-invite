@@ -49,9 +49,12 @@ export default function MangoToranDivider({ fromColor, toColor }) {
   ];
 
   return (
-    <div style={{ position: 'relative', height: 80, overflow: 'hidden' }}>
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '50%', background: fromColor || 'var(--burgundy)' }}/>
-      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: '50%', background: toColor || 'var(--sand)' }}/>
+    <div style={{ 
+      position: 'relative', 
+      height: 80, 
+      overflow: 'hidden',
+      background: `linear-gradient(to bottom, ${fromColor || 'var(--burgundy)'} 0%, ${toColor || 'var(--sand)'} 100%)`
+    }}>
       <svg viewBox="0 0 1200 80" preserveAspectRatio="xMidYMid meet"
         style={{ position: 'absolute', width: '100%', height: '80px', top: 0, left: 0 }}
         aria-hidden="true"

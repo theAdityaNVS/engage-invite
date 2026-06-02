@@ -95,17 +95,12 @@ function Leaf({ x, y, angle }) {
 
 export default function GarlandDivider({ fromColor, toColor }) {
   return (
-    <div style={{ position: 'relative', height: 108, overflow: 'hidden' }}>
-      {/* Color blocks forming the section transition */}
-      <div style={{
-        position: 'absolute', top: 0, left: 0, right: 0, height: '52%',
-        background: fromColor || 'var(--saffron)',
-      }} />
-      <div style={{
-        position: 'absolute', bottom: 0, left: 0, right: 0, height: '48%',
-        background: toColor || 'var(--burgundy)',
-      }} />
-
+    <div style={{ 
+      position: 'relative', 
+      height: 108, 
+      overflow: 'hidden',
+      background: `linear-gradient(to bottom, ${fromColor || 'var(--saffron)'} 0%, ${toColor || 'var(--burgundy)'} 100%)`
+    }}>
       {/* Garland SVG — sits across the color boundary */}
       <svg
         viewBox="0 0 1200 108"
