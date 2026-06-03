@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import MandalaPattern from '@/components/shared/MandalaPattern';
@@ -5,17 +6,73 @@ import { PremiumDoubleBorderFrame } from '@/components/shared/EventCard';
 import { ENGAGEMENT } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 
-function VenueMapIframe() {
+// Swaying temple bell component
+function SwayingBell({ delay = 0, style = {} }) {
   return (
-    <div style={{ 
-      position: 'relative', 
-      width: '100%', 
-      height: '320px', 
-      borderRadius: '16px', 
-      overflow: 'hidden', 
-      boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
-      border: '1px solid rgba(212,168,67,0.25)',
-    }}>
+    <motion.svg
+      width="24"
+      height="55"
+      viewBox="0 0 24 55"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{
+        originY: 0,
+        pointerEvents: 'none',
+        ...style
+      }}
+      animate={{
+        rotate: [0, -6, 6, -4, 4, -2, 2, 0],
+      }}
+      transition={{
+        duration: 3.5,
+        ease: "easeInOut",
+        repeat: Infinity,
+        repeatDelay: 1.5,
+        delay: delay,
+      }}
+    >
+      {/* Hanging Chain */}
+      <line x1="12" y1="0" x2="12" y2="30" stroke="#D4A843" strokeWidth="1.2" strokeDasharray="3 2" />
+      {/* Tiny chain rings */}
+      <circle cx="12" cy="8" r="1.5" fill="none" stroke="#D4A843" strokeWidth="1" />
+      <circle cx="12" cy="18" r="1.5" fill="none" stroke="#D4A843" strokeWidth="1" />
+      
+      {/* Bell cap */}
+      <path d="M8 30 C8 30 8 26 12 26 C16 26 16 30 16 30 Z" fill="#D4A843" />
+      {/* Bell body */}
+      <path d="M7 30 L17 30 L18 40 L6 40 Z" fill="#A8451E" stroke="#D4A843" strokeWidth="1" />
+      {/* Bell rim */}
+      <rect x="5" y="40" width="14" height="2.5" rx="1.2" fill="#D4A843" />
+      {/* Clapper */}
+      <circle cx="12" cy="46" r="1.8" fill="#D4A843" />
+      <line x1="12" y1="42.5" x2="12" y2="45" stroke="#D4A843" strokeWidth="1.2" />
+    </motion.svg>
+  );
+}
+
+
+function VenueMapIframe() {
+  const [isUnlocked, setIsUnlocked] = useState(false);
+  const [showPrompt, setShowPrompt] = useState(false);
+
+  return (
+    <div 
+      onClick={() => {
+        if (!isUnlocked && !showPrompt) {
+          setShowPrompt(true);
+        }
+      }}
+      style={{ 
+        position: 'relative', 
+        width: '100%', 
+        height: '320px', 
+        borderRadius: '16px', 
+        overflow: 'hidden', 
+        boxShadow: '0 12px 40px rgba(0,0,0,0.4)',
+        border: '1px solid rgba(212,168,67,0.25)',
+        cursor: !isUnlocked ? 'pointer' : 'default',
+      }}
+    >
       <iframe
         src="https://maps.google.com/maps?q=Suryansh%20Hotels%20and%20Resorts,%20Jaydev%20Vihar,%20Bhubaneswar&t=&z=16&ie=UTF8&iwloc=&output=embed"
         width="100%"
@@ -24,12 +81,148 @@ function VenueMapIframe() {
           border: 0,
           filter: 'invert(90%) hue-rotate(200deg) saturate(120%) brightness(90%) contrast(110%)',
           display: 'block',
+          pointerEvents: isUnlocked ? 'auto' : 'none',
         }}
         allowFullScreen=""
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         title="Google Map showing Suryansh Hotels and Resorts"
       />
+
+      {/* Subtle indicator badge when locked to help users know it's interactive */}
+      {!isUnlocked && !showPrompt && (
+        <div style={{
+          position: 'absolute',
+          top: '12px',
+          right: '12px',
+          background: 'rgba(30, 8, 12, 0.8)',
+          border: '1px solid rgba(212, 168, 67, 0.35)',
+          borderRadius: '20px',
+          padding: '4px 10px',
+          color: 'var(--gold-light)',
+          fontSize: '0.7rem',
+          fontFamily: "'Lora', serif",
+          pointerEvents: 'none',
+          boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '4px',
+          zIndex: 4,
+        }}>
+          <span>📍</span> Map Locked (Tap to Unlock)
+        </div>
+      )}
+
+      {/* Interactive Unlock Prompt Overlay */}
+      {showPrompt && (
+        <div style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          background: 'rgba(30, 8, 12, 0.75)',
+          backdropFilter: 'blur(3px)',
+          WebkitBackdropFilter: 'blur(3px)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '1.5rem',
+          textAlign: 'center',
+          zIndex: 10,
+        }}>
+          <h4 style={{
+            fontFamily: "'Playfair Display', serif",
+            color: 'var(--gold-light)',
+            fontSize: '1.05rem',
+            margin: '0 0 0.5rem',
+          }}>
+            Unlock Map Controls?
+          </h4>
+          <p style={{
+            fontFamily: "'Lora', serif",
+            color: 'rgba(255, 248, 240, 0.8)',
+            fontSize: '0.78rem',
+            lineHeight: 1.4,
+            maxWidth: '260px',
+            margin: '0 0 1.2rem',
+          }}>
+            Unlock zoom & navigation controls, or keep it locked to avoid page scrolling interference.
+          </p>
+          <div style={{ display: 'flex', gap: '0.8rem' }}>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsUnlocked(true);
+                setShowPrompt(false);
+              }}
+              style={{
+                background: 'linear-gradient(135deg, #C4572A, #A8451E)',
+                border: 'none',
+                borderRadius: '4px',
+                color: '#FFF8F0',
+                padding: '6px 14px',
+                fontSize: '0.75rem',
+                fontFamily: "'Lora', serif",
+                fontWeight: 600,
+                cursor: 'pointer',
+                boxShadow: '0 4px 10px rgba(196,87,42,0.3)',
+              }}
+            >
+              Unlock Map
+            </button>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setShowPrompt(false);
+              }}
+              style={{
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: '1px solid rgba(212, 168, 67, 0.4)',
+                borderRadius: '4px',
+                color: 'var(--gold-light)',
+                padding: '5px 14px',
+                fontSize: '0.75rem',
+                fontFamily: "'Lora', serif",
+                cursor: 'pointer',
+              }}
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Lock Map Button when Unlocked */}
+      {isUnlocked && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsUnlocked(false);
+          }}
+          style={{
+            position: 'absolute',
+            top: '12px',
+            right: '12px',
+            background: 'rgba(30, 8, 12, 0.85)',
+            border: '1.2px solid rgba(212, 168, 67, 0.5)',
+            borderRadius: '20px',
+            padding: '5px 12px',
+            color: '#D4A843',
+            fontSize: '0.72rem',
+            fontFamily: "'Lora', serif",
+            cursor: 'pointer',
+            zIndex: 6,
+            boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+            transition: 'all 0.2s ease',
+          }}
+          onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(139,34,64,0.85)'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(30, 8, 12, 0.85)'; }}
+        >
+          🔒 Lock Map
+        </button>
+      )}
     </div>
   );
 }
@@ -64,6 +257,10 @@ export default function RouteCTA() {
             marginBottom: '2.5rem',
           }}>
             <PremiumDoubleBorderFrame />
+
+            {/* Swaying Temple Bells hanging inside the gold border */}
+            <SwayingBell delay={0} style={{ position: 'absolute', top: '10px', left: '24px', zIndex: 3 }} />
+            <SwayingBell delay={0.8} style={{ position: 'absolute', top: '10px', right: '24px', zIndex: 3 }} />
             
             <p style={{
               fontFamily: "'Lora', serif", fontSize: '0.72rem',
@@ -133,6 +330,8 @@ export default function RouteCTA() {
                 </p>
               </div>
             </div>
+
+
           </div>
 
           {/* The Styled Google Maps Embed Iframe */}
