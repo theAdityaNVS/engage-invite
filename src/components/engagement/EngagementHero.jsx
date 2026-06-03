@@ -213,6 +213,78 @@ export default function EngagementHero() {
           </motion.div>
         </AnimatePresence>
 
+        {/* Elegant Scroll Down Hint Button */}
+        <motion.button
+          onClick={() => {
+            const nextSection = document.getElementById('section-events');
+            if (nextSection) {
+              nextSection.scrollIntoView({ behavior: 'smooth' });
+            }
+          }}
+          whileHover={{ scale: 1.05 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5, delay: 1.2 }}
+          style={{
+            marginTop: 'clamp(1.5rem, 4vh, 2.5rem)', // Elegant spacing below the names
+            pointerEvents: 'auto',
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '8px',
+            filter: 'drop-shadow(0 2px 10px rgba(0,0,0,0.5))',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+          aria-label="Scroll to next section"
+        >
+          <span style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(0.72rem, 1.8vw, 0.8rem)',
+            textTransform: 'uppercase',
+            letterSpacing: '0.3em',
+            color: 'rgba(245,236,200,0.85)',
+            textShadow: '0 2px 8px rgba(0, 0, 0, 0.8)',
+            transition: 'color 0.3s ease',
+          }}>
+            {t('scrollDiscover')}
+          </span>
+          
+          {/* Saffron gold vertical line with sliding glowing bead */}
+          <div style={{
+            width: '2px',
+            height: '36px',
+            background: 'linear-gradient(180deg, rgba(212, 168, 67, 0.85) 0%, rgba(212, 168, 67, 0.1) 100%)',
+            position: 'relative',
+            marginTop: '4px',
+            borderRadius: '1px',
+          }}>
+            <motion.div
+              animate={{
+                y: [0, 28, 28],
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                duration: 2.0,
+                repeat: Infinity,
+                ease: [0.25, 0.8, 0.25, 1],
+              }}
+              style={{
+                position: 'absolute',
+                left: '50%',
+                x: '-50%',
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: '#D4A843',
+                boxShadow: '0 0 8px #D4A843, 0 0 16px rgba(212, 168, 67, 0.6)',
+              }}
+            />
+          </div>
+        </motion.button>
+
       </motion.div>
 
       {/* Bottom Wrapper - Normal Document Flow fixes tablet overlaps */}
@@ -232,89 +304,6 @@ export default function EngagementHero() {
           marginTop: 'auto', // Pushes to the bottom natively
         }}
       >
-        {/* Elegant glowing Scroll Down Hint Button */}
-        <motion.button
-          onClick={() => {
-            const nextSection = document.getElementById('section-events');
-            if (nextSection) {
-              nextSection.scrollIntoView({ behavior: 'smooth' });
-            }
-          }}
-          whileHover={{ scale: 1.05 }}
-          style={{
-            pointerEvents: 'auto',
-            background: 'none',
-            border: 'none',
-            cursor: 'pointer',
-            padding: '12px',
-            color: '#D4A843',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            gap: '6px',
-            marginBottom: '0.75rem',
-            filter: 'drop-shadow(0 2px 10px rgba(212, 168, 67, 0.45))',
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-          }}
-          aria-label="Scroll to next section"
-        >
-          <span style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 'clamp(0.82rem, 2vw, 0.9rem)',
-            textTransform: 'uppercase',
-            letterSpacing: '0.28em',
-            color: 'rgba(245,236,200,0.85)',
-            textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 8px rgba(212, 168, 67, 0.3)',
-            marginBottom: '4px',
-            transition: 'color 0.3s ease',
-          }}>
-            {t('scrollDiscover')}
-          </span>
-          
-          {/* Staggered cascading chevrons flowing downwards */}
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '28px',
-            position: 'relative',
-            width: '40px',
-            marginTop: '2px',
-          }}>
-            {[0, 1, 2].map((i) => (
-              <motion.svg
-                key={i}
-                width="18"
-                height="10"
-                viewBox="0 0 24 12"
-                fill="none"
-                stroke="#D4A843"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ opacity: 0, y: -8 }}
-                animate={{
-                  opacity: [0, 1, 0.7, 0],
-                  y: [-8, 2, 12, 20],
-                }}
-                transition={{
-                  duration: 2.2,
-                  repeat: Infinity,
-                  delay: i * 0.45,
-                  ease: [0.25, 0.8, 0.25, 1],
-                }}
-                style={{
-                  position: 'absolute',
-                  filter: 'drop-shadow(0 1px 4px rgba(212, 168, 67, 0.6))',
-                }}
-              >
-                <polyline points="4 2 12 10 20 2" />
-              </motion.svg>
-            ))}
-          </div>
-        </motion.button>
-
         <JagannathTempleSVG style={{ marginBottom: '-6px' }} />
       </motion.div>
 
