@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" fill="none">
+  <!-- Soft subtle background glow -->
+  <circle cx="256" cy="256" r="230" fill="none" stroke="#D4A843" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.4" />
+  <circle cx="256" cy="256" r="222" fill="none" stroke="#C4572A" stroke-width="0.8" opacity="0.3" />
+
+  <!-- Flagpole & Sacred Banner (Dhvaja) -->
+  <path d="M 256, 100 L 256, 25" stroke="#D4A843" stroke-width="4.5" stroke-linecap="round" />
+  <path d="M 256, 28 L 315, 45 L 256, 62 Z" fill="#C4572A" stroke="#D4A843" stroke-width="2" stroke-linejoin="round" />
+  <!-- Little flag streamers -->
+  <path d="M 315, 45 Q 325, 42, 335, 47" stroke="#C4572A" stroke-width="2" stroke-linecap="round" fill="none" />
+  <path d="M 256, 45 H 275" stroke="#D4A843" stroke-width="1.5" />
+
+  <!-- Kalasha (The sacred water pot finial) -->
+  <!-- Sprout -->
+  <path d="M 256, 76 L 256, 62" stroke="#D4A843" stroke-width="3" stroke-linecap="round" />
+  <!-- Pot Body -->
+  <path d="M 242, 94 C 240, 80, 272, 80, 270, 94 C 270, 104, 242, 104, 242, 94 Z" fill="#C4572A" stroke="#D4A843" stroke-width="2.5" stroke-linejoin="round" />
+  <path d="M 246, 90 H 266" stroke="#D4A843" stroke-width="1.5" />
+  <circle cx="256" cy="74" r="3.5" fill="#D4A843" />
+
+  <!-- Khapuri (Dome cap above Amalaka) -->
+  <path d="M 232, 112 C 232, 100, 280, 100, 280, 112 Z" fill="#C4572A" stroke="#D4A843" stroke-width="2.5" />
+
+  <!-- Amalaka (The ribbed stone disc representing a lotus/sun) -->
+  <path d="M 212, 126 C 212, 113, 300, 113, 300, 126 C 300, 139, 212, 139, 212, 126 Z" fill="#D4A843" stroke="#C4572A" stroke-width="2" stroke-linejoin="round" />
+  <!-- Vertical ribs on Amalaka -->
+  <path d="M 256, 114 V 138" stroke="#FFF8F0" stroke-width="2.5" stroke-linecap="round" opacity="0.9" />
+  <path d="M 234, 117 C 238, 122, 238, 130, 234, 135" stroke="#FFF8F0" stroke-width="2" opacity="0.8" />
+  <path d="M 278, 117 C 274, 122, 274, 130, 278, 135" stroke="#FFF8F0" stroke-width="2" opacity="0.8" />
+  <path d="M 221, 121 C 224, 124, 224, 128, 221, 131" stroke="#FFF8F0" stroke-width="1.5" opacity="0.7" />
+  <path d="M 291, 121 C 288, 124, 288, 128, 291, 131" stroke="#FFF8F0" stroke-width="1.5" opacity="0.7" />
+
+  <!-- Beki (Neck portion) -->
+  <path d="M 234, 138 L 278, 138 L 272, 148 L 240, 148 Z" fill="#C4572A" stroke="#D4A843" stroke-width="2.5" stroke-linejoin="round" />
+
+  <!-- Main Shikhara (Curvilinear Tower) -->
+  <!-- Outer Boundaries -->
+  <path d="M 236, 148 Q 206, 280, 136, 440 L 376, 440 Q 306, 280, 276, 148 Z" fill="#1E0508" stroke="#D4A843" stroke-width="3" stroke-linejoin="round" />
+
+  <!-- Horizontal Tiers (Bhumis) -->
+  <path d="M 226, 185 H 286" stroke="#D4A843" stroke-width="2" />
+  <path d="M 216, 225 H 296" stroke="#D4A843" stroke-width="2" />
+  <path d="M 203, 270 H 309" stroke="#D4A843" stroke-width="2" />
+  <path d="M 185, 320 H 327" stroke="#D4A843" stroke-width="2" stroke-linecap="round" />
+  <path d="M 163, 375 H 349" stroke="#D4A843" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Terracotta Layer Insets -->
+  <path d="M 228, 185 L 230, 225 H 282 L 284, 185 Z" fill="#C4572A" opacity="0.25" />
+  <path d="M 218, 225 L 221, 270 H 291 L 294, 225 Z" fill="#C4572A" opacity="0.25" />
+  <path d="M 205, 270 L 209, 320 H 303 L 307, 270 Z" fill="#C4572A" opacity="0.25" />
+  <path d="M 187, 320 L 192, 375 H 320 L 325, 320 Z" fill="#C4572A" opacity="0.25" />
+  <path d="M 165, 375 L 171, 440 H 341 L 347, 375 Z" fill="#C4572A" opacity="0.25" />
+
+  <!-- Vertical Ribs / Architectural Pagas (Raha, Anuratha, Kanika) -->
+  <!-- Raha (Central Column) Borders -->
+  <path d="M 246, 148 Q 236, 280, 220, 440" stroke="#D4A843" stroke-width="1.8" />
+  <path d="M 266, 148 Q 276, 280, 292, 440" stroke="#D4A843" stroke-width="1.8" />
+
+  <!-- Kanika & Anuratha (Outer Columns) Details -->
+  <path d="M 241, 148 Q 221, 280, 178, 440" stroke="#C4572A" stroke-width="1.5" stroke-dasharray="3 3" />
+  <path d="M 271, 148 Q 291, 280, 334, 440" stroke="#C4572A" stroke-width="1.5" stroke-dasharray="3 3" />
+  
+  <path d="M 243, 148 Q 212, 280, 157, 440" stroke="#D4A843" stroke-width="1.5" />
+  <path d="M 269, 148 Q 300, 280, 355, 440" stroke="#D4A843" stroke-width="1.5" />
+
+  <!-- Elegant Traditional Carved Ornaments (Chaitya Eye / Gavaksha) -->
+  <path d="M 256, 200 C 250, 194, 262, 194, 256, 200 Z" fill="#D4A843" />
+  <circle cx="256" cy="208" r="3" fill="#C4572A" />
+
+  <path d="M 256, 240 C 248, 230, 264, 230, 256, 240 Z" fill="#D4A843" />
+  <circle cx="256" cy="250" r="4" fill="#C4572A" />
+
+  <!-- Large Central Chaitya Arch Motif at base -->
+  <path d="M 226, 440 V 380 C 226, 345, 286, 345, 286, 380 V 440 Z" fill="#3D0A14" stroke="#D4A843" stroke-width="2.5" />
+  <path d="M 234, 440 V 386 C 234, 358, 278, 358, 278, 386 V 440 Z" stroke="#C4572A" stroke-width="1.5" fill="none" />
+  
+  <!-- Sacred Diya (oil lamp) glowing in the archway -->
+  <!-- Diya Stand -->
+  <path d="M 248, 440 L 264, 440 L 256, 432 Z" fill="#D4A843" />
+  <!-- Diya Bowl -->
+  <path d="M 242, 432 C 242, 423, 270, 423, 270, 432 Z" fill="#C4572A" stroke="#D4A843" stroke-width="1.5" />
+  <!-- Glowing Flame -->
+  <path d="M 256, 424 C 251, 417, 256, 403, 256, 403 C 256, 403, 261, 417, 256, 424 Z" fill="#FFF8F0" stroke="#D4A843" stroke-width="1.5" />
+  <!-- Outer Flame Aura -->
+  <path d="M 256, 426 C 248, 415, 256, 396, 256, 396 C 256, 396, 264, 415, 256, 426 Z" fill="none" stroke="#C4572A" stroke-width="1" opacity="0.6" />
+
+  <!-- Base Platform (Pitha / Jagati) -->
+  <!-- Tier 1 -->
+  <path d="M 120, 440 H 392 L 382, 458 H 130 Z" fill="#C4572A" stroke="#D4A843" stroke-width="2.5" stroke-linejoin="round" />
+  <!-- Decorative patterns on Tier 1 -->
+  <path d="M 145, 449 H 367" stroke="#FFF8F0" stroke-width="1" stroke-dasharray="4 4" opacity="0.7" />
+
+  <!-- Tier 2 -->
+  <rect x="100" y="458" width="312" height="18" rx="4" fill="#1E0508" stroke="#D4A843" stroke-width="2.5" />
+  <!-- Repeating vertical line carvings on Tier 2 base -->
+  <path d="M 120, 458 V 476 M 140, 458 V 476 M 160, 458 V 476 M 180, 458 V 476 M 200, 458 V 476 M 220, 458 V 476 M 292, 458 V 476 M 312, 458 V 476 M 332, 458 V 476 M 352, 458 V 476 M 372, 458 V 476 M 392, 458 V 476" stroke="#C4572A" stroke-width="1.5" opacity="0.8" />
+
+  <!-- Tier 3 (Bottom-most broad plinth) -->
+  <path d="M 80, 476 H 432 L 442, 498 H 70 Z" fill="#C4572A" stroke="#D4A843" stroke-width="3" stroke-linejoin="round" />
+  <!-- Corner scrollwork design -->
+  <path d="M 82, 487 Q 92, 487, 92, 498" stroke="#FFF8F0" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M 430, 487 Q 420, 487, 420, 498" stroke="#FFF8F0" stroke-width="1.5" stroke-linecap="round" />
+</svg>

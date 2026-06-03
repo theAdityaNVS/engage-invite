@@ -50,6 +50,106 @@ function SwayingBell({ delay = 0, style = {} }) {
   );
 }
 
+// Mini Journey Map SVG Component using generated assets
+function MiniJourneyMap() {
+  return (
+    <div style={{
+      margin: '1.8rem 0 1rem',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      width: '100%',
+      position: 'relative',
+      zIndex: 2,
+    }}>
+      <div style={{ width: '100%', maxWidth: '380px', position: 'relative' }}>
+        <svg width="100%" height="75" viewBox="0 0 400 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="route-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#C4572A" />
+              <stop offset="50%" stopColor="#D4A843" />
+              <stop offset="100%" stopColor="#FAF6EE" />
+            </linearGradient>
+          </defs>
+
+          {/* Dotted path (Background) - increased opacity for high visibility */}
+          <path 
+            d="M 50 35 Q 200 10 350 35" 
+            stroke="rgba(212, 168, 67, 0.45)" 
+            strokeWidth="3" 
+            strokeLinecap="round"
+          />
+          
+          {/* Animated flowing dashed path */}
+          <path 
+            d="M 50 35 Q 200 10 350 35" 
+            stroke="url(#route-grad)" 
+            strokeWidth="2.5" 
+            strokeDasharray="6 6"
+            strokeLinecap="round"
+            style={{
+              animation: 'flowDashes 20s linear infinite',
+            }}
+          />
+
+          {/* Start node: NALCO Ram Mandir (Temple Spire SVG) */}
+          <image href="/illustrations/temple-spire.svg" x="26" y="11" width="48" height="48" />
+
+          {/* End node: Suryansh Hotel (Sparkling Ring SVG) */}
+          <image href="/illustrations/sparkling-ring.svg" x="326" y="11" width="48" height="48" />
+
+          {/* Moving Auto-Rickshaw along the path (High-fidelity vector SVG) */}
+          <g>
+            <animateMotion 
+              dur="8s" 
+              repeatCount="indefinite" 
+              path="M 50 35 Q 200 10 350 35" 
+              rotate="auto"
+            />
+            {/* Center the vector auto-rickshaw image at (0,0) */}
+            <image href="/illustrations/auto-rickshaw.svg" x="-24" y="-18" width="48" height="36" />
+          </g>
+
+          <style>{`
+            @keyframes flowDashes {
+              from {
+                stroke-dashoffset: 0;
+              }
+              to {
+                stroke-dashoffset: -120;
+              }
+            }
+          `}</style>
+        </svg>
+      </div>
+
+      {/* Label and Info */}
+      <div style={{
+        textAlign: 'center',
+        marginTop: '0.4rem',
+        fontFamily: "'Lora', serif",
+        fontSize: '0.82rem',
+        color: '#FAF6EE',
+      }}>
+        <span style={{ color: '#FAF6EE', fontWeight: 500 }}>NALCO Ram Mandir</span>
+        <span style={{ margin: '0 0.5rem', color: 'rgba(212,168,67,0.5)' }}>➔</span>
+        <span style={{ 
+          background: 'rgba(212,168,67,0.12)', 
+          padding: '2px 8px', 
+          borderRadius: '12px', 
+          border: '1px solid rgba(212,168,67,0.3)',
+          color: 'var(--gold-light)',
+          fontSize: '0.78rem',
+          fontWeight: 600
+        }}>
+          Just 300m (1-min drive / 3-min walk)
+        </span>
+        <span style={{ margin: '0 0.5rem', color: 'rgba(212,168,67,0.5)' }}>➔</span>
+        <span style={{ color: '#FAF6EE', fontWeight: 500 }}>Suryansh Hotel</span>
+      </div>
+    </div>
+  );
+}
 
 function VenueMapIframe() {
   const [isUnlocked, setIsUnlocked] = useState(false);
@@ -331,6 +431,18 @@ export default function RouteCTA() {
               </div>
             </div>
 
+            {/* Separator / Journey Connector */}
+            <div style={{
+              height: 1,
+              width: '100%',
+              background: 'linear-gradient(to right, transparent, rgba(212, 168, 67, 0.25), transparent)',
+              margin: '1.5rem auto 0.5rem',
+              position: 'relative',
+              zIndex: 2,
+            }} />
+
+            {/* Mini Journey Infographic Map */}
+            <MiniJourneyMap />
 
           </div>
 

@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%" fill="none">
+  <!-- Soft background glow ring -->
+  <circle cx="256" cy="256" r="230" fill="none" stroke="#D4A843" stroke-width="1.5" stroke-dasharray="8 6" opacity="0.4" />
+  <circle cx="256" cy="256" r="222" fill="none" stroke="#FFF8F0" stroke-width="0.8" opacity="0.3" />
+
+  <!-- Sparkling Rays from the Diamond -->
+  <g stroke="#FFF8F0" stroke-width="1.5" opacity="0.6" stroke-dasharray="4 6">
+    <line x1="256" y1="120" x2="256" y2="50" />
+    <line x1="190" y1="140" x2="130" y2="100" />
+    <line x1="322" y1="140" x2="382" y2="100" />
+    <line x1="210" y1="110" x2="170" y2="60" />
+    <line x1="302" y1="110" x2="342" y2="60" />
+  </g>
+
+  <!-- Sparkles (4-pointed stars) -->
+  <!-- Top Center Large Sparkle -->
+  <path d="M 256, 50 L 260, 68 L 278, 72 L 260, 76 L 256, 94 L 252, 76 L 234, 72 L 252, 68 Z" fill="#FFF8F0" stroke="#D4A843" stroke-width="1" />
+  <circle cx="256" cy="72" r="2" fill="#D4A843" />
+
+  <!-- Left Sparkle -->
+  <path d="M 155, 95 L 158, 107 L 170, 110 L 158, 113 L 155, 125 L 152, 113 L 140, 110 L 152, 107 Z" fill="#FFF8F0" stroke="#D4A843" stroke-width="1" />
+  
+  <!-- Right Sparkle -->
+  <path d="M 357, 95 L 360, 107 L 372, 110 L 360, 113 L 357, 125 L 354, 113 L 342, 110 L 354, 107 Z" fill="#FFF8F0" stroke="#D4A843" stroke-width="1" />
+
+  <!-- Ring Band (The Gold Shank) -->
+  <!-- Outer band shading contour -->
+  <circle cx="256" cy="326" r="124" stroke="#C4572A" stroke-width="3" opacity="0.7" />
+  
+  <!-- Solid Gold Band -->
+  <circle cx="256" cy="326" r="114" stroke="#D4A843" stroke-width="18" />
+  
+  <!-- Inner Band Shading Contour -->
+  <circle cx="256" cy="326" r="104" stroke="#FFF8F0" stroke-width="2" opacity="0.5" />
+  
+  <!-- Decorative Beads on the Band -->
+  <g fill="#FFF8F0">
+    <circle cx="256" cy="440" r="4.5" />
+    <circle cx="160" cy="390" r="3.5" />
+    <circle cx="352" cy="390" r="3.5" />
+    <circle cx="144" cy="310" r="3.5" />
+    <circle cx="368" cy="310" r="3.5" />
+  </g>
+
+  <!-- Crown/Prong Setting (The Basket) -->
+  <!-- Base platform of setting -->
+  <path d="M 216, 218 Q 256, 234, 296, 218 L 284, 238 Q 256, 248, 228, 238 Z" fill="#C4572A" stroke="#D4A843" stroke-width="2" />
+  
+  <!-- Main Prongs (Holding the stone) -->
+  <!-- Left Prong -->
+  <path d="M 212, 222 C 196, 202, 196, 178, 198, 168 C 201, 168, 205, 178, 214, 192 L 210, 222 Z" fill="#D4A843" stroke="#FFF8F0" stroke-width="1.2" />
+  <!-- Right Prong -->
+  <path d="M 300, 222 C 316, 202, 316, 178, 314, 168 C 311, 168, 307, 178, 298, 192 L 302, 222 Z" fill="#D4A843" stroke="#FFF8F0" stroke-width="1.2" />
+  
+  <!-- Center Prongs (Basket details) -->
+  <path d="M 252, 230 V 212" stroke="#D4A843" stroke-width="2.5" />
+  <circle cx="256" cy="226" r="3" fill="#FFF8F0" />
+
+  <!-- The Faceted Diamond (Heart of the Ring) -->
+  <g id="diamond-stone">
+    <!-- Facet Fills (for beautiful depth and high contrast) -->
+    <!-- Table (Top flat face) -->
+    <polygon points="226,128 286,128 298,162 214,162" fill="#FFF8F0" />
+    
+    <!-- Crown Side Triangles -->
+    <polygon points="200,162 214,162 226,128" fill="rgba(212,168,67,0.25)" />
+    <polygon points="312,162 298,162 286,128" fill="rgba(212,168,67,0.25)" />
+    
+    <!-- Crown Center Triangles -->
+    <polygon points="226,128 256,128 214,162" fill="rgba(255,248,240,0.8)" />
+    <polygon points="286,128 256,128 298,162" fill="rgba(255,248,240,0.8)" />
+    <polygon points="256,128 214,162 256,162" fill="rgba(255,255,255,0.95)" />
+    <polygon points="256,128 298,162 256,162" fill="rgba(255,255,255,0.95)" />
+    
+    <!-- Pavilion Center Triangles (pointing down) -->
+    <polygon points="214,162 256,162 256,220" fill="rgba(255,248,240,0.9)" />
+    <polygon points="298,162 256,162 256,220" fill="rgba(255,255,255,0.95)" />
+    
+    <!-- Pavilion Outer Triangles -->
+    <polygon points="200,162 214,162 256,220" fill="rgba(212,168,67,0.15)" />
+    <polygon points="312,162 298,162 256,220" fill="rgba(212,168,67,0.15)" />
+
+    <!-- Gold & Off-white Outline facet lines -->
+    <!-- Outer Silhouette -->
+    <polygon points="226,128 286,128 312,162 256,220 200,162" stroke="#D4A843" stroke-width="3" stroke-linejoin="round" />
+    
+    <!-- Girdle Line (horizontal) -->
+    <line x1="200" y1="162" x2="312" y2="162" stroke="#D4A843" stroke-width="2.5" />
+    
+    <!-- Internal facet boundaries -->
+    <line x1="226" y1="128" x2="214" y2="162" stroke="#D4A843" stroke-width="1.8" />
+    <line x1="286" y1="128" x2="298" y2="162" stroke="#D4A843" stroke-width="1.8" />
+    <line x1="256" y1="128" x2="256" y2="162" stroke="#FFF8F0" stroke-width="1.5" opacity="0.8" />
+    
+    <line x1="214" y1="162" x2="256" y2="220" stroke="#FFF8F0" stroke-width="1.8" opacity="0.8" />
+    <line x1="298" y1="162" x2="256" y2="220" stroke="#FFF8F0" stroke-width="1.8" opacity="0.8" />
+    <line x1="256" y1="162" x2="256" y2="220" stroke="#D4A843" stroke-width="2" />
+  </g>
+
+  <!-- Sparkle details inside the diamond (flashes of light) -->
+  <path d="M 235, 142 L 237, 146 L 241, 147 L 237, 148 L 235, 152 L 233, 148 L 229, 147 L 233, 146 Z" fill="#FFF8F0" />
+  <path d="M 275, 180 L 277, 183 L 281, 184 L 277, 185 L 275, 188 L 273, 185 L 269, 184 L 273, 183 Z" fill="#FFF8F0" />
+</svg>
