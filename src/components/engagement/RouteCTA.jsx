@@ -92,7 +92,7 @@ function MiniJourneyMap() {
             }}
           />
 
-          {/* Start node: NALCO Ram Mandir (Temple Spire SVG) */}
+          {/* Start node: NALCO Temple (Temple Spire SVG) */}
           <circle cx="50" cy="35" r="18" fill="#1c050a" stroke="#C4572A" strokeWidth="1.5" />
           <image href="/illustrations/temple-spire.svg" x="26" y="11" width="48" height="48" />
 
@@ -133,7 +133,7 @@ function MiniJourneyMap() {
         fontSize: '0.82rem',
         color: '#FAF6EE',
       }}>
-        <span style={{ color: '#FAF6EE', fontWeight: 500 }}>NALCO Ram Mandir</span>
+        <span style={{ color: '#FAF6EE', fontWeight: 500 }}>NALCO Temple</span>
         <span style={{ margin: '0 0.5rem', color: 'rgba(212,168,67,0.5)' }}>➔</span>
         <span style={{ 
           background: 'rgba(212,168,67,0.12)', 
@@ -415,7 +415,7 @@ export default function RouteCTA() {
                   Engagement Puja
                 </h3>
                 <p style={{ fontFamily: 'Lora, serif', fontSize: '0.82rem', color: 'rgba(245,236,200,0.7)', fontStyle: 'italic', lineHeight: 1.45, margin: 0 }}>
-                  Ram Mandir (NALCO Temple), Jaydev Vihar, Bhubaneswar
+                  NALCO Temple, Jaydev Vihar, Bhubaneswar
                 </p>
               </div>
 
@@ -454,7 +454,7 @@ export default function RouteCTA() {
           {/* Navigation CTA Buttons */}
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap', marginTop: '1.6rem' }}>
             <motion.a
-              href="https://maps.google.com/?q=Ram+Mandir+NALCO+Temple+Jaydev+Vihar+Bhubaneswar"
+              href="https://maps.google.com/?q=NALCO+Temple+Jaydev+Vihar+Bhubaneswar"
               target="_blank" rel="noopener noreferrer"
               whileHover={{ scale: 1.05, backgroundColor: 'rgba(196,87,42,0.15)', borderColor: 'rgba(196,87,42,0.85)' }} 
               whileTap={{ scale: 0.96 }}
