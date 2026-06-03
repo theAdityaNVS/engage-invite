@@ -16,7 +16,7 @@ import BlessingsSection from '@/components/engagement/BlessingsSection';
 import EventCardsSection from '@/components/engagement/EventCardsSection';
 import RouteCTA from '@/components/engagement/RouteCTA';
 import CoupleSection from '@/components/engagement/CoupleSection';
-import RSVPSection from '@/components/engagement/RSVPSection';
+
 import GallerySection from '@/components/engagement/GallerySection';
 import ThingsToKnow from '@/components/engagement/ThingsToKnow';
 import CountdownSection from '@/components/engagement/CountdownSection';
@@ -33,7 +33,7 @@ export default function EngagementPage() {
       <Head>
         <title>{`${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME} — Engagement`}</title>
         <meta name="description" content="Join us for Aditya & Jyoti's engagement — 17 June, Suryansh Hotel, Bhubaneswar. In English, Hindi, Telugu & Odia." />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="theme-color" content="#8B1A2B" />
         <link rel="icon" href="/favicon.ico" />
 
@@ -70,7 +70,7 @@ export default function EngagementPage() {
 
         <div id="section-couple">
           <CoupleSection />
-          <RSVPSection />
+
           <GallerySection />
         </div>
 
