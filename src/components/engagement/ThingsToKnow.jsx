@@ -22,18 +22,52 @@ const WeatherAnimations = () => (
       20% { opacity: 1; }
       100% { stroke-dashoffset: -12; opacity: 0; }
     }
-    @keyframes fly-plane {
-      0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-      50% { transform: translateY(-2px) rotate(3deg) scale(1.05); }
+    @keyframes plane-fly {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-3px) rotate(4deg); }
     }
-    @keyframes chug-train {
-      0%, 100% { transform: translateX(0); }
-      50% { transform: translateX(1.5px); }
+    @keyframes wind-slide-1 {
+      0% { stroke-dashoffset: 24; opacity: 0; }
+      20% { opacity: 0.5; }
+      80% { opacity: 0.5; }
+      100% { stroke-dashoffset: -24; opacity: 0; }
     }
-    @keyframes wiggle-compass {
+    @keyframes wind-slide-2 {
+      0% { stroke-dashoffset: 32; opacity: 0; }
+      20% { opacity: 0.5; }
+      80% { opacity: 0.5; }
+      100% { stroke-dashoffset: -32; opacity: 0; }
+    }
+    @keyframes train-chug {
+      0%, 100% { transform: translateY(0) scaleY(1); }
+      50% { transform: translateY(-1px) scaleY(0.98); }
+    }
+    @keyframes steam-puff-1 {
+      0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+      30% { opacity: 0.7; }
+      100% { transform: translate(-3px, -8px) scale(1.3); opacity: 0; }
+    }
+    @keyframes steam-puff-2 {
+      0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
+      30% { opacity: 0.7; }
+      100% { transform: translate(3px, -11px) scale(1.1); opacity: 0; }
+    }
+    @keyframes compass-needle-wiggle {
       0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-8deg); }
-      75% { transform: rotate(8deg); }
+      15% { transform: rotate(-10deg); }
+      30% { transform: rotate(12deg); }
+      45% { transform: rotate(-7deg); }
+      60% { transform: rotate(8deg); }
+      75% { transform: rotate(-3deg); }
+      90% { transform: rotate(3deg); }
+    }
+    @keyframes compass-spin-outer {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes radar-pulse {
+      0% { r: 2px; opacity: 0.8; stroke-width: 1px; }
+      100% { r: 16px; opacity: 0; stroke-width: 0.5px; }
     }
     .anim-sun-rays {
       transform-origin: 24px 24px;
@@ -46,26 +80,57 @@ const WeatherAnimations = () => (
       stroke-dasharray: 4, 8;
       animation: rain-fall-anim 1.2s linear infinite;
     }
-    .anim-plane {
-      animation: fly-plane 3s ease-in-out infinite;
-      transform-origin: center;
+    .anim-plane-fly {
+      animation: plane-fly 3.5s ease-in-out infinite;
+      transform-origin: 24px 24px;
     }
-    .anim-train {
-      animation: chug-train 1.5s ease-in-out infinite;
-      transform-origin: center;
+    .anim-wind-line-1 {
+      stroke-dasharray: 8 16;
+      animation: wind-slide-1 2s linear infinite;
     }
-    .anim-compass {
-      animation: wiggle-compass 4s ease-in-out infinite;
-      transform-origin: center;
+    .anim-wind-line-2 {
+      stroke-dasharray: 12 20;
+      animation: wind-slide-2 2.5s linear infinite;
+      animation-delay: 0.4s;
+    }
+    .anim-wind-line-3 {
+      stroke-dasharray: 6 12;
+      animation: wind-slide-1 1.8s linear infinite;
+      animation-delay: 0.8s;
+    }
+    .anim-train-chug {
+      animation: train-chug 1s ease-in-out infinite;
+      transform-origin: 24px 24px;
+    }
+    .anim-steam-1 {
+      animation: steam-puff-1 1.8s ease-out infinite;
+    }
+    .anim-steam-2 {
+      animation: steam-puff-2 2.2s ease-out infinite;
+      animation-delay: 0.6s;
+    }
+    .anim-compass-needle {
+      animation: compass-needle-wiggle 6s ease-in-out infinite;
+    }
+    .anim-compass-outer {
+      animation: compass-spin-outer 25s linear infinite;
+    }
+    .anim-radar-pulse {
+      animation: radar-pulse 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
     }
     .travel-subcard {
       transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
     }
     .travel-subcard:hover {
-      transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.8) !important;
-      border-color: rgba(212, 168, 67, 0.6) !important;
-      box-shadow: 0 6px 16px rgba(212, 168, 67, 0.12) !important;
+      transform: translateY(-3px);
+      background: rgba(255, 255, 255, 0.85) !important;
+      border-color: rgba(212, 168, 67, 0.55) !important;
+      box-shadow: 0 10px 24px rgba(212, 168, 67, 0.16) !important;
+    }
+    .travel-subcard:hover .travel-subcard-arrow {
+      transform: translateX(4px);
+      opacity: 1 !important;
+      color: #C4572A !important;
     }
   `}} />
 );
@@ -149,26 +214,56 @@ function JhumarIcon() {
 
 function AirplaneIcon() {
   return (
-    <svg className="anim-plane" viewBox="0 0 24 24" style={{ width: 18, height: 18, fill: '#D4A843', flexShrink: 0 }} aria-hidden="true">
-      <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z"/>
+    <svg viewBox="0 0 48 48" style={{ width: 34, height: 34 }} aria-hidden="true">
+      <g stroke="#D4A843" strokeWidth="1.2" strokeLinecap="round" fill="none" opacity="0.5">
+        <path className="anim-wind-line-1" d="M38 12 H14" />
+        <path className="anim-wind-line-2" d="M42 24 H18" />
+        <path className="anim-wind-line-3" d="M36 36 H16" />
+      </g>
+      <g className="anim-plane-fly" transform="translate(24, 24) rotate(45) translate(-11.5, -12)">
+        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z" fill="#D4A843" />
+      </g>
     </svg>
   );
 }
 
 function TrainIcon() {
   return (
-    <svg className="anim-train" viewBox="0 0 24 24" style={{ width: 18, height: 18, fill: '#D4A843', flexShrink: 0 }} aria-hidden="true">
-      <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zm0 2c3.71 0 6 .42 6 2H6c0-1.58 2.29-2 6-2zm5 11H7V8h10v7zm-1.5-5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-7 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z"/>
+    <svg viewBox="0 0 48 48" style={{ width: 34, height: 34 }} aria-hidden="true">
+      <g fill="#D4A843">
+        <circle className="anim-steam-1" cx="24" cy="12" r="2" style={{ transformOrigin: '24px 12px' }} />
+        <circle className="anim-steam-2" cx="24" cy="12" r="1.5" style={{ transformOrigin: '24px 12px' }} />
+      </g>
+      
+      <g stroke="#D4A843" strokeLinecap="round" opacity="0.4">
+        <line x1="12" y1="36" x2="36" y2="36" strokeWidth="1.5" />
+        <line x1="16" y1="36" x2="14" y2="40" strokeWidth="1" />
+        <line x1="24" y1="36" x2="24" y2="40" strokeWidth="1" />
+        <line x1="32" y1="36" x2="34" y2="40" strokeWidth="1" />
+      </g>
+
+      <g className="anim-train-chug" transform="translate(24, 24) translate(-12, -11.5)">
+        <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zm0 2c3.71 0 6 .42 6 2H6c0-1.58 2.29-2 6-2zm5 11H7V8h10v7zm-1.5-5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-7 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" fill="#D4A843" />
+      </g>
     </svg>
   );
 }
 
 function CompassIcon() {
   return (
-    <svg className="anim-compass" viewBox="0 0 24 24" style={{ width: 18, height: 18, fill: 'none', stroke: '#D4A843', strokeWidth: 2, strokeLinecap: 'round', strokeLinejoin: 'round', flexShrink: 0 }} aria-hidden="true">
-      <circle cx="12" cy="12" r="10" />
-      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="#D4A843" opacity="0.3" />
-      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+    <svg viewBox="0 0 48 48" style={{ width: 34, height: 34 }} aria-hidden="true">
+      <circle cx="24" cy="24" r="21" fill="none" stroke="#D4A843" strokeWidth="1.5" opacity="0.2" />
+      <circle className="anim-compass-outer" cx="24" cy="24" r="18" fill="none" stroke="#D4A843" strokeWidth="1" strokeDasharray="3 5" style={{ transformOrigin: '24px 24px' }} />
+      
+      <circle className="anim-radar-pulse" cx="24" cy="24" r="2" fill="none" stroke="#D4A843" style={{ transformOrigin: '24px 24px' }} />
+
+      <g className="anim-compass-needle" style={{ transformOrigin: '24px 24px' }}>
+        <polygon points="24,9 27,24 24,21" fill="#D4A843" />
+        <polygon points="24,9 21,24 24,21" fill="#B38B2E" />
+        <polygon points="24,39 27,24 24,27" fill="#C4572A" />
+        <polygon points="24,39 21,24 24,27" fill="#9C3F18" />
+        <circle cx="24" cy="24" r="3.5" fill="#FAF6EE" stroke="#D4A843" strokeWidth="1.5" />
+      </g>
     </svg>
   );
 }
@@ -179,13 +274,13 @@ function WeatherCard({ weather }) {
   const baseCondition = weather ? weather.condition?.toLowerCase() : 'clear';
 
   const slots = [
-    { time: '9 AM',  label: 'Arrival',      temp: baseTemp - 2, cond: 'clear' },
-    { time: '10 AM', label: 'Puja',         temp: baseTemp - 1, cond: 'clear', highlight: true },
-    { time: '11 AM', label: 'Gathering',    temp: baseTemp,     cond: 'cloudy' },
-    { time: '12 PM', label: 'Rings',        temp: baseTemp + 1, cond: 'clear', highlight: true },
-    { time: '1 PM',  label: 'Lunch',        temp: baseTemp + 1, cond: 'cloudy', highlight: true },
-    { time: '2 PM',  label: 'Celebration',  temp: baseTemp,     cond: 'rain' },
-    { time: '3 PM',  label: 'Departure',    temp: baseTemp - 1, cond: 'cloudy' },
+    { time: '9 AM',  label: t('slot_arrival'),     temp: baseTemp - 2, cond: 'clear' },
+    { time: '10 AM', label: t('slot_puja'),        temp: baseTemp - 1, cond: 'clear', highlight: true },
+    { time: '11 AM', label: t('slot_gathering'),   temp: baseTemp,     cond: 'cloudy' },
+    { time: '12 PM', label: t('slot_rings'),       temp: baseTemp + 1, cond: 'clear', highlight: true },
+    { time: '1 PM',  label: t('slot_lunch'),       temp: baseTemp + 1, cond: 'cloudy', highlight: true },
+    { time: '2 PM',  label: t('slot_celebration'), temp: baseTemp,     cond: 'rain' },
+    { time: '3 PM',  label: t('slot_departure'),   temp: baseTemp - 1, cond: 'cloudy' },
   ];
 
   const getSlotIcon = (cond) => {
@@ -257,9 +352,30 @@ function ReachCard() {
   const { t } = useLanguage();
   
   const transitHubs = [
-    { key: 'airport', icon: <AirplaneIcon />, label: t('airport_label'), details: t('airport_details') },
-    { key: 'railway', icon: <TrainIcon />, label: t('railway_label'), details: t('railway_details') },
-    { key: 'vizag',   icon: <CompassIcon />, label: t('vizag_label'), details: t('vizag_details') }
+    { 
+      key: 'airport', 
+      icon: <AirplaneIcon />, 
+      label: t('airport_label'), 
+      details: t('airport_details'), 
+      actionText: t('navigate_label'),
+      url: 'https://www.google.com/maps/dir/?api=1&origin=Biju+Patnaik+Airport+Bhubaneswar&destination=Suryansh+Hotels+and+Resorts+Jayadev+Vihar+Bhubaneswar'
+    },
+    { 
+      key: 'railway', 
+      icon: <TrainIcon />, 
+      label: t('railway_label'), 
+      details: t('railway_details'), 
+      actionText: t('navigate_label'),
+      url: 'https://www.google.com/maps/dir/?api=1&origin=Bhubaneswar+Railway+Station&destination=Suryansh+Hotels+and+Resorts+Jayadev+Vihar+Bhubaneswar'
+    },
+    { 
+      key: 'vizag',   
+      icon: <CompassIcon />, 
+      label: t('vizag_label'), 
+      details: t('vizag_details'), 
+      actionText: t('navigate_label'),
+      url: 'https://www.google.com/maps/dir/?api=1&origin=Visakhapatnam&destination=Suryansh+Hotels+and+Resorts+Jayadev+Vihar+Bhubaneswar'
+    }
   ];
 
   return (
@@ -270,41 +386,75 @@ function ReachCard() {
         </h4>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
           {transitHubs.map((hub) => (
-            <div key={hub.key} style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.9rem',
-              padding: '0.85rem 1rem',
-              background: 'rgba(255, 255, 255, 0.35)',
-              border: '1px solid rgba(212, 168, 67, 0.22)',
-              borderRadius: '12px',
-              boxShadow: '0 2px 8px rgba(58, 32, 16, 0.03)',
-              textAlign: 'left',
-            }}
+            <a key={hub.key} 
+              href={hub.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '1rem',
+                padding: '1rem 1.15rem',
+                background: 'rgba(255, 255, 255, 0.45)',
+                border: '1px solid rgba(212, 168, 67, 0.22)',
+                borderRadius: '16px',
+                boxShadow: '0 4px 12px rgba(58, 32, 16, 0.02)',
+                textAlign: 'left',
+                textDecoration: 'none',
+                color: 'inherit',
+                cursor: 'pointer',
+                transition: 'all 0.3s cubic-bezier(0.25, 1, 0.5, 1)',
+              }}
               className="travel-subcard"
             >
               <div style={{
-                width: 38,
-                height: 38,
+                width: 50,
+                height: 50,
                 borderRadius: '50%',
-                background: 'rgba(212, 168, 67, 0.06)',
-                border: '1px solid rgba(212, 168, 67, 0.25)',
+                background: 'linear-gradient(135deg, rgba(255, 253, 249, 0.9) 0%, rgba(250, 240, 212, 0.9) 100%)',
+                border: '1px solid rgba(212, 168, 67, 0.35)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 flexShrink: 0,
+                boxShadow: '0 2px 8px rgba(212, 168, 67, 0.08)',
               }}>
                 {hub.icon}
               </div>
-              <div>
-                <h5 style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', color: '#2D1810', fontWeight: 'bold', margin: '0 0 0.15rem' }}>
+              <div style={{ flex: 1 }}>
+                <h5 style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: '#2D1810', fontWeight: 700, margin: '0 0 0.15rem' }}>
                   {hub.label}
                 </h5>
-                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', color: '#2D1810', opacity: 0.8, margin: 0, lineHeight: 1.4 }}>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', color: '#2D1810', opacity: 0.8, margin: 0, lineHeight: 1.45 }}>
                   {hub.details}
                 </p>
+                <div style={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: '0.25rem', 
+                  marginTop: '0.35rem', 
+                  color: '#D4A843', 
+                  fontSize: '0.72rem', 
+                  fontWeight: 700, 
+                  letterSpacing: '0.04em' 
+                }}>
+                  <span>{hub.actionText}</span>
+                </div>
               </div>
-            </div>
+              <div className="travel-subcard-arrow" style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: '#D4A843',
+                opacity: 0.5,
+                transition: 'all 0.3s ease',
+              }}>
+                <svg viewBox="0 0 24 24" style={{ width: 18, height: 18, fill: 'none', stroke: 'currentColor', strokeWidth: 2.5, strokeLinecap: 'round', strokeLinejoin: 'round' }}>
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </div>
+            </a>
           ))}
         </div>
       </div>
@@ -336,11 +486,11 @@ function DressCard() {
         
         <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginBottom: '1.25rem' }}>
           {[
-            ['#FAD5C0', 'Peach'],
-            ['#D3ECE1', 'Mint'],
-            ['#E6E6FA', 'Lavender'],
-            ['#FDFBF7', 'Ivory'],
-            ['#E5A93C', 'Saffron']
+            ['#FAD5C0', t('color_peach')],
+            ['#D3ECE1', t('color_mint')],
+            ['#E6E6FA', t('color_lavender')],
+            ['#FDFBF7', t('color_ivory')],
+            ['#E5A93C', t('color_saffron')]
           ].map(([color, name]) => (
             <div key={color} style={{ textAlign: 'center' }}>
               <div style={{ 
@@ -467,7 +617,7 @@ export default function ThingsToKnow() {
             <div className="gold-foil-shimmer-container">
               <div className="gold-foil-shimmer" />
             </div>
-            <div style={{ position: 'relative', zIndex: 3, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyConstraints: 'space-between' }}>
+            <div style={{ position: 'relative', zIndex: 3, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
               <ReachCard />
             </div>
           </motion.div>
