@@ -119,7 +119,7 @@ export default function EngagementHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
           style={{
-            fontFamily: "'Lora', serif",
+            fontFamily: 'var(--font-body)',
             fontSize: 'clamp(0.85rem, 2.2vw, 1.05rem)',
             color: 'rgba(245,236,200,0.85)',
             letterSpacing: '0.24em',
@@ -127,7 +127,7 @@ export default function EngagementHero() {
             marginBottom: 'clamp(0.75rem, 2.5vh, 1.5rem)',
           }}
         >
-          ✦ Together They Begin ✦
+          ✦ {t('together_they_begin')} ✦
         </motion.p>
 
         {/* The Glassmorphic Pill */}
@@ -149,7 +149,7 @@ export default function EngagementHero() {
           }}
         >
           <p className="hero-pill-text" style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: 'var(--font-display)',
             fontSize: 'clamp(0.9rem, 2.2vw, 1.05rem)',
             color: 'rgba(245,236,200,0.95)',
             letterSpacing: '0.08em',
@@ -174,7 +174,7 @@ export default function EngagementHero() {
             style={{ textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}
           >
             <h1 style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: 'var(--font-display)',
               fontSize: 'clamp(3.2rem, 11vw, 5.5rem)',
               color: '#FFF8F0',
               lineHeight: 1.1,
@@ -187,7 +187,7 @@ export default function EngagementHero() {
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: 'clamp(0.75rem, 2.5vh, 1.5rem) 0' }}>
               <div style={{ width: 'clamp(30px, 8vw, 50px)', height: '1px', background: 'linear-gradient(90deg, rgba(212,168,67,0), rgba(212,168,67,0.6))' }} />
               <p style={{
-                fontFamily: "'Lora', serif",
+                fontFamily: 'var(--font-body)',
                 fontStyle: 'italic',
                 fontSize: 'clamp(1.1rem, 3vw, 1.35rem)',
                 color: '#D4A843',
@@ -201,7 +201,7 @@ export default function EngagementHero() {
             </div>
 
             <h1 style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: 'var(--font-display)',
               fontSize: 'clamp(3.2rem, 11vw, 5.5rem)',
               color: '#FFF8F0',
               lineHeight: 1.1,
@@ -259,8 +259,8 @@ export default function EngagementHero() {
           aria-label="Scroll to next section"
         >
           <span style={{
-            fontFamily: "'Lora', serif",
-            fontSize: 'clamp(0.7rem, 2vw, 0.75rem)',
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(0.82rem, 2vw, 0.9rem)',
             textTransform: 'uppercase',
             letterSpacing: '0.28em',
             color: 'rgba(245,236,200,0.85)',

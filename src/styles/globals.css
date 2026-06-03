@@ -10,9 +10,15 @@
   --color-bg-secondary: #FFF8F0;
   --color-text-primary: #2D1810;
   --color-text-secondary: #FFF8F0;
-  --font-display: 'Playfair Display', serif;
-  --font-body: 'Lora', serif;
-  --font-script: 'Great Vibes', cursive;
+  /* Latin display/body/script fonts carry the full Noto Indic stack as fallback.
+     Noto fonts only contain their own script's glyphs, so Latin text still renders
+     from Playfair/Lora/Great Vibes first; Devanagari/Telugu/Odia glyphs fall through
+     to the matching Noto. This keeps typography consistent across all four languages
+     even on elements that set font-family via inline styles (which override the
+     body-level fallback). */
+  --font-display: 'Playfair Display', 'Noto Serif Devanagari', 'Noto Serif Telugu', 'Noto Sans Odia', serif;
+  --font-body: 'Lora', 'Noto Serif Devanagari', 'Noto Serif Telugu', 'Noto Sans Odia', serif;
+  --font-script: 'Great Vibes', 'Noto Serif Devanagari', 'Noto Serif Telugu', 'Noto Sans Odia', cursive;
   --font-devanagari: 'Noto Serif Devanagari', serif;
   --font-telugu: 'Noto Serif Telugu', serif;
   --font-odia: 'Noto Sans Odia', sans-serif;
@@ -90,6 +96,16 @@ html[data-lang="or"] * {
 html[data-lang="hi"] body { font-family: 'Lora', 'Noto Serif Devanagari', serif; }
 html[data-lang="te"] body { font-family: 'Lora', 'Noto Serif Telugu', serif; }
 html[data-lang="or"] body { font-family: 'Lora', 'Noto Sans Odia', serif; }
+
+/* Noto Indic fonts render with a smaller core glyph than Latin at the same
+   font-size, so non-English text reads noticeably smaller. Scale each Indic
+   language up to reach reading parity. `zoom` (not `font-size`) is used because
+   nearly all text sets font-size via inline styles, which a stylesheet
+   font-size cannot override; zoom scales the localized layout proportionally
+   and reflows correctly (unlike transform: scale). */
+html[data-lang="hi"] body { zoom: 1.14; }
+html[data-lang="te"] body { zoom: 1.10; }
+html[data-lang="or"] body { zoom: 1.14; }
 
 body {
   background-color: var(--navy);

@@ -329,7 +329,7 @@ function WeatherCard({ weather }) {
               </span>
               {slot.label && (
                 <span style={{
-                  fontFamily: 'var(--font-body)', fontSize: '0.7rem',
+                  fontFamily: 'var(--font-body)', fontSize: '0.82rem',
                   color: slot.highlight ? '#D4A843' : 'rgba(45,24,16,0.6)',
                   letterSpacing: '0.04em',
                   fontWeight: slot.highlight ? 600 : 500,
@@ -422,7 +422,7 @@ function ReachCard() {
                 <h5 style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: '#2D1810', fontWeight: 700, margin: '0 0 0.15rem' }}>
                   {hub.label}
                 </h5>
-                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.78rem', color: '#2D1810', opacity: 0.8, margin: 0, lineHeight: 1.45 }}>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.88rem', color: '#2D1810', opacity: 0.8, margin: 0, lineHeight: 1.45 }}>
                   {hub.details}
                 </p>
                 <div style={{ 
@@ -431,7 +431,7 @@ function ReachCard() {
                   gap: '0.25rem', 
                   marginTop: '0.35rem', 
                   color: '#D4A843', 
-                  fontSize: '0.72rem', 
+                  fontSize: '0.82rem', 
                   fontWeight: 700, 
                   letterSpacing: '0.04em' 
                 }}>
@@ -471,7 +471,7 @@ function DressCard() {
         <div style={{ display: 'flex', gap: '0.65rem', justifyContent: 'center', marginBottom: '1.25rem' }}>
           {[t('dress_traditional'), t('dress_pastels')].map(tag => (
             <span key={tag} style={{
-              fontFamily: 'var(--font-body)', fontSize: '0.78rem',
+              fontFamily: 'var(--font-body)', fontSize: '0.88rem',
               padding: '0.35rem 0.95rem',
               border: '1px solid rgba(212, 168, 67, 0.55)',
               background: 'rgba(212, 168, 67, 0.06)',
@@ -499,7 +499,7 @@ function DressCard() {
                 boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1), 0 2px 6px rgba(58,32,16,0.12)',
                 border: color === '#FDFBF7' ? '1px solid rgba(58, 32, 16, 0.15)' : 'none'
               }}/>
-              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.65rem', color: '#2D1810', opacity: 0.72, fontWeight: 500 }}>{name}</span>
+              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.88rem', color: '#2D1810', opacity: 0.72, fontWeight: 500 }}>{name}</span>
             </div>
           ))}
         </div>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { COUPLE, ENGAGEMENT } from '@/config';
+import { COUPLE, ENGAGEMENT, TRANSLATIONS } from '@/config';
+import { useLanguage } from '@/hooks/useLanguage';
 
 // Elegant Lotus watermark layer with slow counter-rotations
 function AnimatedWatermark() {
@@ -46,6 +47,8 @@ function AnimatedWatermark() {
 }
 
 export default function SplashScreen({ onEnter, forceShow = false }) {
+  const { lang } = useLanguage();
+  const names = TRANSLATIONS.NAMES[lang] || TRANSLATIONS.NAMES.en;
   const [visible, setVisible] = useState(true);
   const [doorsOpen, setDoorsOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
@@ -142,41 +145,41 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
 
             <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', width: '100%' }}>
               <div style={{
-                fontFamily: "'Lora', serif",
+                fontFamily: 'var(--font-body)',
                 fontSize: 'clamp(1.3rem, 3.5vw, 1.8rem)',
                 color: 'rgba(139,34,64,0.4)',
                 marginBottom: '0.3rem',
               }}>ॐ</div>
 
               <div style={{
-                fontFamily: "'Great Vibes', cursive",
+                fontFamily: 'var(--font-script)',
                 fontSize: 'clamp(4.2rem, 13vw, 6.5rem)',
                 color: 'var(--burgundy)', lineHeight: 1, textAlign: 'center',
-              }}>{COUPLE.GROOM_NAME}</div>
+              }}>{names.groom}</div>
 
               <div style={{
-                fontFamily: "'Lora', serif",
+                fontFamily: 'var(--font-body)',
                 fontSize: 'clamp(1.4rem, 4vw, 1.8rem)',
                 color: '#C4572A', letterSpacing: '0.3em',
                 textTransform: 'uppercase', margin: '0.5rem 0',
               }}>&amp;</div>
 
               <div style={{
-                fontFamily: "'Great Vibes', cursive",
+                fontFamily: 'var(--font-script)',
                 fontSize: 'clamp(4.2rem, 13vw, 6.5rem)',
                 color: 'var(--burgundy)', lineHeight: 1, textAlign: 'center',
                 marginBottom: '1.2rem',
-              }}>{COUPLE.BRIDE_NAME}</div>
+              }}>{names.bride}</div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', marginBottom: '0.9rem', justifyContent: 'center' }}>
                 <div style={{ width: 55, height: 1, background: 'rgba(196,87,42,0.45)' }} />
-                <span style={{ color: '#D4A843', fontSize: '0.55rem' }}>✦</span>
+                <span style={{ color: '#D4A843', fontSize: '0.82rem' }}>✦</span>
                 <div style={{ width: 55, height: 1, background: 'rgba(196,87,42,0.45)' }} />
               </div>
 
               <p style={{
-                fontFamily: "'Lora', serif", fontStyle: 'italic',
-                fontSize: 'clamp(0.78rem, 1.8vw, 0.92rem)',
+                fontFamily: 'var(--font-body)', fontStyle: 'italic',
+                fontSize: 'clamp(0.85rem, 1.8vw, 0.95rem)',
                 color: 'rgba(45,24,16,0.65)', letterSpacing: '0.05em',
                 marginBottom: '1.8rem', textAlign: 'center',
               }}>
@@ -216,7 +219,7 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
                       padding: '0 3.5rem',
                       background: '#8B2240', color: '#FDF6E0',
                       border: 'none', cursor: 'pointer',
-                      fontFamily: "'Lora', serif",
+                      fontFamily: 'var(--font-body)',
                       fontSize: '0.82rem', letterSpacing: '0.22em',
                       textTransform: 'uppercase',
                       borderRadius: '4px',
@@ -367,7 +370,7 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
                       }}>
                         {/* Letter A (Top-Left, Playfair Display Serif) */}
                         <span style={{
-                          fontFamily: "'Playfair Display', serif",
+                          fontFamily: 'var(--font-display)',
                           fontSize: '1.85rem',
                           fontWeight: '600',
                           color: '#3B0D18', // Deep royal burgundy
@@ -382,7 +385,7 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
 
                         {/* Script Ampersand (Centered, overlapping the letters) */}
                         <span style={{
-                          fontFamily: "'Great Vibes', cursive",
+                          fontFamily: 'var(--font-script)',
                           fontSize: '1.6rem',
                           fontWeight: 'bold',
                           color: '#F9E5B3', // Sparkling pale gold
@@ -399,7 +402,7 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
 
                         {/* Letter J (Bottom-Right, Playfair Display Serif) */}
                         <span style={{
-                          fontFamily: "'Playfair Display', serif",
+                          fontFamily: 'var(--font-display)',
                           fontSize: '1.85rem',
                           fontWeight: '600',
                           color: '#3B0D18', // Deep royal burgundy

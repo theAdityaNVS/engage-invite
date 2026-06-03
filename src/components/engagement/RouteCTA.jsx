@@ -52,6 +52,7 @@ function SwayingBell({ delay = 0, style = {} }) {
 
 // Mini Journey Map SVG Component using generated assets
 function MiniJourneyMap() {
+  const { t } = useLanguage();
   return (
     <div style={{
       margin: '1.8rem 0 1rem',
@@ -129,7 +130,7 @@ function MiniJourneyMap() {
       <div style={{
         textAlign: 'center',
         marginTop: '0.4rem',
-        fontFamily: "'Lora', serif",
+        fontFamily: 'var(--font-body)',
         fontSize: '0.82rem',
         color: '#FAF6EE',
       }}>
@@ -141,10 +142,10 @@ function MiniJourneyMap() {
           borderRadius: '12px', 
           border: '1px solid rgba(212,168,67,0.3)',
           color: 'var(--gold-light)',
-          fontSize: '0.78rem',
+          fontSize: '0.88rem',
           fontWeight: 600
         }}>
-          Just 300m (1-min drive / 3-min walk)
+          {t('distance_note')}
         </span>
         <span style={{ margin: '0 0.5rem', color: 'rgba(212,168,67,0.5)' }}>➔</span>
         <span style={{ color: '#FAF6EE', fontWeight: 500 }}>Suryansh Hotel</span>
@@ -154,6 +155,7 @@ function MiniJourneyMap() {
 }
 
 function VenueMapIframe() {
+  const { t } = useLanguage();
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [showPrompt, setShowPrompt] = useState(false);
 
@@ -202,8 +204,8 @@ function VenueMapIframe() {
           borderRadius: '20px',
           padding: '4px 10px',
           color: 'var(--gold-light)',
-          fontSize: '0.7rem',
-          fontFamily: "'Lora', serif",
+          fontSize: '0.82rem',
+          fontFamily: 'var(--font-body)',
           pointerEvents: 'none',
           boxShadow: '0 4px 10px rgba(0,0,0,0.3)',
           display: 'flex',
@@ -211,7 +213,7 @@ function VenueMapIframe() {
           gap: '4px',
           zIndex: 4,
         }}>
-          <span>📍</span> Map Locked (Tap to Unlock)
+          <span>📍</span> {t('map_locked')}
         </div>
       )}
 
@@ -235,22 +237,22 @@ function VenueMapIframe() {
           zIndex: 10,
         }}>
           <h4 style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: 'var(--font-display)',
             color: 'var(--gold-light)',
             fontSize: '1.05rem',
             margin: '0 0 0.5rem',
           }}>
-            Unlock Map Controls?
+            {t('unlock_map_controls')}
           </h4>
           <p style={{
-            fontFamily: "'Lora', serif",
+            fontFamily: 'var(--font-body)',
             color: 'rgba(255, 248, 240, 0.8)',
-            fontSize: '0.78rem',
+            fontSize: '0.88rem',
             lineHeight: 1.4,
             maxWidth: '260px',
             margin: '0 0 1.2rem',
           }}>
-            Unlock zoom & navigation controls, or keep it locked to avoid page scrolling interference.
+            {t('unlock_map_desc')}
           </p>
           <div style={{ display: 'flex', gap: '0.8rem' }}>
             <button
@@ -265,14 +267,14 @@ function VenueMapIframe() {
                 borderRadius: '4px',
                 color: '#FFF8F0',
                 padding: '6px 14px',
-                fontSize: '0.75rem',
-                fontFamily: "'Lora', serif",
+                fontSize: '0.85rem',
+                fontFamily: 'var(--font-body)',
                 fontWeight: 600,
                 cursor: 'pointer',
                 boxShadow: '0 4px 10px rgba(196,87,42,0.3)',
               }}
             >
-              Unlock Map
+              {t('unlock_map')}
             </button>
             <button
               onClick={(e) => {
@@ -285,12 +287,12 @@ function VenueMapIframe() {
                 borderRadius: '4px',
                 color: 'var(--gold-light)',
                 padding: '5px 14px',
-                fontSize: '0.75rem',
-                fontFamily: "'Lora', serif",
+                fontSize: '0.85rem',
+                fontFamily: 'var(--font-body)',
                 cursor: 'pointer',
               }}
             >
-              Cancel
+              {t('cancel')}
             </button>
           </div>
         </div>
@@ -312,8 +314,8 @@ function VenueMapIframe() {
             borderRadius: '20px',
             padding: '5px 12px',
             color: '#D4A843',
-            fontSize: '0.72rem',
-            fontFamily: "'Lora', serif",
+            fontSize: '0.82rem',
+            fontFamily: 'var(--font-body)',
             cursor: 'pointer',
             zIndex: 6,
             boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
@@ -322,7 +324,7 @@ function VenueMapIframe() {
           onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(139,34,64,0.85)'; }}
           onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(30, 8, 12, 0.85)'; }}
         >
-          🔒 Lock Map
+          🔒 {t('lock_map')}
         </button>
       )}
     </div>
@@ -365,14 +367,14 @@ export default function RouteCTA() {
             <SwayingBell delay={0.8} style={{ position: 'absolute', top: '10px', right: '24px', zIndex: 3 }} />
             
             <p style={{
-              fontFamily: "'Lora', serif", fontSize: '0.72rem',
+              fontFamily: 'var(--font-body)', fontSize: '0.82rem',
               color: 'rgba(245, 236, 200, 0.65)', letterSpacing: '0.22em',
               textTransform: 'uppercase', marginBottom: '0.4rem',
               position: 'relative', zIndex: 2,
             }}>{t('venue_label')}</p>
             
             <h2 style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: 'var(--font-display)',
               fontSize: 'clamp(1.6rem, 4.5vw, 2.4rem)',
               color: '#D4A843', letterSpacing: '0.06em', marginBottom: '0.8rem',
               fontWeight: 400,
@@ -380,7 +382,7 @@ export default function RouteCTA() {
             }}>{ENGAGEMENT.VENUE_NAME}</h2>
             
             <p style={{
-              fontFamily: "'Lora', serif", fontStyle: 'italic',
+              fontFamily: 'var(--font-body)', fontStyle: 'italic',
               fontSize: 'clamp(0.82rem, 2vw, 0.95rem)',
               color: 'var(--saffron-text)', opacity: 0.85, marginBottom: '1.8rem',
               position: 'relative', zIndex: 2,
@@ -408,26 +410,26 @@ export default function RouteCTA() {
             }}>
               {/* Puja Location */}
               <div style={{ flex: '1 1 240px', minWidth: 200 }}>
-                <p style={{ fontFamily: 'Lora, serif', fontSize: '0.72rem', textTransform: 'uppercase', color: 'var(--gold-light)', letterSpacing: '0.12em', margin: '0 0 0.25rem', fontWeight: 600 }}>
-                  ✦ 10:00 AM · Sacred Rituals
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', textTransform: 'uppercase', color: 'var(--gold-light)', letterSpacing: '0.12em', margin: '0 0 0.25rem', fontWeight: 600 }}>
+                  ✦ 10:00 AM · {t('sacred_rituals')}
                 </p>
-                <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.1rem', color: '#FFF8F0', fontWeight: 500, margin: '0 0 0.35rem' }}>
-                  Engagement Puja
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#FFF8F0', fontWeight: 500, margin: '0 0 0.35rem' }}>
+                  {t('event_engagement_puja')}
                 </h3>
-                <p style={{ fontFamily: 'Lora, serif', fontSize: '0.82rem', color: 'rgba(245,236,200,0.7)', fontStyle: 'italic', lineHeight: 1.45, margin: 0 }}>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', color: 'rgba(245,236,200,0.7)', fontStyle: 'italic', lineHeight: 1.45, margin: 0 }}>
                   NALCO Temple, Jaydev Vihar, Bhubaneswar
                 </p>
               </div>
 
               {/* Ceremony Location */}
               <div style={{ flex: '1 1 240px', minWidth: 200 }}>
-                <p style={{ fontFamily: 'Lora, serif', fontSize: '0.72rem', textTransform: 'uppercase', color: 'var(--gold-light)', letterSpacing: '0.12em', margin: '0 0 0.25rem', fontWeight: 600 }}>
-                  ✦ 11:30 AM Onwards · Main Event
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', textTransform: 'uppercase', color: 'var(--gold-light)', letterSpacing: '0.12em', margin: '0 0 0.25rem', fontWeight: 600 }}>
+                  ✦ 11:30 AM · {t('main_event')}
                 </p>
-                <h3 style={{ fontFamily: 'Playfair Display, serif', fontSize: '1.1rem', color: '#FFF8F0', fontWeight: 500, margin: '0 0 0.35rem' }}>
-                  Ring Ceremony &amp; Lunch
+                <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#FFF8F0', fontWeight: 500, margin: '0 0 0.35rem' }}>
+                  {t('ring_and_lunch')}
                 </h3>
-                <p style={{ fontFamily: 'Lora, serif', fontSize: '0.82rem', color: 'rgba(245,236,200,0.7)', fontStyle: 'italic', lineHeight: 1.45, margin: 0 }}>
+                <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', color: 'rgba(245,236,200,0.7)', fontStyle: 'italic', lineHeight: 1.45, margin: 0 }}>
                   Suryansh Hotels &amp; Resorts, Jaydev Vihar, Bhubaneswar
                 </p>
               </div>
@@ -464,13 +466,13 @@ export default function RouteCTA() {
                 background: 'rgba(255,248,240,0.06)',
                 border: '1.5px solid rgba(196,87,42,0.5)',
                 color: '#FFF8F0',
-                fontFamily: "'Lora', serif", fontSize: '0.8rem',
+                fontFamily: 'var(--font-body)', fontSize: '0.8rem',
                 letterSpacing: '0.15em', textTransform: 'uppercase',
                 textDecoration: 'none', borderRadius: '4px',
                 transition: 'color 0.3s, background-color 0.3s, border-color 0.3s',
               }}
             >
-              Route to Puja
+              {t('route_to_puja')}
             </motion.a>
 
             <motion.a
@@ -484,7 +486,7 @@ export default function RouteCTA() {
                 background: 'rgba(255,248,240,0.12)',
                 border: '1.5px solid rgba(212,168,67,0.6)',
                 color: '#D4A843',
-                fontFamily: "'Lora', serif", fontSize: '0.8rem',
+                fontFamily: 'var(--font-body)', fontSize: '0.8rem',
                 letterSpacing: '0.15em', textTransform: 'uppercase',
                 textDecoration: 'none', borderRadius: '4px',
                 transition: 'color 0.3s, background-color 0.3s, border-color 0.3s',

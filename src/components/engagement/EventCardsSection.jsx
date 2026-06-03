@@ -54,7 +54,7 @@ export default function EventCardsSection() {
               className="muhurtham-ornament-container"
               style={{
                 display: 'inline-block',
-                fontFamily: "'Lora', serif",
+                fontFamily: 'var(--font-body)',
                 fontSize: '0.9rem',
                 color: '#5A1423',
                 background: 'linear-gradient(180deg, #FFFDF9 0%, #FAF0D4 100%)',

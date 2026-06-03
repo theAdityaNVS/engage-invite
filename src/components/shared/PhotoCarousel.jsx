@@ -143,7 +143,7 @@ export default function PhotoCarousel({ photos = [] }) {
                   padding: '0 12px',
                 }}>
                   <span style={{
-                    fontFamily: "'Great Vibes', cursive",
+                    fontFamily: 'var(--font-script)',
                     fontSize: '1.25rem',
                     color: 'rgba(45,24,16,0.65)',
                     textAlign: 'center',
@@ -207,7 +207,7 @@ export default function PhotoCarousel({ photos = [] }) {
               <div style={{
                 textAlign: 'center',
                 marginTop: '0.35rem',
-                fontFamily: "'Great Vibes', cursive",
+                fontFamily: 'var(--font-script)',
                 fontSize: '1.35rem',
                 color: 'rgba(45,24,16,0.55)',
               }}>

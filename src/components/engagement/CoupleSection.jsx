@@ -5,7 +5,7 @@ import SectionHeader from '@/components/shared/SectionHeader';
 import PhotoCarousel from '@/components/shared/PhotoCarousel';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/hooks/useLanguage';
-import { COUPLE, MEDIA } from '@/config';
+import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
 
 /* Ornate arch frame — Mughal/South Indian style SVG */
 function OrnateArchFrame({ children }) {
@@ -85,7 +85,8 @@ function FloralPattern() {
 }
 
 export default function CoupleSection() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const names = TRANSLATIONS.NAMES[lang] || TRANSLATIONS.NAMES.en;
 
   return (
     <section style={{
@@ -146,14 +147,14 @@ export default function CoupleSection() {
               <div style={{ position: 'relative' }}>
                 <span style={{
                   position: 'absolute', top: '-0.5rem', left: '-0.25rem',
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: 'var(--font-display)',
                   fontSize: '5rem', color: 'rgba(255,248,240,0.15)', opacity: 1,
                   lineHeight: 1, userSelect: 'none',
                 }}>
                   "
                 </span>
                 <p style={{
-                  fontFamily: "'Lora', serif",
+                  fontFamily: 'var(--font-body)',
                   fontStyle: 'italic',
                   fontSize: 'clamp(0.95rem, 2.5vw, 1.05rem)',
                   color: 'rgba(255,248,240,0.9)',
@@ -165,12 +166,12 @@ export default function CoupleSection() {
                 </p>
                 <div style={{
                   marginTop: '1.25rem',
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: 'var(--font-display)',
                   color: 'rgba(255,248,240,0.7)',
                   fontSize: '1.1rem',
                   textAlign: 'right',
                 }}>
-                  — {COUPLE.GROOM_NAME} &amp; {COUPLE.BRIDE_NAME}
+                  — {names.groom} &amp; {names.bride}
                 </div>
               </div>
             </ScrollReveal>

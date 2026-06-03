@@ -51,7 +51,7 @@ export default function LanguageBanner() {
           }}
         >
           <p style={{
-            fontFamily: "'Lora', serif",
+            fontFamily: 'var(--font-body)',
             fontSize: 'clamp(0.8rem, 2.5vw, 0.95rem)',
             color: 'rgba(245,236,200,0.85)',
             flexShrink: 0,
@@ -76,7 +76,7 @@ export default function LanguageBanner() {
                   fontFamily: l.code === 'te' ? "'Noto Serif Telugu', serif"
                             : l.code === 'or' ? "'Noto Sans Odia', sans-serif"
                             : l.code === 'hi' ? "'Noto Serif Devanagari', serif"
-                            : "'Playfair Display', serif",
+                            : 'var(--font-display)',
                   fontSize: '0.9rem',
                   display: 'flex',
                   alignItems: 'center',

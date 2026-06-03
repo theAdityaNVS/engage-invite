@@ -42,7 +42,7 @@ export default function SectionHeader({
       {eyebrow && (
         eyebrowType === 'cursive' ? (
           <span style={{
-            fontFamily: "'Great Vibes', cursive",
+            fontFamily: 'var(--font-script)',
             fontSize: 'clamp(1.5rem, 4.5vw, 2.2rem)',
             color: currentTheme.eyebrowColor,
             display: 'block',
@@ -53,8 +53,8 @@ export default function SectionHeader({
           </span>
         ) : (
           <p style={{
-            fontFamily: "'Lora', serif",
-            fontSize: 'clamp(0.75rem, 2vw, 0.8rem)',
+            fontFamily: 'var(--font-body)',
+            fontSize: 'clamp(0.85rem, 2vw, 0.92rem)',
             color: currentTheme.eyebrowColor,
             letterSpacing: '0.2em',
             textTransform: 'uppercase',
@@ -68,7 +68,7 @@ export default function SectionHeader({
 
       {title && (
         <h2 style={{
-          fontFamily: "'Playfair Display', serif",
+          fontFamily: 'var(--font-display)',
           fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
           fontWeight: 400,
           background: currentTheme.titleGradient,
@@ -85,7 +85,7 @@ export default function SectionHeader({
 
       {subtitle && (
         <p style={{
-          fontFamily: "'Lora', serif",
+          fontFamily: 'var(--font-body)',
           fontStyle: 'italic',
           color: currentTheme.subtitleColor,
           fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)',

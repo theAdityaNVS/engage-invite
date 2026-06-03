@@ -28,7 +28,7 @@ function CountUnit({ value, label }) {
           exit={{ scale: 0.85, opacity: 0 }}
           transition={{ duration: 0.25 }}
           style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: 'var(--font-display)',
             fontSize: 'clamp(2.5rem, 8vw, 4rem)',
             color: '#FFF8F0',
             lineHeight: 1,
@@ -39,8 +39,8 @@ function CountUnit({ value, label }) {
         </motion.div>
       </AnimatePresence>
       <p style={{
-        fontFamily: "'Lora', serif",
-        fontSize: '0.7rem',
+        fontFamily: 'var(--font-body)',
+        fontSize: '0.82rem',
         color: 'rgba(255,248,240,0.7)',
         letterSpacing: '0.15em',
         textTransform: 'uppercase',
@@ -87,7 +87,7 @@ export default function CountdownTimer({ targetISO }) {
 function Separator() {
   return (
     <span style={{
-      fontFamily: "'Playfair Display', serif",
+      fontFamily: 'var(--font-display)',
       fontSize: 'clamp(2rem, 6vw, 3rem)',
       color: 'rgba(212,168,67,0.7)',
       lineHeight: 1,

@@ -1,5 +1,5 @@
 import { useMemo, useState, useCallback } from 'react';
-import { COUPLE, ENGAGEMENT } from '@/config';
+import { COUPLE, ENGAGEMENT, TRANSLATIONS } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 import FloatingLanterns from '@/components/shared/FloatingLanterns';
 import MandalaPattern from '@/components/shared/MandalaPattern';
@@ -213,7 +213,8 @@ function AnimatedMoon() {
 }
 
 export default function FooterSection() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const names = TRANSLATIONS.NAMES[lang] || TRANSLATIONS.NAMES.en;
   const [copied, setCopied] = useState(false);
 
   const copyHashtag = useCallback(() => {
@@ -248,15 +249,15 @@ export default function FooterSection() {
       }}>
         <div style={{ maxWidth: 500, margin: '0 auto' }}>
           <p style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: 'var(--font-display)',
             fontSize: 'clamp(1.6rem,4vw,2rem)',
             color: '#D4A843',
             marginBottom: '0.4rem',
           }}>
-            {COUPLE.GROOM_NAME} &amp; {COUPLE.BRIDE_NAME}
+            {names.groom} &amp; {names.bride}
           </p>
           <p style={{
-            fontFamily: "'Lora', serif",
+            fontFamily: 'var(--font-body)',
             fontSize: '1rem',
             color: 'rgba(240,214,138,0.65)',
             marginBottom: '0.4rem',
@@ -266,7 +267,7 @@ export default function FooterSection() {
           </p>
           {/* Hashtag + copy */}
           <p style={{
-            fontFamily: "'Lora', serif", fontSize: '0.7rem',
+            fontFamily: 'var(--font-body)', fontSize: '0.82rem',
             color: 'rgba(245,236,200,0.4)', letterSpacing: '0.18em',
             textTransform: 'uppercase', marginBottom: '0.25rem',
           }}>
@@ -274,7 +275,7 @@ export default function FooterSection() {
           </p>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
             <p style={{
-              fontFamily: "'Lora', serif",
+              fontFamily: 'var(--font-body)',
               fontSize: '0.9rem',
               color: 'rgba(245,236,200,0.7)',
               letterSpacing: '0.05em',
@@ -289,7 +290,7 @@ export default function FooterSection() {
               style={{
                 background: 'none', border: '1px solid rgba(212,168,67,0.35)',
                 borderRadius: '12px', padding: '0.15rem 0.6rem',
-                fontFamily: "'Lora', serif", fontSize: '0.72rem',
+                fontFamily: 'var(--font-body)', fontSize: '0.82rem',
                 color: copied ? '#D4A843' : 'rgba(245,236,200,0.55)',
                 cursor: 'pointer', letterSpacing: '0.06em',
                 transition: 'color 0.2s, border-color 0.2s',
@@ -309,7 +310,7 @@ export default function FooterSection() {
           {/* Instagram follow */}
           <div style={{ marginBottom: '1.25rem' }}>
             <p style={{
-              fontFamily: "'Lora', serif", fontSize: '0.78rem',
+              fontFamily: 'var(--font-body)', fontSize: '0.88rem',
               color: 'rgba(245,236,200,0.45)', letterSpacing: '0.14em',
               textTransform: 'uppercase', marginBottom: '0.4rem',
             }}>
@@ -320,7 +321,7 @@ export default function FooterSection() {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                fontFamily: "'Lora', serif", fontSize: '0.85rem',
+                fontFamily: 'var(--font-body)', fontSize: '0.85rem',
                 color: 'rgba(212,168,67,0.75)',
                 textDecoration: 'underline', textUnderlineOffset: 3,
                 letterSpacing: '0.04em', display: 'block', marginBottom: '0.2rem',
@@ -329,7 +330,7 @@ export default function FooterSection() {
               {COUPLE.INSTAGRAM_HANDLE}
             </a>
             <p style={{
-              fontFamily: "'Lora', serif", fontSize: '0.75rem',
+              fontFamily: 'var(--font-body)', fontSize: '0.85rem',
               color: 'rgba(245,236,200,0.4)', letterSpacing: '0.06em', margin: 0,
             }}>
               {t('follow_subtitle')}
@@ -344,7 +345,7 @@ export default function FooterSection() {
           }} />
 
           <p style={{
-            fontFamily: "'Lora', serif",
+            fontFamily: 'var(--font-body)',
             fontSize: '0.9rem',
             color: 'rgba(245,236,200,0.5)',
           }}>

@@ -137,6 +137,15 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
   const { t } = useLanguage();
   const icon = EVENT_ICONS[event.id] || EVENT_ICONS['engagement-puja'];
 
+  // Translate event name & weekday via keys, falling back to the canonical
+  // config value when no translation key exists (t() returns the key on miss).
+  const tr = (key, fallback) => {
+    const v = t(key);
+    return v === key ? fallback : v;
+  };
+  const eventName = tr(`event_${event.id.replace(/-/g, '_')}`, event.name);
+  const eventDay = tr(`weekday_${event.day.toLowerCase()}`, event.day);
+
   return (
     <ScrollReveal delay={delay}>
       <motion.div
@@ -187,7 +196,7 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
 
         {/* Event name */}
         <h3 style={{
-          fontFamily: "'Playfair Display', serif",
+          fontFamily: 'var(--font-display)',
           fontSize: 'clamp(1.2rem, 3.5vw, 1.45rem)',
           color: '#5A1423',
           letterSpacing: '0.04em',
@@ -197,24 +206,24 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
           position: 'relative',
           zIndex: 2,
         }}>
-          {event.name}
+          {eventName}
         </h3>
 
         {/* Date & day */}
         <p style={{
-          fontFamily: "'Lora', serif",
+          fontFamily: 'var(--font-body)',
           fontSize: '0.9rem',
           color: '#2D1810',
           opacity: 0.85,
           position: 'relative',
           zIndex: 2,
         }}>
-          {event.day}, {event.date}
+          {eventDay}, {event.date}
         </p>
 
         {/* Time */}
         <p style={{
-          fontFamily: "'Playfair Display', serif",
+          fontFamily: 'var(--font-display)',
           fontSize: '1.15rem',
           color: '#C4572A',
           fontWeight: 600,
@@ -228,7 +237,7 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
 
         {/* Venue */}
         <p style={{
-          fontFamily: "'Lora', serif",
+          fontFamily: 'var(--font-body)',
           fontSize: '0.88rem',
           color: '#2D1810',
           opacity: 0.72,
@@ -265,7 +274,7 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
               height: '42px',
               background: 'linear-gradient(135deg, #C4572A, #A8451E)',
               borderRadius: '21px',
-              fontFamily: "'Lora', serif",
+              fontFamily: 'var(--font-body)',
               fontSize: '0.8rem',
               color: '#FFF8F0',
               textTransform: 'uppercase',
@@ -296,8 +305,8 @@ export default function EventCard({ event, delay = 0, calendarUrl }) {
                 background: 'rgba(212, 168, 67, 0.06)',
                 border: '1.2px solid rgba(212, 168, 67, 0.5)',
                 borderRadius: '21px',
-                fontFamily: "'Lora', serif",
-                fontSize: '0.78rem',
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.88rem',
                 color: '#5A1423',
                 letterSpacing: '0.08em',
                 textDecoration: 'none',

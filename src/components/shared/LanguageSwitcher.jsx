@@ -124,7 +124,7 @@ export default function LanguageSwitcher() {
                   color: lang === l.code ? '#D4A843' : 'rgba(255,248,240,0.5)',
                   width: '20px',
                   textAlign: 'center',
-                  fontFamily: "'Lora', serif" // Keep Lora for the script characters (अ, etc)
+                  fontFamily: 'var(--font-body)' // Keep Lora for the script characters (अ, etc)
                 }}>
                   {l.script}
                 </span>

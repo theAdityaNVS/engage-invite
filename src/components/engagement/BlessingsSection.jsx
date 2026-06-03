@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import MandalaPattern from '@/components/shared/MandalaPattern';
-import { FAMILIES, COUPLE } from '@/config';
+import { FAMILIES, COUPLE, TRANSLATIONS } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 import { PremiumDoubleBorderFrame } from '@/components/shared/EventCard';
 
@@ -189,7 +189,8 @@ function BridesFamilySVG() {
 }
 
 export default function BlessingsSection() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
+  const names = TRANSLATIONS.NAMES[lang] || TRANSLATIONS.NAMES.en;
 
   return (
     <section style={{
@@ -225,7 +226,7 @@ export default function BlessingsSection() {
           </p>
 
           <p style={{
-            fontFamily: "'Playfair Display', serif",
+            fontFamily: 'var(--font-display)',
             fontStyle: 'italic',
             fontSize: 'clamp(1rem, 3vw, 1.2rem)',
             color: 'var(--saffron-text)',
@@ -269,7 +270,7 @@ export default function BlessingsSection() {
             </p>
             
             <p style={{
-              fontFamily: "'Lora', serif",
+              fontFamily: 'var(--font-body)',
               fontStyle: 'italic',
               fontSize: 'clamp(1rem, 2.4vw, 1.05rem)',
               color: 'rgba(245,236,200,0.85)',
@@ -375,8 +376,8 @@ export default function BlessingsSection() {
                 </div>
 
                 <p style={{
-                  fontFamily: "'Lora', serif",
-                  fontSize: '0.68rem',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: '0.8rem',
                   color: 'rgba(245, 236, 200, 0.65)',
                   letterSpacing: '0.15em',
                   textTransform: 'uppercase',
@@ -385,7 +386,7 @@ export default function BlessingsSection() {
                 }}>{location}</p>
                 
                 <p style={{
-                  fontFamily: "'Lora', serif",
+                  fontFamily: 'var(--font-body)',
                   fontSize: '0.8rem',
                   color: '#D4A843',
                   fontWeight: '600',
@@ -407,7 +408,7 @@ export default function BlessingsSection() {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', zIndex: 2, flexGrow: 1, justifyContent: 'center' }}>
                   {names.split(' & ').map((name, i) => (
                     <p key={i} style={{
-                      fontFamily: "'Playfair Display', serif",
+                      fontFamily: 'var(--font-display)',
                       fontSize: 'clamp(1.05rem, 2.8vw, 1.25rem)',
                       color: 'var(--saffron-text)',
                       fontWeight: '600',
@@ -429,15 +430,15 @@ export default function BlessingsSection() {
                     width: '100%',
                   }}>
                     {gotra && (
-                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.68rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
+                      <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
                         {t('gotra_label')}: {gotra}
                       </span>
                     )}
                     {gotra && nakshatra && (
-                      <span style={{ color: 'rgba(212, 168, 67, 0.4)', fontSize: '0.7rem' }}>•</span>
+                      <span style={{ color: 'rgba(212, 168, 67, 0.4)', fontSize: '0.82rem' }}>•</span>
                     )}
                     {nakshatra && (
-                      <span style={{ fontFamily: "'Lora', serif", fontSize: '0.68rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
+                      <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.8rem', color: 'rgba(245,236,200,0.75)', letterSpacing: '0.12em' }}>
                         {t('nakshatra_label')}: {nakshatra}
                       </span>
                     )}
@@ -461,7 +462,7 @@ export default function BlessingsSection() {
               {/* Subtle Elegant Bracket Lines */}
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', maxWidth: '280px', marginBottom: '0.8rem' }}>
                 <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.3))' }} />
-                <span style={{ color: '#D4A843', fontSize: '0.75rem' }}>✦</span>
+                <span style={{ color: '#D4A843', fontSize: '0.85rem' }}>✦</span>
                 <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to left, transparent, rgba(212,168,67,0.3))' }} />
               </div>
 
@@ -483,8 +484,8 @@ export default function BlessingsSection() {
                 {FAMILIES.GROOM_SIBLING && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <span style={{
-                      fontFamily: "'Lora', serif",
-                      fontSize: '0.75rem',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.85rem',
                       color: 'rgba(245, 236, 200, 0.7)',
                       letterSpacing: '0.08em',
                       textTransform: 'uppercase',
@@ -492,7 +493,7 @@ export default function BlessingsSection() {
                       {t('sibling_label')}:
                     </span>
                     <span style={{
-                      fontFamily: "'Playfair Display', serif",
+                      fontFamily: 'var(--font-display)',
                       fontSize: '1rem',
                       color: 'var(--saffron-text)',
                       fontWeight: '600',
@@ -509,8 +510,8 @@ export default function BlessingsSection() {
                 {FAMILIES.BRIDE_SIBLING && (
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                     <span style={{
-                      fontFamily: "'Lora', serif",
-                      fontSize: '0.75rem',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: '0.85rem',
                       color: 'rgba(245, 236, 200, 0.7)',
                       letterSpacing: '0.08em',
                       textTransform: 'uppercase',
@@ -518,7 +519,7 @@ export default function BlessingsSection() {
                       {t('sibling_label')}:
                     </span>
                     <span style={{
-                      fontFamily: "'Playfair Display', serif",
+                      fontFamily: 'var(--font-display)',
                       fontSize: '1rem',
                       color: 'var(--saffron-text)',
                       fontWeight: '600',
@@ -534,7 +535,7 @@ export default function BlessingsSection() {
         <ScrollReveal delay={0.3}>
           <div style={{ marginTop: 'clamp(3rem, 6vw, 4.5rem)' }}>
             <p style={{
-              fontFamily: "'Playfair Display', serif",
+              fontFamily: 'var(--font-display)',
               fontSize: 'clamp(0.8rem, 2vw, 1rem)',
               color: 'rgba(245,236,200,0.7)',
               letterSpacing: '0.15em',
@@ -545,20 +546,20 @@ export default function BlessingsSection() {
             </p>
 
             <p style={{
-              fontFamily: "'Great Vibes', cursive",
+              fontFamily: 'var(--font-script)',
               fontSize: 'clamp(3.5rem, 9vw, 5.5rem)',
               color: '#D4A843',
               lineHeight: 1.1,
               marginBottom: '0.5rem',
               textShadow: '0 2px 12px rgba(212, 168, 67, 0.25)',
             }}>
-              {COUPLE.GROOM_NAME}
+              {names.groom}
             </p>
 
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1.5rem', margin: '0.5rem 0' }}>
               <div style={{ width: '40px', height: '1px', background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.5))' }} />
               <p style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: 'var(--font-display)',
                 fontStyle: 'italic',
                 fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
                 color: 'var(--saffron-text)',
@@ -570,14 +571,14 @@ export default function BlessingsSection() {
             </div>
 
             <p style={{
-              fontFamily: "'Great Vibes', cursive",
+              fontFamily: 'var(--font-script)',
               fontSize: 'clamp(3.5rem, 9vw, 5.5rem)',
               color: '#D4A843',
               lineHeight: 1.1,
               marginBottom: 'clamp(2rem, 5vw, 3rem)',
               textShadow: '0 2px 12px rgba(212, 168, 67, 0.25)',
             }}>
-              {COUPLE.BRIDE_NAME}
+              {names.bride}
             </p>
 
           </div>

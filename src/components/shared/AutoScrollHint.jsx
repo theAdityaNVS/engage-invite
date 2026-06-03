@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLanguage } from '@/hooks/useLanguage';
 
 export default function AutoScrollHint() {
+  const { t } = useLanguage();
   const [visible, setVisible] = useState(false);
   const idleTimer = useRef(null);
   const scrollTimer = useRef(null);
@@ -54,9 +56,9 @@ export default function AutoScrollHint() {
           }}
         >
           <span style={{
-            fontFamily: "'Lora', serif", fontSize: '0.7rem',
+            fontFamily: 'var(--font-body)', fontSize: '0.82rem',
             color: 'rgba(212,168,67,0.7)', letterSpacing: '0.12em',
-          }}>Scroll</span>
+          }}>{t('scroll')}</span>
           <div style={{
             fontSize: '1.4rem', color: 'rgba(212,168,67,0.8)',
             animation: 'chevronBounce 0.8s ease-in-out infinite',

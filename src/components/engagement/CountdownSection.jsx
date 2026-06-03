@@ -82,7 +82,7 @@ export default function CountdownSection() {
             <div style={{ flex: 1, height: '1px', background: 'rgba(212,168,67,0.35)' }} />
           </div>
           <p style={{
-            fontFamily: "'Lora', serif",
+            fontFamily: 'var(--font-body)',
             fontStyle: 'italic',
             fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)',
             color: 'rgba(245,236,200,0.75)',
