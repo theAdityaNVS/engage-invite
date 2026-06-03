@@ -3,6 +3,7 @@ import ScrollReveal from '@/components/shared/ScrollReveal';
 import CountdownTimer from '@/components/shared/CountdownTimer';
 import FloatingLanterns from '@/components/shared/FloatingLanterns';
 import MandalaPattern from '@/components/shared/MandalaPattern';
+import SectionHeader from '@/components/shared/SectionHeader';
 import { ENGAGEMENT, COUPLE } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -57,23 +58,13 @@ export default function CountdownSection() {
 
       <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
         <ScrollReveal>
-          <p style={{
-            fontFamily: "'Great Vibes', cursive",
-            fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
-            color: '#D4A843',
-            marginBottom: '0.5rem',
-          }}>
-            {t('countdown_script')}
-          </p>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(1.2rem, 3.5vw, 1.7rem)',
-            color: 'rgba(240,214,138,0.8)',
-            marginBottom: '3rem',
-            letterSpacing: '0.06em',
-          }}>
-            {t('countdown_heading')}
-          </h2>
+          <SectionHeader
+            eyebrow={t('countdown_script')}
+            title={t('countdown_heading')}
+            eyebrowType="cursive"
+            theme="navy"
+            style={{ marginBottom: '3rem' }}
+          />
         </ScrollReveal>
 
         <ScrollReveal delay={0.2}>

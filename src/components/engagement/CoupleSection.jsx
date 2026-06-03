@@ -1,6 +1,7 @@
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import AnimatedPhoto from '@/components/shared/AnimatedPhoto';
 import MandalaPattern from '@/components/shared/MandalaPattern';
+import SectionHeader from '@/components/shared/SectionHeader';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/hooks/useLanguage';
 import { COUPLE, MEDIA } from '@/config';
@@ -97,25 +98,13 @@ export default function CoupleSection() {
 
       <div style={{ maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <ScrollReveal>
-          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <p style={{
-              fontFamily: "'Lora', serif",
-              fontSize: '0.8rem',
-              color: 'rgba(255,248,240,0.55)',
-              letterSpacing: '0.2em',
-              textTransform: 'uppercase',
-              marginBottom: '0.5rem',
-            }}>
-              ✦ {t('our_story_label')} ✦
-            </p>
-            <h2 style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
-              color: 'var(--burgundy-text)',
-            }}>
-              {t('couple_heading')}
-            </h2>
-          </div>
+          <SectionHeader
+            eyebrow={t('our_story_label')}
+            title={t('couple_heading')}
+            eyebrowType="serif"
+            theme="burgundy"
+            style={{ marginBottom: '3rem' }}
+          />
         </ScrollReveal>
 
         <div style={{

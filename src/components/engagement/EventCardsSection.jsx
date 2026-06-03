@@ -2,6 +2,7 @@ import { useState } from 'react';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import EventCard from '@/components/shared/EventCard';
 import MandalaPattern from '@/components/shared/MandalaPattern';
+import SectionHeader from '@/components/shared/SectionHeader';
 import { ENGAGEMENT } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 
@@ -38,37 +39,13 @@ export default function EventCardsSection() {
       <div style={{ maxWidth: '1100px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         
         <ScrollReveal>
-          <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
-            <span style={{
-              fontFamily: "'Great Vibes', cursive",
-              fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
-              color: 'var(--gold-light)',
-              display: 'block',
-              marginBottom: '0.4rem',
-              textShadow: '0 2px 8px rgba(212, 168, 67, 0.2)',
-            }}>
-              {t('join_us_label') || "Join Us For"}
-            </span>
-            <h2 style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2rem, 5.5vw, 3.2rem)',
-              fontWeight: 400,
-              background: 'linear-gradient(to bottom, #FFFDF9 0%, #FAF0D4 55%, #D4A843 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              letterSpacing: '0.08em',
-              textTransform: 'uppercase',
-              margin: 0,
-              display: 'inline-block',
-            }}>
-              {t('events_heading')}
-            </h2>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', justifyContent: 'center', marginTop: '1.2rem' }}>
-              <div style={{ width: '60px', height: '1px', background: 'linear-gradient(to right, transparent, var(--gold))' }} />
-              <span style={{ color: 'var(--gold)', fontSize: '0.8rem', animation: 'diyaFlicker 2s ease-in-out infinite' }}>✦ ❁ ✦</span>
-              <div style={{ width: '60px', height: '1px', background: 'linear-gradient(to left, transparent, var(--gold))' }} />
-            </div>
-          </div>
+          <SectionHeader
+            eyebrow={t('join_us_label') || "Join Us For"}
+            title={t('events_heading')}
+            eyebrowType="cursive"
+            theme="saffron"
+            style={{ marginBottom: '3.5rem' }}
+          />
         </ScrollReveal>
 
         <ScrollReveal delay={0.06}>

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import MandalaPattern from '@/components/shared/MandalaPattern';
+import SectionHeader from '@/components/shared/SectionHeader';
 import { ENGAGEMENT } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 import { useWeather } from '@/hooks/useWeather';
@@ -240,12 +241,12 @@ export default function ThingsToKnow() {
       <MandalaPattern color="var(--saffron-dark)" opacity={0.1} />
       <div style={{ maxWidth: 1000, margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <ScrollReveal>
-          <h2 style={{
-            fontFamily: "'Playfair Display', serif",
-            fontSize: 'clamp(1.8rem, 5vw, 2.8rem)',
-            color: 'var(--sand-text)', textAlign: 'center',
-            letterSpacing: '0.04em', marginBottom: '0.6rem',
-          }}>{t('things_heading')}</h2>
+          <SectionHeader
+            title={t('things_heading')}
+            subtitle={t('things_subheading')}
+            theme="sand"
+            style={{ marginBottom: '2.5rem' }}
+          />
         </ScrollReveal>
 
         <div style={{
