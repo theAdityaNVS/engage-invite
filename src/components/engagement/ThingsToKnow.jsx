@@ -208,15 +208,14 @@ function JhumarIcon() {
 
 function AirplaneIcon() {
   return (
-    <svg viewBox="0 0 24 24" style={{ width: 22, height: 22 }} aria-hidden="true">
-      {/* Wind trails */}
-      <g stroke="#D4A843" strokeWidth="0.8" strokeLinecap="round" fill="none" opacity="0.4">
-        <path className="anim-wind-line-1" d="M18 6 H6" />
-        <path className="anim-wind-line-2" d="M20 12 H8" />
-        <path className="anim-wind-line-3" d="M17 18 H7" />
-      </g>
-      {/* Airplane rotated 45deg to point up-right */}
+    <svg viewBox="0 0 24 24" style={{ width: 22, height: 22, display: 'block' }} aria-hidden="true">
       <g transform="rotate(45 12 12)">
+        {/* Wind trails parallel to plane flight direction */}
+        <g stroke="#D4A843" strokeWidth="0.8" strokeLinecap="round" fill="none" opacity="0.4">
+          <path className="anim-wind-line-1" d="M3 18 V6" />
+          <path className="anim-wind-line-2" d="M21 18 V6" />
+          <path className="anim-wind-line-3" d="M12 24 V20" />
+        </g>
         <g className="anim-plane-fly">
           <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z" fill="#D4A843" transform="translate(12, 12) scale(0.85) translate(-11.5, -12)" />
         </g>
@@ -227,15 +226,15 @@ function AirplaneIcon() {
 
 function TrainIcon() {
   return (
-    <svg viewBox="0 0 24 24" style={{ width: 22, height: 22, fill: '#D4A843' }} aria-hidden="true">
+    <svg viewBox="0 0 24 24" style={{ width: 22, height: 22, fill: '#D4A843', display: 'block' }} aria-hidden="true">
       {/* Steam puffs */}
       <g opacity="0.7">
-        <circle className="anim-steam-1" cx="12" cy="4.4" r="1.2" style={{ transformOrigin: '12px 4.4px' }} />
-        <circle className="anim-steam-2" cx="12" cy="4.4" r="1" style={{ transformOrigin: '12px 4.4px' }} />
+        <circle className="anim-steam-1" cx="12" cy="3.8" r="1.2" style={{ transformOrigin: '12px 3.8px' }} />
+        <circle className="anim-steam-2" cx="12" cy="3.8" r="1" style={{ transformOrigin: '12px 3.8px' }} />
       </g>
       {/* Train body */}
       <g className="anim-train-chug">
-        <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zm0 2c3.71 0 6 .42 6 2H6c0-1.58 2.29-2 6-2zm5 11H7V8h10v7zm-1.5-5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-7 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" transform="translate(12, 12.5) scale(0.85) translate(-12, -11.5)" />
+        <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zm0 2c3.71 0 6 .42 6 2H6c0-1.58 2.29-2 6-2zm5 11H7V8h10v7zm-1.5-5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-7 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" transform="translate(12, 12) scale(0.85) translate(-12, -11.5)" />
       </g>
     </svg>
   );
@@ -243,7 +242,7 @@ function TrainIcon() {
 
 function CompassIcon() {
   return (
-    <svg viewBox="0 0 24 24" style={{ width: 22, height: 22 }} aria-hidden="true">
+    <svg viewBox="0 0 24 24" style={{ width: 22, height: 22, display: 'block' }} aria-hidden="true">
       {/* Outer compass ring */}
       <circle cx="12" cy="12" r="10.5" fill="none" stroke="#D4A843" strokeWidth="1" opacity="0.25" />
       <circle className="anim-compass-outer" cx="12" cy="12" r="9" fill="none" stroke="#D4A843" strokeWidth="0.75" strokeDasharray="2 3" style={{ transformOrigin: '12px 12px' }} />
