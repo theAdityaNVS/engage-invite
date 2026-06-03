@@ -20,6 +20,14 @@ export function LanguageProvider({ children }) {
     });
   }, []);
 
+  // Reflect the active language onto <html> so CSS can target Indic scripts
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      document.documentElement.lang = lang;
+      document.documentElement.setAttribute('data-lang', lang);
+    }
+  }, [lang]);
+
   const setLang = useCallback(async (newLang) => {
     setLangState(newLang);
     if (typeof window !== 'undefined') {

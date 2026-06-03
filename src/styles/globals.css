@@ -76,6 +76,21 @@ html, body {
   scroll-behavior: smooth;
 }
 
+/* ── Indic script legibility ──
+   Latin letter-spacing inserts gaps between Devanagari/Telugu/Odia glyph
+   clusters and breaks conjuncts. Neutralize it for non-English languages and
+   append the correct Noto font as a fallback (inline styles only name Latin
+   fonts, so translated text would otherwise render in a system fallback). */
+html[data-lang="hi"] *,
+html[data-lang="te"] *,
+html[data-lang="or"] * {
+  letter-spacing: normal !important;
+  word-spacing: normal !important;
+}
+html[data-lang="hi"] body { font-family: 'Lora', 'Noto Serif Devanagari', serif; }
+html[data-lang="te"] body { font-family: 'Lora', 'Noto Serif Telugu', serif; }
+html[data-lang="or"] body { font-family: 'Lora', 'Noto Sans Odia', serif; }
+
 body {
   background-color: var(--navy);
   color: var(--dark-text);
@@ -267,6 +282,24 @@ a {
   }
   .hero-pill-dot {
     display: none !important;
+  }
+}
+
+/* Short viewports: the hero forces everything into 100svh, so the vertically
+   centered names overflow and collide with the bottom scroll hint + temple SVG
+   (which scales with width and dominates vertical space). Taller Indic scripts
+   (Hindi/Telugu/Odia) make it worse. Let the hero grow and scroll instead of
+   cramming — content + temple then stack with no overlap. */
+@media (max-height: 760px) {
+  #section-hero > section {
+    min-height: auto !important;
+    padding-top: 1.5rem;
+  }
+}
+/* Landscape phones: also ease the name size so the scrolling hero isn't huge. */
+@media (max-height: 520px) {
+  #section-hero h1 {
+    font-size: clamp(2rem, 7vw, 3.2rem) !important;
   }
 }
 
