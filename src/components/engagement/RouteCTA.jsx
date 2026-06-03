@@ -93,9 +93,11 @@ function MiniJourneyMap() {
           />
 
           {/* Start node: NALCO Ram Mandir (Temple Spire SVG) */}
+          <circle cx="50" cy="35" r="18" fill="#1c050a" stroke="#C4572A" strokeWidth="1.5" />
           <image href="/illustrations/temple-spire.svg" x="26" y="11" width="48" height="48" />
 
           {/* End node: Suryansh Hotel (Sparkling Ring SVG) */}
+          <circle cx="350" cy="35" r="18" fill="#1c050a" stroke="#D4A843" strokeWidth="1.5" />
           <image href="/illustrations/sparkling-ring.svg" x="326" y="11" width="48" height="48" />
 
           {/* Moving Auto-Rickshaw along the path (High-fidelity vector SVG) */}
