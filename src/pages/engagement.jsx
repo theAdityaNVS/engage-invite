@@ -17,7 +17,6 @@ import EventCardsSection from '@/components/engagement/EventCardsSection';
 import RouteCTA from '@/components/engagement/RouteCTA';
 import CoupleSection from '@/components/engagement/CoupleSection';
 
-import GallerySection from '@/components/engagement/GallerySection';
 import ThingsToKnow from '@/components/engagement/ThingsToKnow';
 import CountdownSection from '@/components/engagement/CountdownSection';
 import FooterSection from '@/components/engagement/FooterSection';
@@ -70,8 +69,6 @@ export default function EngagementPage() {
 
         <div id="section-couple">
           <CoupleSection />
-
-          <GallerySection />
         </div>
 
         <MangoToranDivider fromColor="var(--burgundy)" toColor="var(--sand)" />

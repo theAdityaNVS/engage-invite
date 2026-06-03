@@ -108,8 +108,12 @@ export const MEDIA = {
   // When re-enabling: drop the file at public/music/engagement-track.mp3 AND fix the
   // MusicPlayer/LanguageSwitcher top-right overlap (both pinned top-right) before shipping.
   MUSIC_SRC:      null,
-  COUPLE_PHOTO_1: '',
-  COUPLE_PHOTO_2: '',
+  COUPLE_PHOTO:   '',
+  MOMENTS: [
+    '', // Moment 1 (Moments Together Gallery)
+    '', // Moment 2
+    '', // Moment 3
+  ],
 };
 
 export const DOMAIN = {

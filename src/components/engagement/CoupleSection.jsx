@@ -2,6 +2,7 @@ import ScrollReveal from '@/components/shared/ScrollReveal';
 import AnimatedPhoto from '@/components/shared/AnimatedPhoto';
 import MandalaPattern from '@/components/shared/MandalaPattern';
 import SectionHeader from '@/components/shared/SectionHeader';
+import PhotoCarousel from '@/components/shared/PhotoCarousel';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/hooks/useLanguage';
 import { COUPLE, MEDIA } from '@/config';
@@ -89,88 +90,124 @@ export default function CoupleSection() {
   return (
     <section style={{
       background: 'var(--rose)',
-      padding: 'clamp(3rem, 8vw, 5rem) 1.5rem',
+      padding: 'clamp(4rem, 10vw, 6rem) 1.5rem',
       position: 'relative',
       overflow: 'hidden',
     }}>
       <MandalaPattern color="var(--gold-light)" opacity={0.16} />
       <FloralPattern />
 
-      <div style={{ maxWidth: '1000px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
-        <ScrollReveal>
-          <SectionHeader
-            eyebrow={t('our_story_label')}
-            title={t('couple_heading')}
-            eyebrowType="serif"
-            theme="burgundy"
-            style={{ marginBottom: '3rem' }}
-          />
-        </ScrollReveal>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+        
+        {/* Meet the Couple Block */}
+        <div style={{ maxWidth: '1000px', margin: '0 auto clamp(3.5rem, 8vw, 5.5rem)' }}>
+          <ScrollReveal>
+            <SectionHeader
+              eyebrow={t('our_story_label')}
+              title={t('couple_heading')}
+              eyebrowType="serif"
+              theme="burgundy"
+              style={{ marginBottom: '3rem' }}
+            />
+          </ScrollReveal>
 
+          <div style={{
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            gap: '3rem',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+            {/* Ornate arch with couple portrait */}
+            <ScrollReveal delay={0.1}>
+              <motion.div
+                initial={{ scale: 0.92, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+                style={{ display: 'flex', justifyContent: 'center' }}
+              >
+                <OrnateArchFrame>
+                  <AnimatedPhoto
+                    width="220px"
+                    height="290px"
+                    alt={`${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME}`}
+                    index={1}
+                    src={MEDIA.COUPLE_PHOTO || undefined}
+                    style={{ width: '220px', height: '290px', objectFit: 'cover' }}
+                  />
+                </OrnateArchFrame>
+              </motion.div>
+            </ScrollReveal>
+
+            {/* Message */}
+            <ScrollReveal delay={0.25} style={{ flex: '1 1 300px', maxWidth: '460px' }}>
+              <div style={{ position: 'relative' }}>
+                <span style={{
+                  position: 'absolute', top: '-0.5rem', left: '-0.25rem',
+                  fontFamily: "'Playfair Display', serif",
+                  fontSize: '5rem', color: 'rgba(255,248,240,0.15)', opacity: 1,
+                  lineHeight: 1, userSelect: 'none',
+                }}>
+                  "
+                </span>
+                <p style={{
+                  fontFamily: "'Lora', serif",
+                  fontStyle: 'italic',
+                  fontSize: 'clamp(0.95rem, 2.5vw, 1.05rem)',
+                  color: 'rgba(255,248,240,0.9)',
+                  lineHeight: 1.85,
+                  position: 'relative', zIndex: 1,
+                  paddingLeft: '1rem',
+                }}>
+                  {t('couple_message')}
+                </p>
+                <div style={{
+                  marginTop: '1.25rem',
+                  fontFamily: "'Playfair Display', serif",
+                  color: 'rgba(255,248,240,0.7)',
+                  fontSize: '1.1rem',
+                  textAlign: 'right',
+                }}>
+                  — {COUPLE.GROOM_NAME} &amp; {COUPLE.BRIDE_NAME}
+                </div>
+              </div>
+            </ScrollReveal>
+          </div>
+        </div>
+
+        {/* Elegant Gold Separator Line */}
         <div style={{
           display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-          gap: '3rem',
-          alignItems: 'center',
           justifyContent: 'center',
+          alignItems: 'center',
+          margin: '0 auto clamp(3rem, 7vw, 4.5rem)',
+          maxWidth: '400px',
         }}>
-          {/* Ornate arch with couple portrait */}
-          <ScrollReveal delay={0.1}>
-            <motion.div
-              initial={{ scale: 0.92, opacity: 0 }}
-              whileInView={{ scale: 1, opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-              style={{ display: 'flex', justifyContent: 'center' }}
-            >
-              <OrnateArchFrame>
-                <AnimatedPhoto
-                  width="220px"
-                  height="290px"
-                  alt={`${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME}`}
-                  index={1}
-                  src={MEDIA.COUPLE_PHOTO_1 || undefined}
-                  style={{ width: '220px', height: '290px', objectFit: 'cover' }}
-                />
-              </OrnateArchFrame>
-            </motion.div>
+          <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.35), transparent)' }} />
+          <span style={{ color: 'rgba(212,168,67,0.5)', padding: '0 1.25rem', fontSize: '0.85rem', letterSpacing: '0.15em' }}>✦ ❁ ✦</span>
+          <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.35), transparent)' }} />
+        </div>
+
+        {/* Moments Together (Gallery) Block */}
+        <div>
+          <ScrollReveal>
+            <SectionHeader
+              eyebrow={t('memories_label')}
+              title={t('gallery_heading')}
+              subtitle={t('gallery_subheading')}
+              eyebrowType="serif"
+              theme="burgundy"
+              style={{ marginBottom: '2.5rem' }}
+            />
           </ScrollReveal>
 
-          {/* Message */}
-          <ScrollReveal delay={0.25} style={{ flex: '1 1 300px', maxWidth: '460px' }}>
-            <div style={{ position: 'relative' }}>
-              <span style={{
-                position: 'absolute', top: '-0.5rem', left: '-0.25rem',
-                fontFamily: "'Playfair Display', serif",
-                fontSize: '5rem', color: 'rgba(255,248,240,0.15)', opacity: 1,
-                lineHeight: 1, userSelect: 'none',
-              }}>
-                "
-              </span>
-              <p style={{
-                fontFamily: "'Lora', serif",
-                fontStyle: 'italic',
-                fontSize: 'clamp(0.95rem, 2.5vw, 1.05rem)',
-                color: 'rgba(255,248,240,0.9)',
-                lineHeight: 1.85,
-                position: 'relative', zIndex: 1,
-                paddingLeft: '1rem',
-              }}>
-                {t('couple_message')}
-              </p>
-              <div style={{
-                marginTop: '1.25rem',
-                fontFamily: "'Playfair Display', serif",
-                color: 'rgba(255,248,240,0.7)',
-                fontSize: '1.1rem',
-                textAlign: 'right',
-              }}>
-                — {COUPLE.GROOM_NAME} &amp; {COUPLE.BRIDE_NAME}
-              </div>
-            </div>
-          </ScrollReveal>
+          <div style={{ padding: '0 1rem' }}>
+            <PhotoCarousel photos={MEDIA.MOMENTS || []} />
+          </div>
         </div>
+
       </div>
     </section>
   );

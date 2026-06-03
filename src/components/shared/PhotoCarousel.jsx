@@ -3,16 +3,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import AnimatedPhoto from './AnimatedPhoto';
 import { useLanguage } from '@/hooks/useLanguage';
 
-const ROTATIONS = [-3.4, 2.2, -1.6, 3.8, -2.5, 1.9, -3.1, 2.7];
-const TOTAL = 8;
+const ROTATIONS = [-3.5, 2.5, -2, 3.2];
 
 export default function PhotoCarousel({ photos = [] }) {
   const { t } = useLanguage();
   const [lightboxIndex, setLightboxIndex] = useState(null);
 
+  // Fallback to at least 3 placeholders if empty array
+  const totalPhotos = Math.max(photos.length, 3);
+
   const CAPTIONS = useMemo(
-    () => Array.from({ length: TOTAL }, (_, i) => t(`photo_caption_${i + 1}`)),
-    [t]
+    () => Array.from({ length: totalPhotos }, (_, i) => t(`photo_caption_${i + 1}`)),
+    [t, totalPhotos]
   );
   const closeBtnRef = useRef(null);
 
@@ -23,8 +25,8 @@ export default function PhotoCarousel({ photos = [] }) {
   }, [lightboxIndex]);
 
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
-  const nextPhoto = useCallback(() => setLightboxIndex(i => (i + 1) % TOTAL), []);
-  const prevPhoto = useCallback(() => setLightboxIndex(i => (i - 1 + TOTAL) % TOTAL), []);
+  const nextPhoto = useCallback(() => setLightboxIndex(i => (i + 1) % totalPhotos), [totalPhotos]);
+  const prevPhoto = useCallback(() => setLightboxIndex(i => (i - 1 + totalPhotos) % totalPhotos), [totalPhotos]);
 
   useEffect(() => {
     if (lightboxIndex === null) return;
@@ -39,89 +41,123 @@ export default function PhotoCarousel({ photos = [] }) {
 
   return (
     <>
-      {/* Board — horizontal scroll with hidden scrollbar */}
+      <style>{`
+        .polaroid-card {
+          transition: box-shadow 0.3s ease, transform 0.3s ease, z-index 0s;
+          /* Default desktop transformation: include offset & rotation */
+          transform: translateY(var(--desktop-offset)) rotate(var(--rotation));
+        }
+        
+        /* On mobile/tablet, disable vertical offsets to keep layout clean and centered */
+        @media (max-width: 768px) {
+          .polaroid-card {
+            transform: translateY(0px) rotate(var(--rotation)) !important;
+            margin: 0.5rem 0;
+          }
+        }
+      `}</style>
+
+      {/* Board — Staggered Flex Grid */}
       <div style={{
-        overflowX: 'auto',
-        overflowY: 'visible',
-        paddingBottom: '1rem',
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none',
-        WebkitOverflowScrolling: 'touch',
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
+        paddingBottom: '2.5rem',
       }}>
-        <style>{`.polaroid-scroll::-webkit-scrollbar{display:none}`}</style>
         <div
-          className="polaroid-scroll"
           style={{
             display: 'flex',
-            gap: 'clamp(1rem, 3vw, 1.75rem)',
-            padding: 'clamp(1rem, 3vw, 1.75rem) clamp(1rem, 4vw, 2.5rem) 0.5rem',
-            width: 'max-content',
-            minWidth: '100%',
-            justifyContent: 'center',
+            flexDirection: 'row',
             flexWrap: 'wrap',
+            gap: 'clamp(2rem, 5vw, 3.5rem)',
+            padding: '2.5rem 1rem',
+            justifyContent: 'center',
+            alignItems: 'center',
+            maxWidth: '1000px',
+            width: '100%',
           }}
         >
-          {Array.from({ length: TOTAL }, (_, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5, delay: i * 0.07 }}
-              whileHover={{ rotate: 0, scale: 1.05, zIndex: 20 }}
-              role="button"
-              tabIndex={0}
-              onClick={() => setLightboxIndex(i)}
-              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setLightboxIndex(i); } }}
-              style={{
-                background: '#FFFEFC',
-                padding: '10px 10px 46px',
-                boxShadow: '0 4px 18px rgba(0,0,0,0.22), 0 1px 4px rgba(0,0,0,0.14)',
-                cursor: 'zoom-in',
-                position: 'relative',
-                rotate: `${ROTATIONS[i]}deg`,
-                flexShrink: 0,
-                transition: 'box-shadow 0.2s',
-                zIndex: 1,
-              }}
-            >
-              <AnimatedPhoto
-                width="clamp(150px, 18vw, 190px)"
-                height="clamp(170px, 21vw, 220px)"
-                alt={CAPTIONS[i]}
-                index={i}
-                src={photos[i] || undefined}
-                style={{
-                  width: 'clamp(150px, 18vw, 190px)',
-                  height: 'clamp(170px, 21vw, 220px)',
-                  objectFit: 'cover',
-                  display: 'block',
+          {Array.from({ length: totalPhotos }, (_, i) => {
+            const rotation = ROTATIONS[i % ROTATIONS.length];
+            const isEven = i % 2 === 0;
+            // Alternate vertical offset on desktop
+            const desktopOffset = isEven ? 16 : -16;
+
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 35, rotate: rotation - 2 }}
+                whileInView={{ opacity: 1, y: 0, rotate: rotation }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: i * 0.12 }}
+                whileHover={{
+                  rotate: 0,
+                  scale: 1.06,
+                  y: isEven ? 6 : -26, // lift relative to the desktop offset
+                  zIndex: 20,
+                  boxShadow: '0 22px 48px rgba(0,0,0,0.28), 0 5px 15px rgba(0,0,0,0.12)',
                 }}
-              />
-              <div style={{
-                position: 'absolute',
-                bottom: 0, left: 0, right: 0,
-                height: 46,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '0 10px',
-              }}>
-                <span style={{
-                  fontFamily: "'Great Vibes', cursive",
-                  fontSize: '1rem',
-                  color: 'rgba(45,24,16,0.5)',
-                  textAlign: 'center',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  maxWidth: '100%',
+                role="button"
+                tabIndex={0}
+                onClick={() => setLightboxIndex(i)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    setLightboxIndex(i);
+                  }
+                }}
+                className={`polaroid-card polaroid-card-${i}`}
+                style={{
+                  background: '#FFFEFC',
+                  padding: '12px 12px 52px',
+                  boxShadow: '0 12px 32px rgba(0,0,0,0.15), 0 3px 8px rgba(0,0,0,0.08)',
+                  cursor: 'zoom-in',
+                  position: 'relative',
+                  flexShrink: 0,
+                  zIndex: 1,
+                  // CSS variables used for media queries
+                  '--desktop-offset': `${desktopOffset}px`,
+                  '--rotation': `${rotation}deg`,
+                }}
+              >
+                <AnimatedPhoto
+                  width="clamp(170px, 21vw, 210px)"
+                  height="clamp(210px, 25vw, 260px)"
+                  alt={CAPTIONS[i]}
+                  index={i}
+                  src={photos[i] || undefined}
+                  style={{
+                    width: 'clamp(170px, 21vw, 210px)',
+                    height: 'clamp(210px, 25vw, 260px)',
+                    objectFit: 'cover',
+                    display: 'block',
+                  }}
+                />
+                <div style={{
+                  position: 'absolute',
+                  bottom: 0, left: 0, right: 0,
+                  height: 52,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '0 12px',
                 }}>
-                  {CAPTIONS[i]}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+                  <span style={{
+                    fontFamily: "'Great Vibes', cursive",
+                    fontSize: '1.25rem',
+                    color: 'rgba(45,24,16,0.65)',
+                    textAlign: 'center',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                    maxWidth: '100%',
+                  }}>
+                    {CAPTIONS[i]}
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
 
