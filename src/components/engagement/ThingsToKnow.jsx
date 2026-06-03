@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import MandalaPattern from '@/components/shared/MandalaPattern';
@@ -125,6 +126,57 @@ const WeatherAnimations = () => (
       transform: translateX(4px);
       opacity: 1 !important;
       color: #C4572A !important;
+    }
+    .weather-scroll-container {
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      max-width: 100%;
+    }
+    .weather-scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+    .weather-slots-wrapper {
+      display: flex;
+      gap: 0.65rem;
+      padding: 0.25rem 1rem;
+      width: max-content;
+    }
+    .weather-view-7 {
+      display: block;
+    }
+    .weather-view-5 {
+      display: none;
+    }
+    .weather-view-3 {
+      display: none;
+    }
+    @media (max-width: 867px) {
+      .weather-view-7 {
+        display: none !important;
+      }
+      .weather-view-5 {
+        display: block !important;
+      }
+    }
+    @media (max-width: 539px) {
+      .weather-view-5 {
+        display: none !important;
+      }
+      .weather-view-3 {
+        display: block !important;
+      }
+    }
+    @media (min-width: 868px) {
+      .weather-slots-wrapper {
+        justify-content: center;
+        margin: 0 auto;
+        padding: 0.25rem 0.5rem;
+        width: 100%;
+      }
     }
   `}} />
 );
@@ -280,6 +332,17 @@ function WeatherCard({ weather }) {
     { time: '3 PM',  label: t('slot_departure'),   temp: baseTemp - 1, cond: 'cloudy' },
   ];
 
+  const [index3, setIndex3] = useState(0);
+  const [index5, setIndex5] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex3((prev) => (prev + 1) % 5);
+      setIndex5((prev) => (prev + 1) % 3);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
   const getSlotIcon = (cond) => {
     let finalCond = cond;
     if (baseCondition.includes('rain') || baseCondition.includes('drizzle')) {
@@ -305,39 +368,205 @@ function WeatherCard({ weather }) {
         </div>
       </div>
 
-      <div style={{ overflowX: 'auto', scrollbarWidth: 'none', msOverflowStyle: 'none', paddingBottom: '0.25rem' }}>
-        <div style={{ display: 'flex', gap: '0.65rem', minWidth: 'max-content', padding: '0.25rem 0.5rem', justifyContent: 'center', width: '100%' }}>
-          {slots.map((slot) => (
-            <div key={slot.time} style={{
-              display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem',
-              padding: '0.75rem 0.85rem',
-              background: slot.highlight ? 'rgba(212,168,67,0.18)' : 'rgba(255,248,240,0.06)',
-              border: slot.highlight ? '1px solid rgba(212,168,67,0.45)' : '1px solid rgba(212,168,67,0.15)',
-              borderRadius: '8px',
-              minWidth: 72,
-              boxShadow: slot.highlight ? '0 2px 8px rgba(212,168,67,0.1)' : 'none',
-              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}>
-              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: '#2D1810', fontWeight: 600 }}>
-                {slot.time}
-              </span>
-              <div style={{ height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                {getSlotIcon(slot.cond)}
-              </div>
-              <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: '#2D1810', fontWeight: 700 }}>
-                {slot.temp}°C
-              </span>
-              {slot.label && (
-                <span style={{
-                  fontFamily: 'var(--font-body)', fontSize: '0.82rem',
-                  color: slot.highlight ? '#D4A843' : 'rgba(45,24,16,0.6)',
-                  letterSpacing: '0.04em',
-                  fontWeight: slot.highlight ? 600 : 500,
-                }}>
-                  {slot.label}
+      {/* 7-card static grid (visible >= 868px) */}
+      <div className="weather-view-7">
+        <div className="weather-scroll-container">
+          <div className="weather-slots-wrapper">
+            {slots.map((slot) => (
+              <div key={slot.time} style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem',
+                padding: '0.75rem 0.85rem',
+                background: slot.highlight ? 'rgba(212,168,67,0.18)' : 'rgba(255,248,240,0.06)',
+                border: slot.highlight ? '1px solid rgba(212,168,67,0.45)' : '1px solid rgba(212,168,67,0.15)',
+                borderRadius: '8px',
+                minWidth: 72,
+                flexShrink: 0,
+                boxShadow: slot.highlight ? '0 2px 8px rgba(212,168,67,0.1)' : 'none',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              }}>
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: '#2D1810', fontWeight: 600 }}>
+                  {slot.time}
                 </span>
-              )}
-            </div>
+                <div style={{ height: 36, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {getSlotIcon(slot.cond)}
+                </div>
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: '#2D1810', fontWeight: 700 }}>
+                  {slot.temp}°C
+                </span>
+                {slot.label && (
+                  <span style={{
+                    fontFamily: 'var(--font-body)', fontSize: '0.82rem',
+                    color: slot.highlight ? '#D4A843' : 'rgba(45,24,16,0.6)',
+                    letterSpacing: '0.04em',
+                    fontWeight: slot.highlight ? 600 : 500,
+                  }}>
+                    {slot.label}
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* 5-card carousel (visible 540px to 867px) */}
+      <div className="weather-view-5">
+        <div style={{ 
+          maxWidth: 440, 
+          margin: '0 auto', 
+          overflow: 'hidden', 
+          padding: '0.25rem 0',
+          position: 'relative'
+        }}>
+          <motion.div 
+            style={{ 
+              display: 'flex', 
+              gap: '10px', 
+              width: 'max-content' 
+            }}
+            animate={{ x: -index5 * 90 }}
+            transition={{ type: 'spring', stiffness: 120, damping: 18 }}
+          >
+            {slots.map((slot) => (
+              <div key={slot.time} style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem',
+                padding: '0.75rem 0.4rem',
+                background: slot.highlight ? 'rgba(212,168,67,0.18)' : 'rgba(255,248,240,0.06)',
+                border: slot.highlight ? '1px solid rgba(212,168,67,0.45)' : '1px solid rgba(212,168,67,0.15)',
+                borderRadius: '8px',
+                width: 80,
+                flexShrink: 0,
+                boxShadow: slot.highlight ? '0 2px 8px rgba(212,168,67,0.1)' : 'none',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              }}>
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', color: '#2D1810', fontWeight: 600 }}>
+                  {slot.time}
+                </span>
+                <div style={{ height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {getSlotIcon(slot.cond)}
+                </div>
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', color: '#2D1810', fontWeight: 700 }}>
+                  {slot.temp}°C
+                </span>
+                {slot.label && (
+                  <span style={{
+                    fontFamily: 'var(--font-body)', fontSize: '0.78rem',
+                    color: slot.highlight ? '#D4A843' : 'rgba(45,24,16,0.6)',
+                    letterSpacing: '0.02em',
+                    fontWeight: slot.highlight ? 600 : 500,
+                    textAlign: 'center',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    width: '100%',
+                  }} title={slot.label}>
+                    {slot.label}
+                  </span>
+                )}
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Carousel indicator dots for 5 cards */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.35rem', marginTop: '1rem' }}>
+          {Array.from({ length: 3 }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setIndex5(idx)}
+              aria-label={`Go to weather slide ${idx + 1}`}
+              style={{
+                width: idx === index5 ? 14 : 6,
+                height: 6,
+                borderRadius: '3px',
+                background: idx === index5 ? '#D4A843' : 'rgba(212, 168, 67, 0.3)',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* 3-card carousel (visible < 540px) */}
+      <div className="weather-view-3">
+        <div style={{ 
+          maxWidth: 260, 
+          margin: '0 auto', 
+          overflow: 'hidden', 
+          padding: '0.25rem 0',
+          position: 'relative'
+        }}>
+          <motion.div 
+            style={{ 
+              display: 'flex', 
+              gap: '10px', 
+              width: 'max-content' 
+            }}
+            animate={{ x: -index3 * 90 }}
+            transition={{ type: 'spring', stiffness: 120, damping: 18 }}
+          >
+            {slots.map((slot) => (
+              <div key={slot.time} style={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.35rem',
+                padding: '0.75rem 0.4rem',
+                background: slot.highlight ? 'rgba(212,168,67,0.18)' : 'rgba(255,248,240,0.06)',
+                border: slot.highlight ? '1px solid rgba(212,168,67,0.45)' : '1px solid rgba(212,168,67,0.15)',
+                borderRadius: '8px',
+                width: 80,
+                flexShrink: 0,
+                boxShadow: slot.highlight ? '0 2px 8px rgba(212,168,67,0.1)' : 'none',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              }}>
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', color: '#2D1810', fontWeight: 600 }}>
+                  {slot.time}
+                </span>
+                <div style={{ height: 32, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  {getSlotIcon(slot.cond)}
+                </div>
+                <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', color: '#2D1810', fontWeight: 700 }}>
+                  {slot.temp}°C
+                </span>
+                {slot.label && (
+                  <span style={{
+                    fontFamily: 'var(--font-body)', fontSize: '0.78rem',
+                    color: slot.highlight ? '#D4A843' : 'rgba(45,24,16,0.6)',
+                    letterSpacing: '0.02em',
+                    fontWeight: slot.highlight ? 600 : 500,
+                    textAlign: 'center',
+                    whiteSpace: 'nowrap',
+                    textOverflow: 'ellipsis',
+                    overflow: 'hidden',
+                    width: '100%',
+                  }} title={slot.label}>
+                    {slot.label}
+                  </span>
+                )}
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+        {/* Carousel indicator dots for 3 cards */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '0.35rem', marginTop: '1rem' }}>
+          {Array.from({ length: 5 }).map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setIndex3(idx)}
+              aria-label={`Go to weather slide ${idx + 1}`}
+              style={{
+                width: idx === index3 ? 14 : 6,
+                height: 6,
+                borderRadius: '3px',
+                background: idx === index3 ? '#D4A843' : 'rgba(212, 168, 67, 0.3)',
+                border: 'none',
+                padding: 0,
+                cursor: 'pointer',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              }}
+            />
           ))}
         </div>
       </div>
@@ -468,7 +697,7 @@ function DressCard() {
         <h4 style={{ fontFamily: 'var(--font-display)', fontSize: '1.2rem', color: '#5A1423', marginBottom: '1.25rem', fontWeight: 600, letterSpacing: '0.04em' }}>
           {t('dress_heading')}
         </h4>
-        <div style={{ display: 'flex', gap: '0.65rem', justifyContent: 'center', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'flex', gap: '0.65rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
           {[t('dress_traditional'), t('dress_pastels')].map(tag => (
             <span key={tag} style={{
               fontFamily: 'var(--font-body)', fontSize: '0.88rem',
@@ -481,7 +710,7 @@ function DressCard() {
           ))}
         </div>
         
-        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', marginBottom: '1.25rem' }}>
+        <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '1.25rem' }}>
           {[
             ['#FAD5C0', t('color_peach')],
             ['#D3ECE1', t('color_mint')],
@@ -552,6 +781,10 @@ export default function ThingsToKnow() {
               gap: 1.75rem;
               margin-top: 2.5rem;
             }
+            .things-grid > div {
+              min-width: 0;
+              width: 100%;
+            }
             @media (min-width: 868px) {
               .things-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -574,7 +807,7 @@ export default function ThingsToKnow() {
               background: 'linear-gradient(180deg, #FAF6EE 0%, #FAF0D4 100%)',
               border: '1px solid rgba(212, 168, 67, 0.15)',
               borderRadius: '24px',
-              padding: '2.5rem 2rem 2.2rem',
+              padding: '2.5rem clamp(1.25rem, 5vw, 2rem) 2.2rem',
               boxShadow: '0 20px 48px rgba(90, 20, 35, 0.24), inset 0 0 35px rgba(212, 168, 67, 0.12)',
               position: 'relative',
               overflow: 'visible',
@@ -601,7 +834,7 @@ export default function ThingsToKnow() {
               background: 'linear-gradient(180deg, #FAF6EE 0%, #FAF0D4 100%)',
               border: '1px solid rgba(212, 168, 67, 0.15)',
               borderRadius: '24px',
-              padding: '2.5rem 2rem 2.2rem',
+              padding: '2.5rem clamp(1.25rem, 5vw, 2rem) 2.2rem',
               boxShadow: '0 20px 48px rgba(90, 20, 35, 0.24), inset 0 0 35px rgba(212, 168, 67, 0.12)',
               position: 'relative',
               overflow: 'visible',
@@ -631,7 +864,7 @@ export default function ThingsToKnow() {
               background: 'linear-gradient(180deg, #FAF6EE 0%, #FAF0D4 100%)',
               border: '1px solid rgba(212, 168, 67, 0.15)',
               borderRadius: '24px',
-              padding: '2.5rem 2rem 2.2rem',
+              padding: '2.5rem clamp(1.25rem, 5vw, 2rem) 2.2rem',
               boxShadow: '0 20px 48px rgba(90, 20, 35, 0.24), inset 0 0 35px rgba(212, 168, 67, 0.12)',
               position: 'relative',
               overflow: 'visible',
