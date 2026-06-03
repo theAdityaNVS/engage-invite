@@ -23,34 +23,28 @@ const WeatherAnimations = () => (
       100% { stroke-dashoffset: -12; opacity: 0; }
     }
     @keyframes plane-fly {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-3px) rotate(4deg); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-1.5px); }
     }
     @keyframes wind-slide-1 {
-      0% { stroke-dashoffset: 24; opacity: 0; }
+      0% { stroke-dashoffset: 12; opacity: 0; }
       20% { opacity: 0.5; }
       80% { opacity: 0.5; }
-      100% { stroke-dashoffset: -24; opacity: 0; }
-    }
-    @keyframes wind-slide-2 {
-      0% { stroke-dashoffset: 32; opacity: 0; }
-      20% { opacity: 0.5; }
-      80% { opacity: 0.5; }
-      100% { stroke-dashoffset: -32; opacity: 0; }
+      100% { stroke-dashoffset: -12; opacity: 0; }
     }
     @keyframes train-chug {
-      0%, 100% { transform: translateY(0) scaleY(1); }
-      50% { transform: translateY(-1px) scaleY(0.98); }
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-0.6px); }
     }
     @keyframes steam-puff-1 {
       0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
-      30% { opacity: 0.7; }
-      100% { transform: translate(-3px, -8px) scale(1.3); opacity: 0; }
+      30% { opacity: 0.8; }
+      100% { transform: translate(-1.5px, -5px) scale(1.2); opacity: 0; }
     }
     @keyframes steam-puff-2 {
       0% { transform: translate(0, 0) scale(0.5); opacity: 0; }
-      30% { opacity: 0.7; }
-      100% { transform: translate(3px, -11px) scale(1.1); opacity: 0; }
+      30% { opacity: 0.8; }
+      100% { transform: translate(1.5px, -7px) scale(1.1); opacity: 0; }
     }
     @keyframes compass-needle-wiggle {
       0%, 100% { transform: rotate(0deg); }
@@ -66,8 +60,8 @@ const WeatherAnimations = () => (
       100% { transform: rotate(360deg); }
     }
     @keyframes radar-pulse {
-      0% { r: 2px; opacity: 0.8; stroke-width: 1px; }
-      100% { r: 16px; opacity: 0; stroke-width: 0.5px; }
+      0% { r: 1px; opacity: 0.8; stroke-width: 0.75px; }
+      100% { r: 8px; opacity: 0; stroke-width: 0.25px; }
     }
     .anim-sun-rays {
       transform-origin: 24px 24px;
@@ -82,25 +76,25 @@ const WeatherAnimations = () => (
     }
     .anim-plane-fly {
       animation: plane-fly 3.5s ease-in-out infinite;
-      transform-origin: 24px 24px;
+      transform-origin: 12px 12px;
     }
     .anim-wind-line-1 {
-      stroke-dasharray: 8 16;
+      stroke-dasharray: 4 8;
       animation: wind-slide-1 2s linear infinite;
     }
     .anim-wind-line-2 {
-      stroke-dasharray: 12 20;
-      animation: wind-slide-2 2.5s linear infinite;
+      stroke-dasharray: 6 10;
+      animation: wind-slide-1 2.5s linear infinite;
       animation-delay: 0.4s;
     }
     .anim-wind-line-3 {
-      stroke-dasharray: 6 12;
+      stroke-dasharray: 3 6;
       animation: wind-slide-1 1.8s linear infinite;
       animation-delay: 0.8s;
     }
     .anim-train-chug {
       animation: train-chug 1s ease-in-out infinite;
-      transform-origin: 24px 24px;
+      transform-origin: 12px 12px;
     }
     .anim-steam-1 {
       animation: steam-puff-1 1.8s ease-out infinite;
@@ -214,14 +208,18 @@ function JhumarIcon() {
 
 function AirplaneIcon() {
   return (
-    <svg viewBox="0 0 48 48" style={{ width: 34, height: 34 }} aria-hidden="true">
-      <g stroke="#D4A843" strokeWidth="1.2" strokeLinecap="round" fill="none" opacity="0.5">
-        <path className="anim-wind-line-1" d="M38 12 H14" />
-        <path className="anim-wind-line-2" d="M42 24 H18" />
-        <path className="anim-wind-line-3" d="M36 36 H16" />
+    <svg viewBox="0 0 24 24" style={{ width: 22, height: 22 }} aria-hidden="true">
+      {/* Wind trails */}
+      <g stroke="#D4A843" strokeWidth="0.8" strokeLinecap="round" fill="none" opacity="0.4">
+        <path className="anim-wind-line-1" d="M18 6 H6" />
+        <path className="anim-wind-line-2" d="M20 12 H8" />
+        <path className="anim-wind-line-3" d="M17 18 H7" />
       </g>
-      <g className="anim-plane-fly" transform="translate(24, 24) rotate(45) translate(-11.5, -12)">
-        <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z" fill="#D4A843" />
+      {/* Airplane rotated 45deg to point up-right */}
+      <g transform="rotate(45 12 12)">
+        <g className="anim-plane-fly">
+          <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L14 19v-5.5L21 16z" fill="#D4A843" transform="translate(12, 12) scale(0.85) translate(-11.5, -12)" />
+        </g>
       </g>
     </svg>
   );
@@ -229,21 +227,15 @@ function AirplaneIcon() {
 
 function TrainIcon() {
   return (
-    <svg viewBox="0 0 48 48" style={{ width: 34, height: 34 }} aria-hidden="true">
-      <g fill="#D4A843">
-        <circle className="anim-steam-1" cx="24" cy="12" r="2" style={{ transformOrigin: '24px 12px' }} />
-        <circle className="anim-steam-2" cx="24" cy="12" r="1.5" style={{ transformOrigin: '24px 12px' }} />
+    <svg viewBox="0 0 24 24" style={{ width: 22, height: 22, fill: '#D4A843' }} aria-hidden="true">
+      {/* Steam puffs */}
+      <g opacity="0.7">
+        <circle className="anim-steam-1" cx="12" cy="4.4" r="1.2" style={{ transformOrigin: '12px 4.4px' }} />
+        <circle className="anim-steam-2" cx="12" cy="4.4" r="1" style={{ transformOrigin: '12px 4.4px' }} />
       </g>
-      
-      <g stroke="#D4A843" strokeLinecap="round" opacity="0.4">
-        <line x1="12" y1="36" x2="36" y2="36" strokeWidth="1.5" />
-        <line x1="16" y1="36" x2="14" y2="40" strokeWidth="1" />
-        <line x1="24" y1="36" x2="24" y2="40" strokeWidth="1" />
-        <line x1="32" y1="36" x2="34" y2="40" strokeWidth="1" />
-      </g>
-
-      <g className="anim-train-chug" transform="translate(24, 24) translate(-12, -11.5)">
-        <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zm0 2c3.71 0 6 .42 6 2H6c0-1.58 2.29-2 6-2zm5 11H7V8h10v7zm-1.5-5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-7 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" fill="#D4A843" />
+      {/* Train body */}
+      <g className="anim-train-chug">
+        <path d="M12 2c-4 0-8 .5-8 4v9.5C4 17.43 5.57 19 7.5 19L6 20.5v.5h12v-.5L16.5 19c1.93 0 3.5-1.57 3.5-3.5V6c0-3.5-4-4-8-4zm0 2c3.71 0 6 .42 6 2H6c0-1.58 2.29-2 6-2zm5 11H7V8h10v7zm-1.5-5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm-7 0c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5z" transform="translate(12, 12.5) scale(0.85) translate(-12, -11.5)" />
       </g>
     </svg>
   );
@@ -251,18 +243,24 @@ function TrainIcon() {
 
 function CompassIcon() {
   return (
-    <svg viewBox="0 0 48 48" style={{ width: 34, height: 34 }} aria-hidden="true">
-      <circle cx="24" cy="24" r="21" fill="none" stroke="#D4A843" strokeWidth="1.5" opacity="0.2" />
-      <circle className="anim-compass-outer" cx="24" cy="24" r="18" fill="none" stroke="#D4A843" strokeWidth="1" strokeDasharray="3 5" style={{ transformOrigin: '24px 24px' }} />
+    <svg viewBox="0 0 24 24" style={{ width: 22, height: 22 }} aria-hidden="true">
+      {/* Outer compass ring */}
+      <circle cx="12" cy="12" r="10.5" fill="none" stroke="#D4A843" strokeWidth="1" opacity="0.25" />
+      <circle className="anim-compass-outer" cx="12" cy="12" r="9" fill="none" stroke="#D4A843" strokeWidth="0.75" strokeDasharray="2 3" style={{ transformOrigin: '12px 12px' }} />
       
-      <circle className="anim-radar-pulse" cx="24" cy="24" r="2" fill="none" stroke="#D4A843" style={{ transformOrigin: '24px 24px' }} />
+      {/* Radar pulse */}
+      <circle className="anim-radar-pulse" cx="12" cy="12" r="1" fill="none" stroke="#D4A843" style={{ transformOrigin: '12px 12px' }} />
 
-      <g className="anim-compass-needle" style={{ transformOrigin: '24px 24px' }}>
-        <polygon points="24,9 27,24 24,21" fill="#D4A843" />
-        <polygon points="24,9 21,24 24,21" fill="#B38B2E" />
-        <polygon points="24,39 27,24 24,27" fill="#C4572A" />
-        <polygon points="24,39 21,24 24,27" fill="#9C3F18" />
-        <circle cx="24" cy="24" r="3.5" fill="#FAF6EE" stroke="#D4A843" strokeWidth="1.5" />
+      {/* Compass Needle */}
+      <g className="anim-compass-needle" style={{ transformOrigin: '12px 12px' }}>
+        {/* North pointer (Gold) */}
+        <polygon points="12,4.5 13.5,12 12,10.5" fill="#D4A843" />
+        <polygon points="12,4.5 10.5,12 12,10.5" fill="#B38B2E" />
+        {/* South pointer (Saffron-gold) */}
+        <polygon points="12,19.5 13.5,12 12,13.5" fill="#C4572A" />
+        <polygon points="12,19.5 10.5,12 12,13.5" fill="#9C3F18" />
+        {/* Center pivot */}
+        <circle cx="12" cy="12" r="3.5" fill="#FAF6EE" stroke="#D4A843" strokeWidth="1" />
       </g>
     </svg>
   );
