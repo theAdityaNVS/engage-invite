@@ -30,8 +30,10 @@ export default function VisitTracker() {
     const params = new URLSearchParams(window.location.search);
     const rawSide = params.get('side');
     const rawMusic = Number(params.get('music'));
+    const rawLang = params.get('lang');
     const invite_side = rawSide === 'bride' || rawSide === 'groom' ? rawSide : null;
     const invite_music = [1, 2, 3].includes(rawMusic) ? rawMusic : null;
+    const invite_lang = ['en', 'hi', 'te', 'or'].includes(rawLang) ? rawLang : null;
 
     const payload = {
       path: window.location.pathname,
@@ -43,6 +45,7 @@ export default function VisitTracker() {
       session_id,
       invite_side,
       invite_music,
+      invite_lang,
     };
 
     // Mark logged immediately to dedupe Strict-Mode double-invoke and fast refresh.

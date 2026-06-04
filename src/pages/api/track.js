@@ -63,19 +63,20 @@ export default async function handler(req, res) {
       // Share-link params — validated server-side, never trust the client.
       invite_side:  body.invite_side === 'bride' || body.invite_side === 'groom' ? body.invite_side : null,
       invite_music: [1, 2, 3].includes(Number(body.invite_music)) ? Number(body.invite_music) : null,
+      invite_lang:  ['en', 'hi', 'te', 'or'].includes(body.invite_lang) ? body.invite_lang : null,
     };
 
     await sql`
       INSERT INTO visits
         (site, path, ip, country, region, city, latitude, longitude,
          ua, browser, os, device_type, screen, viewport, timezone,
-         language, referrer, session_id, invite_side, invite_music)
+         language, referrer, session_id, invite_side, invite_music, invite_lang)
       VALUES
         (${row.site}, ${row.path}, ${row.ip}, ${row.country}, ${row.region},
          ${row.city}, ${row.latitude}, ${row.longitude}, ${row.ua},
          ${row.browser}, ${row.os}, ${row.device_type}, ${row.screen},
          ${row.viewport}, ${row.timezone}, ${row.language}, ${row.referrer},
-         ${row.session_id}, ${row.invite_side}, ${row.invite_music})
+         ${row.session_id}, ${row.invite_side}, ${row.invite_music}, ${row.invite_lang})
     `;
 
     return res.status(204).end();

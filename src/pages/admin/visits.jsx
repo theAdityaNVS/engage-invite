@@ -99,6 +99,7 @@ export default function VisitsDashboard() {
           <section style={st.breakdowns}>
             <Breakdown title="Share links — by side" rows={data.breakdowns.bySide} total={s?.total} />
             <Breakdown title="Share links — by track" rows={data.breakdowns.byMusic} total={s?.total} />
+            <Breakdown title="Share links — by language" rows={data.breakdowns.byInviteLang} total={s?.total} />
           </section>
         )}
 
