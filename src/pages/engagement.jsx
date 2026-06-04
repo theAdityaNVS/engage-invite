@@ -86,7 +86,7 @@ export default function EngagementPage({ side = 'groom', musicTrack = 1, hasSide
       {/* Fixed UI */}
 
       {entered && <AutoScrollHint />}
-      <MusicPlayer autoPlay={musicAutoPlay} />
+      <MusicPlayer autoPlay={musicAutoPlay} track={musicTrack} />
       {entered && <LanguageSwitcher />}
     </>
   );
