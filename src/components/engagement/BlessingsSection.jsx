@@ -188,9 +188,30 @@ function BridesFamilySVG() {
   );
 }
 
-export default function BlessingsSection() {
+export default function BlessingsSection({ side = 'groom' }) {
   const { t, lang } = useLanguage();
   const names = TRANSLATIONS.NAMES[lang] || TRANSLATIONS.NAMES.en;
+
+  const groomCard = {
+    labelKey: 'groom_parents_label',
+    names: FAMILIES.GROOM_PARENTS,
+    delay: 0,
+    gotra: FAMILIES.GROOM_GOTRA,
+    nakshatra: FAMILIES.GROOM_NAKSHATRA,
+    location: 'Visakhapatnam',
+    icon: <GroomsFamilySVG />,
+  };
+  const brideCard = {
+    labelKey: 'bride_parents_label',
+    names: FAMILIES.BRIDE_PARENTS,
+    delay: 0.12,
+    gotra: FAMILIES.BRIDE_GOTRA,
+    nakshatra: FAMILIES.BRIDE_NAKSHATRA,
+    location: 'Sunabeda',
+    icon: <BridesFamilySVG />,
+  };
+  const cards = [groomCard, brideCard];
+  const ordered = side === 'bride' ? [...cards].reverse() : cards;
 
   return (
     <section style={{
@@ -300,26 +321,7 @@ export default function BlessingsSection() {
             flexWrap: 'wrap',
             justifyContent: 'center',
           }}>
-            {[
-              { 
-                labelKey: 'groom_parents_label', 
-                names: FAMILIES.GROOM_PARENTS, 
-                delay: 0,    
-                gotra: FAMILIES.GROOM_GOTRA,  
-                nakshatra: FAMILIES.GROOM_NAKSHATRA,
-                location: 'Visakhapatnam',
-                icon: <GroomsFamilySVG />
-              },
-              { 
-                labelKey: 'bride_parents_label', 
-                names: FAMILIES.BRIDE_PARENTS, 
-                delay: 0.12, 
-                gotra: FAMILIES.BRIDE_GOTRA,  
-                nakshatra: FAMILIES.BRIDE_NAKSHATRA,
-                location: 'Sunabeda',
-                icon: <BridesFamilySVG />
-              },
-            ].map(({ labelKey, names, delay, gotra, nakshatra, location, icon }) => (
+            {ordered.map(({ labelKey, names, delay, gotra, nakshatra, location, icon }) => (
               <motion.div
                 key={labelKey}
                 initial={{ opacity: 0, y: 20 }}
