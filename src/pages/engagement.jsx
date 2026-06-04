@@ -71,8 +71,8 @@ export default function EngagementPage({ side = 'groom', musicTrack = 1, hasSide
         <meta property="og:title" content="Aditya & Jyoti — Engagement Invitation" />
         <meta property="og:description" content="Join us to celebrate their engagement — 17th June 2026, Suryansh Hotels & Resorts, Bhubaneswar. In English, Hindi, Telugu & Odia." />
         <meta property="og:image" content="https://adityanvs.in/og-engagement.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="1200" />
+        <meta property="og:image:width" content="1024" />
+        <meta property="og:image:height" content="1024" />
         <meta name="twitter:card" content="summary_large_image" />
         {/* Fonts (incl. Great Vibes) are loaded once in _document.js */}
       </Head>
