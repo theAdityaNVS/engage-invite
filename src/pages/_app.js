@@ -17,15 +17,23 @@ export default function App({ Component, pageProps }) {
     document.addEventListener('gesturechange', preventGesture);
     document.addEventListener('gestureend', preventGesture);
 
+    // Lenis smooth scroll — disabled on iOS because Lenis uses transform-based
+    // scrolling as a fallback on iOS Safari, which breaks `position: fixed`
+    // children (they get pulled to the center or stuck). iOS already has
+    // excellent native momentum scrolling so Lenis adds no benefit there.
+    const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     let lenis;
-    import("lenis").then(({ default: Lenis }) => {
-      lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
-      function raf(time) {
-        lenis.raf(time);
+    if (!isIOS) {
+      import("lenis").then(({ default: Lenis }) => {
+        lenis = new Lenis({ duration: 1.2, easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
         requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-    }).catch(() => {});
+      }).catch(() => {});
+    }
     return () => {
       lenis?.destroy();
       document.removeEventListener('gesturestart', preventGesture);

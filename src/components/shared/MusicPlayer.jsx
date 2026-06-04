@@ -68,14 +68,14 @@ export default function MusicPlayer({ autoPlay = false, track = 1 }) {
         src: [src],
         html5: true,
         loop: true,
-        volume: mutedRef.current ? 0 : VOLUME,
+        volume: VOLUME,
         onplayerror: () => {
           // Autoplay blocked until a gesture — retry once the context unlocks.
-          howl.once('unlock', () => { if (startedRef.current) howl.play(); });
+          howl.once('unlock', () => { if (startedRef.current && !mutedRef.current) howl.play(); });
         },
       });
       howlRef.current = howl;
-      if (startedRef.current) howl.play(); // keep playing across track switches
+      if (startedRef.current && !mutedRef.current) howl.play(); // keep playing across track switches
     }).catch(() => {});
     return () => {
       mounted = false;
@@ -87,9 +87,44 @@ export default function MusicPlayer({ autoPlay = false, track = 1 }) {
   useEffect(() => {
     if (autoPlay && !startedRef.current) {
       startedRef.current = true;
-      howlRef.current?.play();
+      if (!mutedRef.current) howlRef.current?.play();
     }
   }, [autoPlay]);
+
+  // Pause music when the page is hidden (user backgrounds the app / navigates away)
+  // and resume when they return — critical for iOS Safari which keeps the audio
+  // session alive otherwise. Also handles bfcache pagehide/pageshow.
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!startedRef.current || mutedRef.current) return;
+      if (document.hidden) {
+        howlRef.current?.pause();
+      } else {
+        howlRef.current?.play();
+      }
+    };
+
+    // pagehide fires on iOS when navigating away (bfcache) — ensures audio stops.
+    const handlePageHide = () => {
+      howlRef.current?.pause();
+    };
+
+    const handlePageShow = (e) => {
+      // e.persisted = true means page was restored from bfcache
+      if (e.persisted && startedRef.current && !mutedRef.current) {
+        howlRef.current?.play();
+      }
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pagehide', handlePageHide);
+    window.addEventListener('pageshow', handlePageShow);
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('pagehide', handlePageHide);
+      window.removeEventListener('pageshow', handlePageShow);
+    };
+  }, []);
 
   // Close the panel when clicking/tapping outside it.
   useEffect(() => {
@@ -105,11 +140,17 @@ export default function MusicPlayer({ autoPlay = false, track = 1 }) {
     };
   }, [open]);
 
+  // Mute: on iOS, volume(0) still holds the audio session open and shows the
+  // now-playing widget. We pause/play instead so audio truly stops on device.
   const toggleMute = () => {
     const next = !muted;
     setMuted(next);
     mutedRef.current = next;
-    howlRef.current?.volume(next ? 0 : VOLUME);
+    if (next) {
+      howlRef.current?.pause();
+    } else if (startedRef.current) {
+      howlRef.current?.play();
+    }
   };
 
   const pickTrack = (id) => {
