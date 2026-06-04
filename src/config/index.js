@@ -111,11 +111,11 @@ export const MEDIA = {
     { id: 2, src: '/music/track-2.mp3' },
     { id: 3, src: '/music/track-3.mp3' },
   ],
-  COUPLE_PHOTO:   '',
+  COUPLE_PHOTO:   '/images/couple_portrait.jpg',
   MOMENTS: [
-    '', // Moment 1 (Moments Together Gallery)
-    '', // Moment 2
-    '', // Moment 3
+    '/images/moment_1.jpg', // Moment 1 (Moments Together Gallery)
+    '/images/moment_2.jpg', // Moment 2
+    '/images/moment_3.jpg', // Moment 3
   ],
 };
 
