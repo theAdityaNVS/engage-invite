@@ -19,35 +19,73 @@ function getTimeLeft(targetISO) {
 
 function CountUnit({ value, label }) {
   return (
-    <div style={{ textAlign: 'center', minWidth: '70px' }}>
+    <motion.div
+      whileHover={{
+        scale: 1.05,
+        borderColor: 'rgba(212, 168, 67, 0.45)',
+        boxShadow: '0 12px 40px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.15)',
+      }}
+      transition={{ duration: 0.3, ease: 'easeOut' }}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 'clamp(68px, 11vw, 115px)',
+        height: 'clamp(78px, 13vw, 120px)',
+        background: 'rgba(255, 255, 255, 0.02)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        border: '1px solid rgba(212, 168, 67, 0.2)',
+        borderRadius: '12px',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0px rgba(255, 255, 255, 0.06)',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
+      {/* Soft top lighting overlay */}
+      <div style={{
+        position: 'absolute',
+        top: 0, left: 0, right: 0,
+        height: '35%',
+        background: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.03), transparent)',
+        pointerEvents: 'none',
+      }} />
+
       <AnimatePresence mode="wait">
         <motion.div
           key={value}
-          initial={{ scale: 1.15, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.85, opacity: 0 }}
+          initial={{ scale: 1.15, opacity: 0, y: 5 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.85, opacity: 0, y: -5 }}
           transition={{ duration: 0.25 }}
           style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(2.5rem, 8vw, 4rem)',
-            color: '#FFF8F0',
+            fontSize: 'clamp(1.6rem, 5vw, 3rem)',
+            background: 'linear-gradient(135deg, #FFEBA7 0%, #D4A843 50%, #B58A2A 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
             lineHeight: 1,
-            marginBottom: '0.4rem',
+            fontWeight: '600',
+            marginBottom: '0.2rem',
+            letterSpacing: '-0.01em',
           }}
         >
           {pad(value)}
         </motion.div>
       </AnimatePresence>
+
       <p style={{
         fontFamily: 'var(--font-body)',
-        fontSize: '0.82rem',
-        color: 'rgba(255,248,240,0.7)',
-        letterSpacing: '0.15em',
+        fontSize: 'clamp(0.6rem, 1.5vw, 0.75rem)',
+        color: 'rgba(240, 214, 138, 0.75)',
+        letterSpacing: '0.12em',
         textTransform: 'uppercase',
+        margin: 0,
       }}>
         {label}
       </p>
-    </div>
+    </motion.div>
   );
 }
 
@@ -65,14 +103,33 @@ export default function CountdownTimer({ targetISO }) {
 
   if (isZero) {
     return (
-      <div style={{ textAlign: 'center', fontSize: '2rem' }}>
-        🎉 The celebrations begin! 🎉
+      <div style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: 'clamp(1.5rem, 4vw, 2.2rem)',
+        color: '#FFEBA7',
+        textAlign: 'center',
+        padding: '2rem',
+        background: 'rgba(255, 255, 255, 0.02)',
+        backdropFilter: 'blur(8px)',
+        border: '1px solid rgba(212, 168, 67, 0.2)',
+        borderRadius: '16px',
+        maxWidth: '480px',
+        margin: '0 auto',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.25)',
+      }}>
+        🎉 {t('celebration_begins_message') || 'The celebrations begin!'} 🎉
       </div>
     );
   }
 
   return (
-    <div style={{ display: 'flex', gap: 'clamp(1rem, 4vw, 3rem)', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
+    <div style={{
+      display: 'flex',
+      gap: 'clamp(0.25rem, 1.5vw, 1rem)',
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexWrap: 'nowrap',
+    }}>
       <CountUnit value={timeLeft.days}    label={t('days')}    />
       <Separator />
       <CountUnit value={timeLeft.hours}   label={t('hours')}   />
@@ -86,14 +143,17 @@ export default function CountdownTimer({ targetISO }) {
 
 function Separator() {
   return (
-    <span style={{
-      fontFamily: 'var(--font-display)',
-      fontSize: 'clamp(2rem, 6vw, 3rem)',
-      color: 'rgba(212,168,67,0.7)',
-      lineHeight: 1,
-      marginBottom: '1.2rem',
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: '0.25rem',
+      color: 'rgba(212, 168, 67, 0.4)',
+      fontSize: '0.65rem',
+      userSelect: 'none',
     }}>
-      :
-    </span>
+      <span className="diamond-sparkle-animated" style={{ animationDelay: '0s' }}>✦</span>
+      <span className="diamond-sparkle-animated" style={{ animationDelay: '1.5s' }}>✦</span>
+    </div>
   );
 }
