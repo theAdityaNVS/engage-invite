@@ -19,6 +19,16 @@ import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
         cursor: 'pointer'
       }}
     >
+      {/* Backing card background behind the photo */}
+      <div style={{
+        position: 'absolute',
+        inset: 6,
+        backgroundColor: 'rgba(69, 13, 22, 0.88)',
+        borderRadius: '18px',
+        zIndex: 0,
+        pointerEvents: 'none',
+      }} />
+
       {/* Photo inside frame, clipped to rounded rectangle */}
       <div style={{
         position: 'absolute',
@@ -32,6 +42,50 @@ import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
       }}>
         {children}
       </div>
+
+      {/* Floating Gold Sparkle Stars surrounding the frame */}
+      {[
+        { top: '-15px', left: '30px', delay: 0, duration: 6, size: 14 },
+        { top: '50px', left: '-20px', delay: 1.5, duration: 7, size: 16 },
+        { top: '-20px', left: '190px', delay: 3, duration: 5.5, size: 15 },
+        { top: '250px', left: '-15px', delay: 0.8, duration: 6.5, size: 14 },
+        { top: '280px', left: '220px', delay: 2.2, duration: 8, size: 17 },
+        { top: '120px', left: '235px', delay: 4.1, duration: 7.5, size: 15 },
+      ].map((sp, idx) => (
+        <motion.div
+          key={idx}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{
+            opacity: [0, 0.9, 0.9, 0],
+            scale: [0.7, 1.2, 1.2, 0.7],
+            y: [0, -25, -50],
+            x: [0, 12, -12, 0],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: sp.duration,
+            repeat: Infinity,
+            delay: sp.delay,
+            ease: "easeInOut",
+          }}
+          style={{
+            position: 'absolute',
+            top: sp.top,
+            left: sp.left,
+            width: sp.size,
+            height: sp.size,
+            pointerEvents: 'none',
+            zIndex: 15,
+          }}
+        >
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: '100%', height: '100%' }}>
+            <path
+              d="M12 0 L15 9 L24 12 L15 15 L12 24 L9 15 L0 12 L9 9 Z"
+              fill="url(#gold-metallic)"
+            />
+          </svg>
+        </motion.div>
+      ))}
 
       {/* SVG modern wedding card frame overlay */}
       <svg
@@ -79,16 +133,22 @@ import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
         </defs>
 
         <style>{`
+          @keyframes auraPulse {
+            0% { box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25), 0 0 12px rgba(212, 168, 67, 0.15); }
+            50% { box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25), 0 0 25px rgba(212, 168, 67, 0.35); }
+            100% { box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25), 0 0 12px rgba(212, 168, 67, 0.15); }
+          }
           .royal-frame-container {
-            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
-            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22), 0 1px 3px rgba(212, 168, 67, 0.12);
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            animation: auraPulse 4s infinite ease-in-out;
             border-radius: 18px;
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(8px);
           }
           .royal-frame-container:hover {
             transform: translateY(-6px) scale(1.025);
-            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35), 0 2px 10px rgba(212, 168, 67, 0.2);
+            animation: none;
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35), 0 0 32px rgba(212, 168, 67, 0.45);
           }
           .glare-path {
             transform: translateX(-150px);
@@ -101,8 +161,8 @@ import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
         `}</style>
 
         {/* 1. Outer Card Background & Border */}
-        {/* Burgundy frosted back card */}
-        <rect x="6" y="6" width="228" height="298" rx="18" fill="rgba(69, 13, 22, 0.55)" stroke="url(#gold-metallic)" strokeWidth="2.5" />
+        {/* Transparent interior back card to remove dark filter on photo */}
+        <rect x="6" y="6" width="228" height="298" rx="18" fill="none" stroke="url(#gold-metallic)" strokeWidth="2.5" />
         
         {/* Inner concentric dotted gold border */}
         <rect x="12" y="12" width="216" height="286" rx="14" stroke="url(#gold-light)" strokeWidth="0.75" strokeDasharray="3 3" opacity="0.45" />
