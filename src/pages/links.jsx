@@ -9,7 +9,6 @@ const SIDES = [
 ];
 
 const LANGS = [
-  { id: 'none', label: 'System Default (Auto-detect)', code: null, native: 'Default' },
   { id: 'en', label: 'English', code: 'en', native: 'English' },
   { id: 'hi', label: 'Hindi', code: 'hi', native: 'हिंदी' },
   { id: 'te', label: 'Telugu', code: 'te', native: 'తెలుగు' },
@@ -19,13 +18,9 @@ const LANGS = [
 export default function InviteLinkGenerator() {
   const router = useRouter();
 
-  // Settings & Toggles
-  const [domainType, setDomainType] = useState('prod');
-  const [customDomain, setCustomDomain] = useState('http://localhost:3000');
-  
   // Interactive Builder State
   const [builderSide, setBuilderSide] = useState('groom');
-  const [builderLang, setBuilderLang] = useState('none');
+  const [builderLang, setBuilderLang] = useState('en');
   const [builderMusic, setBuilderMusic] = useState('none');
 
   // UI feedback states
@@ -35,7 +30,6 @@ export default function InviteLinkGenerator() {
 
   // Hover states
   const [analyticsHover, setAnalyticsHover] = useState(false);
-  const [domainHover, setDomainHover] = useState(null);
   const [btnHover, setBtnHover] = useState(null);
 
   // Music tracks extraction
@@ -53,20 +47,9 @@ export default function InviteLinkGenerator() {
 
   const musicOptions = getMusicTracks();
 
-  // Clean trailing slash and path segments from domain
   const getBaseUrl = useCallback(() => {
-    if (domainType === 'prod') {
-      return 'https://adityanvs.in/engagement';
-    } else if (domainType === 'local') {
-      return 'http://localhost:3000/engagement';
-    } else {
-      const cleaned = customDomain.trim().replace(/\/$/, '');
-      if (cleaned.endsWith('/engagement')) {
-        return cleaned;
-      }
-      return `${cleaned}/engagement`;
-    }
-  }, [domainType, customDomain]);
+    return 'https://jyoti-engages.adityanvs.in/engagement';
+  }, []);
 
   // Generate URL helper
   const generateUrl = useCallback((sideVal, langCode, musicId) => {
@@ -173,49 +156,6 @@ export default function InviteLinkGenerator() {
             </div>
           </header>
 
-          {/* Config Environment settings */}
-          <section style={st.configPanel}>
-            <h2 style={st.panelTitle}>Target Environment</h2>
-            <div style={st.configGrid}>
-              <div style={st.configBlock}>
-                <div style={st.domainBtnGroup}>
-                  {[
-                    { type: 'prod', label: 'Production URL', desc: 'https://adityanvs.in' },
-                    { type: 'local', label: 'Local Testing', desc: 'http://localhost:3000' },
-                    { type: 'custom', label: 'Custom Domain', desc: 'Specify manually' }
-                  ].map(item => (
-                    <button
-                      key={item.type}
-                      onClick={() => setDomainType(item.type)}
-                      onMouseEnter={() => setDomainHover(item.type)}
-                      onMouseLeave={() => setDomainHover(null)}
-                      style={{
-                        ...st.domainBtn,
-                        ...(domainType === item.type ? st.domainBtnActive : {}),
-                        ...(domainHover === item.type && domainType !== item.type ? st.domainBtnHover : {})
-                      }}
-                    >
-                      <div style={{ fontWeight: 600 }}>{item.label}</div>
-                      <div style={st.domainBtnDesc}>{item.desc}</div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {domainType === 'custom' && (
-                <div style={st.configBlock}>
-                  <input
-                    type="text"
-                    value={customDomain}
-                    onChange={(e) => setCustomDomain(e.target.value)}
-                    placeholder="https://preview-site.vercel.app"
-                    style={st.customInput}
-                  />
-                  <p style={st.inputHint}>Automatically appends <code>/engagement</code>.</p>
-                </div>
-              )}
-            </div>
-          </section>
 
           {/* SECTION 1: INTERACTIVE BUILDER PANEL (Two Columns) */}
           <section style={st.builderPanel}>
@@ -612,80 +552,6 @@ const st = {
   actionBtnHover: {
     backgroundColor: 'rgba(255,255,255,0.09)',
     borderColor: 'rgba(255,255,255,0.15)',
-  },
-  configPanel: {
-    background: 'rgba(255, 255, 255, 0.02)',
-    backdropFilter: 'blur(16px)',
-    border: '1px solid rgba(255, 255, 255, 0.07)',
-    borderRadius: '16px',
-    padding: '16px 20px',
-    boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
-    marginBottom: '32px',
-  },
-  panelTitle: {
-    fontSize: '0.75rem',
-    textTransform: 'uppercase',
-    letterSpacing: '0.12em',
-    color: '#64748b',
-    fontWeight: '700',
-    marginBottom: '12px',
-  },
-  configGrid: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    gap: '16px',
-    alignItems: 'center',
-  },
-  configBlock: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '6px',
-  },
-  domainBtnGroup: {
-    display: 'flex',
-    gap: '8px',
-    backgroundColor: 'rgba(255,255,255,0.01)',
-    border: '1px solid rgba(255,255,255,0.05)',
-    padding: '4px',
-    borderRadius: '10px',
-  },
-  domainBtn: {
-    padding: '6px 14px',
-    borderRadius: '8px',
-    border: 'none',
-    background: 'none',
-    cursor: 'pointer',
-    color: '#64748b',
-    textAlign: 'center',
-    transition: 'all 0.2s ease',
-  },
-  domainBtnActive: {
-    backgroundColor: 'rgba(212,168,67,0.1)',
-    border: '1px solid rgba(212,168,67,0.3)',
-    color: '#D4A843',
-  },
-  domainBtnHover: {
-    backgroundColor: 'rgba(255,255,255,0.02)',
-    color: '#94a3b8',
-  },
-  domainBtnDesc: {
-    fontSize: '0.6rem',
-    opacity: 0.7,
-    marginTop: '1px',
-  },
-  customInput: {
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    border: '1px solid rgba(255,255,255,0.1)',
-    borderRadius: '8px',
-    padding: '8px 12px',
-    color: '#ffffff',
-    fontSize: '0.85rem',
-    outline: 'none',
-    width: '260px',
-  },
-  inputHint: {
-    fontSize: '0.65rem',
-    color: '#64748b',
   },
   builderPanel: {
     background: 'rgba(255, 255, 255, 0.02)',
