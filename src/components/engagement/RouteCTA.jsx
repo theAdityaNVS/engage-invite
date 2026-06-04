@@ -411,7 +411,7 @@ export default function RouteCTA() {
               {/* Puja Location */}
               <div style={{ flex: '1 1 240px', minWidth: 200 }}>
                 <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', textTransform: 'uppercase', color: 'var(--gold-light)', letterSpacing: '0.12em', margin: '0 0 0.25rem', fontWeight: 600 }}>
-                  ✦ 10:00 AM · {t('sacred_rituals')}
+                  ✦ {ENGAGEMENT.EVENTS[0].time} · {t('sacred_rituals')}
                 </p>
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#FFF8F0', fontWeight: 500, margin: '0 0 0.35rem' }}>
                   {t('event_engagement_puja')}
@@ -424,7 +424,7 @@ export default function RouteCTA() {
               {/* Ceremony Location */}
               <div style={{ flex: '1 1 240px', minWidth: 200 }}>
                 <p style={{ fontFamily: 'var(--font-body)', fontSize: '0.82rem', textTransform: 'uppercase', color: 'var(--gold-light)', letterSpacing: '0.12em', margin: '0 0 0.25rem', fontWeight: 600 }}>
-                  ✦ 11:30 AM · {t('main_event')}
+                  ✦ {ENGAGEMENT.EVENTS[1].time} · {t('main_event')}
                 </p>
                 <h3 style={{ fontFamily: 'var(--font-display)', fontSize: '1.1rem', color: '#FFF8F0', fontWeight: 500, margin: '0 0 0.35rem' }}>
                   {t('ring_and_lunch')}

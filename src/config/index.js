@@ -18,15 +18,15 @@ export const ENGAGEMENT = {
   DATE:             '2026-06-17',
   DATE_DISPLAY:     '17th June 2026',
   DAY:              'Wednesday',
-  TIME:             '10:00 AM Onwards',
+  TIME:             '8:45 AM Onwards',
   VENUE_NAME:       'Suryansh Hotels and Resorts',
   VENUE_CITY:       'Bhubaneswar',
   VENUE_ADDRESS:    'P-1, Nandankanan Rd, NALCO Nagar, Jayadev Vihar, Bhubaneswar, Odisha 751023',
   VENUE_LAT:        20.2961,
   VENUE_LNG:        85.8245,
   VENUE_MAPS_URL:   'https://maps.google.com/?q=Suryansh+Hotels+and+Resorts+Jayadev+Vihar+Bhubaneswar',
-  COUNTDOWN_ISO:    '2026-06-17T10:00:00+05:30',
-  MUHURTHAM_TIME:   '10:00 AM',
+  COUNTDOWN_ISO:    '2026-06-17T08:45:00+05:30',
+  MUHURTHAM_TIME:   '8:45 AM',
   WEATHER_ADVISORY: 'Expect warm weather (~32°C). Light breathable attire recommended.',
   TEMPLE_NAME:    'Ramanarayan Temple',
   TEMPLE_ADDRESS: 'NALCO Nagar, Jayadev Vihar, Bhubaneswar, Odisha 751023',
@@ -36,7 +36,7 @@ export const ENGAGEMENT = {
       name:         'Engagement Puja',
       date:         '17th June 2026',
       day:          'Wednesday',
-      time:         '10:00 AM',
+      time:         '8:45 AM',
       venue:        'NALCO Temple, Jayadev Vihar',
       address:      'NALCO Temple, NALCO Nagar, Jayadev Vihar, Bhubaneswar, Odisha 751023',
       lat:          20.2970,
@@ -49,7 +49,7 @@ export const ENGAGEMENT = {
       name:         'Ring Ceremony',
       date:         '17th June 2026',
       day:          'Wednesday',
-      time:         '11:30 AM',
+      time:         '10:30 AM',
       venue:        'Suryansh Hotels and Resorts, Bhubaneswar',
       address:      'P-1, Nandankanan Rd, NALCO Nagar, Jayadev Vihar, Bhubaneswar, Odisha 751023',
       lat:          20.2961,
@@ -62,7 +62,7 @@ export const ENGAGEMENT = {
       name:         'Family Lunch',
       date:         '17th June 2026',
       day:          'Wednesday',
-      time:         '1:00 PM',
+      time:         '12:30 PM',
       venue:        'Suryansh Hotels and Resorts, Bhubaneswar',
       address:      'P-1, Nandankanan Rd, NALCO Nagar, Jayadev Vihar, Bhubaneswar, Odisha 751023',
       lat:          20.2961,
@@ -103,13 +103,13 @@ export const FAMILIES = {
 };
 
 export const MEDIA = {
-  // Three selectable background tracks chosen via the ?music=1|2|3 URL param.
-  // Filenames are placeholders — drop the real MP3s at public/music/ when available.
-  // Until then MusicPlayer hides silently (onloaderror → setVisible(false)).
+  // Three selectable background tracks. ?music=1|2|3 sets the initial track
+  // (1 = default); guests can also switch tracks from the player's panel.
+  // Streamed via HTML5 audio. If the whole array is empty the player is hidden.
   MUSIC_TRACKS: [
-    { id: 1, src: '/music/track-1.mp3' },
-    { id: 2, src: '/music/track-2.mp3' },
-    { id: 3, src: '/music/track-3.mp3' },
+    { id: 1, src: '/music/amaran.mp3',     label: 'Amaran' },
+    { id: 2, src: '/music/apna_bana.mp3',  label: 'Apna Bana Le' },
+    { id: 3, src: '/music/vachindamma.mp3', label: 'Vachindamma' },
   ],
   COUPLE_PHOTO:   '/images/couple_portrait.jpg',
   MOMENTS: [
