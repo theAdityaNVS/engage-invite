@@ -103,10 +103,14 @@ export const FAMILIES = {
 };
 
 export const MEDIA = {
-  // No track shipped yet — keep null so MusicPlayer hides (avoids a 404 + dead button).
-  // When re-enabling: drop the file at public/music/engagement-track.mp3 AND fix the
-  // MusicPlayer/LanguageSwitcher top-right overlap (both pinned top-right) before shipping.
-  MUSIC_SRC:      null,
+  // Three selectable background tracks chosen via the ?music=1|2|3 URL param.
+  // Filenames are placeholders — drop the real MP3s at public/music/ when available.
+  // Until then MusicPlayer hides silently (onloaderror → setVisible(false)).
+  MUSIC_TRACKS: [
+    { id: 1, src: '/music/track-1.mp3' },
+    { id: 2, src: '/music/track-2.mp3' },
+    { id: 3, src: '/music/track-3.mp3' },
+  ],
   COUPLE_PHOTO:   '',
   MOMENTS: [
     '', // Moment 1 (Moments Together Gallery)
