@@ -23,7 +23,7 @@ import FooterSection from '@/components/engagement/FooterSection';
 
 import { COUPLE, ENGAGEMENT, DOMAIN } from '@/config';
 
-export default function EngagementPage() {
+export default function EngagementPage({ side = 'groom', musicTrack = 1, hasSideParam = false, hasMusicParam = false }) {
   const [musicAutoPlay, setMusicAutoPlay] = useState(false);
   const [entered, setEntered] = useState(false);
 
@@ -90,4 +90,22 @@ export default function EngagementPage() {
       {entered && <LanguageSwitcher />}
     </>
   );
+}
+
+export async function getServerSideProps({ query }) {
+  try {
+    const side = query.side === 'bride' ? 'bride' : 'groom';
+    const musicTrack = [1, 2, 3].includes(Number(query.music))
+      ? Number(query.music) : 1;
+    return {
+      props: {
+        side,
+        musicTrack,
+        hasSideParam:  'side'  in query,
+        hasMusicParam: 'music' in query,
+      },
+    };
+  } catch {
+    return { props: { side: 'groom', musicTrack: 1, hasSideParam: false, hasMusicParam: false } };
+  }
 }
