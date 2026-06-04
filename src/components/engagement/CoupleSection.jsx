@@ -17,8 +17,10 @@ function OrnateArchFrame({ children }) {
         height: 290,
         borderRadius: '50% 50% 8px 8px / 40% 40% 8px 8px',
         overflow: 'hidden',
-        border: '3px solid rgba(212,168,67,0.6)',
-        boxShadow: '0 0 0 6px rgba(212,168,67,0.15), 0 8px 32px rgba(139,34,64,0.3)',
+        border: '1px solid rgba(212,168,67,0.3)',
+        boxShadow: 'inset 0 10px 20px rgba(0,0,0,0.3), 0 12px 40px rgba(139,34,64,0.4)',
+        position: 'relative',
+        zIndex: 1,
       }}>
         {children}
       </div>
@@ -28,27 +30,161 @@ function OrnateArchFrame({ children }) {
         viewBox="0 0 240 310"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        style={{ position: 'absolute', inset: '-14px -14px -10px -14px', pointerEvents: 'none', width: 'calc(100% + 28px)' }}
+        style={{
+          position: 'absolute',
+          inset: '-14px -14px -10px -14px',
+          pointerEvents: 'none',
+          width: 'calc(100% + 28px)',
+          zIndex: 10,
+        }}
         aria-hidden="true"
       >
-        {/* Arch outer */}
-        <path d="M20 310 L20 140 Q20 20 120 20 Q220 20 220 140 L220 310"
-          stroke="#D4A843" strokeWidth="2" fill="none" opacity="0.7"/>
-        {/* Arch decorative inner */}
-        <path d="M32 310 L32 145 Q32 40 120 40 Q208 40 208 145 L208 310"
-          stroke="#D4A843" strokeWidth="1" fill="none" opacity="0.4" strokeDasharray="4 3"/>
-        {/* Top finial */}
-        <circle cx="120" cy="20" r="6" fill="#D4A843" opacity="0.8"/>
-        <circle cx="120" cy="20" r="10" stroke="#D4A843" strokeWidth="1.5" fill="none" opacity="0.4"/>
-        {/* Side lotus buds */}
-        {[60, 180].map((x) => (
-          <g key={x}>
-            <ellipse cx={x} cy="80" rx="6" ry="9" fill="rgba(212,168,67,0.5)"/>
-            <ellipse cx={x} cy="80" rx="3" ry="6" fill="rgba(212,168,67,0.7)"/>
-          </g>
-        ))}
-        {/* Base ornaments */}
-        <path d="M20 295 Q70 285 120 290 Q170 285 220 295" stroke="#D4A843" strokeWidth="1.5" fill="none" opacity="0.5"/>
+        <defs>
+          {/* Metallic Gold Gradients */}
+          <linearGradient id="gold-metallic" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#9B7224" />
+            <stop offset="25%" stopColor="#FFE593" />
+            <stop offset="50%" stopColor="#D4A843" />
+            <stop offset="75%" stopColor="#FFF3CD" />
+            <stop offset="100%" stopColor="#8F681E" />
+          </linearGradient>
+          
+          <linearGradient id="gold-light" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#D4A843" />
+            <stop offset="50%" stopColor="#FFF3CD" />
+            <stop offset="100%" stopColor="#9B7224" />
+          </linearGradient>
+
+          <radialGradient id="diya-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="rgba(255, 235, 167, 1)" />
+            <stop offset="40%" stopColor="rgba(212, 168, 67, 0.4)" />
+            <stop offset="100%" stopColor="rgba(139, 26, 43, 0)" />
+          </radialGradient>
+        </defs>
+
+        <style>{`
+          .flicker-flame {
+            animation: flameFlicker 2.5s ease-in-out infinite alternate;
+            transform-origin: 120px 281px;
+          }
+          .sway-bell {
+            animation: bellSway 4s ease-in-out infinite;
+            transform-origin: 120px 24px;
+          }
+          @keyframes flameFlicker {
+            0% { transform: scale(0.95, 0.93) rotate(-1.5deg); opacity: 0.85; }
+            100% { transform: scale(1.05, 1.07) rotate(1.5deg); opacity: 1; }
+          }
+          @keyframes bellSway {
+            0%, 100% { transform: rotate(-4deg); }
+            50% { transform: rotate(4deg); }
+          }
+        `}</style>
+
+        {/* 1. Left Pillar */}
+        {/* Base Pedestal */}
+        <path d="M10 290 H28 V296 H10 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+        <path d="M12 284 H26 V290 H12 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+        {/* Shaft */}
+        <rect x="15" y="125" width="12" height="159" fill="url(#gold-light)" stroke="#8F681E" strokeWidth="0.5" />
+        {/* Shaft Fluting Details */}
+        <line x1="18" y1="126" x2="18" y2="283" stroke="#8F681E" strokeWidth="0.75" />
+        <line x1="21" y1="126" x2="21" y2="283" stroke="#FFFFFF" strokeWidth="0.75" opacity="0.6" />
+        <line x1="24" y1="126" x2="24" y2="283" stroke="#8F681E" strokeWidth="0.75" />
+        {/* Capital */}
+        <path d="M12 120 H26 V125 H12 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+        <path d="M10 114 H28 V120 H10 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+
+        {/* 2. Right Pillar */}
+        {/* Base Pedestal */}
+        <path d="M212 290 H230 V296 H212 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+        <path d="M214 284 H228 V290 H214 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+        {/* Shaft */}
+        <rect x="213" y="125" width="12" height="159" fill="url(#gold-light)" stroke="#8F681E" strokeWidth="0.5" />
+        {/* Shaft Fluting Details */}
+        <line x1="216" y1="126" x2="216" y2="283" stroke="#8F681E" strokeWidth="0.75" />
+        <line x1="219" y1="126" x2="219" y2="283" stroke="#FFFFFF" strokeWidth="0.75" opacity="0.6" />
+        <line x1="222" y1="126" x2="222" y2="283" stroke="#8F681E" strokeWidth="0.75" />
+        {/* Capital */}
+        <path d="M214 120 H228 V125 H214 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+        <path d="M212 114 H230 V120 H212 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+
+        {/* 3. Base Threshold Beam */}
+        <rect x="24" y="290" width="192" height="6" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+        <rect x="20" y="296" width="200" height="4" fill="url(#gold-metallic)" />
+
+        {/* 4. Arches */}
+        {/* Outer Arch Ellipse */}
+        <path
+          d="M15 125 A 105 118 0 0 1 225 125"
+          stroke="url(#gold-metallic)"
+          strokeWidth="4"
+          fill="none"
+        />
+        {/* Inner Arch Bezel */}
+        <path
+          d="M27 125 A 93 114 0 0 1 213 125"
+          stroke="url(#gold-metallic)"
+          strokeWidth="2.5"
+          fill="none"
+        />
+        {/* Intricate Inner Dotted Lace Arch */}
+        <path
+          d="M34 125 A 86 108 0 0 1 206 125"
+          stroke="#FFF3CD"
+          strokeWidth="1.5"
+          strokeDasharray="4 4"
+          fill="none"
+          opacity="0.8"
+        />
+
+        {/* 5. Palace Crown (Stepped Dome & Kalash Finial) */}
+        {/* Miniature domes on side capitals */}
+        <path d="M10 114 C10 106 28 106 28 114 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+        <path d="M212 114 C212 106 230 106 230 114 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+        {/* Center Gopuram/Kalash Crown */}
+        <path d="M96 23 C96 6, 144 6, 144 23 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+        <rect x="110" y="5" width="20" height="3" fill="url(#gold-light)" />
+        <circle cx="120" cy="3" r="3" fill="#FFF3CD" filter="drop-shadow(0 0 2px #D4A843)" />
+        {/* Elegant scroll decorations flanking center Kalash */}
+        <path d="M96 23 Q75 14 62 25 Q48 36 65 36 Q78 36 82 25" stroke="url(#gold-metallic)" fill="none" strokeWidth="1.5" />
+        <path d="M144 23 Q165 14 178 25 Q192 36 175 36 Q162 36 158 25" stroke="url(#gold-metallic)" fill="none" strokeWidth="1.5" />
+
+        {/* 6. Hanging Bell at Apex */}
+        <g className="sway-bell">
+          {/* Hanger thread */}
+          <line x1="120" y1="23" x2="120" y2="35" stroke="url(#gold-metallic)" strokeWidth="1.5" />
+          {/* Bell body */}
+          <path d="M115 45 L125 45 C125 39, 123 35, 120 35 C117 35, 115 39, 115 45 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
+          {/* Bell clapper */}
+          <circle cx="120" cy="47" r="1.5" fill="#FFE593" />
+        </g>
+
+        {/* 7. Bottom Center Flickering Diya */}
+        {/* Diya Glow */}
+        <circle cx="120" cy="278" r="24" fill="url(#diya-glow)" />
+        {/* Diya Brass Base */}
+        <path
+          d="M102 284 C102 294, 138 294, 138 284 C132 286, 108 286, 102 284 Z"
+          fill="url(#gold-metallic)"
+          stroke="#8F681E"
+          strokeWidth="0.5"
+        />
+        {/* Small detail lines on Diya */}
+        <path d="M107 285 Q120 290 133 285" stroke="#8F681E" strokeWidth="0.5" fill="none" />
+        {/* Flickering Diya Flame */}
+        <path
+          className="flicker-flame"
+          d="M120 284 C117 280, 116 272, 120 263 C124 272, 123 280, 120 284 Z"
+          fill="url(#gold-light)"
+          filter="drop-shadow(0 0 5px #D4A843)"
+        />
+        <path
+          className="flicker-flame"
+          d="M120 282 C118 279, 118 274, 120 268 C122 274, 122 279, 120 282 Z"
+          fill="#FFFDF9"
+          opacity="0.8"
+        />
       </svg>
     </div>
   );
