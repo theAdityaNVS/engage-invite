@@ -21,13 +21,17 @@ function useLanguageCycle(interval = 3500) {
 
 const SKY_TWILIGHT = 'linear-gradient(180deg, #180508 0%, #3D0B18 22%, #8B1A2B 48%, #B03020 68%, #C8601A 84%, #D4A843 100%)';
 
-export default function EngagementHero() {
+export default function EngagementHero({ side = 'groom' }) {
   const { t } = useLanguage();
   const cycleIndex = useLanguageCycle(3500);
   const currentLang = LANG_SEQUENCE[cycleIndex];
 
   const currentGroom = TRANSLATIONS.NAMES[currentLang]?.groom;
   const currentBride = TRANSLATIONS.NAMES[currentLang]?.bride;
+
+  const [primaryName, secondaryName] = side === 'bride'
+    ? [currentBride, currentGroom]
+    : [currentGroom, currentBride];
 
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
@@ -181,7 +185,7 @@ export default function EngagementHero() {
               fontWeight: 400,
               textShadow: '0 2px 12px rgba(0,0,0,0.15)',
             }}>
-              {currentGroom}
+              {primaryName}
             </h1>
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: 'clamp(0.75rem, 2.5vh, 1.5rem) 0' }}>
@@ -208,7 +212,7 @@ export default function EngagementHero() {
               fontWeight: 400,
               textShadow: '0 2px 12px rgba(0,0,0,0.15)',
             }}>
-              {currentBride}
+              {secondaryName}
             </h1>
           </motion.div>
         </AnimatePresence>

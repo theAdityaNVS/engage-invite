@@ -3,6 +3,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { COUPLE, ENGAGEMENT, TRANSLATIONS } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 
+const LANG_HINTS = [
+  { code: 'en', hint: 'Select your language' },
+  { code: 'hi', hint: 'भाषा चुनें' },
+  { code: 'te', hint: 'భాష ఎంచుకోండి' },
+  { code: 'or', hint: 'ଭାଷା ବାଛନ୍ତୁ' },
+];
+
+const LANG_CHIPS = [
+  { code: 'en', label: 'EN' },
+  { code: 'hi', label: 'हि' },
+  { code: 'te', label: 'తె' },
+  { code: 'or', label: 'ଓ' },
+];
+
 // Elegant Lotus watermark layer with slow counter-rotations
 function AnimatedWatermark() {
   return (
@@ -47,11 +61,22 @@ function AnimatedWatermark() {
 }
 
 export default function SplashScreen({ onEnter, forceShow = false }) {
-  const { lang } = useLanguage();
+  const { lang, setLang, hasStoredLang } = useLanguage();
   const names = TRANSLATIONS.NAMES[lang] || TRANSLATIONS.NAMES.en;
   const [visible, setVisible] = useState(true);
   const [doorsOpen, setDoorsOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [tooltipIndex, setTooltipIndex] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  // Cycle the language hint tooltip until the user picks a language
+  useEffect(() => {
+    if (hasInteracted || hasStoredLang) return;
+    const id = setInterval(() => {
+      setTooltipIndex((i) => (i + 1) % 4);
+    }, 1800);
+    return () => clearInterval(id);
+  }, [hasInteracted, hasStoredLang]);
 
   // Manage body scroll locking and initial scroll-to-top
   useEffect(() => {
@@ -92,6 +117,8 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
     onEnter?.();
   };
 
+  const showHint = !hasStoredLang && !hasInteracted;
+
   return (
     <AnimatePresence>
       {visible && (
@@ -112,6 +139,128 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             padding: '2rem',
           }}>
+
+            {/* Premium Language Selector Pill Container */}
+            <div style={{
+              position: 'absolute',
+              top: '1.5rem',
+              right: '1.5rem',
+              zIndex: 10000,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              gap: '0.4rem',
+            }}>
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem',
+                background: 'rgba(59, 13, 24, 0.85)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
+                border: '1px solid rgba(212, 168, 67, 0.35)',
+                borderRadius: '9999px',
+                padding: '0.3rem 0.5rem',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+                transition: 'all 0.3s ease',
+              }}>
+                {/* Minimalist Globe Icon */}
+                <svg 
+                  width="14" 
+                  height="14" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="#FFEBA7" 
+                  strokeWidth="1.5" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  style={{ opacity: 0.85, marginLeft: '0.3rem' }}
+                >
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                  <path d="M2 12h20" />
+                </svg>
+
+                {/* Vertical Divider */}
+                <div style={{ width: '1px', height: '14px', background: 'rgba(212, 168, 67, 0.25)', margin: '0 0.1rem' }} />
+
+                {/* Language Chips */}
+                <div style={{ display: 'flex', gap: '0.1rem' }}>
+                  {LANG_CHIPS.map((chip) => {
+                    const active = chip.code === lang;
+                    return (
+                      <motion.button
+                        key={chip.code}
+                        onClick={() => { setLang(chip.code); setHasInteracted(true); }}
+                        whileHover={{ scale: active ? 1 : 1.1, color: active ? '#3B0D18' : '#FFEBA7' }}
+                        whileTap={{ scale: 0.95 }}
+                        style={{
+                          position: 'relative',
+                          minWidth: '34px',
+                          minHeight: '34px',
+                          borderRadius: '50%',
+                          border: 'none',
+                          cursor: 'pointer',
+                          background: 'transparent',
+                          color: active ? '#3B0D18' : 'rgba(253, 246, 224, 0.7)',
+                          fontFamily: 'var(--font-body)',
+                          fontWeight: active ? 700 : 500,
+                          fontSize: '0.8rem',
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          outline: 'none',
+                          zIndex: 2,
+                          transition: 'color 0.2s ease',
+                        }}
+                        aria-label={`Switch to ${chip.code}`}
+                      >
+                        {active && (
+                          <motion.div
+                            layoutId="activeLangIndicator"
+                            style={{
+                              position: 'absolute',
+                              inset: 0,
+                              borderRadius: '50%',
+                              background: 'radial-gradient(circle at 35% 35%, #FFEBA7 0%, #D4A843 70%, #A47B1E 100%)',
+                              boxShadow: '0 2px 6px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                              zIndex: -1,
+                            }}
+                            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                          />
+                        )}
+                        <span style={{ position: 'relative', zIndex: 3 }}>{chip.label}</span>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Tooltip hint that cycles and then fades out once selected */}
+              <div style={{ height: '16px', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', paddingRight: '0.4rem' }}>
+                <AnimatePresence mode="wait">
+                  {showHint && (
+                    <motion.span
+                      key={tooltipIndex}
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      transition={{ duration: 0.3 }}
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: '11px',
+                        color: doorsOpen ? 'rgba(139, 34, 64, 0.7)' : 'rgba(253, 246, 224, 0.65)',
+                        textAlign: 'right',
+                        fontStyle: 'italic',
+                        letterSpacing: '0.02em',
+                      }}
+                    >
+                      {LANG_HINTS[tooltipIndex].hint}
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </div>
+            </div>
 
             {/* The Breathing Halo */}
             <motion.div

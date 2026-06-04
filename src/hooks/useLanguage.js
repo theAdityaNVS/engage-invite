@@ -10,10 +10,22 @@ export function LanguageProvider({ children }) {
   const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
+    // Precedence: ?lang URL param (share links) > stored choice > English default.
+    let urlLang = null;
+    try {
+      if (typeof window !== 'undefined') {
+        const p = new URLSearchParams(window.location.search).get('lang');
+        if (p === 'en' || p === 'hi' || p === 'te' || p === 'or') urlLang = p;
+      }
+    } catch {}
     const saved = typeof window !== 'undefined' ? localStorage.getItem('invite_lang') : null;
-    const initialLang = saved || 'en';
+    const initialLang = urlLang || saved || 'en';
     setLangState(initialLang);
-    if (saved) setHasStoredLang(true);
+    if (urlLang || saved) setHasStoredLang(true);
+    // An explicit ?lang persists so it sticks on param-less return visits.
+    if (urlLang && typeof window !== 'undefined') {
+      try { localStorage.setItem('invite_lang', urlLang); } catch {}
+    }
     loadTranslations(initialLang).then((t) => {
       setTranslations(t);
       setIsReady(true);

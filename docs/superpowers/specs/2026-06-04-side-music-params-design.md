@@ -250,7 +250,48 @@ theme-color     #8B1A2B
 
 ---
 
-## 9. Files Modified
+## 9. Feature: SplashScreen Language Selector
+
+### 9.1 What it does
+
+A compact language selector lives at the **top-right corner** of the `SplashScreen` overlay. It lets guests pick their language before they enter the invite — critical for elderly relatives who may not notice the switcher later.
+
+### 9.2 Layout
+
+```
+Position:  absolute, top: 1.2rem, right: 1.2rem, zIndex: 10000
+Element:   Four pill chips in a row — EN · हि · తె · ଓ
+Active:    Gold (#D4A843) background, dark text, slight scale-up
+Inactive:  Transparent background, cream text at 60% opacity
+Size:      Each chip 36×36px minimum touch target, pill border-radius
+```
+
+### 9.3 Cycling tooltip
+
+Directly below the chips: a single line of text that auto-cycles through the four languages every 1.8s using `AnimatePresence` fade crossfade:
+
+| Language | Text |
+|---|---|
+| English | "Select your language" |
+| Hindi | "भाषा चुनें" |
+| Telugu | "భాష ఎంచుకోండి" |
+| Odia | "ଭାଷା ବାଛନ୍ତୁ" |
+
+Styling: 11px, gold-tinted (`rgba(212,168,67,0.75)`), no background, no border. The cycling timer clears on `unmount` (when splash exits) and stops cycling once the user taps any chip — a local `hasInteracted` flag prevents restart.
+
+### 9.4 State integration
+
+Tapping a chip calls `setLang(code)` from `useLanguage()`. The splash immediately re-renders names in the new language (already wired — `SplashScreen` reads `lang` from context). `localStorage` persistence is handled by the existing `useLanguage` hook. No new state needed.
+
+When the main page appears after "YOU ARE INVITED", `LanguageSwitcher` (top-right) already reflects the language the guest chose on the splash. No duplication.
+
+### 9.5 Visibility rule
+
+The language chips are always visible on the splash, even on return visits (where the splash itself is skipped via `sessionStorage`). When `sessionStorage.splash_shown` is set, the splash hides immediately — no issue since the chips are part of the splash and disappear with it.
+
+---
+
+## 10. Files Modified
 
 | File | Change |
 |---|---|
@@ -261,6 +302,7 @@ theme-color     #8B1A2B
 | `src/components/shared/ProgressDots.jsx` | **Delete** |
 | `src/components/engagement/BlessingsSection.jsx` | Accept `side` prop; conditional card order |
 | `src/components/engagement/EngagementHero.jsx` | Accept `side` prop; conditional name render order |
+| `src/components/shared/SplashScreen.jsx` | Add language chip row (top-right) + cycling tooltip |
 | `src/components/shared/VisitTracker.jsx` | Read `?side`/`?music` from URL; add to beacon payload |
 | `src/pages/api/track.js` | Accept + validate + insert `invite_side`, `invite_music` |
 | `src/pages/admin/visits.jsx` | Add side/music breakdown aggregation queries + display |
@@ -268,7 +310,7 @@ theme-color     #8B1A2B
 
 ---
 
-## 10. Out of Scope
+## 11. Out of Scope
 
 - Wedding page — not touched.
 - Track labels / names visible in the UI — button shows mute/unmute only.
