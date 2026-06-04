@@ -25,20 +25,20 @@ export default function EngagementHero() {
   const { t } = useLanguage();
   const cycleIndex = useLanguageCycle(3500);
   const currentLang = LANG_SEQUENCE[cycleIndex];
-  
+
   const currentGroom = TRANSLATIONS.NAMES[currentLang]?.groom;
   const currentBride = TRANSLATIONS.NAMES[currentLang]?.bride;
 
   const sectionRef = useRef(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ['start start', 'end start'] });
 
-  const rawStars  = useTransform(scrollYProgress, [0, 1], [0, -30]);
-  const rawContent = useTransform(scrollYProgress, [0, 1], [0, 60]); 
+  const rawStars = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  const rawContent = useTransform(scrollYProgress, [0, 1], [0, 60]);
   const rawTemple = useTransform(scrollYProgress, [0, 1], ['0%', '-3%']);
 
-  const starsY   = useSpring(rawStars,   { stiffness: 85, damping: 20 });
+  const starsY = useSpring(rawStars, { stiffness: 85, damping: 20 });
   const contentY = useSpring(rawContent, { stiffness: 100, damping: 15 });
-  const templeY  = useSpring(rawTemple,  { stiffness: 60, damping: 15 });
+  const templeY = useSpring(rawTemple, { stiffness: 60, damping: 15 });
 
   return (
     <section ref={sectionRef} style={{
@@ -95,8 +95,8 @@ export default function EngagementHero() {
         paddingTop: 'clamp(4vh, 8vh, 10vh)', // Fluid padding based on height
         y: contentY,
       }}>
-        
-        <motion.div 
+
+        <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 2, ease: "easeOut" }}
@@ -131,7 +131,7 @@ export default function EngagementHero() {
         </motion.p>
 
         {/* The Glassmorphic Pill */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.8 }}
@@ -165,7 +165,7 @@ export default function EngagementHero() {
 
         {/* Dynamic Name Changes with Cinematic Crossfade */}
         <AnimatePresence mode="wait">
-          <motion.div 
+          <motion.div
             key={currentLang}
             initial={{ opacity: 0, filter: 'blur(8px)', y: 5 }}
             animate={{ opacity: 1, filter: 'blur(0px)', y: 0 }}
@@ -179,7 +179,7 @@ export default function EngagementHero() {
               color: '#FFF8F0',
               lineHeight: 1.1,
               fontWeight: 400,
-              textShadow: '0 2px 12px rgba(0,0,0,0.15)', 
+              textShadow: '0 2px 12px rgba(0,0,0,0.15)',
             }}>
               {currentGroom}
             </h1>
@@ -251,7 +251,7 @@ export default function EngagementHero() {
           }}>
             {t('scrollDiscover')}
           </span>
-          
+
           {/* Saffron gold vertical line with sliding glowing bead */}
           <div style={{
             width: '2px',

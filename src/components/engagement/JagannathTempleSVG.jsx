@@ -63,6 +63,31 @@ export default function JagannathTempleSVG(props) {
             .gliding-bird {
               animation: birdGlide 6s ease-in-out infinite alternate;
             }
+            @keyframes glowPulse {
+              0% { opacity: 0.4; }
+              50% { opacity: 0.95; }
+              100% { opacity: 0.4; }
+            }
+            .glow-pulse {
+              animation: glowPulse 3s ease-in-out infinite;
+            }
+            @keyframes glowPulseAlt {
+              0% { opacity: 0.95; }
+              50% { opacity: 0.4; }
+              100% { opacity: 0.95; }
+            }
+            .glow-pulse-alt {
+              animation: glowPulseAlt 3.5s ease-in-out infinite;
+            }
+            @keyframes chakraGlow {
+              0% { opacity: 0.25; transform: scale(0.93); }
+              50% { opacity: 0.75; transform: scale(1.07); }
+              100% { opacity: 0.25; transform: scale(0.93); }
+            }
+            .chakra-glow {
+              transform-origin: 280px 52px;
+              animation: chakraGlow 4s ease-in-out infinite alternate;
+            }
           `}
         </style>
 
@@ -132,8 +157,8 @@ export default function JagannathTempleSVG(props) {
 
         {/* Mystic Dark Door Interior */}
         <linearGradient id="doorGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#301005" />
-          <stop offset="100%" stopColor="#1F0A03" />
+          <stop offset="0%" stopColor="#250902" />
+          <stop offset="100%" stopColor="#120301" />
         </linearGradient>
 
         {/* Festive Marigold Orange-Yellow Garland */}
@@ -146,6 +171,21 @@ export default function JagannathTempleSVG(props) {
         <radialGradient id="reflectionGlow" cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="rgba(229,192,112,0.18)" />
           <stop offset="100%" stopColor="rgba(229,192,112,0)" />
+        </radialGradient>
+
+        {/* Pulsating Door Glow Gradient */}
+        <radialGradient id="doorGlowGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#FFE082" />
+          <stop offset="35%" stopColor="#FFB300" />
+          <stop offset="75%" stopColor="#FF6F00" />
+          <stop offset="100%" stopColor="#301005" stopOpacity="0" />
+        </radialGradient>
+
+        {/* Nila Chakra Divine Glow Gradient */}
+        <radialGradient id="chakraGlowGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#81D4FA" stopOpacity="0.8" />
+          <stop offset="50%" stopColor="#0288D1" stopOpacity="0.35" />
+          <stop offset="100%" stopColor="#01579B" stopOpacity="0" />
         </radialGradient>
       </defs>
 
@@ -201,6 +241,9 @@ export default function JagannathTempleSVG(props) {
              Z" 
           fill="url(#ochreGrad)" 
         />
+        {/* Fine vertical architectural ribs in Raha Paga */}
+        <path d="M 268,490 C 268,330 277,215 280,160 M 292,490 C 292,330 283,215 280,160" stroke="#5C1F0C" strokeWidth="1" fill="none" opacity="0.55" />
+        
         {/* Left Side Rib (Kanika Paga) */}
         <path 
           d="M 195,490 
@@ -257,16 +300,41 @@ export default function JagannathTempleSVG(props) {
         <circle cx="280" cy="415" r="9" fill="#801010" />
         <circle cx="280" cy="415" r="4" fill="#FFE57F" />
 
+        {/* Upper Glowing Sanctuary Window Slits (Ghibli vibe light leakage) */}
+        {/* Upper pair */}
+        <rect x="241" y="255" width="3.5" height="12" rx="1.5" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        <rect x="315" y="255" width="3.5" height="12" rx="1.5" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        {/* Lower pair */}
+        <rect x="223" y="325" width="4.5" height="15" rx="2" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        <rect x="333" y="325" width="4.5" height="15" rx="2" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+
         {/* Main nested golden archway (Vimana Portal) */}
         {/* Outer Arch */}
         <path d="M 215,680 L 215,575 A 65,65 0 0,1 345,575 L 345,680 Z" fill="url(#ochreGrad)" />
         {/* Inner Gold Arch */}
         <path d="M 230,680 L 230,585 A 50,50 0 0,1 330,585 L 330,680 Z" fill="url(#goldGrad)" />
-        {/* Shadow Opening */}
+        {/* Shadow Opening backdrop */}
         <path d="M 245,680 L 245,595 A 35,35 0 0,1 315,595 L 315,680 Z" fill="url(#doorGrad)" />
+        
+        {/* Pulsating Inner Golden Glow Overlay */}
+        <path d="M 245,680 L 245,595 A 35,35 0 0,1 315,595 L 315,680 Z" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        
+        {/* Deity Silhouette: Lord Jagannath (Classic round eyes glowing warmly from the dark) */}
+        <g id="deity-jagannath-silhouette">
+          {/* Black body outline */}
+          <path d="M 262,680 L 262,630 A 18,18 0 0,1 298,630 L 298,680 Z" fill="#180401" opacity="0.9" />
+          {/* Glowing Eyes */}
+          <circle cx="270" cy="640" r="5" fill="#FFE57F" className="glow-pulse-alt" />
+          <circle cx="270" cy="640" r="2.5" fill="#E65100" className="glow-pulse-alt" />
+          <circle cx="290" cy="640" r="5" fill="#FFE57F" className="glow-pulse-alt" />
+          <circle cx="290" cy="640" r="2.5" fill="#E65100" className="glow-pulse-alt" />
+          {/* Sacred Tilak */}
+          <path d="M 279,631 L 281,631 L 280,643 Z" fill="#D43030" />
+        </g>
+
         {/* Golden Door Handles */}
-        <circle cx="276" cy="640" r="3.5" fill="url(#goldGrad)" />
-        <circle cx="284" cy="640" r="3.5" fill="url(#goldGrad)" />
+        <circle cx="276" cy="660" r="3.5" fill="url(#goldGrad)" />
+        <circle cx="284" cy="660" r="3.5" fill="url(#goldGrad)" />
         
         {/* Large Decorative Flower Arch Medallion */}
         <circle cx="280" cy="535" r="15" fill="url(#goldGrad)" />
@@ -311,6 +379,9 @@ export default function JagannathTempleSVG(props) {
         <line x1="280" y1="72" x2="280" y2="0" stroke="url(#goldGrad)" strokeWidth="4" strokeLinecap="round" />
 
         {/* Nila Chakra (Eight-Spoked Divine Blue Wheel - Centered at cy=52 to resolve overlaps) */}
+        {/* Divine Aura Glow Behind Nila Chakra */}
+        <circle cx="280" cy="52" r="26" fill="url(#chakraGlowGrad)" className="chakra-glow" pointerEvents="none" style={{ mixBlendMode: 'screen' }} />
+
         <g id="nila-chakra" transform="translate(0, 0)">
           {/* Flame/Teardrop accents radiating outwards from the wheel */}
           <path d="M 280,33 L 280,26" stroke="url(#goldGrad)" strokeWidth="2.5" strokeLinecap="round" />
@@ -404,6 +475,9 @@ export default function JagannathTempleSVG(props) {
         {/* Playful nested temple lattice window (Jali) */}
         <path d="M 505,680 L 505,595 A 45,45 0 0,1 595,595 L 595,680 Z" fill="url(#ochreGrad)" />
         <path d="M 520,680 L 520,607 A 30,30 0 0,1 580,607 L 580,680 Z" fill="url(#doorGrad)" />
+        {/* Pulsating Glowing Jali Window backdrop */}
+        <path d="M 520,680 L 520,607 A 30,30 0 0,1 580,607 L 580,680 Z" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        
         {/* Golden Lattice Pattern inside Jali window */}
         <line x1="530" y1="680" x2="570" y2="615" stroke="url(#goldGrad)" strokeWidth="2.5" strokeLinecap="round" />
         <line x1="570" y1="680" x2="530" y2="615" stroke="url(#goldGrad)" strokeWidth="2.5" strokeLinecap="round" />
@@ -414,6 +488,14 @@ export default function JagannathTempleSVG(props) {
         <circle cx="550" cy="555" r="7" fill="#D43030" />
         <circle cx="550" cy="555" r="3" fill="#FFE57F" />
 
+        {/* Upper stepped roof small glowing window slits */}
+        {/* Layer 3 slits */}
+        <rect x="445" y="442" width="6" height="12" rx="1.5" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        <rect x="649" y="442" width="6" height="12" rx="1.5" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        {/* Layer 5 slits */}
+        <rect x="495" y="382" width="5" height="10" rx="1" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        <rect x="600" y="382" width="5" height="10" rx="1" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+
         {/* Jagamohana Crown (Amalaka & Kalasha) */}
         <rect x="525" y="325" width="50" height="20" rx="10" fill="url(#ochreGrad)" stroke="url(#goldGrad)" strokeWidth="2" />
         {/* Overlapping lines for small Amalaka */}
@@ -422,7 +504,9 @@ export default function JagannathTempleSVG(props) {
         <line x1="565" y1="326" x2="565" y2="344" stroke="#4A1E0E" strokeWidth="1.5" />
         
         <rect x="532" y="307" width="36" height="18" rx="8" fill="url(#goldGrad)" stroke="#B57A25" strokeWidth="1" />
-        <line x1="550" y1="307" x2="550" y2="292" stroke="url(#goldGrad)" strokeWidth="3" strokeLinecap="round" />
+        <line x1="550" y1="307" x2="550" y2="265" stroke="url(#goldGrad)" strokeWidth="2.5" strokeLinecap="round" />
+        {/* Mini fluttering red flag */}
+        <path d="M 550,265 C 565,260 575,260 585,265 C 575,270 565,270 550,273 Z" fill="url(#flagGrad)" stroke="url(#goldGrad)" strokeWidth="0.8" />
       </g>
 
       {/* ============================================== */}
@@ -433,6 +517,15 @@ export default function JagannathTempleSVG(props) {
         <rect x="690" y="550" width="240" height="130" rx="12" fill="url(#shikharaGrad)" />
         <rect x="690" y="550" width="240" height="130" rx="12" fill="url(#stoneShadow)" />
         <rect x="710" y="565" width="200" height="115" rx="8" fill="#301005" /> {/* Dark interior */}
+        
+        {/* Pulsating glowing arcade arches behind the pillars */}
+        <path d="M 712,680 L 712,590 A 3,3 0 0,1 718,590 L 718,680 Z" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        <path d="M 736,680 L 736,585 A 7,7 0 0,1 750,585 L 750,680 Z" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        <path d="M 768,680 L 768,585 A 7.5,7.5 0 0,1 783.5,585 L 783.5,680 Z" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        <path d="M 801,680 L 801,585 A 7.5,7.5 0 0,1 816,585 L 816,680 Z" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        <path d="M 834,680 L 834,585 A 8,8 0 0,1 850,585 L 850,680 Z" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        <path d="M 868,680 L 868,585 A 7.5,7.5 0 0,1 883,585 L 883,680 Z" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
+        <path d="M 901,680 L 901,590 A 3.5,3.5 0 0,1 908,590 L 908,680 Z" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
 
         {/* Stepped Pyramid Roof - 5 Layers */}
         {/* Layer 1 (Bottom) */}
@@ -483,7 +576,9 @@ export default function JagannathTempleSVG(props) {
         {/* Nata Mandapa Crown (Golden Kalasha) */}
         <rect x="785" y="398" width="30" height="18" rx="8" fill="url(#ochreGrad)" stroke="url(#goldGrad)" strokeWidth="1.5" />
         <circle cx="800" cy="388" r="9" fill="url(#goldGrad)" stroke="#B57A25" strokeWidth="1" />
-        <line x1="800" y1="382" x2="800" y2="370" stroke="url(#goldGrad)" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="800" y1="382" x2="800" y2="345" stroke="url(#goldGrad)" strokeWidth="2" strokeLinecap="round" />
+        {/* Mini fluttering red flag */}
+        <path d="M 800,345 C 815,341 823,341 832,345 C 823,349 815,349 800,352 Z" fill="url(#flagGrad)" stroke="url(#goldGrad)" strokeWidth="0.8" />
       </g>
 
       {/* ============================================== */}
@@ -520,6 +615,8 @@ export default function JagannathTempleSVG(props) {
         {/* Cozy nested arch entrance (Bhoga Mandapa Portal) */}
         <path d="M 985,680 L 985,622 A 25,25 0 0,1 1035,622 L 1035,680 Z" fill="url(#ochreGrad)" />
         <path d="M 995,680 L 995,630 A 15,15 0 0,1 1025,630 L 1025,680 Z" fill="url(#doorGrad)" />
+        {/* Pulsating Glowing Door backdrop */}
+        <path d="M 995,680 L 995,630 A 15,15 0 0,1 1025,630 L 1025,680 Z" fill="url(#doorGlowGrad)" className="glow-pulse" style={{ mixBlendMode: 'screen' }} />
         
         {/* Small gold medallion */}
         <circle cx="1010" cy="595" r="7" fill="url(#goldGrad)" />
@@ -527,7 +624,9 @@ export default function JagannathTempleSVG(props) {
 
         {/* Bhoga Mandapa Crown (Golden Kalasha) */}
         <circle cx="1010" cy="472" r="8" fill="url(#goldGrad)" stroke="#B57A25" strokeWidth="1" />
-        <line x1="1010" y1="464" x2="1010" y2="452" stroke="url(#goldGrad)" strokeWidth="2.5" strokeLinecap="round" />
+        <line x1="1010" y1="464" x2="1010" y2="428" stroke="url(#goldGrad)" strokeWidth="2" strokeLinecap="round" />
+        {/* Mini fluttering red flag */}
+        <path d="M 1010,428 C 1022,424 1030,424 1038,428 C 1030,431 1022,431 1010,434 Z" fill="url(#flagGrad)" stroke="url(#goldGrad)" strokeWidth="0.8" />
       </g>
 
       {/* ============================================== */}
