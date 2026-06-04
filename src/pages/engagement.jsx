@@ -57,7 +57,7 @@ export default function EngagementPage({ side = 'groom', musicTrack = 1, hasSide
 
 
       <main>
-        <div id="section-hero"><EngagementHero /></div>
+        <div id="section-hero"><EngagementHero side={side} /></div>
 
         <div id="section-events">
           <BlessingsSection side={side} />
