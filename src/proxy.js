@@ -1,49 +1,71 @@
 import { NextResponse } from 'next/server';
 
-// HTTP Basic Auth gate for the analytics dashboard and its data API.
-// (Next.js 16 renamed the "middleware" file convention to "proxy".)
-//
-// IMPORTANT: the matcher covers ONLY /admin/* and /api/visits — it must NEVER
-// catch /api/track, or the public beacon would require a password and we'd log
-// nothing.
-//
-// Runtime note: proxy runs in an edge-style runtime, so decode the
-// Authorization header with atob (Buffer may be unavailable here).
+// Cookie-based session verification middleware for the admin dashboard.
+// Next.js 16 uses src/proxy.js for edge middleware routing.
 
-const REALM = 'adityanvs-admin'; // keep identical everywhere so browsers reuse the cached credential
+const REALM = 'adityanvs-admin';
 
-function unauthorized() {
-  return new NextResponse('Authentication required', {
-    status: 401,
-    headers: { 'WWW-Authenticate': `Basic realm="${REALM}"` },
-  });
+async function verifySessionToken(token, user, pass) {
+  if (!token) return false;
+  const parts = token.split('|');
+  if (parts.length !== 2) return false;
+
+  const [expiresStr, signature] = parts;
+  const expires = parseInt(expiresStr, 10);
+  if (isNaN(expires) || expires < Date.now()) return false;
+
+  // Recompute signature to verify integrity (using password as local secret)
+  const msg = `${user}:${pass}:${expiresStr}:${pass}`;
+  const encoder = new TextEncoder();
+  const data = encoder.encode(msg);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const expectedSignature = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
+  return signature === expectedSignature;
 }
 
-export function proxy(req) {
+export async function proxy(req) {
   const user = process.env.ADMIN_USER;
   const pass = process.env.ADMIN_PASS;
 
-  // If creds aren't configured, lock everything down rather than exposing data.
-  if (!user || !pass) return unauthorized();
+  const url = req.nextUrl.clone();
 
-  const header = req.headers.get('authorization') || '';
-  if (!header.startsWith('Basic ')) return unauthorized();
-
-  let decoded = '';
-  try {
-    decoded = atob(header.slice(6));
-  } catch {
-    return unauthorized();
-  }
-
-  const idx = decoded.indexOf(':');
-  const givenUser = idx === -1 ? decoded : decoded.slice(0, idx);
-  const givenPass = idx === -1 ? '' : decoded.slice(idx + 1);
-
-  if (givenUser === user && givenPass === pass) {
+  // Exclude login endpoints to prevent infinite redirect loops
+  if (
+    url.pathname === '/admin/login' ||
+    url.pathname === '/api/admin/login' ||
+    url.pathname === '/api/admin/logout'
+  ) {
     return NextResponse.next();
   }
-  return unauthorized();
+
+  // If credentials are not configured, display a server error configuration message
+  if (!user || !pass) {
+    if (url.pathname.startsWith('/api/')) {
+      return NextResponse.json({ error: 'Auth configuration missing' }, { status: 500 });
+    }
+    return new NextResponse('Authentication configuration missing', { status: 500 });
+  }
+
+  // Extract session token from cookie
+  const token = req.cookies.get('admin_session')?.value;
+  const isValid = await verifySessionToken(token, user, pass);
+
+  if (isValid) {
+    return NextResponse.next();
+  }
+
+  // Unauthenticated requests:
+  if (url.pathname.startsWith('/api/')) {
+    return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+  }
+
+  // Redirect page visits to the login screen with destination parameter
+  const loginUrl = req.nextUrl.clone();
+  loginUrl.pathname = '/admin/login';
+  loginUrl.searchParams.set('from', req.nextUrl.pathname);
+  return NextResponse.redirect(loginUrl);
 }
 
 export const config = {

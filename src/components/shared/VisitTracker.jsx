@@ -8,6 +8,11 @@ import { useEffect } from 'react';
 // Renders nothing. Mount once near the app root.
 export default function VisitTracker() {
   useEffect(() => {
+    // Exclude admin dashboard and API routes from visitor analytics logging
+    if (typeof window !== 'undefined' && (window.location.pathname.startsWith('/admin') || window.location.pathname.startsWith('/api'))) {
+      return;
+    }
+
     // Once per session, across all pages — keyed in sessionStorage.
     let logged;
     try { logged = sessionStorage.getItem('visit_logged'); } catch { logged = null; }
