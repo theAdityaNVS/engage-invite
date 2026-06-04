@@ -196,17 +196,38 @@ function TirupatiGopuram() {
   );
 }
 
-function AnimatedMoon() {
+function LuminousMoon() {
   return (
-    <div style={{
-      position: 'absolute', top: '8%', zIndex: 1,
-      animation: 'moonArc 120s linear infinite',
-      pointerEvents: 'none',
-    }}>
-      <svg viewBox="0 0 44 44" style={{ width: 44, height: 44 }}>
-        <circle cx="22" cy="22" r="16" fill="rgba(255,245,200,0.85)" />
-        <circle cx="30" cy="16" r="13" fill="var(--navy)" />
-        <circle cx="22" cy="22" r="18" fill="none" stroke="rgba(255,245,200,0.12)" strokeWidth="4"/>
+    <div
+      className="muhurtham-ornament-container"
+      style={{
+        position: 'absolute',
+        top: '40px',
+        right: '8%',
+        zIndex: 1,
+        pointerEvents: 'none',
+      }}
+    >
+      <svg viewBox="0 0 50 50" style={{ width: 50, height: 50, filter: 'drop-shadow(0 0 14px rgba(255, 235, 170, 0.45))' }}>
+        <defs>
+          <linearGradient id="moonGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#FFEBA7" />
+            <stop offset="60%" stopColor="#D4A843" />
+            <stop offset="100%" stopColor="#B58A2A" />
+          </linearGradient>
+        </defs>
+        <circle cx="25" cy="25" r="21" fill="none" stroke="rgba(212, 168, 67, 0.1)" strokeWidth="1.5" />
+        <path
+          d="M 25 5 A 20 20 0 1 0 45 25 A 16 16 0 1 1 25 5"
+          fill="url(#moonGrad)"
+        />
+        <path
+          className="diamond-sparkle-animated"
+          d="M 40 10 L 41.2 12.2 L 43.5 12.5 L 41.8 14 L 42.5 16.2 L 40 15 L 37.5 16.2 L 38.2 14 L 36.5 12.5 L 38.8 12.2 Z"
+          fill="#FFEBA7"
+          opacity="0.8"
+          style={{ transformOrigin: '40px 14px' }}
+        />
       </svg>
     </div>
   );
@@ -224,7 +245,11 @@ export default function FooterSection() {
     }).catch(() => {});
   }, []);
 
-  const instagramUrl = `https://instagram.com/${COUPLE.INSTAGRAM_HANDLE.replace('@', '')}`;
+  const scrollToTop = () => {
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <footer style={{
@@ -238,8 +263,23 @@ export default function FooterSection() {
     }}>
       <MandalaPattern color="var(--gold)" opacity={0.08} />
       <Starfield count={34} />
-      <AnimatedMoon />
+      <LuminousMoon />
       <FloatingLanterns count={10} />
+
+      {/* Backlight glow behind Gopuram */}
+      <div style={{
+        position: 'absolute',
+        bottom: 0,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '100%',
+        maxWidth: '900px',
+        height: '320px',
+        background: 'radial-gradient(ellipse at 50% 100%, rgba(212, 168, 67, 0.16) 0%, rgba(212, 168, 67, 0.05) 55%, transparent 80%)',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }} />
+
       <TirupatiGopuram />
 
       <div style={{
@@ -250,104 +290,198 @@ export default function FooterSection() {
         <div style={{ maxWidth: 500, margin: '0 auto' }}>
           <p style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 'clamp(1.6rem,4vw,2rem)',
+            fontSize: 'clamp(1.6rem, 4vw, 2.2rem)',
             color: '#D4A843',
             marginBottom: '0.4rem',
+            letterSpacing: '0.02em',
           }}>
             {names.groom} &amp; {names.bride}
           </p>
           <p style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '1rem',
-            color: 'rgba(240,214,138,0.65)',
-            marginBottom: '0.4rem',
-            letterSpacing: '0.05em',
+            fontSize: '0.95rem',
+            color: 'rgba(240,214,138,0.7)',
+            marginBottom: '1.25rem',
+            letterSpacing: '0.06em',
           }}>
             {ENGAGEMENT.DATE_DISPLAY} · {ENGAGEMENT.VENUE_CITY}
           </p>
-          {/* Hashtag + copy */}
-          <p style={{
-            fontFamily: 'var(--font-body)', fontSize: '0.82rem',
-            color: 'rgba(245,236,200,0.4)', letterSpacing: '0.18em',
-            textTransform: 'uppercase', marginBottom: '0.25rem',
-          }}>
-            {t('hashtag_label')}
-          </p>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
+
+          {/* Hashtag Capsule Pill */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '1.5rem' }}>
             <p style={{
               fontFamily: 'var(--font-body)',
-              fontSize: '0.9rem',
-              color: 'rgba(245,236,200,0.7)',
-              letterSpacing: '0.05em',
-              margin: 0,
+              fontSize: '0.78rem',
+              color: 'rgba(245,236,200,0.45)',
+              letterSpacing: '0.18em',
+              textTransform: 'uppercase',
+              marginBottom: '0.4rem',
             }}>
-              {COUPLE.HASHTAG}
+              {t('hashtag_label')}
             </p>
-            <button
-              onClick={copyHashtag}
-              title={t('copy')}
-              aria-label={t('copy')}
-              style={{
-                background: 'none', border: '1px solid rgba(212,168,67,0.35)',
-                borderRadius: '12px', padding: '0.15rem 0.6rem',
-                fontFamily: 'var(--font-body)', fontSize: '0.82rem',
-                color: copied ? '#D4A843' : 'rgba(245,236,200,0.55)',
-                cursor: 'pointer', letterSpacing: '0.06em',
-                transition: 'color 0.2s, border-color 0.2s',
-              }}
+
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              background: 'rgba(20, 5, 10, 0.35)',
+              backdropFilter: 'blur(8px)',
+              WebkitBackdropFilter: 'blur(8px)',
+              border: '1px solid rgba(212, 168, 67, 0.25)',
+              borderRadius: '100px',
+              padding: '0.4rem 0.5rem 0.4rem 1.25rem',
+              boxShadow: '0 4px 16px rgba(0, 0, 0, 0.2)',
+              position: 'relative',
+              transition: 'all 0.3s ease',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(212, 168, 67, 0.5)';
+              e.currentTarget.style.boxShadow = '0 6px 20px rgba(212, 168, 67, 0.15)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = 'rgba(212, 168, 67, 0.25)';
+              e.currentTarget.style.boxShadow = '0 4px 16px rgba(0, 0, 0, 0.2)';
+            }}
             >
-              {copied ? t('copied') : t('copy')}
-            </button>
+              <span style={{
+                fontFamily: 'var(--font-body)',
+                fontSize: '0.92rem',
+                color: 'rgba(255, 248, 240, 0.85)',
+                letterSpacing: '0.05em',
+                fontWeight: '500',
+              }}>
+                {COUPLE.HASHTAG}
+              </span>
+
+              <div style={{ width: '1px', height: '16px', background: 'rgba(212, 168, 67, 0.25)' }} />
+
+              <button
+                onClick={copyHashtag}
+                title={t('copy')}
+                aria-label={t('copy')}
+                style={{
+                  background: copied ? 'rgba(212, 168, 67, 0.15)' : 'rgba(255, 255, 255, 0.03)',
+                  border: 'none',
+                  borderRadius: '50%',
+                  width: '32px',
+                  height: '32px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  color: copied ? '#FFEBA7' : 'rgba(245, 236, 200, 0.65)',
+                  transition: 'all 0.2s ease',
+                  position: 'relative',
+                }}
+                onMouseEnter={(e) => {
+                  if (!copied) e.currentTarget.style.color = '#FFF8F0';
+                }}
+                onMouseLeave={(e) => {
+                  if (!copied) e.currentTarget.style.color = 'rgba(245, 236, 200, 0.65)';
+                }}
+              >
+                {copied ? (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                ) : (
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+                  </svg>
+                )}
+
+                {/* Tooltip Popup */}
+                {copied && (
+                  <div style={{
+                    position: 'absolute',
+                    bottom: '125%',
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    background: '#D4A843',
+                    color: '#1A2535',
+                    padding: '0.35rem 0.75rem',
+                    borderRadius: '6px',
+                    fontSize: '0.75rem',
+                    fontFamily: 'var(--font-body)',
+                    fontWeight: 'bold',
+                    whiteSpace: 'nowrap',
+                    boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
+                    pointerEvents: 'none',
+                    zIndex: 20,
+                  }}>
+                    {t('copied') || 'Copied! ✨'}
+                    {/* Small triangle arrow under tooltip */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '100%',
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: 0,
+                      height: 0,
+                      borderLeft: '5px solid transparent',
+                      borderRight: '5px solid transparent',
+                      borderTop: '5px solid #D4A843',
+                    }} />
+                  </div>
+                )}
+              </button>
+            </div>
           </div>
 
           <div style={{
             height: '1px',
-            background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.25), transparent)',
-            maxWidth: 260,
-            margin: '0 auto 1.25rem',
+            background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.2), transparent)',
+            maxWidth: 280,
+            margin: '0 auto 1.5rem',
           }} />
 
-          {/* Instagram follow */}
-          <div style={{ marginBottom: '1.25rem' }}>
-            <p style={{
-              fontFamily: 'var(--font-body)', fontSize: '0.88rem',
-              color: 'rgba(245,236,200,0.45)', letterSpacing: '0.14em',
-              textTransform: 'uppercase', marginBottom: '0.4rem',
-            }}>
-              {t('follow_the_action')}
-            </p>
-            <a
-              href={instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                fontFamily: 'var(--font-body)', fontSize: '0.85rem',
-                color: 'rgba(212,168,67,0.75)',
-                textDecoration: 'underline', textUnderlineOffset: 3,
-                letterSpacing: '0.04em', display: 'block', marginBottom: '0.2rem',
-              }}
-            >
-              {COUPLE.INSTAGRAM_HANDLE}
-            </a>
-            <p style={{
-              fontFamily: 'var(--font-body)', fontSize: '0.85rem',
-              color: 'rgba(245,236,200,0.4)', letterSpacing: '0.06em', margin: 0,
-            }}>
-              {t('follow_subtitle')}
-            </p>
-          </div>
-
-          <div style={{
-            height: '1px',
-            background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.25), transparent)',
-            maxWidth: 260,
-            margin: '0 auto 1.25rem',
-          }} />
+          {/* Back to Top button */}
+          <button
+            onClick={scrollToTop}
+            title="Back to Top"
+            aria-label="Back to Top"
+            style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              border: '1px solid rgba(212, 168, 67, 0.3)',
+              borderRadius: '50%',
+              width: '40px',
+              height: '40px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              cursor: 'pointer',
+              margin: '0 auto 1.5rem',
+              color: 'rgba(245, 236, 200, 0.7)',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+              position: 'relative',
+              zIndex: 10,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'rgba(212, 168, 67, 0.12)';
+              e.currentTarget.style.borderColor = 'rgba(212, 168, 67, 0.65)';
+              e.currentTarget.style.color = '#FFF8F0';
+              e.currentTarget.style.transform = 'translateY(-3px)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)';
+              e.currentTarget.style.borderColor = 'rgba(212, 168, 67, 0.3)';
+              e.currentTarget.style.color = 'rgba(245, 236, 200, 0.7)';
+              e.currentTarget.style.transform = 'translateY(0)';
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="18 15 12 9 6 15" />
+            </svg>
+          </button>
 
           <p style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '0.9rem',
-            color: 'rgba(245,236,200,0.5)',
+            fontSize: '0.78rem',
+            color: 'rgba(245,236,200,0.3)',
+            letterSpacing: '0.04em',
+            margin: 0,
           }}>
             {t('made_with_love')}
           </p>
