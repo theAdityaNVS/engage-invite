@@ -3,7 +3,6 @@ export const COUPLE = {
   BRIDE_NAME:       'Jyoti',
   HASHTAG:          '#JyotiWedsAditya',
   RSVP_WHATSAPP:    '',
-  INSTAGRAM_HANDLE: '@jyoti.weds.aditya',
 };
 
 export const TRANSLATIONS = {
