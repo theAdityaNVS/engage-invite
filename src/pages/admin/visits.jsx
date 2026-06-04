@@ -45,6 +45,7 @@ export default function VisitsDashboard() {
   const [refreshHover, setRefreshHover] = useState(false);
   const [signOutHover, setSignOutHover] = useState(false);
   const [exportHover, setExportHover] = useState(false);
+  const [linksHover, setLinksHover] = useState(false);
   const [hoveredRowId, setHoveredRowId] = useState(null);
 
   const router = useRouter();
@@ -160,6 +161,22 @@ export default function VisitsDashboard() {
                 </svg>
                 <span>admin</span>
               </div>
+
+              {/* Invite Links Button */}
+              <button
+                onClick={() => router.push('/links')}
+                onMouseEnter={() => setLinksHover(true)}
+                onMouseLeave={() => setLinksHover(false)}
+                style={{
+                  ...st.actionBtn,
+                  ...(linksHover ? st.actionBtnHover : {})
+                }}
+              >
+                <svg style={{ width: '16px', height: '16px', color: '#D4A843' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                </svg>
+                <span>Invite Links</span>
+              </button>
 
               {/* Refresh Button */}
               <button

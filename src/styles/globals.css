@@ -569,5 +569,14 @@ a {
   }
 }
 
+/* Sibling pill visibility — CSS controls display; no display in inline styles */
+.sibling-pill-always { display: flex; }   /* bride side: always visible */
+.sibling-pill-block  { display: flex; }   /* groom side desktop: visible below both cards */
+.sibling-pill-inline { display: none; }   /* groom side: hidden on desktop */
+
+@media (max-width: 640px) {
+  .sibling-pill-block  { display: none; }                                              /* hide bottom pill on mobile */
+  .sibling-pill-inline { display: flex; flex: 0 0 100%; flex-direction: column; align-items: center; } /* show between cards on mobile */
+}
 
 
