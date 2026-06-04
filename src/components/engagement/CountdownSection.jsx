@@ -73,25 +73,53 @@ export default function CountdownSection() {
 
         <ScrollReveal delay={0.4}>
           <div style={{
-            display: 'flex', alignItems: 'center', gap: '1rem',
-            margin: '3rem auto 1.5rem',
-            maxWidth: '320px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '3rem auto 2rem',
+            maxWidth: '360px',
+            gap: '1rem',
+            opacity: 0.8,
           }}>
-            <div style={{ flex: 1, height: '1px', background: 'rgba(212,168,67,0.35)' }} />
-            <span style={{ color: '#D4A843', fontSize: '1.2rem' }}>✦</span>
-            <div style={{ flex: 1, height: '1px', background: 'rgba(212,168,67,0.35)' }} />
+            <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.4))' }} />
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ color: 'var(--gold)', filter: 'drop-shadow(0 0 4px rgba(212, 168, 67, 0.4))' }}>
+              <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z" fill="currentColor" />
+              <circle cx="12" cy="12" r="3" fill="#FFF8F0" />
+            </svg>
+            <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to left, transparent, rgba(212,168,67,0.4))' }} />
           </div>
-          <p style={{
-            fontFamily: 'var(--font-body)',
-            fontStyle: 'italic',
-            fontSize: 'clamp(0.9rem, 2.5vw, 1.05rem)',
-            color: 'rgba(245,236,200,0.75)',
-            lineHeight: 1.75,
-            maxWidth: 560,
+
+          <div style={{
+            background: 'rgba(255, 255, 255, 0.015)',
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            border: '1px solid rgba(212, 168, 67, 0.14)',
+            borderRadius: '16px',
+            padding: '2rem 2.2rem',
+            position: 'relative',
+            maxWidth: '600px',
             margin: '0 auto',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2)',
+            overflow: 'hidden',
           }}>
-            {t('countdown_message')}
-          </p>
+            {/* Fine line inner ornaments */}
+            <div style={{ position: 'absolute', top: 10, left: 10, width: 14, height: 14, borderTop: '1px solid rgba(212, 168, 67, 0.35)', borderLeft: '1px solid rgba(212, 168, 67, 0.35)' }} />
+            <div style={{ position: 'absolute', top: 10, right: 10, width: 14, height: 14, borderTop: '1px solid rgba(212, 168, 67, 0.35)', borderRight: '1px solid rgba(212, 168, 67, 0.35)' }} />
+            <div style={{ position: 'absolute', bottom: 10, left: 10, width: 14, height: 14, borderBottom: '1px solid rgba(212, 168, 67, 0.35)', borderLeft: '1px solid rgba(212, 168, 67, 0.35)' }} />
+            <div style={{ position: 'absolute', bottom: 10, right: 10, width: 14, height: 14, borderBottom: '1px solid rgba(212, 168, 67, 0.35)', borderRight: '1px solid rgba(212, 168, 67, 0.35)' }} />
+
+            <p style={{
+              fontFamily: 'var(--font-body)',
+              fontStyle: 'italic',
+              fontSize: 'clamp(0.92rem, 2.2vw, 1.05rem)',
+              color: 'rgba(255, 248, 240, 0.8)',
+              lineHeight: 1.8,
+              maxWidth: 520,
+              margin: '0 auto',
+            }}>
+              "{t('countdown_message')}"
+            </p>
+          </div>
         </ScrollReveal>
       </div>
     </section>
