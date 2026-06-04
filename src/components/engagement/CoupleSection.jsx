@@ -19,20 +19,21 @@ import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
         cursor: 'pointer'
       }}
     >
-      {/* Photo inside arch, clipped to clean round arch shape */}
+      {/* Photo inside frame, clipped to rounded rectangle */}
       <div style={{
         position: 'absolute',
-        inset: 0,
-        width: 240,
-        height: 310,
-        clipPath: 'url(#royal-arch-clip)',
+        left: 12,
+        top: 12,
+        width: 216,
+        height: 286,
+        borderRadius: '14px',
         overflow: 'hidden',
         zIndex: 1,
       }}>
         {children}
       </div>
 
-      {/* SVG Jharokha frame overlay */}
+      {/* SVG modern wedding card frame overlay */}
       <svg
         viewBox="0 0 240 310"
         fill="none"
@@ -48,11 +49,6 @@ import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
         aria-hidden="true"
       >
         <defs>
-          {/* Clip path for the photo */}
-          <clipPath id="royal-arch-clip">
-            <path d="M24 280 L24 120 A 96 96 0 0 1 216 120 L216 280 Z" />
-          </clipPath>
-
           {/* Metallic Gold Gradients */}
           <linearGradient id="gold-metallic" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#8F681E" />
@@ -75,6 +71,11 @@ import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
             <stop offset="50%" stopColor="rgba(255,255,255,0.22)" />
             <stop offset="100%" stopColor="rgba(255,255,255,0)" />
           </linearGradient>
+
+          {/* Clip path for the glare sweep */}
+          <clipPath id="rect-clip">
+            <rect x="12" y="12" width="216" height="286" rx="14" />
+          </clipPath>
         </defs>
 
         <style>{`
@@ -101,49 +102,41 @@ import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
 
         {/* 1. Outer Card Background & Border */}
         {/* Burgundy frosted back card */}
-        <rect x="6" y="6" width="228" height="298" rx="18" fill="rgba(69, 13, 22, 0.5)" stroke="url(#gold-metallic)" strokeWidth="2.5" />
+        <rect x="6" y="6" width="228" height="298" rx="18" fill="rgba(69, 13, 22, 0.55)" stroke="url(#gold-metallic)" strokeWidth="2.5" />
         
         {/* Inner concentric dotted gold border */}
-        <rect x="12" y="12" width="216" height="286" rx="13" stroke="url(#gold-light)" strokeWidth="0.75" strokeDasharray="3 3" opacity="0.45" />
+        <rect x="12" y="12" width="216" height="286" rx="14" stroke="url(#gold-light)" strokeWidth="0.75" strokeDasharray="3 3" opacity="0.45" />
 
-        {/* 2. Sleek Base Double Lines */}
-        <line x1="24" y1="288" x2="216" y2="288" stroke="url(#gold-metallic)" strokeWidth="1.5" />
-        <line x1="44" y1="292" x2="196" y2="292" stroke="url(#gold-light)" strokeWidth="0.75" opacity="0.5" />
+        {/* 2. Photo frame bezel outlines */}
+        {/* Outer photo bezel */}
+        <rect x="10.5" y="10.5" width="219" height="289" rx="15.5" stroke="url(#gold-metallic)" strokeWidth="3" />
+        {/* Inner photo bezel */}
+        <rect x="12" y="12" width="216" height="286" rx="14" stroke="url(#gold-light)" strokeWidth="1.25" opacity="0.85" />
+        {/* Inner dotted lace border inside photo area */}
+        <rect x="15" y="15" width="210" height="280" rx="11" stroke="#FFF3CD" strokeWidth="0.75" strokeDasharray="2 2" opacity="0.4" />
 
-        {/* 3. The Arch Frame Overlay */}
-        {/* Outer arch gold bezel */}
-        <path
-          d="M20 280 L20 120 A 100 100 0 0 1 220 120 L220 280"
-          stroke="url(#gold-metallic)"
-          strokeWidth="3.5"
-          fill="none"
-        />
-        {/* Inner arch gold trim */}
-        <path
-          d="M24 280 L24 120 A 96 96 0 0 1 216 120 L216 280"
-          stroke="url(#gold-light)"
-          strokeWidth="1.25"
-          fill="none"
-          opacity="0.85"
-        />
-        {/* Intricate Inner Dotted Lace Arch */}
-        <path
-          d="M28 280 L28 120 A 92 92 0 0 1 212 120 L212 280"
-          stroke="#FFF3CD"
-          strokeWidth="0.75"
-          strokeDasharray="3 3"
-          fill="none"
-          opacity="0.5"
-        />
+        {/* 3. Corner Sparkle Stars ✦ */}
+        <g transform="translate(18, 18)">
+          <path d="M0 -3 L0.75 -0.75 L3 0 L0.75 0.75 L0 3 L-0.75 0.75 L-3 0 L-0.75 -0.75 Z" fill="url(#gold-metallic)" opacity="0.8" />
+        </g>
+        <g transform="translate(222, 18)">
+          <path d="M0 -3 L0.75 -0.75 L3 0 L0.75 0.75 L0 3 L-0.75 0.75 L-3 0 L-0.75 -0.75 Z" fill="url(#gold-metallic)" opacity="0.8" />
+        </g>
+        <g transform="translate(18, 292)">
+          <path d="M0 -3 L0.75 -0.75 L3 0 L0.75 0.75 L0 3 L-0.75 0.75 L-3 0 L-0.75 -0.75 Z" fill="url(#gold-metallic)" opacity="0.8" />
+        </g>
+        <g transform="translate(222, 292)">
+          <path d="M0 -3 L0.75 -0.75 L3 0 L0.75 0.75 L0 3 L-0.75 0.75 L-3 0 L-0.75 -0.75 Z" fill="url(#gold-metallic)" opacity="0.8" />
+        </g>
 
-        {/* 4. Single Elegant Apex Star */}
+        {/* Single elegant top-center star */}
         <g transform="translate(120, 10) scale(1.3)">
           <path d="M0 -4 L1 -1 L4 0 L1 1 L0 4 L-1 1 L-4 0 L-1 -1 Z" fill="url(#gold-metallic)" />
         </g>
         <circle cx="120" cy="10" r="1.5" fill="#FFFDF9" opacity="0.8" />
 
-        {/* 5. Hover Glare Sweep Path */}
-        <g clipPath="url(#royal-arch-clip)">
+        {/* 4. Hover Glare Sweep Path */}
+        <g clipPath="url(#rect-clip)">
           <rect
             className="glare-path"
             x="0"
@@ -236,12 +229,13 @@ export default function CoupleSection() {
               >
                 <OrnateArchFrame>
                   <AnimatedPhoto
-                    width="240px"
-                    height="310px"
+                    width="216px"
+                    height="286px"
                     alt={`${COUPLE.GROOM_NAME} & ${COUPLE.BRIDE_NAME}`}
                     index={1}
                     src={MEDIA.COUPLE_PHOTO || undefined}
-                    style={{ width: '240px', height: '310px', objectFit: 'cover' }}
+                    filter="none"
+                    style={{ width: '216px', height: '286px', objectFit: 'cover' }}
                   />
                 </OrnateArchFrame>
               </motion.div>

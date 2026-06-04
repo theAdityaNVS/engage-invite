@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 
 const FLOAT_TRANSITION = { duration: 4, repeat: Infinity, ease: 'easeInOut' };
 
-export default function AnimatedPhoto({ width, height, alt, className, style = {}, index = 0, src }) {
+export default function AnimatedPhoto({ width, height, alt, className, style = {}, index = 0, src, filter }) {
   const floatDelay = (index % 3) * 0.8;
 
   if (src) {
@@ -28,7 +28,7 @@ export default function AnimatedPhoto({ width, height, alt, className, style = {
           style={{
             width: '100%', height: '100%',
             objectFit: 'cover',
-            filter: 'saturate(1.3) sepia(0.15) hue-rotate(-10deg) brightness(1.05)',
+            filter: filter !== undefined ? filter : 'saturate(1.3) sepia(0.15) hue-rotate(-10deg) brightness(1.05)',
             display: 'block',
           }}
         />
