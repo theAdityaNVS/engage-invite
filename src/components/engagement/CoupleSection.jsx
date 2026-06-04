@@ -7,8 +7,7 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/hooks/useLanguage';
 import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
 
-/* Ornate arch frame — Mughal/South Indian style SVG */
-function OrnateArchFrame({ children }) {
+/* Ornate arch frame — Mughal/South Indian style SVG */function OrnateArchFrame({ children }) {
   return (
     <div 
       className="royal-frame-container"
@@ -20,7 +19,7 @@ function OrnateArchFrame({ children }) {
         cursor: 'pointer'
       }}
     >
-      {/* Photo inside arch, clipped to Jharokha shape */}
+      {/* Photo inside arch, clipped to clean round arch shape */}
       <div style={{
         position: 'absolute',
         inset: 0,
@@ -51,7 +50,7 @@ function OrnateArchFrame({ children }) {
         <defs>
           {/* Clip path for the photo */}
           <clipPath id="royal-arch-clip">
-            <path d="M24 286 L24 135 C24 116, 34 105, 48 95 C48 81, 68 67, 84 59 C84 45, 106 35, 120 30 C134 35, 156 45, 156 59 C172 67, 192 81, 192 95 C206 105, 216 116, 216 135 L216 286 Z" />
+            <path d="M24 280 L24 120 A 96 96 0 0 1 216 120 L216 280 Z" />
           </clipPath>
 
           {/* Metallic Gold Gradients */}
@@ -73,7 +72,7 @@ function OrnateArchFrame({ children }) {
           {/* Glare Gradient */}
           <linearGradient id="glare-grad" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="rgba(255,255,255,0)" />
-            <stop offset="50%" stopColor="rgba(255,255,255,0.18)" />
+            <stop offset="50%" stopColor="rgba(255,255,255,0.22)" />
             <stop offset="100%" stopColor="rgba(255,255,255,0)" />
           </linearGradient>
         </defs>
@@ -81,13 +80,14 @@ function OrnateArchFrame({ children }) {
         <style>{`
           .royal-frame-container {
             transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25), 0 1px 3px rgba(212, 168, 67, 0.15);
-            border-radius: 16px;
-            background: rgba(139, 26, 43, 0.08); /* subtle dark red shadow backdrop */
+            box-shadow: 0 12px 36px rgba(0, 0, 0, 0.22), 0 1px 3px rgba(212, 168, 67, 0.12);
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(8px);
           }
           .royal-frame-container:hover {
-            transform: translateY(-6px) scale(1.02);
-            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), 0 2px 10px rgba(212, 168, 67, 0.25);
+            transform: translateY(-6px) scale(1.025);
+            box-shadow: 0 24px 50px rgba(0, 0, 0, 0.35), 0 2px 10px rgba(212, 168, 67, 0.2);
           }
           .glare-path {
             transform: translateX(-150px);
@@ -95,86 +95,54 @@ function OrnateArchFrame({ children }) {
           }
           .royal-frame-container:hover .glare-path {
             transform: translateX(350px);
-            transition: transform 1.1s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-          }
-          .sway-bell {
-            animation: bellSway 4s ease-in-out infinite;
-            transform-origin: 120px 24px;
-          }
-          @keyframes bellSway {
-            0%, 100% { transform: rotate(-3deg); }
-            50% { transform: rotate(3deg); }
+            transition: transform 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           }
         `}</style>
 
         {/* 1. Outer Card Background & Border */}
         {/* Burgundy frosted back card */}
-        <rect x="6" y="6" width="228" height="298" rx="16" fill="rgba(69, 13, 22, 0.45)" stroke="url(#gold-metallic)" strokeWidth="2.5" />
+        <rect x="6" y="6" width="228" height="298" rx="18" fill="rgba(69, 13, 22, 0.5)" stroke="url(#gold-metallic)" strokeWidth="2.5" />
         
         {/* Inner concentric dotted gold border */}
-        <rect x="12" y="12" width="216" height="286" rx="11" stroke="url(#gold-light)" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
+        <rect x="12" y="12" width="216" height="286" rx="13" stroke="url(#gold-light)" strokeWidth="0.75" strokeDasharray="3 3" opacity="0.45" />
 
-        {/* 2. Corner Floral filigree ornaments inside card */}
-        {/* Top-Left Ornament */}
-        <g transform="translate(14, 14)">
-          <path d="M0 0 C15 0, 20 5, 20 20 C20 30, 10 35, 0 35" stroke="url(#gold-light)" strokeWidth="1" fill="none" opacity="0.8" />
-          <path d="M0 0 C8 0, 12 4, 12 12 C12 18, 6 22, 0 22" stroke="url(#gold-metallic)" strokeWidth="0.75" fill="none" opacity="0.5" />
-          <circle cx="20" cy="20" r="1.5" fill="#FFF5D6" />
-          <circle cx="12" cy="12" r="1" fill="#FFF5D6" />
-        </g>
-        {/* Top-Right Ornament */}
-        <g transform="translate(226, 14) scale(-1, 1)">
-          <path d="M0 0 C15 0, 20 5, 20 20 C20 30, 10 35, 0 35" stroke="url(#gold-light)" strokeWidth="1" fill="none" opacity="0.8" />
-          <path d="M0 0 C8 0, 12 4, 12 12 C12 18, 6 22, 0 22" stroke="url(#gold-metallic)" strokeWidth="0.75" fill="none" opacity="0.5" />
-          <circle cx="20" cy="20" r="1.5" fill="#FFF5D6" />
-          <circle cx="12" cy="12" r="1" fill="#FFF5D6" />
-        </g>
-        {/* Bottom-Left Star */}
-        <path d="M 18 292 L 20 290 L 18 288 L 16 290 Z" fill="url(#gold-light)" />
-        {/* Bottom-Right Star */}
-        <path d="M 222 292 L 224 290 L 222 288 L 220 290 Z" fill="url(#gold-light)" />
+        {/* 2. Sleek Base Double Lines */}
+        <line x1="24" y1="288" x2="216" y2="288" stroke="url(#gold-metallic)" strokeWidth="1.5" />
+        <line x1="44" y1="292" x2="196" y2="292" stroke="url(#gold-light)" strokeWidth="0.75" opacity="0.5" />
 
         {/* 3. The Arch Frame Overlay */}
         {/* Outer arch gold bezel */}
         <path
-          d="M21 286 L21 135 C21 113, 31 102, 45 92 C45 77, 65 63, 81 55 C81 40, 103 30, 120 25 C137 30, 159 40, 159 55 C175 63, 195 77, 195 92 C209 102, 219 113, 219 135 L219 286"
+          d="M20 280 L20 120 A 100 100 0 0 1 220 120 L220 280"
           stroke="url(#gold-metallic)"
           strokeWidth="3.5"
           fill="none"
         />
         {/* Inner arch gold trim */}
         <path
-          d="M25 286 L25 135 C25 118, 35 107, 49 97 C49 83, 69 69, 85 61 C85 47, 107 37, 120 32 C133 37, 155 47, 155 61 C171 69, 191 83, 191 97 C205 107, 215 118, 215 135 L215 286"
+          d="M24 280 L24 120 A 96 96 0 0 1 216 120 L216 280"
           stroke="url(#gold-light)"
           strokeWidth="1.25"
           fill="none"
-          opacity="0.8"
+          opacity="0.85"
+        />
+        {/* Intricate Inner Dotted Lace Arch */}
+        <path
+          d="M28 280 L28 120 A 92 92 0 0 1 212 120 L212 280"
+          stroke="#FFF3CD"
+          strokeWidth="0.75"
+          strokeDasharray="3 3"
+          fill="none"
+          opacity="0.5"
         />
 
-        {/* 4. Imperial Crown Top (Traditional Mughal Floral / Crest motif) */}
-        {/* Stepped finial pedestal */}
-        <path d="M110 25 H130 V27 H110 Z" fill="url(#gold-metallic)" />
-        {/* Dome crown top */}
-        <path d="M114 25 C114 12, 126 12, 126 25 Z" fill="url(#gold-metallic)" stroke="url(#gold-light)" strokeWidth="0.5" />
-        <circle cx="120" cy="10" r="2.5" fill="#FFF3CD" filter="drop-shadow(0 0 3px #D4A843)" />
-        {/* Flanking scroll flourishes */}
-        <path d="M96 29 Q80 20 70 29 Q60 38 72 38 Q82 38 86 29" stroke="url(#gold-metallic)" strokeWidth="1" fill="none" />
-        <path d="M144 29 Q160 20 170 29 Q180 38 168 38 Q158 38 154 29" stroke="url(#gold-metallic)" strokeWidth="1" fill="none" />
-
-        {/* 5. Swaying Traditional Gold Bell */}
-        <g className="sway-bell">
-          <line x1="120" y1="25" x2="120" y2="38" stroke="url(#gold-metallic)" strokeWidth="1" />
-          <path d="M116 46 L124 46 C124 41, 122 38, 120 38 C118 38, 116 41, 116 46 Z" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
-          <circle cx="120" cy="48" r="1" fill="#FFE593" />
+        {/* 4. Single Elegant Apex Star */}
+        <g transform="translate(120, 10) scale(1.3)">
+          <path d="M0 -4 L1 -1 L4 0 L1 1 L0 4 L-1 1 L-4 0 L-1 -1 Z" fill="url(#gold-metallic)" />
         </g>
+        <circle cx="120" cy="10" r="1.5" fill="#FFFDF9" opacity="0.8" />
 
-        {/* 6. Gold Plaque Base Panel */}
-        <rect x="75" y="280" width="90" height="12" rx="6" fill="url(#gold-metallic)" stroke="#8F681E" strokeWidth="0.5" />
-        <line x1="85" y1="286" x2="155" y2="286" stroke="#8F681E" strokeWidth="0.75" strokeDasharray="1.5 1.5" />
-        <circle cx="120" cy="286" r="1.5" fill="#8F681E" />
-
-        {/* 7. Hover Glare Sweep Path */}
-        {/* Clipped to the arch shape so it only sweeps across the photo */}
+        {/* 5. Hover Glare Sweep Path */}
         <g clipPath="url(#royal-arch-clip)">
           <rect
             className="glare-path"
