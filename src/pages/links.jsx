@@ -129,7 +129,7 @@ export default function InviteLinkGenerator() {
 
         <div style={st.container}>
           {/* Header Bar */}
-          <header style={st.header}>
+          <header style={st.header} className="links-header">
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <span style={st.pulseDot}></span>
@@ -158,8 +158,8 @@ export default function InviteLinkGenerator() {
 
 
           {/* SECTION 1: INTERACTIVE BUILDER PANEL (Two Columns) */}
-          <section style={st.builderPanel}>
-            <div style={st.builderGrid}>
+          <section style={st.builderPanel} className="links-builder-panel">
+            <div style={st.builderGrid} className="links-builder-grid">
               
               {/* Left Column: Selector Controls */}
               <div style={st.builderControls}>
@@ -223,7 +223,7 @@ export default function InviteLinkGenerator() {
                 <h3 style={st.displayTitle}>Live Generated Output</h3>
                 
                 {/* QR Code Container */}
-                <div style={st.qrWrapper}>
+                <div style={st.qrWrapper} className="links-qr-wrapper">
                   <div style={st.qrContainerBox}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
@@ -316,7 +316,7 @@ export default function InviteLinkGenerator() {
             <h2 style={st.sectionHeading}>Quick-Share Invitation Links</h2>
             <p style={st.sectionSubheading}>Instantly copy or preview the most commonly shared family-specific language links (default music track is Amaran).</p>
             
-            <div style={st.quickShareGrid}>
+            <div style={st.quickShareGrid} className="links-quick-grid">
               {LANGS.map(lang => {
                 const groomLink = generateUrl(null, lang.code, null);
                 const brideLink = generateUrl('bride', lang.code, null);
@@ -333,11 +333,11 @@ export default function InviteLinkGenerator() {
 
                     <div style={st.qsCardBody}>
                       {/* Groom side row */}
-                      <div style={st.qsRow}>
+                      <div style={st.qsRow} className="links-qs-row">
                         <div style={st.qsRowLabelBox}>
                           <span style={st.qsRowLabel}>Groom Side</span>
                         </div>
-                        <div style={st.qsRowActions}>
+                        <div style={st.qsRowActions} className="links-qs-row-actions">
                           <button
                             onClick={() => handleCopy(groomLink, groomId)}
                             style={{
@@ -360,11 +360,11 @@ export default function InviteLinkGenerator() {
                       </div>
 
                       {/* Bride side row */}
-                      <div style={st.qsRow}>
+                      <div style={st.qsRow} className="links-qs-row">
                         <div style={st.qsRowLabelBox}>
                           <span style={st.qsRowLabel}>Bride Side</span>
                         </div>
-                        <div style={st.qsRowActions}>
+                        <div style={st.qsRowActions} className="links-qs-row-actions">
                           <button
                             onClick={() => handleCopy(brideLink, brideId)}
                             style={{
@@ -453,6 +453,68 @@ export default function InviteLinkGenerator() {
           </div>
         </div>
       )}
+      <style jsx global>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+
+        /* ── Select / Dropdown Styling ── */
+        select {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+        }
+        select option {
+          background-color: #0f0f1c;
+          color: #e2e8f0;
+          font-size: 0.8rem;
+        }
+        select option:hover,
+        select option:focus,
+        select option:checked {
+          background-color: #1e1e35;
+          color: #ffffff;
+        }
+
+        /* ── Mobile Responsive ── */
+        @media (max-width: 640px) {
+          /* Header stacks vertically */
+          .links-header {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 14px !important;
+          }
+          /* Builder panel: tighter padding */
+          .links-builder-panel {
+            padding: 20px 16px !important;
+          }
+          /* Builder grid: always single column on mobile */
+          .links-builder-grid {
+            grid-template-columns: 1fr !important;
+            gap: 24px !important;
+          }
+          /* Quick share grid: single column on small screens */
+          .links-quick-grid {
+            grid-template-columns: 1fr !important;
+          }
+          /* QR row: stack QR above download button */
+          .links-qr-wrapper {
+            flex-direction: column !important;
+          }
+          /* Quick share row: stack label above buttons */
+          .links-qs-row {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 8px !important;
+          }
+          /* Wider buttons in stacked mode */
+          .links-qs-row-actions {
+            width: 100% !important;
+            justify-content: flex-start !important;
+          }
+        }
+      `}</style>
     </>
   );
 }
@@ -465,7 +527,7 @@ const st = {
     fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     color: '#e2e8f0',
     overflowX: 'hidden',
-    padding: '32px 24px',
+    padding: '20px 16px',
   },
   glowBurgundy: {
     position: 'absolute',
@@ -564,7 +626,7 @@ const st = {
   },
   builderGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
     gap: '40px',
     alignItems: 'start',
   },
@@ -617,20 +679,23 @@ const st = {
     boxShadow: '0 4px 12px rgba(139,34,64,0.2)',
   },
   dropdownSelect: {
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     border: '1px solid rgba(255,255,255,0.08)',
     borderRadius: '10px',
-    padding: '12px 16px',
+    padding: '12px 36px 12px 16px',
     color: '#ffffff',
     fontSize: '0.875rem',
     outline: 'none',
     cursor: 'pointer',
-    transition: 'all 0.2s ease',
+    transition: 'border-color 0.2s ease',
     appearance: 'none',
+    WebkitAppearance: 'none',
+    MozAppearance: 'none',
     backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'></path></svg>")`,
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'right 16px center',
+    backgroundPosition: 'right 14px center',
     backgroundSize: '16px',
+    width: '100%',
   },
   builderDisplay: {
     background: 'rgba(0,0,0,0.25)',

@@ -137,14 +137,14 @@ export default function VisitsDashboard() {
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
-      <div style={st.page}>
-        {/* Glow background spots */}
+      <div style={st.page} className="admin-page">
+        {/* Glow background spots */}}
         <div style={st.glowBurgundy}></div>
         <div style={st.glowGold}></div>
 
         <div style={st.container}>
           {/* Top Navigation Header */}
-          <header style={st.header}>
+          <header style={st.header} className="admin-header">
             <div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <span style={st.pulseDot}></span>
@@ -153,7 +153,7 @@ export default function VisitsDashboard() {
               <p style={st.subtitle}>Real-time analytics & engagement tracking</p>
             </div>
 
-            <div style={st.headerControls}>
+            <div style={st.headerControls} className="admin-header-controls">
               {/* User Badge */}
               <div style={st.userBadge}>
                 <svg style={{ width: '14px', height: '14px', color: '#D4A843' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
@@ -175,7 +175,7 @@ export default function VisitsDashboard() {
                 <svg style={{ width: '16px', height: '16px', color: '#D4A843' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                 </svg>
-                <span>Invite Links</span>
+                <span className="admin-btn-label">Invite Links</span>
               </button>
 
               {/* Refresh Button */}
@@ -193,7 +193,7 @@ export default function VisitsDashboard() {
                 <svg style={{ width: '16px', height: '16px', animation: loading ? 'spin 1.5s linear infinite' : 'none' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 8H17" />
                 </svg>
-                <span>{loading ? 'Refreshing...' : 'Refresh'}</span>
+                <span className="admin-btn-label">{loading ? 'Refreshing...' : 'Refresh'}</span>
               </button>
 
               {/* Sign Out Button */}
@@ -209,13 +209,13 @@ export default function VisitsDashboard() {
                 <svg style={{ width: '16px', height: '16px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                 </svg>
-                <span>Sign Out</span>
+                <span className="admin-btn-label">Sign Out</span>
               </button>
             </div>
           </header>
 
           {/* Navigation Tabs */}
-          <nav style={st.tabsNav}>
+          <nav style={st.tabsNav} className="admin-tabs-nav">
             {SITE_TABS.map((t) => (
               <button
                 key={t.id}
@@ -247,7 +247,7 @@ export default function VisitsDashboard() {
 
           {/* Summary Metric Cards */}
           {s && (
-            <section style={st.metricsGrid}>
+            <section style={st.metricsGrid} className="admin-metrics-grid">
               <Card
                 label="Total Opens"
                 value={s.total}
@@ -304,7 +304,7 @@ export default function VisitsDashboard() {
 
           {/* Breakdown Segment Grids */}
           {data?.breakdowns && (
-            <section style={st.breakdownsGrid}>
+            <section style={st.breakdownsGrid} className="admin-breakdowns-grid">
               <Breakdown
                 title="Visits by Country"
                 rows={data.breakdowns.byCountry}
@@ -343,7 +343,7 @@ export default function VisitsDashboard() {
 
           {/* Parameter segment details */}
           {data?.breakdowns && (
-            <section style={st.shareParamsGrid}>
+            <section style={st.shareParamsGrid} className="admin-share-params-grid">
               <Breakdown
                 title="Share Link Param — Side Referral"
                 rows={data.breakdowns.bySide}
@@ -363,7 +363,7 @@ export default function VisitsDashboard() {
           {data?.rows && (
             <section style={st.logPanel}>
               {/* Panel Header & Controls */}
-              <div style={st.panelHeader}>
+              <div style={st.panelHeader} className="admin-panel-header">
                 <div>
                   <h2 style={st.panelTitle}>Recent Sessions</h2>
                   <p style={st.panelCount}>
@@ -371,7 +371,7 @@ export default function VisitsDashboard() {
                   </p>
                 </div>
 
-                <div style={st.panelControls}>
+                <div style={st.panelControls} className="admin-panel-controls">
                   {/* Search bar input */}
                   <div style={st.searchWrapper}>
                     <span style={st.searchIcon}>
@@ -385,6 +385,7 @@ export default function VisitsDashboard() {
                       onChange={(e) => setSearchQuery(e.target.value)}
                       placeholder="Search sessions..."
                       style={st.searchInput}
+                      className="admin-search-input"
                     />
                   </div>
 
@@ -393,6 +394,7 @@ export default function VisitsDashboard() {
                     value={deviceFilter}
                     onChange={(e) => setDeviceFilter(e.target.value)}
                     style={st.selectFilter}
+                    className="admin-select-filter"
                   >
                     <option value="all">All Devices</option>
                     <option value="mobile">Mobile</option>
@@ -496,11 +498,107 @@ export default function VisitsDashboard() {
         </div>
       </div>
 
-      {/* Embedded CSS animations */}
+      {/* Embedded CSS animations + mobile responsive */}
       <style jsx global>{`
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
+        }
+
+        /* ── Select / Dropdown Styling ── */
+        select {
+          appearance: none;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          background-image: url("data:image/svg+xml;utf8,<svg fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'></path></svg>");
+          background-repeat: no-repeat;
+          background-position: right 10px center;
+          background-size: 14px;
+          padding-right: 32px !important;
+        }
+        select option {
+          background-color: #0f0f1c;
+          color: #e2e8f0;
+          font-size: 0.8rem;
+        }
+        select option:hover,
+        select option:focus,
+        select option:checked {
+          background-color: #1e1e35;
+          color: #ffffff;
+        }
+
+        /* ── Mobile Responsive ── */
+        @media (max-width: 640px) {
+          /* Tighter page padding */
+          .admin-page { padding: 16px 12px !important; }
+
+          /* Header: stack title above controls */
+          .admin-header {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            gap: 14px !important;
+          }
+
+          /* Controls: wrap and shrink */
+          .admin-header-controls {
+            width: 100% !important;
+            flex-wrap: wrap !important;
+            gap: 8px !important;
+          }
+
+          /* Hide text labels in action buttons on very small screens */
+          .admin-btn-label { display: none !important; }
+
+          /* Metrics grid: 2 columns on mobile */
+          .admin-metrics-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 12px !important;
+          }
+
+          /* Breakdowns: single column */
+          .admin-breakdowns-grid,
+          .admin-share-params-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+          }
+
+          /* Panel header: stack controls below title */
+          .admin-panel-header {
+            flex-direction: column !important;
+            align-items: flex-start !important;
+          }
+
+          /* Panel controls: fill width, wrap */
+          .admin-panel-controls {
+            width: 100% !important;
+            flex-wrap: wrap !important;
+          }
+
+          /* Search input: fill remaining width */
+          .admin-search-input {
+            width: 100% !important;
+            min-width: 0 !important;
+          }
+
+          /* Select filter: fill width */
+          .admin-select-filter {
+            flex: 1 !important;
+            min-width: 0 !important;
+          }
+
+          /* Tab nav: allow wrapping */
+          .admin-tabs-nav {
+            width: 100% !important;
+            flex-wrap: wrap !important;
+          }
+        }
+
+        @media (max-width: 400px) {
+          /* Single column metrics on very narrow screens */
+          .admin-metrics-grid {
+            grid-template-columns: 1fr !important;
+          }
         }
       `}</style>
     </>
@@ -561,7 +659,7 @@ const st = {
     fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     color: '#e2e8f0',
     overflowX: 'hidden',
-    padding: '32px 24px',
+    padding: '20px 16px',
   },
   glowBurgundy: {
     position: 'absolute',
@@ -910,14 +1008,15 @@ const st = {
     transition: 'all 0.25s ease',
   },
   selectFilter: {
-    backgroundColor: 'rgba(0, 0, 0, 0.35)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
     border: '1px solid #1e293b',
     borderRadius: '10px',
     fontSize: '0.75rem',
     color: '#cbd5e1',
-    padding: '8px 12px',
+    padding: '8px 32px 8px 12px',
     outline: 'none',
     cursor: 'pointer',
+    transition: 'border-color 0.2s ease',
   },
   exportBtn: {
     display: 'flex',
