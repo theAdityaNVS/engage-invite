@@ -45,6 +45,16 @@ export default function FooterSection() {
           </p>
           <p style={{
             fontFamily: 'var(--font-body)',
+            fontSize: '0.75rem',
+            color: 'rgba(212, 168, 67, 0.55)',
+            letterSpacing: '0.06em',
+            margin: 0,
+            lineHeight: 1.5,
+          }}>
+            #thecutestAJstory
+          </p>
+          <p style={{
+            fontFamily: 'var(--font-body)',
             fontSize: '0.68rem',
             color: 'rgba(245, 236, 200, 0.25)',
             letterSpacing: '0.05em',
