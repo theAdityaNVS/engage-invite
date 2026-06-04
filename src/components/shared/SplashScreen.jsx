@@ -3,6 +3,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { COUPLE, ENGAGEMENT, TRANSLATIONS } from '@/config';
 import { useLanguage } from '@/hooks/useLanguage';
 
+const LANG_HINTS = [
+  { code: 'en', hint: 'Select your language' },
+  { code: 'hi', hint: 'भाषा चुनें' },
+  { code: 'te', hint: 'భాష ఎంచుకోండి' },
+  { code: 'or', hint: 'ଭାଷା ବାଛନ୍ତୁ' },
+];
+
+const LANG_CHIPS = [
+  { code: 'en', label: 'EN' },
+  { code: 'hi', label: 'हि' },
+  { code: 'te', label: 'తె' },
+  { code: 'or', label: 'ଓ' },
+];
+
 // Elegant Lotus watermark layer with slow counter-rotations
 function AnimatedWatermark() {
   return (
@@ -47,11 +61,22 @@ function AnimatedWatermark() {
 }
 
 export default function SplashScreen({ onEnter, forceShow = false }) {
-  const { lang } = useLanguage();
+  const { lang, setLang } = useLanguage();
   const names = TRANSLATIONS.NAMES[lang] || TRANSLATIONS.NAMES.en;
   const [visible, setVisible] = useState(true);
   const [doorsOpen, setDoorsOpen] = useState(false);
   const [showButton, setShowButton] = useState(false);
+  const [tooltipIndex, setTooltipIndex] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
+
+  // Cycle the language hint tooltip until the user picks a language
+  useEffect(() => {
+    if (hasInteracted) return;
+    const id = setInterval(() => {
+      setTooltipIndex((i) => (i + 1) % 4);
+    }, 1800);
+    return () => clearInterval(id);
+  }, [hasInteracted]);
 
   // Manage body scroll locking and initial scroll-to-top
   useEffect(() => {
@@ -112,6 +137,64 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
             display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             padding: '2rem',
           }}>
+
+            {/* Language selector (top-right, above doors) */}
+            <div style={{
+              position: 'absolute',
+              top: '1.2rem',
+              right: '1.2rem',
+              zIndex: 10000,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              gap: '0.5rem',
+            }}>
+              <div style={{ display: 'flex', gap: '0.4rem' }}>
+                {LANG_CHIPS.map((chip) => {
+                  const active = chip.code === lang;
+                  return (
+                    <button
+                      key={chip.code}
+                      onClick={() => { setLang(chip.code); setHasInteracted(true); }}
+                      style={{
+                        minWidth: '36px',
+                        minHeight: '36px',
+                        padding: '0 0.5rem',
+                        borderRadius: '50px',
+                        border: 'none',
+                        cursor: 'pointer',
+                        background: active ? '#D4A843' : 'transparent',
+                        color: active ? '#3B0D18' : 'rgba(253,246,224,0.6)',
+                        fontFamily: 'var(--font-body)',
+                        fontWeight: active ? 700 : 500,
+                        fontSize: '0.85rem',
+                        transition: 'all 0.2s ease',
+                      }}
+                      aria-label={`Switch to ${chip.code}`}
+                    >
+                      {chip.label}
+                    </button>
+                  );
+                })}
+              </div>
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={tooltipIndex}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.4 }}
+                  style={{
+                    fontFamily: 'var(--font-body)',
+                    fontSize: '11px',
+                    color: 'rgba(212,168,67,0.75)',
+                    textAlign: 'right',
+                  }}
+                >
+                  {LANG_HINTS[tooltipIndex].hint}
+                </motion.span>
+              </AnimatePresence>
+            </div>
 
             {/* The Breathing Halo */}
             <motion.div
