@@ -138,7 +138,7 @@ export default function VisitsDashboard() {
       </Head>
 
       <div style={st.page} className="admin-page">
-        {/* Glow background spots */}}
+        {/* Glow background spots */}
         <div style={st.glowBurgundy}></div>
         <div style={st.glowGold}></div>
 
