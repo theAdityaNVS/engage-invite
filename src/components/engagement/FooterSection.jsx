@@ -25,40 +25,32 @@ export default function FooterSection() {
   return (
     <>
       <footer style={{
-        background: '#040711', // Solid dark midnight background
+        background: '#040711',
         borderTop: '1px solid rgba(212, 168, 67, 0.1)',
         textAlign: 'center',
         position: 'relative',
-        padding: '2.5rem 1.5rem',
+        padding: '1rem 1.5rem',
         zIndex: 2,
       }}>
-        <div style={{ maxWidth: 500, margin: '0 auto' }}>
-          {/* Made with ❤️ & Built with credits */}
+        <div style={{ maxWidth: 600, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '0.25rem' }}>
           <p style={{
             fontFamily: 'var(--font-body)',
-            fontSize: '0.82rem',
-            color: 'rgba(245, 236, 200, 0.55)',
+            fontSize: '0.78rem',
+            color: 'rgba(245, 236, 200, 0.5)',
             letterSpacing: '0.04em',
-            marginBottom: '0.6rem',
-            lineHeight: 1.6,
-          }}>
-            {t('made_with_love')}
-            <br />
-            {t('built_with_credits')}
-          </p>
-
-          {/* Languages & Copyright details */}
-          <p style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: '0.74rem',
-            color: 'rgba(245, 236, 200, 0.3)',
-            letterSpacing: '0.05em',
             margin: 0,
             lineHeight: 1.5,
           }}>
-            Available in English, Hindi, Telugu &amp; Odia.
-            <br />
-            © 2026 theAdityaNVS. All rights reserved.
+            {t('made_with_love')} &nbsp;·&nbsp; {t('built_with_credits')}
+          </p>
+          <p style={{
+            fontFamily: 'var(--font-body)',
+            fontSize: '0.68rem',
+            color: 'rgba(245, 236, 200, 0.25)',
+            letterSpacing: '0.05em',
+            margin: 0,
+          }}>
+            English · हिन्दी · తెలుగు · ଓଡ଼ିଆ &nbsp;·&nbsp; © 2026 theAdityaNVS
           </p>
         </div>
       </footer>
