@@ -97,16 +97,6 @@ html[data-lang="hi"] body { font-family: 'Lora', 'Noto Serif Devanagari', serif;
 html[data-lang="te"] body { font-family: 'Lora', 'Noto Serif Telugu', serif; }
 html[data-lang="or"] body { font-family: 'Lora', 'Noto Sans Odia', serif; }
 
-/* Noto Indic fonts render with a smaller core glyph than Latin at the same
-   font-size, so non-English text reads noticeably smaller. Scale each Indic
-   language up to reach reading parity. `zoom` (not `font-size`) is used because
-   nearly all text sets font-size via inline styles, which a stylesheet
-   font-size cannot override; zoom scales the localized layout proportionally
-   and reflows correctly (unlike transform: scale). */
-html[data-lang="hi"] body { zoom: 1.14; }
-html[data-lang="te"] body { zoom: 1.10; }
-html[data-lang="or"] body { zoom: 1.14; }
-
 body {
   background-color: var(--navy);
   color: var(--dark-text);
