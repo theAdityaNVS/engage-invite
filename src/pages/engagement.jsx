@@ -62,6 +62,8 @@ export default function EngagementPage({ side = 'groom', musicTrack = 1, hasSide
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
         <meta name="theme-color" content="#8B1A2B" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
 
         {/* Open Graph / WhatsApp */}
         <meta property="og:type" content="website" />
@@ -70,7 +72,7 @@ export default function EngagementPage({ side = 'groom', musicTrack = 1, hasSide
         <meta property="og:description" content="Join us to celebrate their engagement — 17th June 2026, Suryansh Hotels & Resorts, Bhubaneswar. In English, Hindi, Telugu & Odia." />
         <meta property="og:image" content="https://adityanvs.in/og-engagement.jpg" />
         <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
+        <meta property="og:image:height" content="1200" />
         <meta name="twitter:card" content="summary_large_image" />
         {/* Fonts (incl. Great Vibes) are loaded once in _document.js */}
       </Head>
