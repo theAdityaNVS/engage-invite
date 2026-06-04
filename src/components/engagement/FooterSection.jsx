@@ -41,7 +41,7 @@ export default function FooterSection() {
             margin: 0,
             lineHeight: 1.5,
           }}>
-            {t('made_with_love')} &nbsp;·&nbsp; {t('built_with_credits')}
+            {t('made_with_love')}
           </p>
           <p style={{
             fontFamily: 'var(--font-body)',
