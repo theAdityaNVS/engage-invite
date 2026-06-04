@@ -12,10 +12,17 @@ export default function App({ Component, pageProps }) {
     }
 
     // Block pinch-zoom on iOS Safari (it ignores the viewport maximum-scale flag)
+    // gesturestart/change/end covers Safari's proprietary gesture events
     const preventGesture = (e) => e.preventDefault();
     document.addEventListener('gesturestart', preventGesture);
     document.addEventListener('gesturechange', preventGesture);
     document.addEventListener('gestureend', preventGesture);
+
+    // touchmove with >1 touch point = pinch gesture; must use passive:false to cancel it
+    const preventPinch = (e) => {
+      if (e.touches.length > 1) e.preventDefault();
+    };
+    document.addEventListener('touchmove', preventPinch, { passive: false });
 
     // Lenis smooth scroll — disabled on iOS because Lenis uses transform-based
     // scrolling as a fallback on iOS Safari, which breaks `position: fixed`
@@ -39,6 +46,7 @@ export default function App({ Component, pageProps }) {
       document.removeEventListener('gesturestart', preventGesture);
       document.removeEventListener('gesturechange', preventGesture);
       document.removeEventListener('gestureend', preventGesture);
+      document.removeEventListener('touchmove', preventPinch);
     };
   }, []);
 
