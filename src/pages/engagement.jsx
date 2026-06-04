@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 
 import SplashScreen from '@/components/shared/SplashScreen';
@@ -26,6 +26,34 @@ import { COUPLE, ENGAGEMENT, DOMAIN } from '@/config';
 export default function EngagementPage({ side = 'groom', musicTrack = 1, hasSideParam = false, hasMusicParam = false }) {
   const [musicAutoPlay, setMusicAutoPlay] = useState(false);
   const [entered, setEntered] = useState(false);
+  const [activeSide, setActiveSide] = useState(side);
+  const [activeMusicTrack, setActiveMusicTrack] = useState(musicTrack);
+
+  // Write-effect: save params to localStorage when they were explicitly in the URL
+  useEffect(() => {
+    try {
+      if (hasSideParam) localStorage.setItem('invite_side', activeSide);
+    } catch {}
+    try {
+      if (hasMusicParam) localStorage.setItem('invite_music', String(activeMusicTrack));
+    } catch {}
+  }, []);
+
+  // Read-effect: restore stored choices when no param was present in the URL
+  useEffect(() => {
+    try {
+      if (!hasSideParam) {
+        const stored = localStorage.getItem('invite_side');
+        if (stored === 'bride' || stored === 'groom') setActiveSide(stored);
+      }
+    } catch {}
+    try {
+      if (!hasMusicParam) {
+        const stored = Number(localStorage.getItem('invite_music'));
+        if ([1, 2, 3].includes(stored)) setActiveMusicTrack(stored);
+      }
+    } catch {}
+  }, []);
 
   return (
     <>
@@ -57,10 +85,10 @@ export default function EngagementPage({ side = 'groom', musicTrack = 1, hasSide
 
 
       <main>
-        <div id="section-hero"><EngagementHero side={side} /></div>
+        <div id="section-hero"><EngagementHero side={activeSide} /></div>
 
         <div id="section-events">
-          <BlessingsSection side={side} />
+          <BlessingsSection side={activeSide} />
           <EventCardsSection />
           <RouteCTA />
         </div>
@@ -86,7 +114,7 @@ export default function EngagementPage({ side = 'groom', musicTrack = 1, hasSide
       {/* Fixed UI */}
 
       {entered && <AutoScrollHint />}
-      <MusicPlayer autoPlay={musicAutoPlay} track={musicTrack} />
+      <MusicPlayer autoPlay={musicAutoPlay} track={activeMusicTrack} />
       {entered && <LanguageSwitcher />}
     </>
   );
