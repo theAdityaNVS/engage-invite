@@ -4,12 +4,12 @@ import { useRouter } from 'next/router';
 import { TRANSLATIONS, MEDIA } from '@/config';
 
 const SIDES = [
-  { id: 'groom', label: 'Groom\'s Side', paramValue: 'groom', desc: 'Groom\'s Side invitation links (includes default links)' },
-  { id: 'bride', label: 'Bride\'s Side', paramValue: 'bride', desc: 'Bride\'s Side invitation links' },
+  { id: 'groom', label: 'Groom\'s Side', paramValue: 'groom' },
+  { id: 'bride', label: 'Bride\'s Side', paramValue: 'bride' },
 ];
 
 const LANGS = [
-  { id: 'none', label: 'Default (Auto / English)', code: null, native: 'System Default' },
+  { id: 'none', label: 'System Default (Auto-detect)', code: null, native: 'Default' },
   { id: 'en', label: 'English', code: 'en', native: 'English' },
   { id: 'hi', label: 'Hindi', code: 'hi', native: 'हिंदी' },
   { id: 'te', label: 'Telugu', code: 'te', native: 'తెలుగు' },
@@ -19,24 +19,41 @@ const LANGS = [
 export default function InviteLinkGenerator() {
   const router = useRouter();
 
-  // Basic States
-  const [activeSide, setActiveSide] = useState('groom');
+  // Settings & Toggles
   const [domainType, setDomainType] = useState('prod');
   const [customDomain, setCustomDomain] = useState('http://localhost:3000');
-  const [searchQuery, setSearchQuery] = useState('');
   
-  // Interactive UI States
-  const [copiedId, setCopiedId] = useState(null);
-  const [qrModalData, setQrModalData] = useState(null); // { url, label }
-  const [qrDownloading, setQrDownloading] = useState(false);
-  const [stats, setStats] = useState({ total: 0, matches: 0 });
+  // Interactive Builder State
+  const [builderSide, setBuilderSide] = useState('groom');
+  const [builderLang, setBuilderLang] = useState('none');
+  const [builderMusic, setBuilderMusic] = useState('none');
 
-  // Hover States
-  const [activeTabHover, setActiveTabHover] = useState(null);
+  // UI feedback states
+  const [copiedId, setCopiedId] = useState(null);
+  const [qrDownloading, setQrDownloading] = useState(false);
+  const [qrModalData, setQrModalData] = useState(null); // for quick share popup QR codes
+
+  // Hover states
   const [analyticsHover, setAnalyticsHover] = useState(false);
   const [domainHover, setDomainHover] = useState(null);
+  const [btnHover, setBtnHover] = useState(null);
 
-  // Get current active base URL
+  // Music tracks extraction
+  const getMusicTracks = () => {
+    const tracks = MEDIA.MUSIC_TRACKS || [];
+    return [
+      { id: 'none', label: 'Amaran / Default (Track 1)', trackVal: null },
+      ...tracks.map(t => ({
+        id: String(t.id),
+        label: `${t.label} (Track ${t.id})`,
+        trackVal: String(t.id)
+      }))
+    ];
+  };
+
+  const musicOptions = getMusicTracks();
+
+  // Clean trailing slash and path segments from domain
   const getBaseUrl = useCallback(() => {
     if (domainType === 'prod') {
       return 'https://adityanvs.in/engagement';
@@ -51,7 +68,7 @@ export default function InviteLinkGenerator() {
     }
   }, [domainType, customDomain]);
 
-  // Generate URL for specific configuration
+  // Generate URL helper
   const generateUrl = useCallback((sideVal, langCode, musicId) => {
     const base = getBaseUrl();
     const params = [];
@@ -63,14 +80,14 @@ export default function InviteLinkGenerator() {
     return `${base}?${params.join('&')}`;
   }, [getBaseUrl]);
 
-  // Copy to clipboard
+  // Copy helper
   const handleCopy = (url, id) => {
     navigator.clipboard.writeText(url);
     setCopiedId(id);
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  // Download QR Code Blob
+  // Download QR Code Blob helper
   const downloadQR = async (url, label) => {
     setQrDownloading(true);
     const size = 500;
@@ -95,140 +112,30 @@ export default function InviteLinkGenerator() {
     }
   };
 
-  // Generate all links grouped by Language and Music Block
-  const generateAllLinks = useCallback(() => {
-    const cards = [];
+  // Builder URL generation
+  const activeLangObj = LANGS.find(l => l.id === builderLang) || LANGS[0];
+  const activeMusicObj = musicOptions.find(m => m.id === builderMusic) || musicOptions[0];
 
-    LANGS.forEach(lang => {
-      const musicBlocks = [];
+  // Variation 1: Cleanest Recommended URL (omits side=groom, music=1)
+  const builderCleanUrl = generateUrl(
+    builderSide === 'groom' ? null : 'bride',
+    activeLangObj.code,
+    activeMusicObj.trackVal
+  );
 
-      // Helper to create a block with variations
-      const createBlock = (title, badge, trackId, isDefaultMusic = false) => {
-        const variations = [];
+  // Variation 2: Explicit URL (contains side and music params explicitly)
+  const builderExplicitUrl = generateUrl(
+    builderSide,
+    activeLangObj.code || activeLangObj.id === 'none' ? activeLangObj.code : null,
+    activeMusicObj.trackVal || activeMusicObj.id === 'none' ? (activeMusicObj.trackVal || '1') : null
+  );
 
-        if (activeSide === 'groom') {
-          if (isDefaultMusic) {
-            // Variation 1: Cleanest (No side, no music)
-            variations.push({
-              id: `groom_${lang.id}_default_clean`,
-              label: 'Cleanest URL (No params)',
-              url: generateUrl(null, lang.code, null),
-            });
-            // Variation 2: Explicit Side only
-            variations.push({
-              id: `groom_${lang.id}_default_side`,
-              label: 'Explicit Side (side=groom)',
-              url: generateUrl('groom', lang.code, null),
-            });
-            // Variation 3: Explicit Music only
-            variations.push({
-              id: `groom_${lang.id}_default_music`,
-              label: 'Explicit Music (music=1)',
-              url: generateUrl(null, lang.code, '1'),
-            });
-            // Variation 4: Fully Explicit
-            variations.push({
-              id: `groom_${lang.id}_default_explicit`,
-              label: 'Explicit Side & Music (side=groom & music=1)',
-              url: generateUrl('groom', lang.code, '1'),
-            });
-          } else {
-            // Non-default track variations (Groom Side)
-            // Variation 1: Cleanest (No side, music=X)
-            variations.push({
-              id: `groom_${lang.id}_tr${trackId}_clean`,
-              label: 'Cleanest URL (No side param)',
-              url: generateUrl(null, lang.code, trackId),
-            });
-            // Variation 2: Explicit Side
-            variations.push({
-              id: `groom_${lang.id}_tr${trackId}_explicit`,
-              label: `Explicit Side (side=groom & music=${trackId})`,
-              url: generateUrl('groom', lang.code, trackId),
-            });
-          }
-        } else {
-          // Bride side
-          if (isDefaultMusic) {
-            // Variation 1: Cleanest (side=bride, no music)
-            variations.push({
-              id: `bride_${lang.id}_default_clean`,
-              label: 'Cleanest URL (No music param)',
-              url: generateUrl('bride', lang.code, null),
-            });
-            // Variation 2: Fully Explicit (side=bride & music=1)
-            variations.push({
-              id: `bride_${lang.id}_default_explicit`,
-              label: 'Explicit Music (side=bride & music=1)',
-              url: generateUrl('bride', lang.code, '1'),
-            });
-          } else {
-            // Variations for non-default tracks on Bride Side
-            variations.push({
-              id: `bride_${lang.id}_tr${trackId}_clean`,
-              label: 'Cleanest URL',
-              url: generateUrl('bride', lang.code, trackId),
-            });
-          }
-        }
-
-        // Apply search filtering on variation label, block title, or url
-        const queryLower = searchQuery.toLowerCase().trim();
-        const filteredVariations = variations.filter(v => {
-          if (!queryLower) return true;
-          const searchString = `${lang.label} ${title} ${v.label} ${v.url}`.toLowerCase();
-          return searchString.includes(queryLower);
-        });
-
-        return {
-          id: `${activeSide}_${lang.id}_block_${trackId}`,
-          title,
-          badge,
-          variations,
-          filteredVariations,
-          hasMatches: filteredVariations.length > 0
-        };
-      };
-
-      const blocks = [
-        createBlock('Amaran (Track 1) / Default Music', activeSide === 'groom' ? 'Default / music=1' : 'side=bride', '1', true),
-        createBlock('Apna Bana Le (Track 2)', activeSide === 'groom' ? 'music=2' : 'side=bride & music=2', '2'),
-        createBlock('Vachindamma (Track 3)', activeSide === 'groom' ? 'music=3' : 'side=bride & music=3', '3'),
-      ];
-
-      const visibleBlocks = blocks.filter(b => b.hasMatches);
-
-      cards.push({
-        lang,
-        blocks,
-        visibleBlocks,
-        hasMatches: visibleBlocks.length > 0
-      });
-    });
-
-    return cards;
-  }, [activeSide, generateUrl, searchQuery]);
-
-  const cardsList = generateAllLinks();
-  const visibleCards = cardsList.filter(c => c.hasMatches);
-
-  // Calculate counts dynamically
-  useEffect(() => {
-    let total = 0;
-    let matches = 0;
-    cardsList.forEach(c => {
-      c.blocks.forEach(b => {
-        total += b.variations.length;
-        matches += b.filteredVariations.length;
-      });
-    });
-    setStats({ total, matches });
-  }, [activeSide, searchQuery, cardsList]);
+  const builderLabel = `${builderSide === 'groom' ? 'Groom Side' : 'Bride Side'} — ${activeLangObj.label} — ${activeMusicObj.label.split(' / ')[0]}`;
 
   return (
     <>
       <Head>
-        <title>Invite Link Generator — Admin Dashboard</title>
+        <title>Invite Link Generator — Dashboard</title>
         <meta name="robots" content="noindex, nofollow" />
       </Head>
 
@@ -245,11 +152,10 @@ export default function InviteLinkGenerator() {
                 <span style={st.pulseDot}></span>
                 <h1 style={st.h1}>Invite Link Generator</h1>
               </div>
-              <p style={st.subtitle}>Generate and copy guest invitation links with custom parameters</p>
+              <p style={st.subtitle}>Generate, customize, and share invitation links with QR codes</p>
             </div>
 
             <div style={st.headerControls}>
-              {/* Analytics Dashboard Link */}
               <button
                 onClick={() => router.push('/admin/visits')}
                 onMouseEnter={() => setAnalyticsHover(true)}
@@ -267,19 +173,16 @@ export default function InviteLinkGenerator() {
             </div>
           </header>
 
-          {/* Configuration Form & Settings Panel */}
+          {/* Config Environment settings */}
           <section style={st.configPanel}>
-            <h2 style={st.panelTitle}>Target Environment Settings</h2>
-            
+            <h2 style={st.panelTitle}>Target Environment</h2>
             <div style={st.configGrid}>
-              {/* Base Domain Toggle Group */}
               <div style={st.configBlock}>
-                <label style={st.fieldLabel}>Base Domain / Environment</label>
                 <div style={st.domainBtnGroup}>
                   {[
                     { type: 'prod', label: 'Production URL', desc: 'https://adityanvs.in' },
                     { type: 'local', label: 'Local Testing', desc: 'http://localhost:3000' },
-                    { type: 'custom', label: 'Custom URL', desc: 'Specify manually' }
+                    { type: 'custom', label: 'Custom Domain', desc: 'Specify manually' }
                   ].map(item => (
                     <button
                       key={item.type}
@@ -299,10 +202,8 @@ export default function InviteLinkGenerator() {
                 </div>
               </div>
 
-              {/* Custom Domain input (conditional) */}
               {domainType === 'custom' && (
-                <div style={{ ...st.configBlock, alignSelf: 'flex-end' }}>
-                  <label style={st.fieldLabel}>Enter Custom Base URL</label>
+                <div style={st.configBlock}>
                   <input
                     type="text"
                     value={customDomain}
@@ -310,184 +211,254 @@ export default function InviteLinkGenerator() {
                     placeholder="https://preview-site.vercel.app"
                     style={st.customInput}
                   />
-                  <p style={st.inputHint}>Will append <code>/engagement</code> path suffix automatically.</p>
+                  <p style={st.inputHint}>Automatically appends <code>/engagement</code>.</p>
                 </div>
               )}
             </div>
           </section>
 
-          {/* Grouped Tabs by Side/Team */}
-          <div style={st.tabBarContainer}>
-            <div style={st.tabBarSubContainer}>
-              <nav style={st.tabsNav}>
-                {SIDES.map((side) => (
+          {/* SECTION 1: INTERACTIVE BUILDER PANEL (Two Columns) */}
+          <section style={st.builderPanel}>
+            <div style={st.builderGrid}>
+              
+              {/* Left Column: Selector Controls */}
+              <div style={st.builderControls}>
+                <h3 style={st.builderTitle}>Dynamic Invite Builder</h3>
+                <p style={st.builderDesc}>Select parameters to dynamically build a personalized guest link.</p>
+                
+                {/* Side Selection */}
+                <div style={st.controlGroup}>
+                  <label style={st.controlLabel}>Select Family Team</label>
+                  <div style={st.sideToggles}>
+                    {SIDES.map(s => (
+                      <button
+                        key={s.id}
+                        onClick={() => setBuilderSide(s.id)}
+                        style={{
+                          ...st.sideToggleBtn,
+                          ...(builderSide === s.id ? st.sideToggleBtnActive : {})
+                        }}
+                      >
+                        {s.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Language Selection */}
+                <div style={st.controlGroup}>
+                  <label style={st.controlLabel}>Select Language View</label>
+                  <select
+                    value={builderLang}
+                    onChange={(e) => setBuilderLang(e.target.value)}
+                    style={st.dropdownSelect}
+                  >
+                    {LANGS.map(l => (
+                      <option key={l.id} value={l.id}>
+                        {l.label} {l.native !== 'Default' ? `(${l.native})` : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                {/* Music Selection */}
+                <div style={st.controlGroup}>
+                  <label style={st.controlLabel}>Select Music Soundtrack</label>
+                  <select
+                    value={builderMusic}
+                    onChange={(e) => setBuilderMusic(e.target.value)}
+                    style={st.dropdownSelect}
+                  >
+                    {musicOptions.map(m => (
+                      <option key={m.id} value={m.id}>
+                        {m.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              {/* Right Column: Live Output & QR Preview */}
+              <div style={st.builderDisplay}>
+                <h3 style={st.displayTitle}>Live Generated Output</h3>
+                
+                {/* QR Code Container */}
+                <div style={st.qrWrapper}>
+                  <div style={st.qrContainerBox}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(builderCleanUrl)}`}
+                      alt="Builder QR Code"
+                      style={st.builderQrImage}
+                    />
+                  </div>
                   <button
-                    key={side.id}
-                    onClick={() => setActiveSide(side.id)}
-                    onMouseEnter={() => setActiveTabHover(side.id)}
-                    onMouseLeave={() => setActiveTabHover(null)}
+                    disabled={qrDownloading}
+                    onClick={() => downloadQR(builderCleanUrl, builderLabel)}
+                    onMouseEnter={() => setBtnHover('download')}
+                    onMouseLeave={() => setBtnHover(null)}
                     style={{
-                      ...st.tab,
-                      ...(activeSide === side.id ? st.tabActive : {}),
-                      ...(activeTabHover === side.id && activeSide !== side.id ? st.tabHover : {})
+                      ...st.downloadQrBtn,
+                      ...(btnHover === 'download' ? st.downloadQrBtnHover : {}),
+                      ...(qrDownloading ? { opacity: 0.7 } : {})
                     }}
                   >
-                    {side.label}
+                    {qrDownloading ? (
+                      <>
+                        <span style={st.spinner}></span>
+                        <span>Saving...</span>
+                      </>
+                    ) : (
+                      <>
+                        <svg style={{ width: '14px', height: '14px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                        <span>Download QR Code</span>
+                      </>
+                    )}
                   </button>
-                ))}
-              </nav>
-              
-              <div style={st.tabMetaInfo}>
-                {SIDES.find(s => s.id === activeSide)?.desc}
-              </div>
-            </div>
+                </div>
 
-            {/* Link Search query */}
-            <div style={st.searchWrapper}>
-              <span style={st.searchIcon}>
-                <svg style={{ width: '16px', height: '16px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </span>
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search links (e.g. Odia, Amaran)..."
-                style={st.searchInput}
-              />
-              {searchQuery && (
-                <button onClick={() => setSearchQuery('')} style={st.clearSearchBtn}>
-                  &times;
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Visible items stats info */}
-          <div style={st.statsBar}>
-            <span>Showing <strong>{stats.matches}</strong> of <strong>{stats.total}</strong> generated link combinations for {SIDES.find(s => s.id === activeSide)?.label}</span>
-          </div>
-
-          {/* Grouped Link lists grouped by Language */}
-          <div style={st.languagesGrid}>
-            {visibleCards.map(card => {
-              return (
-                <article key={card.lang.id} style={st.langSection}>
-                  <header style={st.langSectionHeader}>
-                    <h3 style={st.langTitle}>{card.lang.label}</h3>
-                    <span style={st.langBadge}>{card.lang.native}</span>
-                  </header>
-
-                  {/* Blocks representing Music Tracks */}
-                  <div style={st.blocksContainer}>
-                    {card.visibleBlocks.map(block => {
-                      return (
-                        <div key={block.id} style={st.blockCard}>
-                          {/* Card Header */}
-                          <div style={st.blockCardHeader}>
-                            <h4 style={st.blockTitle}>{block.title}</h4>
-                            <span style={st.blockBadge}>{block.badge}</span>
-                          </div>
-
-                          {/* Variations List */}
-                          <div style={st.variationsList}>
-                            {block.filteredVariations.map(v => {
-                              const isCopied = copiedId === v.id;
-                              
-                              return (
-                                <div key={v.id} style={st.variationRow}>
-                                  {/* Left side label */}
-                                  <div style={st.variationLabelBox}>
-                                    <span style={st.variationLabel}>{v.label}</span>
-                                  </div>
-
-                                  {/* Monospace URL Display */}
-                                  <div style={st.urlDisplay}>
-                                    {v.url}
-                                  </div>
-
-                                  {/* Actions */}
-                                  <div style={st.actionButtonGroup}>
-                                    {/* Copy Button */}
-                                    <button
-                                      onClick={() => handleCopy(v.url, v.id)}
-                                      style={{
-                                        ...st.variationBtn,
-                                        ...(isCopied ? st.copyBtnActive : st.copyBtnNormal)
-                                      }}
-                                    >
-                                      {isCopied ? (
-                                        <>
-                                          <svg style={{ width: '13px', height: '13px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                                          </svg>
-                                          <span>Copied</span>
-                                        </>
-                                      ) : (
-                                        <>
-                                          <svg style={{ width: '13px', height: '13px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
-                                          </svg>
-                                          <span>Copy</span>
-                                        </>
-                                      )}
-                                    </button>
-
-                                    {/* Preview Button */}
-                                    <a
-                                      href={v.url}
-                                      target="_blank"
-                                      rel="noreferrer"
-                                      style={{ ...st.variationBtn, ...st.openBtn }}
-                                    >
-                                      <svg style={{ width: '13px', height: '13px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                      </svg>
-                                      <span>Preview</span>
-                                    </a>
-
-                                    {/* QR Code Button */}
-                                    <button
-                                      onClick={() => setQrModalData({ url: v.url, label: `${card.lang.label} — ${block.title} (${v.label})` })}
-                                      style={{ ...st.variationBtn, ...st.qrBtn }}
-                                    >
-                                      <svg style={{ width: '13px', height: '13px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                      </svg>
-                                      <span>QR Code</span>
-                                    </button>
-                                  </div>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      );
-                    })}
+                {/* Generated URLs display */}
+                <div style={st.urlsDisplayBlock}>
+                  {/* Clean URL (Recommended) */}
+                  <div style={st.urlDisplayBlock}>
+                    <div style={st.urlHeaderRow}>
+                      <span style={st.urlBadgeClean}>Recommended Link (Short)</span>
+                      <div style={st.urlBtnGroup}>
+                        <button
+                          onClick={() => handleCopy(builderCleanUrl, 'builder_clean')}
+                          style={{
+                            ...st.urlActionBtn,
+                            ...(copiedId === 'builder_clean' ? st.urlActionBtnCopied : {})
+                          }}
+                        >
+                          {copiedId === 'builder_clean' ? 'Copied' : 'Copy'}
+                        </button>
+                        <a href={builderCleanUrl} target="_blank" rel="noreferrer" style={st.urlActionBtnLink}>
+                          Preview
+                        </a>
+                      </div>
+                    </div>
+                    <div style={st.urlBoxText}>{builderCleanUrl}</div>
                   </div>
-                </article>
-              );
-            })}
 
-            {visibleCards.length === 0 && (
-              <div style={st.emptyState}>
-                <svg style={{ width: '48px', height: '48px', color: '#64748b', marginBottom: '16px' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <h3 style={{ color: '#ffffff', fontSize: '1.1rem', fontWeight: 600, marginBottom: '6px' }}>No Matching Links Found</h3>
-                <p style={{ color: '#64748b', fontSize: '0.875rem' }}>Try clearing the search query or changing active parameters.</p>
+                  {/* Explicit URL */}
+                  <div style={st.urlDisplayBlock}>
+                    <div style={st.urlHeaderRow}>
+                      <span style={st.urlBadgeExplicit}>Explicit Parameters Link</span>
+                      <div style={st.urlBtnGroup}>
+                        <button
+                          onClick={() => handleCopy(builderExplicitUrl, 'builder_explicit')}
+                          style={{
+                            ...st.urlActionBtn,
+                            ...(copiedId === 'builder_explicit' ? st.urlActionBtnCopied : {})
+                          }}
+                        >
+                          {copiedId === 'builder_explicit' ? 'Copied' : 'Copy'}
+                        </button>
+                        <a href={builderExplicitUrl} target="_blank" rel="noreferrer" style={st.urlActionBtnLink}>
+                          Preview
+                        </a>
+                      </div>
+                    </div>
+                    <div style={st.urlBoxText}>{builderExplicitUrl}</div>
+                  </div>
+                </div>
+
               </div>
-            )}
-          </div>
+
+            </div>
+          </section>
+
+          {/* SECTION 2: QUICK SHARE DIRECTORY (Compact Grid) */}
+          <section style={st.quickShareSection}>
+            <h2 style={st.sectionHeading}>Quick-Share Invitation Links</h2>
+            <p style={st.sectionSubheading}>Instantly copy or preview the most commonly shared family-specific language links (default music track is Amaran).</p>
+            
+            <div style={st.quickShareGrid}>
+              {LANGS.map(lang => {
+                const groomLink = generateUrl(null, lang.code, null);
+                const brideLink = generateUrl('bride', lang.code, null);
+                
+                const groomId = `qs_groom_${lang.id}`;
+                const brideId = `qs_bride_${lang.id}`;
+
+                return (
+                  <div key={lang.id} style={st.quickShareCard}>
+                    <div style={st.qsCardHeader}>
+                      <h4 style={st.qsCardTitle}>{lang.label}</h4>
+                      <span style={st.qsCardNative}>{lang.native}</span>
+                    </div>
+
+                    <div style={st.qsCardBody}>
+                      {/* Groom side row */}
+                      <div style={st.qsRow}>
+                        <div style={st.qsRowLabelBox}>
+                          <span style={st.qsRowLabel}>Groom Side</span>
+                        </div>
+                        <div style={st.qsRowActions}>
+                          <button
+                            onClick={() => handleCopy(groomLink, groomId)}
+                            style={{
+                              ...st.qsBtn,
+                              ...(copiedId === groomId ? st.qsBtnCopied : st.qsBtnCopy)
+                            }}
+                          >
+                            {copiedId === groomId ? 'Copied' : 'Copy'}
+                          </button>
+                          <a href={groomLink} target="_blank" rel="noreferrer" style={st.qsBtnPreview}>
+                            Preview
+                          </a>
+                          <button
+                            onClick={() => setQrModalData({ url: groomLink, label: `Groom Side — ${lang.label} (Quick Link)` })}
+                            style={st.qsBtnQr}
+                          >
+                            QR
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Bride side row */}
+                      <div style={st.qsRow}>
+                        <div style={st.qsRowLabelBox}>
+                          <span style={st.qsRowLabel}>Bride Side</span>
+                        </div>
+                        <div style={st.qsRowActions}>
+                          <button
+                            onClick={() => handleCopy(brideLink, brideId)}
+                            style={{
+                              ...st.qsBtn,
+                              ...(copiedId === brideId ? st.qsBtnCopied : st.qsBtnCopy)
+                            }}
+                          >
+                            {copiedId === brideId ? 'Copied' : 'Copy'}
+                          </button>
+                          <a href={brideLink} target="_blank" rel="noreferrer" style={st.qsBtnPreview}>
+                            Preview
+                          </a>
+                          <button
+                            onClick={() => setQrModalData({ url: brideLink, label: `Bride Side — ${lang.label} (Quick Link)` })}
+                            style={st.qsBtnQr}
+                          >
+                            QR
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
         </div>
       </div>
 
-      {/* QR Code Modal Backdrop */}
+      {/* QR Code Modal Backdrop (Quick Share Popups) */}
       {qrModalData && (
         <div style={st.modalBackdrop} onClick={() => setQrModalData(null)}>
           <div style={st.modalContent} onClick={(e) => e.stopPropagation()}>
-            {/* Modal Header */}
             <div style={st.modalHeader}>
               <div>
                 <h3 style={st.modalTitle}>QR Code Generator</h3>
@@ -498,23 +469,20 @@ export default function InviteLinkGenerator() {
               </button>
             </div>
 
-            {/* Modal Body */}
             <div style={st.modalBody}>
               <div style={st.qrBox}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(qrModalData.url)}`}
-                  alt="Invitation QR Code"
+                  alt="Quick Link QR Code"
                   style={st.qrImage}
                 />
               </div>
-              
               <div style={st.modalUrlText}>
                 {qrModalData.url}
               </div>
             </div>
 
-            {/* Modal Footer */}
             <div style={st.modalFooter}>
               <button
                 disabled={qrDownloading}
@@ -538,7 +506,6 @@ export default function InviteLinkGenerator() {
                   </>
                 )}
               </button>
-
               <button onClick={() => setQrModalData(null)} style={st.modalCloseBtn}>
                 Close
               </button>
@@ -651,343 +618,408 @@ const st = {
     backdropFilter: 'blur(16px)',
     border: '1px solid rgba(255, 255, 255, 0.07)',
     borderRadius: '16px',
-    padding: '24px',
+    padding: '16px 20px',
     boxShadow: '0 10px 30px rgba(0,0,0,0.15)',
     marginBottom: '32px',
   },
   panelTitle: {
-    fontSize: '0.85rem',
+    fontSize: '0.75rem',
     textTransform: 'uppercase',
     letterSpacing: '0.12em',
-    color: '#94a3b8',
+    color: '#64748b',
     fontWeight: '700',
-    borderBottom: '1px solid rgba(255,255,255,0.05)',
-    paddingBottom: '12px',
-    marginBottom: '18px',
+    marginBottom: '12px',
   },
   configGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    gap: '24px',
-    alignItems: 'start',
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '16px',
+    alignItems: 'center',
   },
   configBlock: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '8px',
-  },
-  fieldLabel: {
-    fontSize: '0.75rem',
-    fontWeight: '600',
-    color: '#cbd5e1',
-    letterSpacing: '0.02em',
+    gap: '6px',
   },
   domainBtnGroup: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
+    display: 'flex',
     gap: '8px',
     backgroundColor: 'rgba(255,255,255,0.01)',
     border: '1px solid rgba(255,255,255,0.05)',
     padding: '4px',
-    borderRadius: '12px',
+    borderRadius: '10px',
   },
   domainBtn: {
-    padding: '8px 12px',
+    padding: '6px 14px',
     borderRadius: '8px',
     border: 'none',
     background: 'none',
     cursor: 'pointer',
-    color: '#94a3b8',
+    color: '#64748b',
     textAlign: 'center',
     transition: 'all 0.2s ease',
   },
   domainBtnActive: {
-    backgroundColor: 'rgba(212,168,67,0.12)',
-    border: '1px solid rgba(212,168,67,0.4)',
+    backgroundColor: 'rgba(212,168,67,0.1)',
+    border: '1px solid rgba(212,168,67,0.3)',
     color: '#D4A843',
   },
   domainBtnHover: {
-    backgroundColor: 'rgba(255,255,255,0.03)',
-    color: '#cbd5e1',
+    backgroundColor: 'rgba(255,255,255,0.02)',
+    color: '#94a3b8',
   },
   domainBtnDesc: {
-    fontSize: '0.65rem',
-    opacity: 0.8,
-    marginTop: '2px',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
+    fontSize: '0.6rem',
+    opacity: 0.7,
+    marginTop: '1px',
   },
   customInput: {
     backgroundColor: 'rgba(0,0,0,0.2)',
     border: '1px solid rgba(255,255,255,0.1)',
+    borderRadius: '8px',
+    padding: '8px 12px',
+    color: '#ffffff',
+    fontSize: '0.85rem',
+    outline: 'none',
+    width: '260px',
+  },
+  inputHint: {
+    fontSize: '0.65rem',
+    color: '#64748b',
+  },
+  builderPanel: {
+    background: 'rgba(255, 255, 255, 0.02)',
+    backdropFilter: 'blur(20px)',
+    border: '1px solid rgba(255, 255, 255, 0.08)',
+    borderRadius: '20px',
+    padding: '32px',
+    boxShadow: '0 15px 35px rgba(0,0,0,0.2)',
+    marginBottom: '40px',
+  },
+  builderGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+    gap: '40px',
+    alignItems: 'start',
+  },
+  builderControls: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+  },
+  builderTitle: {
+    fontSize: '1.25rem',
+    fontWeight: '700',
+    color: '#ffffff',
+  },
+  builderDesc: {
+    fontSize: '0.85rem',
+    color: '#94a3b8',
+    lineHeight: '1.5',
+  },
+  controlGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+  },
+  controlLabel: {
+    fontSize: '0.78rem',
+    fontWeight: '700',
+    color: '#cbd5e1',
+    letterSpacing: '0.01em',
+  },
+  sideToggles: {
+    display: 'grid',
+    gridTemplateColumns: '1fr 1fr',
+    gap: '10px',
+  },
+  sideToggleBtn: {
+    padding: '12px',
     borderRadius: '10px',
-    padding: '10px 14px',
+    border: '1px solid rgba(255,255,255,0.06)',
+    backgroundColor: 'rgba(255,255,255,0.02)',
+    color: '#94a3b8',
+    fontWeight: '600',
+    fontSize: '0.875rem',
+    cursor: 'pointer',
+    transition: 'all 0.25s ease',
+  },
+  sideToggleBtnActive: {
+    background: 'linear-gradient(to right, #8B2240, #C4572A)',
+    borderColor: 'rgba(139,34,64,0.4)',
+    color: '#ffffff',
+    boxShadow: '0 4px 12px rgba(139,34,64,0.2)',
+  },
+  dropdownSelect: {
+    backgroundColor: 'rgba(0,0,0,0.2)',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: '10px',
+    padding: '12px 16px',
     color: '#ffffff',
     fontSize: '0.875rem',
     outline: 'none',
-    transition: 'border 0.25s ease',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    appearance: 'none',
+    backgroundImage: `url("data:image/svg+xml;utf8,<svg fill='none' viewBox='0 0 24 24' stroke='%2394a3b8' xmlns='http://www.w3.org/2000/svg'><path stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'></path></svg>")`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'right 16px center',
+    backgroundSize: '16px',
   },
-  inputHint: {
-    fontSize: '0.7rem',
-    color: '#64748b',
-    marginTop: '2px',
-  },
-  tabBarContainer: {
+  builderDisplay: {
+    background: 'rgba(0,0,0,0.25)',
+    border: '1px solid rgba(255,255,255,0.04)',
+    borderRadius: '16px',
+    padding: '24px',
     display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: 'column',
     alignItems: 'center',
-    flexWrap: 'wrap',
-    gap: '16px',
-    marginBottom: '20px',
+    gap: '24px',
+    boxShadow: 'inset 0 4px 20px rgba(0,0,0,0.3)',
   },
-  tabBarSubContainer: {
+  displayTitle: {
+    fontSize: '0.8rem',
+    textTransform: 'uppercase',
+    letterSpacing: '0.12em',
+    color: '#D4A843',
+    fontWeight: '700',
+    alignSelf: 'flex-start',
+  },
+  qrWrapper: {
     display: 'flex',
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    gap: '16px',
-    flexWrap: 'wrap',
+    gap: '14px',
   },
-  tabsNav: {
+  qrContainerBox: {
+    padding: '12px',
+    backgroundColor: '#ffffff',
+    borderRadius: '14px',
+    boxShadow: '0 8px 30px rgba(0,0,0,0.4)',
+  },
+  builderQrImage: {
+    width: '160px',
+    height: '160px',
+    display: 'block',
+  },
+  downloadQrBtn: {
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
-    backgroundColor: 'rgba(255,255,255,0.01)',
-    border: '1px solid rgba(255,255,255,0.05)',
-    padding: '4px',
-    borderRadius: '12px',
-    width: 'fit-content',
-  },
-  tab: {
-    padding: '8px 18px',
+    background: 'rgba(212,168,67,0.12)',
+    border: '1px solid rgba(212,168,67,0.35)',
+    color: '#D4A843',
+    padding: '8px 16px',
     borderRadius: '8px',
-    fontSize: '0.85rem',
-    fontWeight: '600',
-    color: '#64748b',
-    border: 'none',
-    background: 'none',
+    fontSize: '0.75rem',
+    fontWeight: '700',
     cursor: 'pointer',
     transition: 'all 0.25s ease',
   },
-  tabActive: {
-    background: 'linear-gradient(to right, #8B2240, #C4572A)',
-    color: '#ffffff',
-    boxShadow: '0 4px 12px rgba(139,34,64,0.18)',
+  downloadQrBtnHover: {
+    background: 'rgba(212,168,67,0.22)',
+    borderColor: 'rgba(212,168,67,0.5)',
   },
-  tabHover: {
-    color: '#cbd5e1',
-    backgroundColor: 'rgba(255,255,255,0.03)',
-  },
-  tabMetaInfo: {
-    fontSize: '0.8rem',
-    color: '#64748b',
-    fontStyle: 'italic',
-  },
-  searchWrapper: {
-    position: 'relative',
-    width: '260px',
-  },
-  searchIcon: {
-    position: 'absolute',
-    left: '12px',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    color: '#64748b',
-    display: 'flex',
-    alignItems: 'center',
-  },
-  searchInput: {
+  urlsDisplayBlock: {
     width: '100%',
-    backgroundColor: 'rgba(255,255,255,0.02)',
-    border: '1px solid rgba(255,255,255,0.08)',
-    borderRadius: '10px',
-    padding: '9px 12px 9px 36px',
-    fontSize: '0.85rem',
-    color: '#ffffff',
-    outline: 'none',
-    transition: 'all 0.25s ease',
-  },
-  clearSearchBtn: {
-    position: 'absolute',
-    right: '10px',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    background: 'none',
-    border: 'none',
-    color: '#64748b',
-    fontSize: '1.2rem',
-    cursor: 'pointer',
-  },
-  statsBar: {
-    fontSize: '0.78rem',
-    color: '#94a3b8',
-    marginBottom: '24px',
-    borderBottom: '1px solid rgba(255,255,255,0.03)',
-    paddingBottom: '10px',
-  },
-  languagesGrid: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '36px',
+    gap: '16px',
   },
-  langSection: {
-    background: 'rgba(255, 255, 255, 0.01)',
-    border: '1px solid rgba(255, 255, 255, 0.04)',
-    borderRadius: '16px',
-    padding: '24px',
-    boxShadow: '0 4px 20px rgba(0,0,0,0.05)',
-  },
-  langSectionHeader: {
+  urlDisplayBlock: {
+    width: '100%',
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    borderBottom: '1px solid rgba(255,255,255,0.04)',
-    paddingBottom: '14px',
-    marginBottom: '20px',
+    flexDirection: 'column',
+    gap: '6px',
   },
-  langTitle: {
-    fontSize: '1.1rem',
+  urlHeaderRow: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  urlBadgeClean: {
+    fontSize: '0.65rem',
+    fontWeight: '700',
+    padding: '2px 8px',
+    borderRadius: '4px',
+    backgroundColor: 'rgba(34,197,94,0.12)',
+    border: '1px solid rgba(34,197,94,0.3)',
+    color: '#4ade80',
+    letterSpacing: '0.02em',
+  },
+  urlBadgeExplicit: {
+    fontSize: '0.65rem',
+    fontWeight: '700',
+    padding: '2px 8px',
+    borderRadius: '4px',
+    backgroundColor: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(255,255,255,0.1)',
+    color: '#94a3b8',
+    letterSpacing: '0.02em',
+  },
+  urlBtnGroup: {
+    display: 'flex',
+    gap: '4px',
+  },
+  urlActionBtn: {
+    backgroundColor: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.06)',
+    color: '#cbd5e1',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    fontSize: '0.65rem',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+  },
+  urlActionBtnCopied: {
+    backgroundColor: 'rgba(34,197,94,0.15)',
+    border: '1px solid rgba(34,197,94,0.3)',
+    color: '#4ade80',
+  },
+  urlActionBtnLink: {
+    backgroundColor: 'rgba(255,255,255,0.03)',
+    border: '1px solid rgba(255,255,255,0.06)',
+    color: '#cbd5e1',
+    padding: '4px 8px',
+    borderRadius: '4px',
+    fontSize: '0.65rem',
+    fontWeight: '600',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    transition: 'all 0.2s ease',
+  },
+  urlBoxText: {
+    width: '100%',
+    fontFamily: 'monospace',
+    fontSize: '0.72rem',
+    color: '#cbd5e1',
+    backgroundColor: 'rgba(0,0,0,0.3)',
+    border: '1px solid rgba(255,255,255,0.05)',
+    padding: '8px 12px',
+    borderRadius: '8px',
+    wordBreak: 'break-all',
+    textAlign: 'left',
+  },
+  quickShareSection: {
+    marginTop: '20px',
+  },
+  sectionHeading: {
+    fontSize: '1.25rem',
     fontWeight: '700',
     color: '#ffffff',
-    letterSpacing: '-0.01em',
+    marginBottom: '6px',
   },
-  langBadge: {
-    fontSize: '0.7rem',
-    fontWeight: '600',
-    padding: '4px 10px',
-    borderRadius: '20px',
-    backgroundColor: 'rgba(212,168,67,0.08)',
-    border: '1px solid rgba(212,168,67,0.25)',
-    color: '#D4A843',
+  sectionSubheading: {
+    fontSize: '0.85rem',
+    color: '#64748b',
+    marginBottom: '24px',
   },
-  blocksContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '24px',
+  quickShareGrid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: '20px',
   },
-  blockCard: {
+  quickShareCard: {
     background: 'rgba(255, 255, 255, 0.015)',
     backdropFilter: 'blur(10px)',
     border: '1px solid rgba(255, 255, 255, 0.05)',
-    borderRadius: '14px',
+    borderRadius: '16px',
     padding: '20px',
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '14px',
     boxShadow: '0 4px 15px rgba(0,0,0,0.1)',
   },
-  blockCardHeader: {
+  qsCardHeader: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     borderBottom: '1px solid rgba(255,255,255,0.04)',
-    paddingBottom: '10px',
-    marginBottom: '16px',
+    paddingBottom: '8px',
   },
-  blockTitle: {
-    fontSize: '0.9rem',
-    fontWeight: '600',
+  qsCardTitle: {
+    fontSize: '0.95rem',
+    fontWeight: '700',
     color: '#ffffff',
   },
-  blockBadge: {
-    fontSize: '0.65rem',
-    color: '#D4A843',
-    fontFamily: 'monospace',
-    backgroundColor: 'rgba(212,168,67,0.06)',
-    border: '1px solid rgba(212,168,67,0.15)',
+  qsCardNative: {
+    fontSize: '0.68rem',
     padding: '2px 8px',
-    borderRadius: '6px',
+    borderRadius: '12px',
+    backgroundColor: 'rgba(212,168,67,0.06)',
+    border: '1px solid rgba(212,168,67,0.2)',
+    color: '#D4A843',
+    fontWeight: '600',
   },
-  variationsList: {
+  qsCardBody: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '10px',
+    gap: '8px',
   },
-  variationRow: {
+  qsRow: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '16px',
-    padding: '10px 14px',
-    backgroundColor: 'rgba(255, 255, 255, 0.01)',
-    border: '1px solid rgba(255, 255, 255, 0.03)',
-    borderRadius: '10px',
-    flexWrap: 'wrap',
+    padding: '8px 10px',
+    backgroundColor: 'rgba(255,255,255,0.01)',
+    border: '1px solid rgba(255,255,255,0.03)',
+    borderRadius: '8px',
   },
-  variationLabelBox: {
-    minWidth: '150px',
-    flex: '1 0 auto',
+  qsRowLabelBox: {
+    flex: '1',
   },
-  variationLabel: {
-    fontSize: '0.75rem',
+  qsRowLabel: {
+    fontSize: '0.78rem',
     fontWeight: '600',
-    color: '#94a3b8',
-  },
-  urlDisplay: {
-    fontSize: '0.72rem',
-    fontFamily: 'monospace',
     color: '#cbd5e1',
-    backgroundColor: 'rgba(0,0,0,0.2)',
-    padding: '6px 12px',
-    borderRadius: '6px',
-    wordBreak: 'break-all',
-    flex: '99 1 300px',
-    textAlign: 'left',
   },
-  actionButtonGroup: {
+  qsRowActions: {
     display: 'flex',
-    gap: '6px',
-    flex: '1 0 auto',
-    justifyContent: 'flex-end',
-  },
-  variationBtn: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     gap: '4px',
-    padding: '7px 12px',
+  },
+  qsBtn: {
+    padding: '4px 10px',
     borderRadius: '6px',
-    fontSize: '0.7rem',
+    fontSize: '0.68rem',
     fontWeight: '600',
     cursor: 'pointer',
     border: 'none',
     transition: 'all 0.2s ease',
-    textDecoration: 'none',
   },
-  copyBtnNormal: {
+  qsBtnCopy: {
     backgroundColor: 'rgba(212,168,67,0.08)',
     border: '1px solid rgba(212,168,67,0.2)',
     color: '#D4A843',
-    ':hover': {
-      backgroundColor: 'rgba(212,168,67,0.15)'
-    }
   },
-  copyBtnActive: {
+  qsBtnCopied: {
     backgroundColor: 'rgba(34,197,94,0.12)',
     border: '1px solid rgba(34,197,94,0.3)',
     color: '#4ade80',
   },
-  openBtn: {
+  qsBtnPreview: {
     backgroundColor: 'rgba(255,255,255,0.03)',
     border: '1px solid rgba(255,255,255,0.06)',
     color: '#cbd5e1',
-    ':hover': {
-      backgroundColor: 'rgba(255,255,255,0.08)'
-    }
+    padding: '4px 10px',
+    borderRadius: '6px',
+    fontSize: '0.68rem',
+    fontWeight: '600',
+    cursor: 'pointer',
+    textDecoration: 'none',
+    transition: 'all 0.2s ease',
   },
-  qrBtn: {
+  qsBtnQr: {
     backgroundColor: 'rgba(139,34,64,0.08)',
     border: '1px solid rgba(139,34,64,0.2)',
     color: '#fca5a5',
-    ':hover': {
-      backgroundColor: 'rgba(139,34,64,0.15)'
-    }
-  },
-  emptyState: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '60px 20px',
-    textAlign: 'center',
+    padding: '4px 8px',
+    borderRadius: '6px',
+    fontSize: '0.68rem',
+    fontWeight: '600',
+    cursor: 'pointer',
+    border: 'none',
+    transition: 'all 0.2s ease',
   },
   modalBackdrop: {
     position: 'fixed',
