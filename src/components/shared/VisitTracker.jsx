@@ -8,6 +8,11 @@ import { useEffect } from 'react';
 // Renders nothing. Mount once near the app root.
 export default function VisitTracker() {
   useEffect(() => {
+    // Exclude admin dashboard and API routes from visitor analytics logging
+    if (typeof window !== 'undefined' && (window.location.pathname.startsWith('/admin') || window.location.pathname.startsWith('/api'))) {
+      return;
+    }
+
     // Once per session, across all pages — keyed in sessionStorage.
     let logged;
     try { logged = sessionStorage.getItem('visit_logged'); } catch { logged = null; }
@@ -26,6 +31,15 @@ export default function VisitTracker() {
       session_id = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
     }
 
+    // Share-link params: which side/music the guest opened the invite with.
+    const params = new URLSearchParams(window.location.search);
+    const rawSide = params.get('side');
+    const rawMusic = Number(params.get('music'));
+    const rawLang = params.get('lang');
+    const invite_side = rawSide === 'bride' || rawSide === 'groom' ? rawSide : null;
+    const invite_music = [1, 2, 3].includes(rawMusic) ? rawMusic : null;
+    const invite_lang = ['en', 'hi', 'te', 'or'].includes(rawLang) ? rawLang : null;
+
     const payload = {
       path: window.location.pathname,
       screen: `${window.screen?.width || 0}x${window.screen?.height || 0}`,
@@ -34,6 +48,9 @@ export default function VisitTracker() {
       language: navigator.language || null,
       referrer: document.referrer || null,
       session_id,
+      invite_side,
+      invite_music,
+      invite_lang,
     };
 
     // Mark logged immediately to dedupe Strict-Mode double-invoke and fast refresh.

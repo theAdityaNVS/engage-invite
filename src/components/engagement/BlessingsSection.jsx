@@ -1,3 +1,4 @@
+import { Fragment } from 'react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import MandalaPattern from '@/components/shared/MandalaPattern';
@@ -188,9 +189,85 @@ function BridesFamilySVG() {
   );
 }
 
-export default function BlessingsSection() {
+function SiblingPill({ t, className, style }) {
+  return (
+    <div className={className} style={{
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      ...style,
+    }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', maxWidth: '280px', marginBottom: '0.8rem' }}>
+        <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.3))' }} />
+        <span style={{ color: '#D4A843', fontSize: '0.85rem' }}>✦</span>
+        <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to left, transparent, rgba(212,168,67,0.3))' }} />
+      </div>
+      <div style={{
+        background: 'rgba(20, 5, 10, 0.2)',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        border: '1px solid rgba(212, 168, 67, 0.2)',
+        boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.02)',
+        borderRadius: '30px',
+        padding: '0.6rem 2rem',
+        display: 'inline-flex',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        gap: '0.8rem',
+      }}>
+        {FAMILIES.GROOM_SIBLING && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: 'rgba(245, 236, 200, 0.7)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              {t('sibling_label')}:
+            </span>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', color: 'var(--saffron-text)', fontWeight: '600' }}>
+              {FAMILIES.GROOM_SIBLING}
+            </span>
+          </div>
+        )}
+        {FAMILIES.GROOM_SIBLING && FAMILIES.BRIDE_SIBLING && (
+          <span style={{ color: 'rgba(212, 168, 67, 0.4)', fontSize: '0.8rem' }}>•</span>
+        )}
+        {FAMILIES.BRIDE_SIBLING && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span style={{ fontFamily: 'var(--font-body)', fontSize: '0.85rem', color: 'rgba(245, 236, 200, 0.7)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+              {t('sibling_label')}:
+            </span>
+            <span style={{ fontFamily: 'var(--font-display)', fontSize: '1rem', color: 'var(--saffron-text)', fontWeight: '600' }}>
+              {FAMILIES.BRIDE_SIBLING}
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export default function BlessingsSection({ side = 'groom' }) {
   const { t, lang } = useLanguage();
   const names = TRANSLATIONS.NAMES[lang] || TRANSLATIONS.NAMES.en;
+
+  const groomCard = {
+    labelKey: 'groom_parents_label',
+    names: FAMILIES.GROOM_PARENTS,
+    delay: 0,
+    gotra: FAMILIES.GROOM_GOTRA,
+    nakshatra: FAMILIES.GROOM_NAKSHATRA,
+    location: 'Visakhapatnam',
+    icon: <GroomsFamilySVG />,
+  };
+  const brideCard = {
+    labelKey: 'bride_parents_label',
+    names: FAMILIES.BRIDE_PARENTS,
+    delay: 0.12,
+    gotra: FAMILIES.BRIDE_GOTRA,
+    nakshatra: FAMILIES.BRIDE_NAKSHATRA,
+    location: 'Sunabeda',
+    icon: <BridesFamilySVG />,
+  };
+  const cards = [groomCard, brideCard];
+  const ordered = side === 'bride' ? [...cards].reverse() : cards;
 
   return (
     <section style={{
@@ -300,28 +377,8 @@ export default function BlessingsSection() {
             flexWrap: 'wrap',
             justifyContent: 'center',
           }}>
-            {[
-              { 
-                labelKey: 'groom_parents_label', 
-                names: FAMILIES.GROOM_PARENTS, 
-                delay: 0,    
-                gotra: FAMILIES.GROOM_GOTRA,  
-                nakshatra: FAMILIES.GROOM_NAKSHATRA,
-                location: 'Visakhapatnam',
-                icon: <GroomsFamilySVG />
-              },
-              { 
-                labelKey: 'bride_parents_label', 
-                names: FAMILIES.BRIDE_PARENTS, 
-                delay: 0.12, 
-                gotra: FAMILIES.BRIDE_GOTRA,  
-                nakshatra: FAMILIES.BRIDE_NAKSHATRA,
-                location: 'Sunabeda',
-                icon: <BridesFamilySVG />
-              },
-            ].map(({ labelKey, names, delay, gotra, nakshatra, location, icon }) => (
+            {ordered.map(({ labelKey, names, delay, gotra, nakshatra, location, icon }, idx) => (<Fragment key={labelKey}>
               <motion.div
-                key={labelKey}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -336,10 +393,10 @@ export default function BlessingsSection() {
                   background: 'linear-gradient(180deg, rgba(30, 8, 12, 0.55) 0%, rgba(20, 5, 10, 0.4) 100%)',
                   backdropFilter: 'blur(16px)',
                   WebkitBackdropFilter: 'blur(16px)',
-                  borderRadius: '24px', /* Matches event card rectangular border-radius exactly */
+                  borderRadius: '24px',
                   overflow: 'visible',
                   boxShadow: '0 20px 48px rgba(0, 0, 0, 0.25), inset 0 0 35px rgba(212, 168, 67, 0.15)',
-                  padding: '2.5rem 1.8rem 2.2rem', /* Matches event card padding exactly */
+                  padding: '2.5rem 1.8rem 2.2rem',
                   textAlign: 'center',
                   minHeight: 380,
                   display: 'flex',
@@ -350,18 +407,13 @@ export default function BlessingsSection() {
                   border: '1px solid rgba(212, 168, 67, 0.25)',
                 }}
               >
-                {/* Sleek Inset Gold Double Frame */}
                 <PremiumDoubleBorderFrame />
-
-                {/* Diagonal Gold Foil Shimmer sweep */}
                 <div className="gold-foil-shimmer-container">
                   <div className="gold-foil-shimmer" />
                 </div>
-
-                {/* Central Traditional Emblem sitting inside a detailed brass halo niche */}
-                <div style={{ 
-                  marginBottom: '0.8rem', 
-                  position: 'relative', 
+                <div style={{
+                  marginBottom: '0.8rem',
+                  position: 'relative',
                   zIndex: 3,
                   background: 'rgba(212, 168, 67, 0.05)',
                   border: '1.5px solid rgba(212, 168, 67, 0.35)',
@@ -374,7 +426,6 @@ export default function BlessingsSection() {
                 }}>
                   {icon}
                 </div>
-
                 <p style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: '0.8rem',
@@ -384,7 +435,6 @@ export default function BlessingsSection() {
                   marginBottom: '0.1rem',
                   zIndex: 2,
                 }}>{location}</p>
-                
                 <p style={{
                   fontFamily: 'var(--font-body)',
                   fontSize: '0.8rem',
@@ -395,7 +445,6 @@ export default function BlessingsSection() {
                   marginBottom: '0.6rem',
                   zIndex: 2,
                 }}>{t(labelKey)}</p>
-
                 <div style={{
                   height: 1,
                   width: '60px',
@@ -403,8 +452,6 @@ export default function BlessingsSection() {
                   background: 'linear-gradient(to right, transparent, rgba(212, 168, 67, 0.5), transparent)',
                   zIndex: 2,
                 }} />
-
-                {/* Parents Names (Vertically Centered) */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', zIndex: 2, flexGrow: 1, justifyContent: 'center' }}>
                   {names.split(' & ').map((name, i) => (
                     <p key={i} style={{
@@ -416,7 +463,6 @@ export default function BlessingsSection() {
                     }}>{name}</p>
                   ))}
                 </div>
-
                 {(gotra || nakshatra) && (
                   <div style={{
                     marginTop: '1rem',
@@ -445,91 +491,19 @@ export default function BlessingsSection() {
                   </div>
                 )}
               </motion.div>
-            ))}
+
+              {/* Inline sibling pill: only on groom side, only between card 0 and card 1, only on mobile */}
+              {side === 'groom' && idx === 0 && (FAMILIES.GROOM_SIBLING || FAMILIES.BRIDE_SIBLING) && (
+                <SiblingPill className="sibling-pill-inline" t={t} />
+              )}
+            </Fragment>))}
           </div>
         </ScrollReveal>
 
-        {/* Centered Sibling Badge (Resolved Asymmetry) */}
+        {/* Sibling pill below both cards — hidden on mobile for groom side (shown inline between cards instead) */}
         {(FAMILIES.GROOM_SIBLING || FAMILIES.BRIDE_SIBLING) && (
           <ScrollReveal delay={0.2}>
-            <div style={{
-              marginTop: '2.5rem',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-              {/* Subtle Elegant Bracket Lines */}
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%', maxWidth: '280px', marginBottom: '0.8rem' }}>
-                <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, transparent, rgba(212,168,67,0.3))' }} />
-                <span style={{ color: '#D4A843', fontSize: '0.85rem' }}>✦</span>
-                <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to left, transparent, rgba(212,168,67,0.3))' }} />
-              </div>
-
-              {/* Glassmorphic Pill */}
-              <div style={{
-                background: 'rgba(20, 5, 10, 0.2)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(212, 168, 67, 0.2)',
-                boxShadow: '0 4px 24px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255,255,255,0.02)',
-                borderRadius: '30px',
-                padding: '0.6rem 2rem',
-                display: 'inline-flex',
-                alignItems: 'center',
-                flexWrap: 'wrap',
-                justifyContent: 'center',
-                gap: '0.8rem',
-              }}>
-                {FAMILIES.GROOM_SIBLING && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <span style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.85rem',
-                      color: 'rgba(245, 236, 200, 0.7)',
-                      letterSpacing: '0.08em',
-                      textTransform: 'uppercase',
-                    }}>
-                      {t('sibling_label')}:
-                    </span>
-                    <span style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '1rem',
-                      color: 'var(--saffron-text)',
-                      fontWeight: '600',
-                    }}>
-                      {FAMILIES.GROOM_SIBLING}
-                    </span>
-                  </div>
-                )}
-
-                {FAMILIES.GROOM_SIBLING && FAMILIES.BRIDE_SIBLING && (
-                  <span style={{ color: 'rgba(212, 168, 67, 0.4)', fontSize: '0.8rem' }}>•</span>
-                )}
-
-                {FAMILIES.BRIDE_SIBLING && (
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                    <span style={{
-                      fontFamily: 'var(--font-body)',
-                      fontSize: '0.85rem',
-                      color: 'rgba(245, 236, 200, 0.7)',
-                      letterSpacing: '0.08em',
-                      textTransform: 'uppercase',
-                    }}>
-                      {t('sibling_label')}:
-                    </span>
-                    <span style={{
-                      fontFamily: 'var(--font-display)',
-                      fontSize: '1rem',
-                      color: 'var(--saffron-text)',
-                      fontWeight: '600',
-                    }}>
-                      {FAMILIES.BRIDE_SIBLING}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
+            <SiblingPill className={side === 'groom' ? 'sibling-pill-block' : 'sibling-pill-always'} t={t} style={{ marginTop: '2.5rem' }} />
           </ScrollReveal>
         )}
         <ScrollReveal delay={0.3}>

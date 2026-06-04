@@ -51,6 +51,19 @@ export default async function handler(req, res) {
 
     const bySite = await sql`SELECT site AS key, count(*)::int AS n FROM visits GROUP BY 1 ORDER BY n DESC`;
 
+    // Share-link params: which side/track guests opened the invite with.
+    const bySide = site
+      ? await sql`SELECT CASE WHEN invite_side = 'bride' THEN 'Bride side' ELSE 'Groom side' END AS key, count(*)::int AS n FROM visits WHERE site = ${site} GROUP BY 1 ORDER BY n DESC`
+      : await sql`SELECT CASE WHEN invite_side = 'bride' THEN 'Bride side' ELSE 'Groom side' END AS key, count(*)::int AS n FROM visits GROUP BY 1 ORDER BY n DESC`;
+
+    const byMusic = site
+      ? await sql`SELECT CASE WHEN invite_music = 2 THEN 'Track 2' WHEN invite_music = 3 THEN 'Track 3' ELSE 'Track 1' END AS key, count(*)::int AS n FROM visits WHERE site = ${site} GROUP BY 1 ORDER BY n DESC`
+      : await sql`SELECT CASE WHEN invite_music = 2 THEN 'Track 2' WHEN invite_music = 3 THEN 'Track 3' ELSE 'Track 1' END AS key, count(*)::int AS n FROM visits GROUP BY 1 ORDER BY n DESC`;
+
+    const byInviteLang = site
+      ? await sql`SELECT CASE WHEN invite_lang = 'en' THEN 'English' WHEN invite_lang = 'hi' THEN 'Hindi' WHEN invite_lang = 'te' THEN 'Telugu' WHEN invite_lang = 'or' THEN 'Odia' ELSE 'No param' END AS key, count(*)::int AS n FROM visits WHERE site = ${site} GROUP BY 1 ORDER BY n DESC`
+      : await sql`SELECT CASE WHEN invite_lang = 'en' THEN 'English' WHEN invite_lang = 'hi' THEN 'Hindi' WHEN invite_lang = 'te' THEN 'Telugu' WHEN invite_lang = 'or' THEN 'Odia' ELSE 'No param' END AS key, count(*)::int AS n FROM visits GROUP BY 1 ORDER BY n DESC`;
+
     const summary = totals[0] || { total: 0, unique_ips: 0, last_24h: 0 };
 
     res.setHeader('Cache-Control', 'no-store');
@@ -63,7 +76,7 @@ export default async function handler(req, res) {
         top_country: byCountry[0]?.key || '—',
         top_device: byDevice[0]?.key || '—',
       },
-      breakdowns: { byCountry, byDevice, byLanguage, bySite },
+      breakdowns: { byCountry, byDevice, byLanguage, bySite, bySide, byMusic, byInviteLang },
       rows,
     });
   } catch (e) {
