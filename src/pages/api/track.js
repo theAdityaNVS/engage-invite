@@ -60,19 +60,22 @@ export default async function handler(req, res) {
       language:    typeof body.language === 'string' ? body.language.slice(0, 16) : null,
       referrer:    typeof body.referrer === 'string' ? body.referrer.slice(0, 1024) : null,
       session_id:  typeof body.session_id === 'string' ? body.session_id.slice(0, 64) : null,
+      // Share-link params — validated server-side, never trust the client.
+      invite_side:  body.invite_side === 'bride' || body.invite_side === 'groom' ? body.invite_side : null,
+      invite_music: [1, 2, 3].includes(Number(body.invite_music)) ? Number(body.invite_music) : null,
     };
 
     await sql`
       INSERT INTO visits
         (site, path, ip, country, region, city, latitude, longitude,
          ua, browser, os, device_type, screen, viewport, timezone,
-         language, referrer, session_id)
+         language, referrer, session_id, invite_side, invite_music)
       VALUES
         (${row.site}, ${row.path}, ${row.ip}, ${row.country}, ${row.region},
          ${row.city}, ${row.latitude}, ${row.longitude}, ${row.ua},
          ${row.browser}, ${row.os}, ${row.device_type}, ${row.screen},
          ${row.viewport}, ${row.timezone}, ${row.language}, ${row.referrer},
-         ${row.session_id})
+         ${row.session_id}, ${row.invite_side}, ${row.invite_music})
     `;
 
     return res.status(204).end();
