@@ -229,7 +229,7 @@ export default function CountdownSection() {
     <section style={{
       background: 'linear-gradient(to bottom, #0d1527 0%, #070b14 50%, #03050a 100%)',
       paddingTop: 'clamp(5rem, 12vw, 7rem)',
-      paddingBottom: '280px', // Increased padding to accommodate the longer Gopuram tower
+      paddingBottom: 'clamp(540px, 65vh, 760px)', // Coordinated with temple height to prevent text overlap
       textAlign: 'center',
       position: 'relative',
       overflow: 'hidden',
@@ -350,8 +350,8 @@ export default function CountdownSection() {
         bottom: 0,
         left: '50%',
         transform: 'translateX(-50%)',
-        width: '100%',
-        maxHeight: '620px', // Adjusted height to showcase the longer, vertical tower tiers
+        width: 'auto',
+        height: 'clamp(500px, 60vh, 720px)', // Taller, longer Gopuram tower dynamically sized
         pointerEvents: 'none',
         zIndex: 1,
         maskImage: 'linear-gradient(to top, black 0%, black 75%, transparent 100%)',
