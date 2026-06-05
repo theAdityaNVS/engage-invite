@@ -237,7 +237,7 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
               </div>
 
               {/* Tooltip hint that cycles and then fades out once selected */}
-              <div style={{ height: '16px', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', paddingRight: '0.4rem' }}>
+              <div style={{ height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'flex-end', paddingRight: '0.6rem' }}>
                 <AnimatePresence mode="wait">
                   {showHint && (
                     <motion.span
@@ -248,10 +248,10 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
                       transition={{ duration: 0.3 }}
                       style={{
                         fontFamily: 'var(--font-body)',
-                        fontSize: '11px',
-                        color: doorsOpen ? 'rgba(139, 34, 64, 0.7)' : 'rgba(253, 246, 224, 0.65)',
+                        fontSize: '18px',
+                        color: doorsOpen ? 'rgba(139, 34, 64, 0.95)' : 'rgba(253, 246, 224, 0.9)',
                         textAlign: 'right',
-                        fontStyle: 'italic',
+                        fontWeight: 500,
                         letterSpacing: '0.02em',
                       }}
                     >
