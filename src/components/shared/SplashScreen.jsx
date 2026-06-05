@@ -71,12 +71,12 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
 
   // Cycle the language hint tooltip until the user picks a language
   useEffect(() => {
-    if (hasInteracted || hasStoredLang) return;
+    if (hasInteracted) return;
     const id = setInterval(() => {
       setTooltipIndex((i) => (i + 1) % 4);
     }, 1800);
     return () => clearInterval(id);
-  }, [hasInteracted, hasStoredLang]);
+  }, [hasInteracted]);
 
   // Manage body scroll locking and initial scroll-to-top
   useEffect(() => {
@@ -117,7 +117,7 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
     onEnter?.();
   };
 
-  const showHint = !hasStoredLang && !hasInteracted;
+  const showHint = !hasInteracted;
 
   return (
     <AnimatePresence>
@@ -165,15 +165,15 @@ export default function SplashScreen({ onEnter, forceShow = false }) {
                 transition: 'all 0.3s ease',
               }}>
                 {/* Minimalist Globe Icon */}
-                <svg 
-                  width="14" 
-                  height="14" 
-                  viewBox="0 0 24 24" 
-                  fill="none" 
-                  stroke="#FFEBA7" 
-                  strokeWidth="1.5" 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#FFEBA7"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
                   style={{ opacity: 0.85, marginLeft: '0.3rem' }}
                 >
                   <circle cx="12" cy="12" r="10" />
