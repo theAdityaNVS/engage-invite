@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import ScrollReveal from '@/components/shared/ScrollReveal';
 import MandalaPattern from '@/components/shared/MandalaPattern';
@@ -248,6 +248,16 @@ export default function BlessingsSection({ side = 'groom' }) {
   const { t, lang } = useLanguage();
   const names = TRANSLATIONS.NAMES[lang] || TRANSLATIONS.NAMES.en;
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const groomCard = {
     labelKey: 'groom_parents_label',
     names: FAMILIES.GROOM_PARENTS,
@@ -360,53 +370,53 @@ export default function BlessingsSection({ side = 'groom' }) {
           </div>
         </ScrollReveal>
 
-        {/* 2. Family Block (Fades in together) */}
-        <ScrollReveal delay={0.15}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '1.5rem auto', maxWidth: '400px' }}>
-            <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, transparent, #D4A843)' }} />
-            <span style={{ color: '#D4A843', fontSize: '1.2rem' }}>✦</span>
-            <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to left, transparent, #D4A843)' }} />
-          </div>
+        {/* 2. Family Block (Cards reveal independently with stagger on desktop) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', margin: '1.5rem auto', maxWidth: '400px' }}>
+          <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to right, transparent, #D4A843)' }} />
+          <span style={{ color: '#D4A843', fontSize: '1.2rem' }}>✦</span>
+          <div style={{ flex: 1, height: '1px', background: 'linear-gradient(to left, transparent, #D4A843)' }} />
+        </div>
 
 
-          <div style={{
-            display: 'flex',
-            gap: '1.5rem',
-            maxWidth: 620,
-            margin: '0 auto',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-          }}>
-            {ordered.map(({ labelKey, names, delay, gotra, nakshatra, location, icon }, idx) => (<Fragment key={labelKey}>
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                whileHover={{ y: -6, boxShadow: '0 24px 56px rgba(0, 0, 0, 0.35), inset 0 0 45px rgba(212, 168, 67, 0.25)' }}
-                className="event-card-hover"
-                style={{
-                  flex: '1 1 260px',
-                  minWidth: 240,
-                  maxWidth: 290,
-                  position: 'relative',
-                  background: 'linear-gradient(180deg, rgba(30, 8, 12, 0.55) 0%, rgba(20, 5, 10, 0.4) 100%)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                  borderRadius: '24px',
-                  overflow: 'visible',
-                  boxShadow: '0 20px 48px rgba(0, 0, 0, 0.25), inset 0 0 35px rgba(212, 168, 67, 0.15)',
-                  padding: '2.5rem 1.8rem 2.2rem',
-                  textAlign: 'center',
-                  minHeight: 380,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  gap: '0.4rem',
-                  border: '1px solid rgba(212, 168, 67, 0.25)',
-                }}
-              >
+        <div style={{
+          display: 'flex',
+          gap: '1.5rem',
+          maxWidth: 620,
+          margin: '0 auto',
+          flexWrap: 'wrap',
+          justifyContent: 'center',
+        }}>
+          {ordered.map(({ labelKey, names, delay, gotra, nakshatra, location, icon }, idx) => (<Fragment key={labelKey}>
+            <motion.div
+              initial={{ opacity: 0, y: isMobile ? 12 : 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: isMobile ? '-6%' : '-15%' }}
+              transition={{ delay: isMobile ? 0 : delay, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6, boxShadow: '0 24px 56px rgba(0, 0, 0, 0.35), inset 0 0 45px rgba(212, 168, 67, 0.25)' }}
+              className="event-card-hover"
+              style={{
+                flex: '1 1 260px',
+                minWidth: 240,
+                maxWidth: 290,
+                position: 'relative',
+                background: 'linear-gradient(180deg, rgba(30, 8, 12, 0.55) 0%, rgba(20, 5, 10, 0.4) 100%)',
+                backdropFilter: 'blur(16px)',
+                WebkitBackdropFilter: 'blur(16px)',
+                borderRadius: '24px',
+                overflow: 'visible',
+                boxShadow: '0 20px 48px rgba(0, 0, 0, 0.25), inset 0 0 35px rgba(212, 168, 67, 0.15)',
+                padding: '2.5rem 1.8rem 2.2rem',
+                textAlign: 'center',
+                minHeight: 380,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.4rem',
+                border: '1px solid rgba(212, 168, 67, 0.25)',
+                willChange: 'transform, opacity',
+              }}
+            >
                 <PremiumDoubleBorderFrame />
                 <div className="gold-foil-shimmer-container">
                   <div className="gold-foil-shimmer" />
@@ -498,7 +508,6 @@ export default function BlessingsSection({ side = 'groom' }) {
               )}
             </Fragment>))}
           </div>
-        </ScrollReveal>
 
         {/* Sibling pill below both cards — hidden on mobile for groom side (shown inline between cards instead) */}
         {(FAMILIES.GROOM_SIBLING || FAMILIES.BRIDE_SIBLING) && (

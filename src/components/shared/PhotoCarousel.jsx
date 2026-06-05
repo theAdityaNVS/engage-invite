@@ -24,6 +24,16 @@ export default function PhotoCarousel({ photos = [] }) {
     }
   }, [lightboxIndex]);
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   const closeLightbox = useCallback(() => setLightboxIndex(null), []);
   const nextPhoto = useCallback(() => setLightboxIndex(i => (i + 1) % totalPhotos), [totalPhotos]);
   const prevPhoto = useCallback(() => setLightboxIndex(i => (i - 1 + totalPhotos) % totalPhotos), [totalPhotos]);
@@ -86,7 +96,7 @@ export default function PhotoCarousel({ photos = [] }) {
             return (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 35, rotate: rotation - 2 }}
+                initial={{ opacity: 0, y: isMobile ? 12 : 35, rotate: rotation - 2 }}
                 whileInView={{ opacity: 1, y: 0, rotate: rotation }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94], delay: i * 0.12 }}
@@ -115,6 +125,7 @@ export default function PhotoCarousel({ photos = [] }) {
                   position: 'relative',
                   flexShrink: 0,
                   zIndex: 1,
+                  willChange: 'transform, opacity',
                   // CSS variables used for media queries
                   '--desktop-offset': `${desktopOffset}px`,
                   '--rotation': `${rotation}deg`,

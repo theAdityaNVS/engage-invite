@@ -756,6 +756,16 @@ export default function ThingsToKnow() {
     lng: ENGAGEMENT.VENUE_LNG,
   });
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section style={{
       background: 'var(--sand)',
@@ -798,11 +808,11 @@ export default function ThingsToKnow() {
           {/* Weather Card (Full Width on Desktop) */}
           <motion.div
             className="event-card-hover card-weather"
-            initial={{ opacity: 0, y: 22 }}
+            initial={{ opacity: 0, y: isMobile ? 12 : 22 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: isMobile ? '-6%' : '-15%' }}
             whileHover={{ y: -6, boxShadow: '0 24px 56px rgba(90, 20, 35, 0.35), inset 0 0 45px rgba(212, 168, 67, 0.18)' }}
-            transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+            transition={isMobile ? { duration: 0.6, ease: 'easeOut' } : { type: 'spring', stiffness: 280, damping: 22 }}
             style={{
               background: 'linear-gradient(180deg, #FAF6EE 0%, #FAF0D4 100%)',
               border: '1px solid rgba(212, 168, 67, 0.15)',
@@ -811,6 +821,7 @@ export default function ThingsToKnow() {
               boxShadow: '0 20px 48px rgba(90, 20, 35, 0.24), inset 0 0 35px rgba(212, 168, 67, 0.12)',
               position: 'relative',
               overflow: 'visible',
+              willChange: 'transform, opacity',
             }}
           >
             <PremiumDoubleBorderFrame />
@@ -825,11 +836,11 @@ export default function ThingsToKnow() {
           {/* Travel Card */}
           <motion.div
             className="event-card-hover"
-            initial={{ opacity: 0, y: 22 }}
+            initial={{ opacity: 0, y: isMobile ? 12 : 22 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: isMobile ? '-6%' : '-15%' }}
             whileHover={{ y: -6, boxShadow: '0 24px 56px rgba(90, 20, 35, 0.35), inset 0 0 45px rgba(212, 168, 67, 0.18)' }}
-            transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+            transition={isMobile ? { duration: 0.6, ease: 'easeOut' } : { type: 'spring', stiffness: 280, damping: 22 }}
             style={{
               background: 'linear-gradient(180deg, #FAF6EE 0%, #FAF0D4 100%)',
               border: '1px solid rgba(212, 168, 67, 0.15)',
@@ -841,6 +852,7 @@ export default function ThingsToKnow() {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
+              willChange: 'transform, opacity',
             }}
           >
             <PremiumDoubleBorderFrame />
@@ -855,11 +867,11 @@ export default function ThingsToKnow() {
           {/* Dress Card */}
           <motion.div
             className="event-card-hover"
-            initial={{ opacity: 0, y: 22 }}
+            initial={{ opacity: 0, y: isMobile ? 12 : 22 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            viewport={{ once: true, margin: isMobile ? '-6%' : '-15%' }}
             whileHover={{ y: -6, boxShadow: '0 24px 56px rgba(90, 20, 35, 0.35), inset 0 0 45px rgba(212, 168, 67, 0.18)' }}
-            transition={{ type: 'spring', stiffness: 280, damping: 22 }}
+            transition={isMobile ? { duration: 0.6, ease: 'easeOut' } : { type: 'spring', stiffness: 280, damping: 22 }}
             style={{
               background: 'linear-gradient(180deg, #FAF6EE 0%, #FAF0D4 100%)',
               border: '1px solid rgba(212, 168, 67, 0.15)',
@@ -871,6 +883,7 @@ export default function ThingsToKnow() {
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'space-between',
+              willChange: 'transform, opacity',
             }}
           >
             <PremiumDoubleBorderFrame />

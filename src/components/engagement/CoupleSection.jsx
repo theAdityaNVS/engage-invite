@@ -6,8 +6,29 @@ import PhotoCarousel from '@/components/shared/PhotoCarousel';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/hooks/useLanguage';
 import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
+import { useState, useEffect } from 'react';
 
 /* Ornate arch frame — Mughal/South Indian style SVG */function OrnateArchFrame({ children }) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Float stars only on desktop to improve mobile scroll/paint performance
+  const starsList = isMobile ? [] : [
+    { top: '-15px', left: '30px', delay: 0, duration: 6, size: 14 },
+    { top: '50px', left: '-20px', delay: 1.5, duration: 7, size: 16 },
+    { top: '-20px', left: '190px', delay: 3, duration: 5.5, size: 15 },
+    { top: '250px', left: '-15px', delay: 0.8, duration: 6.5, size: 14 },
+    { top: '280px', left: '220px', delay: 2.2, duration: 8, size: 17 },
+    { top: '120px', left: '235px', delay: 4.1, duration: 7.5, size: 15 },
+  ];
+
   return (
     <div 
       className="royal-frame-container"
@@ -44,14 +65,7 @@ import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
       </div>
 
       {/* Floating Gold Sparkle Stars surrounding the frame */}
-      {[
-        { top: '-15px', left: '30px', delay: 0, duration: 6, size: 14 },
-        { top: '50px', left: '-20px', delay: 1.5, duration: 7, size: 16 },
-        { top: '-20px', left: '190px', delay: 3, duration: 5.5, size: 15 },
-        { top: '250px', left: '-15px', delay: 0.8, duration: 6.5, size: 14 },
-        { top: '280px', left: '220px', delay: 2.2, duration: 8, size: 17 },
-        { top: '120px', left: '235px', delay: 4.1, duration: 7.5, size: 15 },
-      ].map((sp, idx) => (
+      {starsList.map((sp, idx) => (
         <motion.div
           key={idx}
           initial={{ opacity: 0, scale: 0 }}
@@ -144,6 +158,15 @@ import { COUPLE, MEDIA, TRANSLATIONS } from '@/config';
             border-radius: 18px;
             background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+          }
+          @media (max-width: 768px) {
+            .royal-frame-container {
+              animation: none !important;
+              backdrop-filter: none !important;
+              -webkit-backdrop-filter: none !important;
+              box-shadow: 0 12px 36px rgba(0, 0, 0, 0.25) !important;
+            }
           }
           .royal-frame-container:hover {
             transform: translateY(-6px) scale(1.025);
@@ -280,13 +303,7 @@ export default function CoupleSection() {
           }}>
             {/* Ornate arch with couple portrait */}
             <ScrollReveal delay={0.1}>
-              <motion.div
-                initial={{ scale: 0.92, opacity: 0 }}
-                whileInView={{ scale: 1, opacity: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-                style={{ display: 'flex', justifyContent: 'center' }}
-              >
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <OrnateArchFrame>
                   <AnimatedPhoto
                     width="216px"
@@ -298,7 +315,7 @@ export default function CoupleSection() {
                     style={{ width: '216px', height: '286px', objectFit: 'cover' }}
                   />
                 </OrnateArchFrame>
-              </motion.div>
+              </div>
             </ScrollReveal>
 
             {/* Message */}

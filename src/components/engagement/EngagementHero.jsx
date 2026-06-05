@@ -44,6 +44,16 @@ export default function EngagementHero({ side = 'groom' }) {
   const contentY = useSpring(rawContent, { stiffness: 100, damping: 15 });
   const templeY = useSpring(rawTemple, { stiffness: 60, damping: 15 });
 
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <section ref={sectionRef} style={{
       minHeight: '100svh',
@@ -74,7 +84,7 @@ export default function EngagementHero({ side = 'groom' }) {
         `,
         pointerEvents: 'none',
         zIndex: 0,
-        y: starsY,
+        y: isMobile ? 0 : starsY,
       }} />
 
       <div aria-hidden="true" style={{
@@ -97,7 +107,7 @@ export default function EngagementHero({ side = 'groom' }) {
         justifyContent: 'center',
         zIndex: 2,
         paddingTop: 'clamp(4vh, 8vh, 10vh)', // Fluid padding based on height
-        y: contentY,
+        y: isMobile ? 0 : contentY,
       }}>
 
         <motion.div
@@ -304,7 +314,7 @@ export default function EngagementHero({ side = 'groom' }) {
           justifyContent: 'flex-end',
           zIndex: 2,
           pointerEvents: 'none',
-          y: templeY,
+          y: isMobile ? 0 : templeY,
           marginTop: 'auto', // Pushes to the bottom natively
         }}
       >
