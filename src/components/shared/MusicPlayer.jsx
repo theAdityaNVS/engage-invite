@@ -53,6 +53,7 @@ export default function MusicPlayer({ autoPlay = false, track = 1 }) {
         html5: true,
         loop: true,
         volume: VOLUME,
+        pool: 1,
         onplayerror: () => {
           howl.once('unlock', () => { if (startedRef.current && !mutedRef.current) howl.play(); });
         },
