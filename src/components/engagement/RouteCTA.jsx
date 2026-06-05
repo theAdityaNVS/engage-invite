@@ -128,27 +128,35 @@ function MiniJourneyMap() {
 
       {/* Label and Info */}
       <div style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '0.4rem 0.5rem',
         textAlign: 'center',
-        marginTop: '0.4rem',
+        marginTop: '0.6rem',
         fontFamily: 'var(--font-body)',
         fontSize: '0.82rem',
         color: '#FAF6EE',
+        lineHeight: 1.4,
+        padding: '0 0.5rem',
       }}>
-        <span style={{ color: '#FAF6EE', fontWeight: 500 }}>NALCO Temple</span>
-        <span style={{ margin: '0 0.5rem', color: 'rgba(212,168,67,0.5)' }}>➔</span>
+        <span style={{ color: '#FAF6EE', fontWeight: 500, whiteSpace: 'nowrap' }}>NALCO Temple</span>
+        <span style={{ color: 'rgba(212,168,67,0.5)', display: 'inline-block' }}>➔</span>
         <span style={{ 
           background: 'rgba(212,168,67,0.12)', 
-          padding: '2px 8px', 
+          padding: '2px 10px', 
           borderRadius: '12px', 
           border: '1px solid rgba(212,168,67,0.3)',
           color: 'var(--gold-light)',
-          fontSize: '0.88rem',
-          fontWeight: 600
+          fontSize: '0.82rem',
+          fontWeight: 600,
+          display: 'inline-block',
         }}>
           {t('distance_note')}
         </span>
-        <span style={{ margin: '0 0.5rem', color: 'rgba(212,168,67,0.5)' }}>➔</span>
-        <span style={{ color: '#FAF6EE', fontWeight: 500 }}>Suryansh Hotel</span>
+        <span style={{ color: 'rgba(212,168,67,0.5)', display: 'inline-block' }}>➔</span>
+        <span style={{ color: '#FAF6EE', fontWeight: 500, whiteSpace: 'nowrap' }}>Suryansh Hotel</span>
       </div>
     </div>
   );
