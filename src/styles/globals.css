@@ -128,42 +128,16 @@ a {
   100% { transform: translateY(-115vh) rotate(4deg); opacity: 0; }
 }
 
-/* Legacy petal drift — kept for potential wedding site */
-@keyframes petalDrift {
-  0%   { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
-  10%  { opacity: 1; }
-  90%  { opacity: 0.6; }
-  100% { transform: translateY(110vh) translateX(var(--drift-x, 60px)) rotate(var(--drift-r, 360deg)); opacity: 0; }
-}
-
 /* Ganesha glow pulse */
 @keyframes ganeshaPulse {
   0%, 100% { filter: drop-shadow(0 0 8px rgba(212, 168, 67, 0.4)); }
   50%       { filter: drop-shadow(0 0 20px rgba(212, 168, 67, 0.9)) drop-shadow(0 0 40px rgba(212, 168, 67, 0.4)); }
 }
 
-/* Star twinkle */
-@keyframes starTwinkle {
-  0%, 100% { opacity: 0.15; transform: scale(0.8); }
-  50%       { opacity: 1;    transform: scale(1.2); }
-}
-
 /* Shimmer for photos */
 @keyframes shimmer {
   0%   { background-position: -200% center; }
   100% { background-position:  200% center; }
-}
-
-/* Cursor blink for typewriter */
-@keyframes cursorBlink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0; }
-}
-
-/* Photo float */
-@keyframes photoFloat {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-6px); }
 }
 
 /* Section fade reveal base state */
@@ -174,57 +148,12 @@ a {
 
 /* ── V3 keyframes ── */
 
-/* Mandala orbital particles */
-@keyframes orbitSteady {
-  from { transform: rotate(0deg) translateX(var(--orbit-r, 110px)) rotate(0deg); }
-  to   { transform: rotate(360deg) translateX(var(--orbit-r, 110px)) rotate(-360deg); }
-}
-@keyframes orbitEscape {
-  0%   { transform: rotate(0deg) translateX(100px) rotate(0deg); opacity: 0.8; }
-  60%  { transform: rotate(200deg) translateX(160px) rotate(-200deg); opacity: 0.4; }
-  100% { transform: rotate(310deg) translateX(240px) rotate(-310deg); opacity: 0; }
-}
-@keyframes orbitArrive {
-  0%   { transform: rotate(0deg) translateX(230px) rotate(0deg); opacity: 0; }
-  40%  { transform: rotate(130deg) translateX(160px) rotate(-130deg); opacity: 0.4; }
-  100% { transform: rotate(260deg) translateX(100px) rotate(-260deg); opacity: 0.85; }
-}
-
-/* Hero sky cycle */
-@keyframes skyFade {
-  0%, 45%   { opacity: 1; }
-  50%, 95%  { opacity: 0; }
-  100%      { opacity: 1; }
-}
-@keyframes sunArc {
-  0%   { transform: translate(-10vw, 40px); opacity: 0; }
-  8%   { opacity: 1; }
-  50%  { transform: translate(45vw, -50px); opacity: 1; }
-  92%  { opacity: 1; }
-  100% { transform: translate(110vw, 40px); opacity: 0; }
-}
-
 /* Footer diya windows */
 @keyframes diyaFlicker {
   0%, 100% { opacity: 0.55; }
   25%      { opacity: 0.75; }
   50%      { opacity: 0.4;  }
   75%      { opacity: 0.7;  }
-}
-
-/* Footer moon */
-@keyframes moonArc {
-  0%   { transform: translate(-8vw, 30px) scale(0.9); opacity: 0; }
-  6%   { opacity: 0.9; }
-  50%  { transform: translate(42vw, -40px) scale(1); opacity: 0.9; }
-  94%  { opacity: 0.9; }
-  100% { transform: translate(108vw, 30px) scale(0.9); opacity: 0; }
-}
-
-/* Route map ripple */
-@keyframes ripplePulse {
-  0%   { transform: scale(1); opacity: 0.7; }
-  100% { transform: scale(2.8); opacity: 0; }
 }
 
 /* Auto-scroll hint chevron */
